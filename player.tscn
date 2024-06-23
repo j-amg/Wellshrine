@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://ynvfesnw1r4j"]
+
+[ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
+[ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://hands.png" id="2_cpjpl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d880w"]
+atlas = ExtResource("2_cpjpl")
+region = Rect2(0, 0, 180, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sqwi"]
+atlas = ExtResource("2_cpjpl")
+region = Rect2(0, 270, 180, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p25tb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d880w")
+}],
+"loop": true,
+"name": &"aim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sqwi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_byoy3"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0194805, 0.38961, 0.409091)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lercf"]
+gradient = SubResource("Gradient_byoy3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_mask = 6
+script = ExtResource("1_4aaio")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CapsuleShape3D_b1bg2")
+
+[node name="hands" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="leftHand" type="AnimatedSprite3D" parent="hands"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
+offset = Vector2(-150, -175)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_p25tb")
+animation = &"aim"
+
+[node name="rightHand" type="AnimatedSprite3D" parent="hands"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
+offset = Vector2(150, -175)
+flip_h = true
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_p25tb")
+animation = &"aim"
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+
+[node name="TextureRect" type="TextureRect" parent="head/Camera3D"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_lercf")
