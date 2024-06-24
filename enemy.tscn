@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd8wa6hb2kxrf"]
+
+[ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
+[ext_resource type="Script" path="res://Label.cs" id="2_42j0u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rwgrm"]
+
+[node name="enemy" type="AnimatableBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_ek8g6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_f8hv5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_rwgrm")
+
+[node name="label" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("2_42j0u")
+
+[node name="health" type="Label3D" parent="label"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+text = "[PH] health"
+
+[node name="name" type="Label3D" parent="label"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+text = "[PH] name"
+
+[node name="level" type="Label3D" parent="label"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+text = "[PH] level"

@@ -5,7 +5,7 @@ public partial class Projectile : Area3D
 {
 	public float muzzleVelocity = 25;
 	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-	Vector3 g = Vector3.Down * 0;
+	Vector3 g = Vector3.Down * 5;
 	public Vector3 velocity = Vector3.Zero;
 
 	private PackedScene explosion;

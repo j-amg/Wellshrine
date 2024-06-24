@@ -7,15 +7,21 @@ public partial class Player : CharacterBody3D
 	float mouseSensitivity = 0.15f;
 	float aimMouseSensitivity = 0.075f;
 
+	float crouchSpeed = 2;
 	float walkSpeed = 4;
 	float runSpeed = 7;
-	float JumpVelocity = 4.5f;
-	float glideGravity = 2.5f;
+	float slideSpeed = 5;
+	float jumpVelocity = 4.5f;
+	float dashVelocity = 10f;
+	float glideGravity = 1.5f;
+	float dashDuration = .5f;
 
 	float friction = 50.0f;
 	float midAirFriction = 0.05f;
 	float midAirControlledFriction = 10.0f;
 	float airJumpFriction = 350.0f;
+	float slideFriction = .5f;
+	float dashFriction = 0;
 
 
 	private float handsMaxXRot = 30f;
@@ -28,6 +34,7 @@ public partial class Player : CharacterBody3D
 	public bool isWalking = true;
 	public bool isCrouching = false;
 	public bool isSliding = false;
+	public bool isDashing = false;
 
 	float zoomFOV = 80;
 	float walkingFOV = 90;
@@ -49,6 +56,9 @@ public partial class Player : CharacterBody3D
 
 	private PackedScene bullet;
 
+	private CollisionShape3D standCollision;
+	private CollisionShape3D crouchCollision;
+
 
 
 
@@ -65,6 +75,10 @@ public partial class Player : CharacterBody3D
 		hands = GetNode<Node3D>("hands");
 		rightHand = hands.GetNode<AnimatedSprite3D>("rightHand");
 		leftHand = hands.GetNode<AnimatedSprite3D>("leftHand");
+		standCollision = GetNode<CollisionShape3D>("standCollision");
+		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
+
+
 		currentGravity = gravity;
 		currentMouseSensitivity = mouseSensitivity;
     }
@@ -72,9 +86,9 @@ public partial class Player : CharacterBody3D
     public override void _PhysicsProcess(double delta)
 	{
 
-		GD.Print(Engine.GetFramesPerSecond());
+		//GD.Print(Engine.GetFramesPerSecond());
 		if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
-        Input.MouseMode = pause ? Godot.Input.MouseModeEnum.Captured : Godot.Input.MouseModeEnum.Visible;
+        Input.MouseMode = pause ? Godot.Input.MouseModeEnum.Visible : Godot.Input.MouseModeEnum.Captured;
 
 		Vector3 velocity = Velocity;
 		Vector2 inputDir = Input.GetVector("A", "D", "W", "S");
@@ -83,19 +97,17 @@ public partial class Player : CharacterBody3D
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, inputDir.X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 
-		if (IsOnFloor())
+		if (IsOnFloor() && !isCrouching && !isDashing)
 		{
-			GD.Print("on floor");
+			//GD.Print("on floor");
 			isWalking = true;
 			canJump = true;
-			speedAtJump = currentSpeed;
+			speedAtJump = velocity.Length();
 			camera.Fov = Mathf.Lerp(camera.Fov, 90, 0.2f);
 			currentGravity = gravity;
 			currentSpeed = walkSpeed;
-			currentFriction = friction;
+			currentFriction = Mathf.Lerp(currentFriction, friction, .025f);
 		}
-
-
 
 		if (!IsOnFloor())
 		{
@@ -107,10 +119,14 @@ public partial class Player : CharacterBody3D
 			{
 				currentGravity = gravity;
 			}
-			GD.Print("in air");
-			currentSpeed = speedAtJump;
+			
+			if (!isDashing)
+			{
+				currentSpeed = speedAtJump;
+				currentFriction = (inputDir != Vector2.Zero) ? midAirControlledFriction : midAirFriction;
+			}
+
 			velocity.Y -= currentGravity * (float)delta;
-			currentFriction = (inputDir != Vector2.Zero) ? midAirControlledFriction : midAirFriction;
 		}
 
 		if (Input.IsActionPressed("RightMouse"))
@@ -139,29 +155,73 @@ public partial class Player : CharacterBody3D
 		}
 
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && canJump)
-		{
-			if (!IsOnFloor())
-			{
-				currentFriction = airJumpFriction;
-				canJump = false;
-			}
-			velocity.Y = JumpVelocity;
-		}
 
-		if (Input.IsActionPressed("sprint") && IsOnFloor())
+
+		if (Input.IsActionPressed("Alt") && IsOnFloor() && !isCrouching && !isDashing)
 		{
 			isRunning = true;
 			currentSpeed = runSpeed;
 			//camera.Fov = Mathf.Lerp(camera.Fov, 100, 0.25f);
 		}
 
+		if (Input.IsActionJustPressed("Shift") && IsOnFloor() && inputDir != Vector2.Zero)
+		{
+			GD.Print("should be moving");
+			//currentSpeed = 15;
+			currentSpeed = Mathf.Lerp(currentSpeed, currentSpeed + slideSpeed, .75f);
+			isSliding = true;
+		}
+
+		if (Input.IsActionPressed("Shift"))
+		{
+			isCrouching = true;
+			if (IsOnFloor())
+			{
+				currentFriction = slideFriction;
+				currentSpeed = Mathf.MoveToward(currentSpeed, crouchSpeed, (float)delta * 10f);
+
+				if (currentSpeed <= crouchSpeed)
+				{
+					isSliding = false;
+					currentFriction = friction;
+				}
+
+			}
+			standCollision.CallDeferred("set_disabled", true);
+			crouchCollision.CallDeferred("set_disabled", false);
+		}
+		else
+		{
+			isCrouching = false;
+			standCollision.CallDeferred("set_disabled", false);
+			crouchCollision.CallDeferred("set_disabled", true);
+		}
+
+		// Handle Jump.
+		if (Input.IsActionJustPressed("ui_accept") && canJump && !isCrouching)
+		{
+			if (!IsOnFloor())
+			{
+				currentFriction = airJumpFriction;
+				canJump = false;
+			}
+			velocity.Y = jumpVelocity;
+		}
+
+		if (Input.IsActionJustPressed("ui_accept") && canJump && isCrouching)
+		{
+			Dash();
+			currentSpeed = 20;
+			velocity = -camera.GlobalBasis.Z.Normalized() * 10;
+		}
+
 		float turningRate = currentFriction / ( velocity.Length() + 2.5f);
 
-		GD.Print(delta);
-
-		movementDirection = movementDirection.Lerp(direction, (float)delta * turningRate);
+		if (!isDashing)
+		{
+			movementDirection = movementDirection.Lerp(direction, (float)delta * turningRate);
+		}
+		
 
 		
 		if (movementDirection != Vector3.Zero)
@@ -175,8 +235,18 @@ public partial class Player : CharacterBody3D
 			velocity.Z = Mathf.MoveToward(velocity.Z, 0, currentFriction);
 		}
 
+		GD.Print(currentFriction);
+
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private async void Dash()
+	{
+		isDashing = true;
+		currentFriction = dashFriction;
+		await ToSignal(GetTree().CreateTimer(dashDuration), "timeout");
+		isDashing = false;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -192,15 +262,11 @@ public partial class Player : CharacterBody3D
 
 	private void Shoot()
 	{
-		GD.Print("shoot");
-		//Global.IncrementAmmo(-1);
+		//GD.Print("shoot");
 		Projectile b = bullet.Instantiate() as Projectile;
-		//b.Position = GlobalPosition;
-		//projInstance.GetNode<ProjectileComponent>("projectile_component").direction = dir;
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", b);
 		b.Transform = head.GlobalTransform;
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
-
 	}
 }
