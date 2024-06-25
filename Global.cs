@@ -13,6 +13,7 @@ public partial class Global : Node
 		public Player player;
 		public CanvasModulate worldModulate;
 		private AudioStream music;
+		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
 
 	public override void _Ready()
 	{

@@ -1,7 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=16 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://hands.png" id="2_cpjpl"]
+[ext_resource type="Script" path="res://states/StateMachine.cs" id="3_ledpc"]
+[ext_resource type="Script" path="res://states/IdleState.cs" id="4_fm7o7"]
+[ext_resource type="Script" path="res://states/WalkState.cs" id="5_iewqs"]
+[ext_resource type="Script" path="res://states/SprintState.cs" id="6_eaiyh"]
+[ext_resource type="Script" path="res://states/FallState.cs" id="7_l7400"]
+[ext_resource type="Script" path="res://states/JumpState.cs" id="8_883gc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
 
@@ -95,3 +101,22 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_lercf")
+
+[node name="playerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_ledpc")
+current_state = NodePath("idleState")
+
+[node name="idleState" type="Node" parent="playerStateMachine"]
+script = ExtResource("4_fm7o7")
+
+[node name="walkState" type="Node" parent="playerStateMachine"]
+script = ExtResource("5_iewqs")
+
+[node name="sprintState" type="Node" parent="playerStateMachine"]
+script = ExtResource("6_eaiyh")
+
+[node name="fallState" type="Node" parent="playerStateMachine"]
+script = ExtResource("7_l7400")
+
+[node name="jumpState" type="Node" parent="playerStateMachine"]
+script = ExtResource("8_883gc")
