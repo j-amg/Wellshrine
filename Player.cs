@@ -18,21 +18,27 @@ public partial class Player : CharacterBody3D
 	float walkingFOV = 90;
 	float sprintingFOV = 100;
 
-	private Node3D head;
+	public Node3D body;
+	public Node3D head;
 	private Camera3D camera;
 	private Node3D hands;
-	private AnimatedSprite3D leftHand;
-	private AnimatedSprite3D rightHand;
+	public AnimatedSprite3D leftHand;
+	public AnimatedSprite3D rightHand;
 
 	public float _sensitivity;
 	public float _gravity;
 
 	public Vector3 velocity;
+	public Vector2 hvel;
+	public Vector2 inputDir;
 
 	private PackedScene bullet;
 
-	private CollisionShape3D standCollision;
-	private CollisionShape3D crouchCollision;
+	public CollisionShape3D standCollision;
+	public CollisionShape3D crouchCollision;
+
+	Vector3 last_physics_pos;
+	private StateMachine stateMachine;
 
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -41,13 +47,15 @@ public partial class Player : CharacterBody3D
     public override void _Ready()
     {
 		bullet = ResourceLoader.Load<PackedScene>("res://projectile.tscn");
-        head = GetNode<Node3D>("head");
+		body = GetNode<Node3D>("body");
+        head = body.GetNode<Node3D>("head");
 		camera = head.GetNode<Camera3D>("Camera3D");
-		hands = GetNode<Node3D>("hands");
+		hands = body.GetNode<Node3D>("hands");
 		rightHand = hands.GetNode<AnimatedSprite3D>("rightHand");
 		leftHand = hands.GetNode<AnimatedSprite3D>("leftHand");
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
+		stateMachine = GetNode<StateMachine>("playerStateMachine");
 
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
@@ -61,42 +69,33 @@ public partial class Player : CharacterBody3D
 		if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
         Input.MouseMode = pause ? Godot.Input.MouseModeEnum.Visible : Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
-		//hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, inputDir.X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
-
-		// if (Input.IsActionPressed("RightMouse"))
-		// {
-		// 	leftHand.Play("aim");
-		// 	rightHand.Play("aim");
-		// 	if (velocity.Y > 0)
-		// 	{
-		// 		velocity.Y = Mathf.MoveToward(velocity.Y, 0, 0.5f);
-		// 	}
-		// } 
+		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 
 
-		// if (Input.IsActionJustPressed("LeftMouse"))
-		// {
-		// 	Shoot();
-		// }
-	}
-
-	public void UpdateGravity(double delta)
-	{
-		if(!IsOnFloor())
+		if (Input.IsActionJustPressed("LeftMouse"))
 		{
-			velocity.Y -= gravity * (float)delta;
+			Shoot();
 		}
-		else
-		{
-			velocity.Y = 0;
-		}
+
+		last_physics_pos = Position;
 		
 	}
 
-	public void UpdateInput(float speed, float acceleration, float deceleration)
+    public override void _Process(double delta)
+    {
+        float fraction = (float)Engine.GetPhysicsInterpolationFraction();
+		GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
+    }
+
+
+    public void UpdateInput(float speed, float acceleration, float deceleration)
 	{
+		velocity = Velocity;
+		hvel = new Vector2(velocity.X, velocity.Z);
 		Vector2 inputDir = Input.GetVector("A", "D", "W", "S");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+
+		acceleration /= (hvel.Length()* 2) + 1;
 
 		if (direction != Vector3.Zero)
 		{
@@ -105,9 +104,10 @@ public partial class Player : CharacterBody3D
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(velocity.X, 0, deceleration);
-			velocity.Z = Mathf.MoveToward(velocity.Z, 0, deceleration);
+			velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
 		}
+		//GD.Print(hvel);
+		//GD.Print(speed);
 	}
 
 	public void UpdateVelocity()
@@ -115,6 +115,7 @@ public partial class Player : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
 
 	public override void _Input(InputEvent @event)
 	{

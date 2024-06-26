@@ -21,9 +21,9 @@ public partial class Enemy : AnimatableBody3D, IDamageable
 
 	void IDamageable.Damage(int amount)
 	{
-		EmitSignal(SignalName.damageTaken);
 		GD.Print("damage!");
 		currentHealth -= amount;
+		EmitSignal(SignalName.damageTaken);
 	}
 
 	int IDamageable.Health{ get{ return baseHealth; } set{}}

@@ -61,6 +61,17 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_oeymo")
 
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_67hov")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_oeymo")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.626082, -0.231855, 0.74449, -0.779758, -0.18611, 0.59778, -4.1414e-05, -0.954781, -0.297311, 0, 4.44279, -20.049)
 shadow_bias = 9.562
@@ -75,6 +86,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_sk20t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_iebmc")
+
+[node name="box5" type="StaticBody3D" parent="."]
+transform = Transform3D(3.21851, 3.21851, 0, -3.21851, 3.21851, 0, 0, 0, 4.55166, -15.9079, -2.70433, 3.67179)
+collision_layer = 2
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="box5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_sk20t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="box5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_iebmc")
 

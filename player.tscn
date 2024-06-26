@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=19 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://hands.png" id="2_cpjpl"]
@@ -8,11 +8,9 @@
 [ext_resource type="Script" path="res://states/SprintState.cs" id="6_eaiyh"]
 [ext_resource type="Script" path="res://states/FallState.cs" id="7_l7400"]
 [ext_resource type="Script" path="res://states/JumpState.cs" id="8_883gc"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
-height = 1.0
+[ext_resource type="Script" path="res://states/GlideState.cs" id="9_5x1gy"]
+[ext_resource type="Script" path="res://states/DashState.cs" id="10_23kto"]
+[ext_resource type="Script" path="res://states/CrouchState.cs" id="11_ptp12"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d880w"]
 atlas = ExtResource("2_cpjpl")
@@ -51,30 +49,27 @@ gradient = SubResource("Gradient_byoy3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
+height = 1.0
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
 collision_mask = 6
 script = ExtResource("1_4aaio")
 
-[node name="standCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_b1bg2")
+[node name="body" type="Node3D" parent="."]
 
-[node name="crouchCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("CapsuleShape3D_xybr4")
-disabled = true
-
-[node name="hands" type="Node3D" parent="."]
+[node name="hands" type="Node3D" parent="body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="leftHand" type="AnimatedSprite3D" parent="hands"]
+[node name="leftHand" type="AnimatedSprite3D" parent="body/hands"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
 offset = Vector2(-150, -175)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_p25tb")
-animation = &"aim"
 
-[node name="rightHand" type="AnimatedSprite3D" parent="hands"]
+[node name="rightHand" type="AnimatedSprite3D" parent="body/hands"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
 offset = Vector2(150, -175)
 flip_h = true
@@ -82,12 +77,12 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_p25tb")
 animation = &"aim"
 
-[node name="head" type="Node3D" parent="."]
+[node name="head" type="Node3D" parent="body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="Camera3D" type="Camera3D" parent="body/head"]
 
-[node name="TextureRect" type="TextureRect" parent="head/Camera3D"]
+[node name="TextureRect" type="TextureRect" parent="body/head/Camera3D"]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -101,6 +96,15 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_lercf")
+
+[node name="standCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_b1bg2")
+
+[node name="crouchCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_xybr4")
+disabled = true
 
 [node name="playerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_ledpc")
@@ -120,3 +124,12 @@ script = ExtResource("7_l7400")
 
 [node name="jumpState" type="Node" parent="playerStateMachine"]
 script = ExtResource("8_883gc")
+
+[node name="glideState" type="Node" parent="playerStateMachine"]
+script = ExtResource("9_5x1gy")
+
+[node name="dashState" type="Node" parent="playerStateMachine"]
+script = ExtResource("10_23kto")
+
+[node name="crouchState" type="Node" parent="playerStateMachine"]
+script = ExtResource("11_ptp12")
