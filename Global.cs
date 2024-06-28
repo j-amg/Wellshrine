@@ -8,10 +8,10 @@ public partial class Global : Node
 		//public Dialogue dialogue;
 		public bool paused = false;
 		//public Pause pauseMenu;
-		private bool enableMusic;
-		private bool enableSound;
+		//private bool enableMusic;
+		//private bool enableSound;
 		public Player player;
-		public CanvasModulate worldModulate;
+		//public CanvasModulate worldModulate;
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
 

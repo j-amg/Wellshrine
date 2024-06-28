@@ -16,6 +16,6 @@ public partial class DashState : State
         player.UpdateInput(speed, acceleration, deceleration);
         player.velocity = -player.head.GlobalBasis.Z * dashVelocity;
         player.UpdateVelocity();
-		EmitSignal(SignalName.transition, "fallState");
+		EmitSignal(SignalName.transition, "fall");
 	} 
 }

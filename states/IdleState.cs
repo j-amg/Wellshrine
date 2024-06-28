@@ -12,14 +12,10 @@ public partial class IdleState : State
 	{
         player.UpdateInput(speed, acceleration, deceleration);
         player.UpdateVelocity();
-;		if (player.Velocity.Length() > 0.0 && player.IsOnFloor()) EmitSignal(SignalName.transition, "walkState");
-        if(!player.IsOnFloor()) EmitSignal(SignalName.transition, "fallState");
-        if (Input.IsActionPressed("Shift")) EmitSignal(SignalName.transition, "crouchState");
-        if (Input.IsActionJustPressed("Space"))
-        {
-            GD.Print("should be jumping");
-            EmitSignal(SignalName.transition, "jumpState");
-        } 
+;	if (player.Velocity.Length() > 0.0 && player.IsOnFloor()) EmitSignal(SignalName.transition, "walk");
+        if (!player.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
+        if (Input.IsActionPressed("Shift")) EmitSignal(SignalName.transition, "crouch");
+        if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "jump");
 	} 
 
 }

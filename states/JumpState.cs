@@ -11,11 +11,15 @@ public partial class JumpState : State
     float deceleration = 0.25f;
 	[Export]
 	float jumpVelocity = 5f;
-    public override void Update(double delta)
-	{
+    public override void Enter()
+    {
         player.UpdateInput(speed, acceleration, deceleration);
         player.velocity.Y += jumpVelocity;
+        base.Enter();
+    }
+    public override void Update(double delta)
+	{
         player.UpdateVelocity();
-		EmitSignal(SignalName.transition, "fallState");
+		EmitSignal(SignalName.transition, "fall");
 	} 
 }

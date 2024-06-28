@@ -13,9 +13,9 @@ public partial class SprintState : State
 	{
 		player.UpdateInput(speed, acceleration, deceleration);
         player.UpdateVelocity();
-		if (player.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idleState");
-		if (Input.IsActionJustReleased("Shift")) EmitSignal(SignalName.transition, "walkState");
-		if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "dashState");
-		if(!player.IsOnFloor()) EmitSignal(SignalName.transition, "fallState");
+		if (player.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
+		if (Input.IsActionJustReleased("Shift")) EmitSignal(SignalName.transition, "walk");
+		if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "dash");
+		if(!player.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
 	}
 }

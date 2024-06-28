@@ -31,6 +31,7 @@ public partial class Player : CharacterBody3D
 	public Vector3 velocity;
 	public Vector2 hvel;
 	public Vector2 inputDir;
+	public Vector3 direction;
 
 	private PackedScene bullet;
 
@@ -56,29 +57,18 @@ public partial class Player : CharacterBody3D
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
-
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
     }
 
     public override void _PhysicsProcess(double delta)
 	{
-
-		//GD.Print(Engine.GetFramesPerSecond());
-		//GD.Print(delta);
 		if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
         Input.MouseMode = pause ? Godot.Input.MouseModeEnum.Visible : Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
-
-
-		if (Input.IsActionJustPressed("LeftMouse"))
-		{
-			Shoot();
-		}
-
+		if (Input.IsActionJustPressed("LeftMouse")) Shoot();
 		last_physics_pos = Position;
-		
 	}
 
     public override void _Process(double delta)
@@ -92,8 +82,8 @@ public partial class Player : CharacterBody3D
 	{
 		velocity = Velocity;
 		hvel = new Vector2(velocity.X, velocity.Z);
-		Vector2 inputDir = Input.GetVector("A", "D", "W", "S");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		inputDir = Input.GetVector("A", "D", "W", "S");
+		direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 
 		acceleration /= (hvel.Length()* 2) + 1;
 

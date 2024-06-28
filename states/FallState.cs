@@ -29,12 +29,19 @@ public partial class FallState : State
         player.UpdateVelocity();
 		if (Input.IsActionPressed("RightMouse"))
 		{
-			EmitSignal(SignalName.transition, "glideState");
+			EmitSignal(SignalName.transition, "glide");
 		}
 		if (player.IsOnFloor())
 		{
 			EmitSignal(SignalName.landed);
-			EmitSignal(SignalName.transition, "idleState");
+			if (Input.IsActionPressed("Shift"))
+			{
+				EmitSignal(SignalName.transition, "slide");
+			}
+			else
+			{
+				EmitSignal(SignalName.transition, "idle");
+			}
 		}
 	} 
 }

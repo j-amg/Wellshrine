@@ -37,11 +37,11 @@ public partial class GlideState : State
 		if (player.Velocity.Y > 0) player.velocity.Y = Mathf.MoveToward(player.velocity.Y, 0, 0.1f);
 		player.velocity.Y = Mathf.MoveToward(player.velocity.Y, -3, 0.01f);
         player.UpdateVelocity();
-		if (Input.IsActionJustReleased("RightMouse")) EmitSignal(SignalName.transition, "fallState");
+		if (Input.IsActionJustReleased("RightMouse")) EmitSignal(SignalName.transition, "fall");
 		if (player.IsOnFloor())
 		{
 			EmitSignal(SignalName.landed);
-			EmitSignal(SignalName.transition, "idleState");
+			EmitSignal(SignalName.transition, "idle");
 		}
 	} 
 }

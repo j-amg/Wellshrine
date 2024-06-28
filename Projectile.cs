@@ -17,7 +17,7 @@ public partial class Projectile : Area3D
 	{
 		BodyEntered += OnBodyEntered;
 		exploded += OnExploded;
-		explosion = ResourceLoader.Load<PackedScene>("res://explosion.tscn");
+		//explosion = ResourceLoader.Load<PackedScene>("res://explosion.tscn");
 		
 	}
 
@@ -33,7 +33,7 @@ public partial class Projectile : Area3D
 
     private void OnBodyEntered(Node3D body)
     {
-        EmitSignal(SignalName.exploded, Position);
+        //EmitSignal(SignalName.exploded, Position);
 		QueueFree();
     }
 
