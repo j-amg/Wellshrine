@@ -7,10 +7,13 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rwgrm"]
 
-[node name="enemy" type="AnimatableBody3D"]
+[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav")]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
+nav = NodePath("NavigationAgent3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

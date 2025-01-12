@@ -33,7 +33,10 @@ public partial class Projectile : Area3D
 
     private void OnBodyEntered(Node3D body)
     {
-        //EmitSignal(SignalName.exploded, Position);
+		if(body is IDamageable damageable) {
+			GD.Print("hit enemy!");
+        damageable.Damage(5);
+    	}
 		QueueFree();
     }
 
