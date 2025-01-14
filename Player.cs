@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 public partial class Player : CharacterBody3D
@@ -11,35 +10,29 @@ public partial class Player : CharacterBody3D
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
 	private float handsMovementSmoothing = 10;
-
 	private bool pause = false;
-
 	float zoomFOV = 80;
 	float walkingFOV = 90;
 	float sprintingFOV = 100;
-
 	public Node3D body;
 	public Node3D head;
 	private Camera3D camera;
 	private Node3D hands;
 	public AnimatedSprite3D leftHand;
 	public AnimatedSprite3D rightHand;
-
 	public float _sensitivity;
 	public float _gravity;
-
 	public Vector3 velocity;
 	public Vector2 hvel;
 	public Vector2 inputDir;
 	public Vector3 direction;
-
 	private PackedScene bullet;
-
 	public CollisionShape3D standCollision;
 	public CollisionShape3D crouchCollision;
-
 	Vector3 last_physics_pos;
 	private StateMachine stateMachine;
+	private RayCast3D lookRay;
+	private Enemy existingHit;
 
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -54,6 +47,7 @@ public partial class Player : CharacterBody3D
 		hands = body.GetNode<Node3D>("hands");
 		rightHand = hands.GetNode<AnimatedSprite3D>("rightHand");
 		leftHand = hands.GetNode<AnimatedSprite3D>("leftHand");
+		lookRay = camera.GetNode<RayCast3D>("lookRay");
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
@@ -75,6 +69,13 @@ public partial class Player : CharacterBody3D
     {
         float fraction = (float)Engine.GetPhysicsInterpolationFraction();
 		GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
+		Enemy currentHit = (Enemy)lookRay.GetCollider();
+		if (currentHit != existingHit)
+		{
+			if (existingHit != null) existingHit.highlighted = false;
+			existingHit = currentHit;
+			if (currentHit != null) currentHit.highlighted = true;
+		} 
     }
 
 
@@ -92,10 +93,7 @@ public partial class Player : CharacterBody3D
 			velocity.X = Mathf.Lerp(velocity.X, direction.X * speed, acceleration);
 			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
 		}
-		else
-		{
-			velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
-		}
+		else velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
 		//GD.Print(hvel);
 		//GD.Print(speed);
 	}
@@ -117,6 +115,16 @@ public partial class Player : CharacterBody3D
 			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
 		}
 	}
+
+	// private void GetCameraCollision()
+	// {
+	// 	var spaceState = GetWorld3D().DirectSpaceState;
+	// 	Vector2 cameraCentre = GetViewport().GetVisibleRect().Size;
+	// 	Vector3 origin = camera.ProjectRayOrigin(cameraCentre);
+	// 	Vector3 end = camera.ProjectRayNormal(cameraCentre) * 200;
+	// 	var query = PhysicsRayQueryParameters3D.Create(origin, end);
+	// 	var result = spaceState.IntersectRay(query);
+	// }
 
 	private void Shoot()
 	{

@@ -1,47 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://d10st40p8i6ya"]
+[gd_scene load_steps=4 format=3 uid="uid://d10st40p8i6ya"]
 
 [ext_resource type="Script" path="res://Explosion.cs" id="1_d1mav"]
+[ext_resource type="Texture2D" uid="uid://qxopaci06e4o" path="res://sprites/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTEwL3Jhd3BpeGVsX29mZmljZV8zNV9kcmFtYXRpY19leHBsb3Npb25fb25fYmxhY2tfYmFja2dyb3VuZF9oZHJfZF8xNTRiNzQ4Ny1mZWFkLTQ4MWItOTNhMS1mNmJhYWNmNjRlNWYucG5n.webp" id="2_8n24r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ox6gx"]
 radius = 2.5
 
-[sub_resource type="Gradient" id="Gradient_xrojr"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.54918, 0.590164)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_j4htk"]
-noise_type = 2
-frequency = 0.007
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_irc2l"]
-seamless = true
-color_ramp = SubResource("Gradient_xrojr")
-noise = SubResource("FastNoiseLite_j4htk")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ayshx"]
-transparency = 1
-albedo_texture = SubResource("NoiseTexture2D_irc2l")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 4.36
-uv1_scale = Vector3(0.19, 0.19, 0.19)
-uv1_triplanar = true
-uv1_triplanar_sharpness = 1.10957
-disable_receive_shadows = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_cr53c"]
-radius = 2.5
-height = 5.0
-
 [node name="explosion" type="Area3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 collision_layer = 8
-collision_mask = 7
+collision_mask = 4
 script = ExtResource("1_d1mav")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ox6gx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_ayshx")
-mesh = SubResource("SphereMesh_cr53c")
+[node name="sprite" type="Sprite3D" parent="."]
+visible = false
+billboard = 1
+texture = ExtResource("2_8n24r")

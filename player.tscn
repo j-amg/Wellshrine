@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
-[ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://hands.png" id="2_cpjpl"]
+[ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
 [ext_resource type="Script" path="res://states/StateMachine.cs" id="3_ledpc"]
 [ext_resource type="Script" path="res://states/IdleState.cs" id="4_fm7o7"]
 [ext_resource type="Script" path="res://states/WalkState.cs" id="5_iewqs"]
@@ -14,11 +14,11 @@
 [ext_resource type="Script" path="res://states/SlideState.cs" id="12_2347s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d880w"]
-atlas = ExtResource("2_cpjpl")
+atlas = ExtResource("2_yxyrm")
 region = Rect2(0, 0, 180, 270)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7sqwi"]
-atlas = ExtResource("2_cpjpl")
+atlas = ExtResource("2_yxyrm")
 region = Rect2(0, 270, 180, 270)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p25tb"]
@@ -98,6 +98,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_lercf")
+
+[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -50, 0)
+collision_mask = 4
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

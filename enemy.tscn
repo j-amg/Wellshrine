@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=6 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
-[ext_resource type="Script" path="res://Label.cs" id="2_42j0u"]
+[ext_resource type="Texture2D" uid="uid://r6jwhuk2to13" path="res://sprites/226.png" id="2_6w3e6"]
+[ext_resource type="PackedScene" uid="uid://cmbqu1ogp3vnb" path="res://enemyLabel.tscn" id="3_dee20"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rwgrm"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_8tx16"]
+viewport_path = NodePath("SubViewport")
 
 [node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav")]
 collision_layer = 4
@@ -19,22 +21,18 @@ nav = NodePath("NavigationAgent3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_f8hv5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_rwgrm")
+[node name="sprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.959964, 0)
+billboard = 2
+texture = ExtResource("2_6w3e6")
 
-[node name="label" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-script = ExtResource("2_42j0u")
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
 
-[node name="health" type="Label3D" parent="label"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-text = "[PH] health"
+[node name="life" parent="SubViewport" instance=ExtResource("3_dee20")]
 
-[node name="name" type="Label3D" parent="label"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-text = "[PH] name"
-
-[node name="level" type="Label3D" parent="label"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-text = "[PH] level"
+[node name="labelSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40553, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_8tx16")

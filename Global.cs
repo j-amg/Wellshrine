@@ -11,6 +11,7 @@ public partial class Global : Node
 		//private bool enableMusic;
 		//private bool enableSound;
 		public Player player;
+		public Camera3D camera;
 		//public CanvasModulate worldModulate;
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
@@ -24,6 +25,8 @@ public partial class Global : Node
 		// gets
 		//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
 		player = CurrentScene.GetNode<Player>("player");
+
+		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
 
 		// audio
 		//music = GD.Load<AudioStream>("res://audio/music.ogg");

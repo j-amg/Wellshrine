@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Projectile : Area3D
 {
@@ -8,40 +9,26 @@ public partial class Projectile : Area3D
 	Vector3 g = Vector3.Down * 5;
 	public Vector3 velocity = Vector3.Zero;
 
-	private PackedScene explosion;
-
-	[Signal]
-	public delegate void explodedEventHandler(Vector3 position);
-
 	public override void _Ready()
 	{
 		BodyEntered += OnBodyEntered;
-		exploded += OnExploded;
-		//explosion = ResourceLoader.Load<PackedScene>("res://explosion.tscn");
-		
+		GetNode<Explosion>("explosion").explosionFinished += OnExplosionFinished;
 	}
 
-    private void OnExploded(Vector3 position)
-    {
-        Explosion e = explosion.Instantiate() as Explosion;
-		//b.Position = GlobalPosition;
-		//projInstance.GetNode<ProjectileComponent>("projectile_component").direction = dir;
-		var main = GetTree().CurrentScene;
-		main.CallDeferred("add_child", e);
-		e.Position = position;
-    }
+    private void OnExplosionFinished() => QueueFree();
 
     private void OnBodyEntered(Node3D body)
     {
+		GetNode<Sprite3D>("projectile").Visible = false;
+		SetPhysicsProcess(false);
 		if(body is IDamageable damageable) {
 			GD.Print("hit enemy!");
-        damageable.Damage(5);
+        	damageable.Damage(5);
     	}
-		QueueFree();
+		GetNode<Explosion>("explosion").Explode();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
 	{
 		velocity += g * (float)delta;
 		LookAt(Transform.Origin + velocity.Normalized(), Vector3.Up);
@@ -49,8 +36,4 @@ public partial class Projectile : Area3D
 		transform.Origin = Transform.Origin + velocity * (float)delta;
 		Transform = transform;
 	}
-
-
-
-
 }
