@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class EnemyLabel : VBoxContainer
 {
@@ -12,12 +11,19 @@ public partial class EnemyLabel : VBoxContainer
 	{
 		parent = GetOwner<Enemy>();
 		parent.damageTaken += OnDamageTaken;
+	}
+
+	public void SetValues()
+	{
+		GD.Print("values set");
 		healthBar = GetNode<ProgressBar>("health");
 		nameLabel = GetNode<Label>("name");
 		levelLabel = GetNode<Label>("level");
 		nameLabel.Text = parent.name.ToString();
 		levelLabel.Text = parent.level.ToString();
-		healthBar.Value = parent.currentHealth;
+		healthBar.MaxValue = parent.baseHealth;
+		healthBar.Value = parent.baseHealth;
+
 	}
 	private void OnDamageTaken() => healthBar.Value = parent.currentHealth;
 

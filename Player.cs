@@ -20,6 +20,7 @@ public partial class Player : CharacterBody3D
 	private Node3D hands;
 	public AnimatedSprite3D leftHand;
 	public AnimatedSprite3D rightHand;
+	private TextureRect reticle;
 	public float _sensitivity;
 	public float _gravity;
 	public Vector3 velocity;
@@ -51,6 +52,7 @@ public partial class Player : CharacterBody3D
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
+		reticle = camera.GetNode<TextureRect>("reticle");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
     }
@@ -74,7 +76,12 @@ public partial class Player : CharacterBody3D
 		{
 			if (existingHit != null) existingHit.highlighted = false;
 			existingHit = currentHit;
-			if (currentHit != null) currentHit.highlighted = true;
+			if (currentHit != null)
+			{
+				reticle.Modulate = new Color(1,0,0);
+				currentHit.highlighted = true;
+			}
+			else reticle.Modulate = new Color(1, 1, 1);
 		} 
     }
 

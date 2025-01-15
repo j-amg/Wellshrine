@@ -84,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="body/head"]
 
-[node name="TextureRect" type="TextureRect" parent="body/head/Camera3D"]
+[node name="reticle" type="TextureRect" parent="body/head/Camera3D"]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5

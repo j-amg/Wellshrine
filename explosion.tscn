@@ -16,6 +16,7 @@ script = ExtResource("1_d1mav")
 shape = SubResource("SphereShape3D_ox6gx")
 
 [node name="sprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 billboard = 1
 texture = ExtResource("2_8n24r")

@@ -30,7 +30,7 @@ texture = ExtResource("2_6w3e6")
 disable_3d = true
 transparent_bg = true
 
-[node name="life" parent="SubViewport" instance=ExtResource("3_dee20")]
+[node name="label" parent="SubViewport" instance=ExtResource("3_dee20")]
 
 [node name="labelSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40553, 0)

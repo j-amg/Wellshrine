@@ -44,5 +44,4 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_xq5re")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4fk17")
-value = 50.0
 show_percentage = false

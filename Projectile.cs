@@ -23,7 +23,7 @@ public partial class Projectile : Area3D
 		SetPhysicsProcess(false);
 		if(body is IDamageable damageable) {
 			GD.Print("hit enemy!");
-        	damageable.Damage(5);
+        	damageable.Damage(0);
     	}
 		GetNode<Explosion>("explosion").Explode();
     }

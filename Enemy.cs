@@ -3,29 +3,42 @@ using System;
 
 public partial class Enemy : CharacterBody3D, IDamageable
 {
-	// Called when the node enters the scene tree for the first time.
+	[Export]
+	public float baseMovementSpeed = 2;
+	[Export]
+	public string name = "[PH] Enemy";
+	public double acceleration = 10;
+	private int currentMovementSpeed;
+	[Export]
+	public float baseHealth;
+	public float currentHealth;
+	public int level = 2;
+
+	[Export]
+	public NavigationAgent3D nav;
 
 	[Signal]
 	public delegate void damageTakenEventHandler();
-	public float baseMovementSpeed = 2;
-	public double acceleration = 10;
-	private int currentMovementSpeed;
-	public int baseHealth = 100;
-	public int currentHealth = 100;
-	public int level = 1;
-	public string name = "Really cool enemy";
-	[Export]
-	public NavigationAgent3D nav;
+
 	private Vector3 velocity;
 	public bool highlighted = false;
 	public bool damaged = false;
 
+
+	// Enemy(int  level)
+	// {
+	// 	this.level = level;
+	// }
+
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
-		CallDeferred("Setup");
+		baseHealth += level * 0.25f * baseHealth;
 		currentHealth = baseHealth;
 		damageTaken += OnDamageTaken;
+
+		GetNode<SubViewport>("SubViewport").GetNode<EnemyLabel>("label").SetValues();
+		CallDeferred("Setup");
 	}
 
 	private async void Setup()
@@ -36,7 +49,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	}
     void IDamageable.Damage(int amount)
 	{
-		//GD.Print("damage!");
 		currentHealth -= amount;
 		EmitSignal(SignalName.damageTaken);
 	}
@@ -49,7 +61,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 
 	public void Die() => QueueFree();
 
-	int IDamageable.Health{ get{ return baseHealth; } set{}}
+	float IDamageable.Health{ get{ return baseHealth; } set{}}
 
 	public override void _PhysicsProcess(double delta)
 	{
