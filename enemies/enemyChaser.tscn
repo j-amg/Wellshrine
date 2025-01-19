@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://76kdhe4pda4f"]
 
-[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemy.tscn" id="1_q50un"]
-[ext_resource type="Script" path="res://EnemyChaser.cs" id="2_rcer2"]
+[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_q50un"]
+[ext_resource type="Script" path="res://enemies/EnemyChaser.cs" id="2_rcer2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gcvlr"]
 viewport_path = NodePath("SubViewport")

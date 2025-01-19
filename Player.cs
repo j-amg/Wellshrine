@@ -123,16 +123,6 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	// private void GetCameraCollision()
-	// {
-	// 	var spaceState = GetWorld3D().DirectSpaceState;
-	// 	Vector2 cameraCentre = GetViewport().GetVisibleRect().Size;
-	// 	Vector3 origin = camera.ProjectRayOrigin(cameraCentre);
-	// 	Vector3 end = camera.ProjectRayNormal(cameraCentre) * 200;
-	// 	var query = PhysicsRayQueryParameters3D.Create(origin, end);
-	// 	var result = spaceState.IntersectRay(query);
-	// }
-
 	private void Shoot()
 	{
 		//GD.Print("shoot");

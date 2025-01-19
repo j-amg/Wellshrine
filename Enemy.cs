@@ -11,6 +11,8 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private int currentMovementSpeed;
 	[Export]
 	public float baseHealth;
+	[Export]
+	public const string enemyScenePath = "res://enemies/enemy";
 	public float currentHealth;
 	public int level = 2;
 
@@ -23,12 +25,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private Vector3 velocity;
 	public bool highlighted = false;
 	public bool damaged = false;
-
-
-	// Enemy(int  level)
-	// {
-	// 	this.level = level;
-	// }
 
 	public override void _Ready()
 	{
@@ -47,6 +43,15 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		await ToSignal(GetTree(), "physics_frame");
 		SetPhysicsProcess(true);
 	}
+
+	public static Enemy InitEnemy(PackedScene scene, int levelParam, Transform3D transformParam)
+	{
+		Enemy enemy = scene.Instantiate<Enemy>();
+		enemy.level = levelParam;
+		enemy.GlobalTransform = transformParam;
+		return enemy;
+	}
+
     void IDamageable.Damage(int amount)
 	{
 		currentHealth -= amount;

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://t0ab31k3xa4u"]
+
+[ext_resource type="Script" path="res://EnemySpawner.cs" id="1_u5xqn"]
+[ext_resource type="PackedScene" uid="uid://76kdhe4pda4f" path="res://enemies/enemyChaser.tscn" id="2_j5ww8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6krko"]
+radius = 0.25
+height = 0.5
+
+[node name="enemySpawner" type="Node3D"]
+script = ExtResource("1_u5xqn")
+enemyType = ExtResource("2_j5ww8")
+enemyLevel = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6krko")
