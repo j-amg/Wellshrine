@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 public partial class EnemyLabel : VBoxContainer
@@ -23,8 +24,13 @@ public partial class EnemyLabel : VBoxContainer
 		levelLabel.Text = parent.level.ToString();
 		healthBar.MaxValue = parent.baseHealth;
 		healthBar.Value = parent.baseHealth;
-
 	}
 	private void OnDamageTaken() => healthBar.Value = parent.currentHealth;
+
+
+    public override void _Process(double delta)
+	{
+		Visible = !Global.Singleton.toggled;
+	}
 
 }

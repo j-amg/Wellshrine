@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgis5agan11j5"]
+
+[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
+[ext_resource type="Script" path="res://enemies/EnemyShooter.cs" id="2_wnjbw"]
+[ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterIdle.cs" id="3_68mlj"]
+[ext_resource type="PackedScene" uid="uid://nsl6qu0aey1x" path="res://projectile.tscn" id="3_h4kwk"]
+[ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
+[ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
+viewport_path = NodePath("SubViewport")
+
+[node name="enemy" instance=ExtResource("1_y66yp")]
+script = ExtResource("2_wnjbw")
+bullet = ExtResource("3_h4kwk")
+name = "shooter dog"
+baseHealth = 50.0
+attackRange = 10.0
+
+[node name="sprite" parent="." index="2"]
+modulate = Color(1, 0.27451, 1, 1)
+
+[node name="labelSprite" parent="." index="4"]
+texture = SubResource("ViewportTexture_h440o")
+
+[node name="sm" parent="." index="5" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
+script = ExtResource("3_68mlj")
+nav = NodePath("../../NavigationAgent3D")
+
+[node name="chase" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav", "rc")]
+script = ExtResource("4_7pwm4")
+nav = NodePath("../../NavigationAgent3D")
+rc = NodePath("../../RayCast3D")
+
+[node name="attack" type="Node" parent="sm" index="2"]
+script = ExtResource("5_gnwtc")
+projectile = ExtResource("3_h4kwk")
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.39497, 0)
+target_position = Vector3(0, -10, 0)
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)

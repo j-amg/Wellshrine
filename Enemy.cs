@@ -13,23 +13,36 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public float baseHealth;
 	[Export]
 	public const string enemyScenePath = "res://enemies/enemy";
+	[Export]
+	public float detectionRange = 200;
+	[Export]
+	public float detectionFalloffRange = 800;
 	public float currentHealth;
 	public int level = 2;
-
 	[Export]
 	public NavigationAgent3D nav;
-
+	[Export]
+	public float attackRange = 2;
+	[Export]
+	public float attackDuration = 1;
+	[Export]
+	public float attackWindup = .5f;
+	[Export]
+	public float attackDamage = 5;
 	[Signal]
 	public delegate void damageTakenEventHandler();
 
 	private Vector3 velocity;
 	public bool highlighted = false;
 	public bool damaged = false;
+	public bool aggro = false;
+	
 
 	public override void _Ready()
 	{
 		SetPhysicsProcess(false);
 		baseHealth += level * 0.25f * baseHealth;
+		attackDamage += level * 0.25f * attackDamage;
 		currentHealth = baseHealth;
 		damageTaken += OnDamageTaken;
 
@@ -70,17 +83,9 @@ public partial class Enemy : CharacterBody3D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector3 direction;
-		velocity = Velocity;
-		nav.TargetPosition = Global.Singleton.player.GlobalPosition;
-		direction = nav.GetNextPathPosition() - GlobalPosition;
-		direction = direction.Normalized();
-		velocity = velocity.Lerp(direction * baseMovementSpeed, (float)(acceleration * delta));
-		Velocity = velocity;
-
+		//if (Global.Singleton.toggled) return;
 		GetNode<Sprite3D>("sprite").FlipH = velocity.X > 0;
 		GetNode<Sprite3D>("labelSprite").Visible = highlighted || damaged;
-		
 		MoveAndSlide();
 	}
 }

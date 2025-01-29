@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=7 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="Texture2D" uid="uid://r6jwhuk2to13" path="res://sprites/226.png" id="2_6w3e6"]
 [ext_resource type="PackedScene" uid="uid://cmbqu1ogp3vnb" path="res://enemies/enemyLabel.tscn" id="3_dee20"]
+[ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
 
@@ -13,6 +14,8 @@ viewport_path = NodePath("SubViewport")
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
+detectionRange = 10.0
+detectionFalloffRange = 50.0
 nav = NodePath("NavigationAgent3D")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -36,3 +39,6 @@ transparent_bg = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40553, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_8tx16")
+
+[node name="sm" type="Node" parent="."]
+script = ExtResource("4_aab5i")

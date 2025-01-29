@@ -3,10 +3,12 @@ using System;
 
 public partial class Global : Node
 {
+
 		public Node CurrentScene;
 		public AudioStreamPlayer musicPlayer;
 		//public Dialogue dialogue;
 		public bool paused = false;
+		public bool toggled = false;
 		//public Pause pauseMenu;
 		//private bool enableMusic;
 		//private bool enableSound;

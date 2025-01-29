@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class Player : CharacterBody3D
@@ -35,6 +36,8 @@ public partial class Player : CharacterBody3D
 	private RayCast3D lookRay;
 	private Enemy existingHit;
 
+	private bool toggled = false;
+
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -64,8 +67,17 @@ public partial class Player : CharacterBody3D
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 		if (Input.IsActionJustPressed("LeftMouse")) Shoot();
+		if (Input.IsActionJustPressed("toggle")) Toggle();
 		last_physics_pos = Position;
 	}
+
+    private void Toggle()
+    {
+		reticle.Visible = Global.Singleton.toggled;
+		hands.Visible = Global.Singleton.toggled;
+		Global.Singleton.toggled = !Global.Singleton.toggled;
+       
+    }
 
     public override void _Process(double delta)
     {

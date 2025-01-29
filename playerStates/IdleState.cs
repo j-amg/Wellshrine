@@ -8,7 +8,7 @@ public partial class IdleState : State
     float acceleration = .25f;
     [Export]
     float deceleration = 0.25f;
-	public override void Update(double delta)
+        public override void Update(double delta)
 	{
         player.UpdateInput(speed, acceleration, deceleration);
         player.UpdateVelocity();

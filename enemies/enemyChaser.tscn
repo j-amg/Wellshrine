@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://76kdhe4pda4f"]
+[gd_scene load_steps=7 format=3 uid="uid://76kdhe4pda4f"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_q50un"]
 [ext_resource type="Script" path="res://enemies/EnemyChaser.cs" id="2_rcer2"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="3_28ubc"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserChase.cs" id="4_50cmh"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserAttack.cs" id="5_asowt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gcvlr"]
 viewport_path = NodePath("SubViewport")
@@ -13,3 +16,17 @@ baseHealth = 200.0
 
 [node name="labelSprite" parent="." index="4"]
 texture = SubResource("ViewportTexture_gcvlr")
+
+[node name="sm" parent="." index="5" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("idle")
+
+[node name="chase" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
+script = ExtResource("4_50cmh")
+nav = NodePath("../../NavigationAgent3D")
+
+[node name="idle" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]
+script = ExtResource("3_28ubc")
+nav = NodePath("../../NavigationAgent3D")
+
+[node name="attack" type="Node" parent="sm" index="2"]
+script = ExtResource("5_asowt")

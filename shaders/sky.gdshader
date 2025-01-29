@@ -10,6 +10,7 @@ float random (vec2 uv) {
 void sky() {
 
 		float col = fract(random(vec2(ceil(EYEDIR.x * 50.0 + TIME), ceil(EYEDIR.y * 50.0))));
+		if (EYEDIR.z > 0.0f) col = 0.0;
 		COLOR = vec3(col) * -EYEDIR.z;
 	
 }

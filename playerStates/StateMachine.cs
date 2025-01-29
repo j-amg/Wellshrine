@@ -33,7 +33,7 @@ public partial class StateMachine : Node
 
 	private void OnChildTransition(StringName state)
 	{
-		GD.Print(state);
+		//GD.Print(state);
 		State new_state = states[state];
 		if (new_state != null)
 		{
