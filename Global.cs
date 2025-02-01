@@ -4,7 +4,7 @@ using System;
 public partial class Global : Node
 {
 
-		public Node CurrentScene;
+		public Zone CurrentZone;
 		public AudioStreamPlayer musicPlayer;
 		//public Dialogue dialogue;
 		public bool paused = false;
@@ -18,15 +18,23 @@ public partial class Global : Node
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
 
+		private int playerHealth;
+		private int playerGold;
+		private float playerAttackSpeed = 1;
+		private float playerMoveSpeed = 1;
+		private float playerDamageMult = 1;
+		
+
+
 	public override void _Ready()
 	{
 		// stuff :3
         Viewport root = GetTree().Root;
-        CurrentScene = root.GetChild(root.GetChildCount() - 1);
+        CurrentZone = (Zone)root.GetChild(root.GetChildCount() - 1);
 
 		// gets
 		//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-		player = CurrentScene.GetNode<Player>("player");
+		player = CurrentZone.GetNode<Player>("player");
 
 		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
 
@@ -55,40 +63,50 @@ public partial class Global : Node
             //if (Input.IsActionJustPressed("pause") && pauseMenu != null) PauseMenu();
         }
 
-		public void GotoScene(string path)
+		public void GotoZone(string path)
 		{
-			CallDeferred(MethodName.DeferredGotoScene, path);
+			CallDeferred(MethodName.DeferredGotoZone, path);
 		}
 
-		public void DeferredGotoScene(string path)
+		public void DeferredGotoZone(string path)
 		{
 			
 			// It is now safe to remove the current scene.
-			CurrentScene.Free();
+			CurrentZone.Free();
 			// Load a new scene.
-			var nextScene = GD.Load<PackedScene>(path);
+			var nextZone = GD.Load<PackedScene>(path);
 
 			// Instance the new scene.
-			CurrentScene = nextScene.Instantiate();
+			CurrentZone = Zone.Initialise(nextZone, 2);
 
 			// Add it to the active scene, as child of root.
-			GetTree().Root.AddChild(CurrentScene);
+			GetTree().Root.AddChild(CurrentZone);
 
 			// Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 			
-			GetTree().CurrentScene = CurrentScene;
+			GetTree().CurrentScene = CurrentZone;
 			//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-			player = CurrentScene.GetNodeOrNull<Player>("player");
+			player = CurrentZone.GetNodeOrNull<Player>("player");
 		}
 
-		public void PlaySound(AudioStream audio)
+		public void PlaySound3D(Vector3 position, AudioStream audio)
 		{
-			AudioStreamPlayer player = new() {Stream = audio};
-			player.Finished += () => RemoveAudio(player);
+			AudioStreamPlayer3D player = new() {Stream = audio};
+			player.Finished += () => RemoveAudio3D(player);
+			AddChild(player);
+			player.Position = position;
+			player.Play();
+		}
+		public static void RemoveAudio3D(AudioStreamPlayer3D player) {player.QueueFree();}
+
+		public void PlaySound2D(AudioStream audio)
+		{
+			AudioStreamPlayer2D player = new() {Stream = audio};
+			player.Finished += () => RemoveAudio2D(player);
 			AddChild(player);
 			player.Play();
 		}
-		public static void RemoveAudio(AudioStreamPlayer player) {player.QueueFree();}
+		public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
 
 		// public void PauseMenu()
 		// {

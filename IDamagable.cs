@@ -4,5 +4,5 @@ using System;
 public partial interface IDamageable
 {
 	float Health { get; set; }
-	void Damage(int amount);
+	void Damage(float amount);
 }

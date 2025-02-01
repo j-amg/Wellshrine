@@ -44,7 +44,7 @@ public partial class Player : CharacterBody3D
 
     public override void _Ready()
     {
-		bullet = ResourceLoader.Load<PackedScene>("res://projectile.tscn");
+		bullet = ResourceLoader.Load<PackedScene>("res://playerProjectile.tscn");
 		body = GetNode<Node3D>("body");
         head = body.GetNode<Node3D>("head");
 		camera = head.GetNode<Camera3D>("Camera3D");
@@ -141,6 +141,7 @@ public partial class Player : CharacterBody3D
 		Projectile b = bullet.Instantiate() as Projectile;
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", b);
+		b.damage = 5;
 		b.Transform = head.GlobalTransform;
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
 	}

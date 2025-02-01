@@ -3,16 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
 [ext_resource type="Script" path="res://enemies/EnemyShooter.cs" id="2_wnjbw"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterIdle.cs" id="3_68mlj"]
-[ext_resource type="PackedScene" uid="uid://nsl6qu0aey1x" path="res://projectile.tscn" id="3_h4kwk"]
 [ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
+[ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
 viewport_path = NodePath("SubViewport")
 
 [node name="enemy" instance=ExtResource("1_y66yp")]
 script = ExtResource("2_wnjbw")
-bullet = ExtResource("3_h4kwk")
 name = "shooter dog"
 baseHealth = 50.0
 attackRange = 10.0
@@ -37,7 +36,7 @@ rc = NodePath("../../RayCast3D")
 
 [node name="attack" type="Node" parent="sm" index="2"]
 script = ExtResource("5_gnwtc")
-projectile = ExtResource("3_h4kwk")
+projectile = ExtResource("7_6gbqh")
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.39497, 0)

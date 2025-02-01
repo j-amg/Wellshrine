@@ -65,7 +65,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		return enemy;
 	}
 
-    void IDamageable.Damage(int amount)
+    void IDamageable.Damage(float amount)
 	{
 		currentHealth -= amount;
 		EmitSignal(SignalName.damageTaken);

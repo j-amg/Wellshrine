@@ -5,11 +5,14 @@ public partial class EnemySpawner : Node3D
 {
     [Export]
     public PackedScene enemyType;
-    [Export]
-    public int enemyLevel = 0;
     public override void _Ready()
     {
-        Enemy enemy = Enemy.InitEnemy(enemyType, 5, GlobalTransform);
+        AddToGroup("spawners");
+    }
+
+    public void Spawn(int level)
+    {
+        Enemy enemy = Enemy.InitEnemy(enemyType, level, GlobalTransform);
         var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", enemy);
     }

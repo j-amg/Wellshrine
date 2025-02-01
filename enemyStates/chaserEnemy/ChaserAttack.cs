@@ -4,11 +4,13 @@ using System;
 public partial class ChaserAttack : State
 {
     private Enemy enemy;
-
+    private Vector3 velocity;
     public override void Enter()
     {
         base.Enter();
         enemy = GetOwner<Enemy>();
+        velocity = Vector3.Zero;
+        enemy.Velocity = velocity;
         Attack(enemy.attackWindup, enemy.attackDuration, enemy.attackDamage);
     }
 

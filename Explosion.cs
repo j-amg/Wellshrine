@@ -5,29 +5,19 @@ public partial class Explosion : Area3D
 	[Signal]
 	public delegate void explosionFinishedEventHandler();
 	private float explosionDur = .5f;
-	private float explosionRadius = 1f;
-	[Export]
-	private int damage;
 	Godot.Collections.Array<Node3D> bodies;
-	public override void _Ready()
+    public void SetRadius(float scale)
 	{
-		Scale = new Vector3(explosionRadius, explosionRadius, explosionRadius);
+		Scale = new Vector3(scale, scale, scale);
 	}
 
-    public void Explode()
-    {
-
+	public async void Explode(float damage, float delay)
+	{
+		await ToSignal(GetTree().CreateTimer(delay), "timeout");
 		foreach(Node3D node in bodies)
 		{
     		if(node is IDamageable damageable) damageable.Damage(damage);
 		}
-
-		//Monitoring = true;
-		ExplodeAsync();
-    }
-
-	private async void ExplodeAsync()
-	{
 		Tween tween = GetTree().CreateTween();
 		GetNode<Sprite3D>("sprite").Visible = true;
 		tween.TweenProperty(GetNode<Sprite3D>("sprite"), "modulate", new Color(0,0,0,0), explosionDur);

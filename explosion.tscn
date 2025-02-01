@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://qxopaci06e4o" path="res://sprites/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTEwL3Jhd3BpeGVsX29mZmljZV8zNV9kcmFtYXRpY19leHBsb3Npb25fb25fYmxhY2tfYmFja2dyb3VuZF9oZHJfZF8xNTRiNzQ4Ny1mZWFkLTQ4MWItOTNhMS1mNmJhYWNmNjRlNWYucG5n.webp" id="2_8n24r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ox6gx"]
-radius = 2.5
+radius = 1.0
 
 [node name="explosion" type="Area3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -16,7 +16,7 @@ script = ExtResource("1_d1mav")
 shape = SubResource("SphereShape3D_ox6gx")
 
 [node name="sprite" type="Sprite3D" parent="."]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.371905, 0, 0, 0, 0.371905, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 billboard = 1
 texture = ExtResource("2_8n24r")
