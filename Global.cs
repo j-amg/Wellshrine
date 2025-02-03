@@ -63,18 +63,16 @@ public partial class Global : Node
             //if (Input.IsActionJustPressed("pause") && pauseMenu != null) PauseMenu();
         }
 
-		public void GotoZone(string path)
+		public void GotoZone(PackedScene nextZone)
 		{
-			CallDeferred(MethodName.DeferredGotoZone, path);
+			CallDeferred(MethodName.DeferredGotoZone, nextZone);
 		}
 
-		public void DeferredGotoZone(string path)
+		public void DeferredGotoZone(PackedScene nextZone)
 		{
 			
 			// It is now safe to remove the current scene.
 			CurrentZone.Free();
-			// Load a new scene.
-			var nextZone = GD.Load<PackedScene>(path);
 
 			// Instance the new scene.
 			CurrentZone = Zone.Initialise(nextZone, 2);
@@ -85,6 +83,10 @@ public partial class Global : Node
 			// Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 			
 			GetTree().CurrentScene = CurrentZone;
+
+			// spawn enemies
+			CurrentZone.Populate();
+
 			//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
 			player = CurrentZone.GetNodeOrNull<Player>("player");
 		}

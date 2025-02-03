@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxwfl3u57d0pd"]
+[gd_scene load_steps=17 format=3 uid="uid://cxwfl3u57d0pd"]
 
 [ext_resource type="Material" uid="uid://byto5fmnnvgpf" path="res://shaders/sky.tres" id="1_8w5q5"]
 [ext_resource type="Script" path="res://Zone.cs" id="1_y3xdj"]
@@ -6,7 +6,6 @@
 [ext_resource type="Material" uid="uid://dsmtm148snrlw" path="res://shaders/test3D.tres" id="3_q8w1r"]
 [ext_resource type="Shader" path="res://shaders/Level.gdshader" id="3_ylr7b"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="4_8inwp"]
-[ext_resource type="PackedScene" uid="uid://cgis5agan11j5" path="res://enemies/enemyShooter.tscn" id="6_pw1lx"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="8_n1jcy"]
 
 [sub_resource type="Sky" id="Sky_x4bu4"]
@@ -149,10 +148,10 @@ shape = SubResource("BoxShape3D_iebmc")
 
 [node name="enemySpawner" parent="." instance=ExtResource("4_8inwp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07231, 0.5, 16.5514)
+enemyName = "shooter"
 
 [node name="enemySpawner2" parent="." instance=ExtResource("4_8inwp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98987, 0.5, 8.00893)
-enemyType = ExtResource("6_pw1lx")
 
 [node name="door" parent="." instance=ExtResource("8_n1jcy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0513, 0.5, -1.08562)

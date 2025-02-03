@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://76kdhe4pda4f"]
 
-[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_q50un"]
-[ext_resource type="Script" path="res://enemies/EnemyChaser.cs" id="2_rcer2"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="3_28ubc"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserChase.cs" id="4_50cmh"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserAttack.cs" id="5_asowt"]
+[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_mdvr3"]
+[ext_resource type="Script" path="res://enemies/Chaser.cs" id="2_iwobo"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserChase.cs" id="3_qyiik"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="4_jo8ps"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserAttack.cs" id="5_e577w"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gcvlr"]
 viewport_path = NodePath("SubViewport")
 
-[node name="enemyChaser" instance=ExtResource("1_q50un")]
-script = ExtResource("2_rcer2")
+[node name="enemyChaser" instance=ExtResource("1_mdvr3")]
+script = ExtResource("2_iwobo")
 name = "Dog"
 baseHealth = 200.0
 
@@ -21,12 +21,12 @@ texture = SubResource("ViewportTexture_gcvlr")
 current_state = NodePath("idle")
 
 [node name="chase" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
-script = ExtResource("4_50cmh")
+script = ExtResource("3_qyiik")
 nav = NodePath("../../NavigationAgent3D")
 
 [node name="idle" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]
-script = ExtResource("3_28ubc")
+script = ExtResource("4_jo8ps")
 nav = NodePath("../../NavigationAgent3D")
 
 [node name="attack" type="Node" parent="sm" index="2"]
-script = ExtResource("5_asowt")
+script = ExtResource("5_e577w")

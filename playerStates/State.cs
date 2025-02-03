@@ -13,7 +13,7 @@ public partial class State : Node
     public override async void _Ready()
     {
         await ToSignal(Owner, "ready");
-		player = Global.Singleton.player;
+		player = (Player)GetTree().GetNodesInGroup("player")[0];
 		parentNode = GetOwner<CharacterBody3D>();
     }
     public virtual void Enter()

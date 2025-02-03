@@ -6,7 +6,6 @@ public partial class Player : CharacterBody3D
 	
 	float mouseSensitivity = 0.15f;
 	float aimMouseSensitivity = 0.075f;
-
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
@@ -35,7 +34,6 @@ public partial class Player : CharacterBody3D
 	private StateMachine stateMachine;
 	private RayCast3D lookRay;
 	private Enemy existingHit;
-
 	private bool toggled = false;
 
 
@@ -58,6 +56,7 @@ public partial class Player : CharacterBody3D
 		reticle = camera.GetNode<TextureRect>("reticle");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
+		AddToGroup("player");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -71,6 +70,10 @@ public partial class Player : CharacterBody3D
 		last_physics_pos = Position;
 	}
 
+	private void BuffStat(String stat, float amount)
+	{
+
+	}
     private void Toggle()
     {
 		reticle.Visible = Global.Singleton.toggled;

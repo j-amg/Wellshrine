@@ -1,8 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://t0ab31k3xa4u"]
 
 [ext_resource type="Script" path="res://EnemySpawner.cs" id="1_u5xqn"]
-[ext_resource type="PackedScene" uid="uid://76kdhe4pda4f" path="res://enemies/enemyChaser.tscn" id="2_j5ww8"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3g0a5"]
+size = Vector2(10, 10)
 
 [node name="enemySpawner" type="Node3D"]
 script = ExtResource("1_u5xqn")
-enemyType = ExtResource("2_j5ww8")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(15.0909, 0, 0, 0, 15.0909, 0, 0, 0, 1, 0, 0, 0)
+texture = SubResource("PlaceholderTexture2D_3g0a5")

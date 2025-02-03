@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cgis5agan11j5"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
-[ext_resource type="Script" path="res://enemies/EnemyShooter.cs" id="2_wnjbw"]
+[ext_resource type="Script" path="res://enemies/Shooter.cs" id="2_okrev"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterIdle.cs" id="3_68mlj"]
 [ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
@@ -11,7 +11,7 @@
 viewport_path = NodePath("SubViewport")
 
 [node name="enemy" instance=ExtResource("1_y66yp")]
-script = ExtResource("2_wnjbw")
+script = ExtResource("2_okrev")
 name = "shooter dog"
 baseHealth = 50.0
 attackRange = 10.0
