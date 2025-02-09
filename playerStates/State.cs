@@ -6,8 +6,7 @@ public partial class State : Node
 {
 	[Signal]
 	public delegate void transitionEventHandler(StringName stateName);
-    //public Player player = Global.Singleton.player;
-	public Player player;
+    public Player player;
 	public CharacterBody3D parentNode;
 
     public override async void _Ready()
@@ -18,7 +17,7 @@ public partial class State : Node
     }
     public virtual void Enter()
 	{
-		GD.Print(Owner + " Entered " + Name);
+		return;
 	}
 
 	public virtual void Exit()

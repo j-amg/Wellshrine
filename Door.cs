@@ -8,17 +8,26 @@ public partial class Door : Area3D
     private PackedScene zoneToLoad;
     public override void _Ready()
     {
+        //Global.Singleton.CurrentZone.objectiveCompletion += OnObjectiveCompletion;
         BodyEntered += OnBodyEntered;
         PreloadZone(levelPath);
     }
 
-    private void PreloadZone(string path)
+    private void OnObjectiveCompletion() => Open();
+
+    private void PreloadZone(string path) => zoneToLoad = GD.Load<PackedScene>(path);
+
+    public void Open()
     {
-        zoneToLoad = GD.Load<PackedScene>(path);
+        GD.Print("Door open");        
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(GetNode<StaticBody3D>("doorMesh"), "position", new Vector3(0,-2.0f, 0), 1.0f);
     }
 
     private void OnBodyEntered(Node3D body)
     {
-        if (Global.Singleton.CurrentZone.objectiveComplete) Global.Singleton.GotoZone(zoneToLoad);
+        if (!Global.Singleton.CurrentZone.objectiveComplete) return;
+        Global.Singleton.currentLevel += 1;
+        if (Global.Singleton.CurrentZone.objectiveComplete) Global.Singleton.GotoZone(zoneToLoad, this);
     }
 }

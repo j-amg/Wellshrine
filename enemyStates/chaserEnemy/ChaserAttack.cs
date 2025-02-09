@@ -20,6 +20,7 @@ public partial class ChaserAttack : State
         GD.Print(Name + " attacks player for " + damage);
         if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange)
         {
+            if (player is IDamageable damageable) damageable.Damage(damage);
             GD.Print("hit");
         } else
         {

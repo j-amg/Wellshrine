@@ -12,11 +12,11 @@ public partial class EnemyLabel : VBoxContainer
 	{
 		parent = GetOwner<Enemy>();
 		parent.damageTaken += OnDamageTaken;
+
 	}
 
 	public void SetValues()
 	{
-		GD.Print("values set");
 		healthBar = GetNode<ProgressBar>("health");
 		nameLabel = GetNode<Label>("name");
 		levelLabel = GetNode<Label>("level");
@@ -26,11 +26,5 @@ public partial class EnemyLabel : VBoxContainer
 		healthBar.Value = parent.baseHealth;
 	}
 	private void OnDamageTaken() => healthBar.Value = parent.currentHealth;
-
-
-    public override void _Process(double delta)
-	{
-		Visible = !Global.Singleton.toggled;
-	}
 
 }

@@ -27,6 +27,7 @@ public partial class ShooterAttack : State
             b.Transform = enemy.Transform;
             b.LookAtFromPosition(b.Position + new Vector3(0,2.5f, 0), player.head.GlobalPosition);
 		    b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+            b.damage = damage;
             main.CallDeferred("add_child", b);
         }
         await ToSignal(GetTree().CreateTimer(duration), "timeout");

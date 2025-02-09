@@ -3,6 +3,8 @@ using System;
 
 public partial class Enemy : CharacterBody3D, IDamageable
 {
+	[Signal]
+	public delegate void damageTakenEventHandler();
 	[Export]
 	public float baseMovementSpeed = 2;
 	[Export]
@@ -18,7 +20,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	[Export]
 	public float detectionFalloffRange = 800;
 	public float currentHealth;
-	public int level = 2;
+	public int level = 1;
 	[Export]
 	public NavigationAgent3D nav;
 	[Export]
@@ -29,9 +31,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public float attackWindup = .5f;
 	[Export]
 	public float attackDamage = 5;
-	[Signal]
-	public delegate void damageTakenEventHandler();
-
 	private Vector3 velocity;
 	public bool highlighted = false;
 	public bool damaged = false;
@@ -45,8 +44,8 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		attackDamage += level * 0.25f * attackDamage;
 		currentHealth = baseHealth;
 		damageTaken += OnDamageTaken;
-
-		GetNode<SubViewport>("SubViewport").GetNode<EnemyLabel>("label").SetValues();
+		AddToGroup("enemies");
+		GetNode<EnemyLabel>("SubViewport/label").SetValues();
 		CallDeferred("Setup");
 	}
 
@@ -55,6 +54,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		// need to do this to wait for the navigation thingie to sync
 		await ToSignal(GetTree(), "physics_frame");
 		SetPhysicsProcess(true);
+		Global.Singleton.UpdateHUD();
 	}
 
 	public static Enemy InitEnemy(PackedScene scene, int levelParam, Transform3D transformParam)
@@ -77,9 +77,15 @@ public partial class Enemy : CharacterBody3D, IDamageable
         if (currentHealth <= 0) Die();
     }
 
-	public void Die() => QueueFree();
+    public void Die()
+    {
+		RemoveFromGroup("enemies");
+		Global.Singleton.CurrentZone.UpdateObjective();
+		Global.Singleton.UpdateHUD();
+        QueueFree();
+    }
 
-	float IDamageable.Health{ get{ return baseHealth; } set{}}
+    float IDamageable.Health{ get{ return baseHealth; } set{}}
 
 	public override void _PhysicsProcess(double delta)
 	{

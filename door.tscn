@@ -1,20 +1,81 @@
-[gd_scene load_steps=4 format=3 uid="uid://do5gmboonte51"]
+[gd_scene load_steps=12 format=3 uid="uid://do5gmboonte51"]
 
 [ext_resource type="Script" path="res://Door.cs" id="1_20dfc"]
+[ext_resource type="Shader" uid="uid://bswnv5j5di1m7" path="res://shaders/water.tres" id="2_w6u18"]
+[ext_resource type="Texture2D" uid="uid://cfav7jp8l84b2" path="res://shaders/waterNoise.tres" id="3_u3sf3"]
+[ext_resource type="Material" uid="uid://dsmtm148snrlw" path="res://shaders/test3D.tres" id="4_1oxyu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1a1y2"]
-size = Vector3(1, 2, 0.25)
+size = Vector3(2, 4, 0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gasa1"]
+render_priority = 0
+shader = ExtResource("2_w6u18")
+shader_parameter/FloatParameter = 0.05
+shader_parameter/Texture2DParameter = ExtResource("3_u3sf3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1x5pd"]
+material = SubResource("ShaderMaterial_gasa1")
+size = Vector2(4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8u7ol"]
+material = ExtResource("4_1oxyu")
+size = Vector3(1, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xxw7l"]
+size = Vector3(1, 4, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_l2syv"]
-size = Vector3(1, 2, 0.25)
+size = Vector3(2, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0yj1d"]
+size = Vector3(2, 4, 0.5)
 
 [node name="door" type="Area3D"]
 script = ExtResource("1_20dfc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_1a1y2")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="portal" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999985, 2.37263e-10, 0.00542795, 0.00542795, -4.37107e-08, -0.999985, 0, 1, -4.37114e-08, 0, 2, 0)
+mesh = SubResource("PlaneMesh_1x5pd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+collision_layer = 2
+collision_mask = 15
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_8u7ol")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_xxw7l")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+collision_layer = 2
+collision_mask = 15
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_8u7ol")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_xxw7l")
+
+[node name="doorMesh" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="doormesh" type="MeshInstance3D" parent="doorMesh"]
 mesh = SubResource("BoxMesh_l2syv")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="doorMesh"]
+shape = SubResource("BoxShape3D_0yj1d")

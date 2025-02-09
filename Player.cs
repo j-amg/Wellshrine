@@ -1,9 +1,10 @@
 using System;
 using Godot;
 
-public partial class Player : CharacterBody3D
+public partial class Player : CharacterBody3D, IDamageable
 {
-	
+	[Signal]
+	public delegate void damageTakenEventHandler();
 	float mouseSensitivity = 0.15f;
 	float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -17,6 +18,7 @@ public partial class Player : CharacterBody3D
 	public Node3D body;
 	public Node3D head;
 	private Camera3D camera;
+	public Hud hud;
 	private Node3D hands;
 	public AnimatedSprite3D leftHand;
 	public AnimatedSprite3D rightHand;
@@ -30,11 +32,10 @@ public partial class Player : CharacterBody3D
 	private PackedScene bullet;
 	public CollisionShape3D standCollision;
 	public CollisionShape3D crouchCollision;
-	Vector3 last_physics_pos;
+	private Vector3 last_physics_pos;
 	private StateMachine stateMachine;
 	private RayCast3D lookRay;
 	private Enemy existingHit;
-	private bool toggled = false;
 
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -54,6 +55,7 @@ public partial class Player : CharacterBody3D
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
 		reticle = camera.GetNode<TextureRect>("reticle");
+		//hud = camera.GetNode<Hud>("hud");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -66,7 +68,6 @@ public partial class Player : CharacterBody3D
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 		if (Input.IsActionJustPressed("LeftMouse")) Shoot();
-		if (Input.IsActionJustPressed("toggle")) Toggle();
 		last_physics_pos = Position;
 	}
 
@@ -74,13 +75,20 @@ public partial class Player : CharacterBody3D
 	{
 
 	}
-    private void Toggle()
-    {
-		reticle.Visible = Global.Singleton.toggled;
-		hands.Visible = Global.Singleton.toggled;
-		Global.Singleton.toggled = !Global.Singleton.toggled;
-       
-    }
+
+	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
+
+	void IDamageable.Damage(float amount)
+	{
+		GD.Print("player takes damage");
+		Global.Singleton.currentPlayerHealth -= amount;
+		EmitSignal(SignalName.damageTaken);
+	}
+
+	private void OnDamageTaken()
+	{
+		return;
+	}
 
     public override void _Process(double delta)
     {
@@ -141,11 +149,14 @@ public partial class Player : CharacterBody3D
 	private void Shoot()
 	{
 		//GD.Print("shoot");
+		rightHand.Play("shoot");
+		leftHand.Play("shoot");
 		Projectile b = bullet.Instantiate() as Projectile;
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", b);
 		b.damage = 5;
 		b.Transform = head.GlobalTransform;
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+		
 	}
 }

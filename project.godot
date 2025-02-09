@@ -102,5 +102,6 @@ Interact={
 
 [rendering]
 
+textures/default_filters/use_nearest_mipmap_filter=true
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 anti_aliasing/quality/screen_space_aa=1

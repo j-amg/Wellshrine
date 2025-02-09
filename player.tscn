@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=22 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
@@ -18,9 +18,13 @@
 atlas = ExtResource("2_yxyrm")
 region = Rect2(0, 0, 180, 270)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7sqwi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xm55a"]
 atlas = ExtResource("2_yxyrm")
-region = Rect2(0, 270, 180, 270)
+region = Rect2(180, 0, 180, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyvlj"]
+atlas = ExtResource("2_yxyrm")
+region = Rect2(360, 0, 180, 270)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p25tb"]
 animations = [{
@@ -34,10 +38,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7sqwi")
+"texture": SubResource("AtlasTexture_xm55a")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyvlj")
+}],
+"loop": true,
+"name": &"shoot",
 "speed": 5.0
 }]
 
@@ -70,7 +82,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
 offset = Vector2(-150, -175)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_p25tb")
-animation = &"idle"
+animation = &"shoot"
 
 [node name="rightHand" type="AnimatedSprite3D" parent="body/hands"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
@@ -105,9 +117,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 target_position = Vector3(0, -50, 0)
 collision_mask = 4
 
-[node name="CanvasLayer" type="CanvasLayer" parent="body/head/Camera3D"]
-
-[node name="HUD" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("3_gxljr")]
+[node name="hud" parent="body/head/Camera3D" instance=ExtResource("3_gxljr")]
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

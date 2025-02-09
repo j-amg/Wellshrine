@@ -51,7 +51,6 @@ color_ramp = SubResource("Gradient_bh58y")
 noise = ExtResource("1_mxica")
 
 [resource]
-diffuse_mode = 3
 albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
 albedo_texture = SubResource("NoiseTexture2D_faj5i")
 roughness_texture = SubResource("NoiseTexture2D_yt3ad")

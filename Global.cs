@@ -5,10 +5,10 @@ public partial class Global : Node
 {
 
 		public Zone CurrentZone;
+		public int currentLevel = 1;
 		public AudioStreamPlayer musicPlayer;
 		//public Dialogue dialogue;
 		public bool paused = false;
-		public bool toggled = false;
 		//public Pause pauseMenu;
 		//private bool enableMusic;
 		//private bool enableSound;
@@ -17,24 +17,26 @@ public partial class Global : Node
 		//public CanvasModulate worldModulate;
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
-
-		private int playerHealth;
 		private int playerGold;
 		private float playerAttackSpeed = 1;
 		private float playerMoveSpeed = 1;
 		private float playerDamageMult = 1;
-		
-
-
-	public override void _Ready()
-	{
-		// stuff :3
+		private Vector3 playerRelativePosition;
+		public float playerHealth = 100;
+		public float currentPlayerHealth = 100;
+		public Hud hud;
+		public override void _Ready()
+		{
         Viewport root = GetTree().Root;
         CurrentZone = (Zone)root.GetChild(root.GetChildCount() - 1);
 
 		// gets
 		//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-		player = CurrentZone.GetNode<Player>("player");
+		player = CurrentZone.GetNodeOrNull<Player>("player");
+		hud = player.GetNode<Hud>("body/head/Camera3D/hud");
+		//CurrentZone.Populate(currentLevel);
+		CurrentZone.UpdateObjective();
+		UpdateHUD();
 
 		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
 
@@ -59,36 +61,43 @@ public partial class Global : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(double delta)
         {
-			//GD.Print(player.Position);
             //if (Input.IsActionJustPressed("pause") && pauseMenu != null) PauseMenu();
+
         }
 
-		public void GotoZone(PackedScene nextZone)
+		public void UpdateHUD()
 		{
+			hud.SetValues();
+		}
+
+		public void GotoZone(PackedScene nextZone, Door door)
+		{
+			playerRelativePosition = player.GlobalTransform.Origin - door.GlobalTransform.Origin;
 			CallDeferred(MethodName.DeferredGotoZone, nextZone);
 		}
 
 		public void DeferredGotoZone(PackedScene nextZone)
 		{
-			
 			// It is now safe to remove the current scene.
 			CurrentZone.Free();
 
 			// Instance the new scene.
-			CurrentZone = Zone.Initialise(nextZone, 2);
+			CurrentZone = Zone.Initialise(nextZone);
 
 			// Add it to the active scene, as child of root.
 			GetTree().Root.AddChild(CurrentZone);
 
 			// Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
-			
 			GetTree().CurrentScene = CurrentZone;
-
-			// spawn enemies
-			CurrentZone.Populate();
 
 			//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
 			player = CurrentZone.GetNodeOrNull<Player>("player");
+			hud = player.GetNode<Hud>("body/head/Camera3D/hud");
+			player.GlobalPosition = playerRelativePosition;
+
+			// spawn enemies at current level
+			CurrentZone.Populate(currentLevel);
+			UpdateHUD();
 		}
 
 		public void PlaySound3D(Vector3 position, AudioStream audio)
