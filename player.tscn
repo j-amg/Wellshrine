@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=24 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
 [ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
 [ext_resource type="Script" path="res://playerStates/IdleState.cs" id="4_fm7o7"]
+[ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_quk40"]
+[ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_cxwdp"]
 [ext_resource type="Script" path="res://playerStates/WalkState.cs" id="5_iewqs"]
 [ext_resource type="Script" path="res://playerStates/SprintState.cs" id="6_eaiyh"]
 [ext_resource type="Script" path="res://playerStates/FallState.cs" id="7_l7400"]
@@ -97,27 +99,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="body/head"]
 
-[node name="reticle" type="TextureRect" parent="body/head/Camera3D"]
+[node name="CanvasLayer" type="CanvasLayer" parent="body/head/Camera3D"]
+
+[node name="reticle" type="TextureRect" parent="body/head/Camera3D/CanvasLayer"]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_lercf")
+
+[node name="hud" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("3_gxljr")]
+
+[node name="pause" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("4_quk40")]
+visible = false
+
+[node name="deathScreen" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("5_cxwdp")]
+visible = false
 
 [node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
 collision_mask = 4
-
-[node name="hud" parent="body/head/Camera3D" instance=ExtResource("3_gxljr")]
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

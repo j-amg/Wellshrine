@@ -26,7 +26,7 @@ public partial class Hud : Control
         objectiveLabel = GetNode<Label>("VBoxContainer/objective");
         enemyNumberLabel.Text = "Enemies remaining: " + GetTree().GetNodesInGroup("enemies").Count.ToString();
 		zoneNumberLabel.Text = "Zone: " + Global.Singleton.currentLevel.ToString();
-        objectiveLabel.Text = "Objective: " + Global.Singleton.CurrentZone.objective.ToString();
+        objectiveLabel.Text = "Objective: " + Global.Singleton.Objective.ToString();
 		healthBar.MaxValue = Global.Singleton.playerHealth;
 		healthBar.Value = Global.Singleton.currentPlayerHealth;
     }

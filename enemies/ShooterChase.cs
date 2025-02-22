@@ -28,9 +28,7 @@ public partial class ShooterChase : State
 		velocity = velocity.Lerp(direction * enemy.baseMovementSpeed, (float)(enemy.acceleration * delta));
 		enemy.Velocity = velocity;
         //rc.TargetPosition = enemy.ToLocal(player.head.GlobalPosition);
-        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange)
-        {
-            EmitSignal(SignalName.transition, "attack");
-        }
+        if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
+        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");
     }
 }

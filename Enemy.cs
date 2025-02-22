@@ -47,6 +47,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		AddToGroup("enemies");
 		GetNode<EnemyLabel>("SubViewport/label").SetValues();
 		CallDeferred("Setup");
+		Global.Singleton.UpdateHUD();
 	}
 
 	private async void Setup()
@@ -54,7 +55,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		// need to do this to wait for the navigation thingie to sync
 		await ToSignal(GetTree(), "physics_frame");
 		SetPhysicsProcess(true);
-		Global.Singleton.UpdateHUD();
+		
 	}
 
 	public static Enemy InitEnemy(PackedScene scene, int levelParam, Transform3D transformParam)
@@ -80,9 +81,13 @@ public partial class Enemy : CharacterBody3D, IDamageable
     public void Die()
     {
 		RemoveFromGroup("enemies");
-		Global.Singleton.CurrentZone.UpdateObjective();
+		if (Global.Singleton.CurrentScene is Zone zone)
+		{
+			GD.Print("try update");
+			zone.UpdateObjective();
+		} 
 		Global.Singleton.UpdateHUD();
-        QueueFree();
+        CallDeferred("queue_free");
     }
 
     float IDamageable.Health{ get{ return baseHealth; } set{}}

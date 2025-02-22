@@ -12,6 +12,7 @@ size = Vector3(2, 4, 0.25)
 render_priority = 0
 shader = ExtResource("2_w6u18")
 shader_parameter/FloatParameter = 0.05
+shader_parameter/FloatParameter2 = -0.025
 shader_parameter/Texture2DParameter = ExtResource("3_u3sf3")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1x5pd"]
@@ -72,6 +73,7 @@ shape = SubResource("BoxShape3D_xxw7l")
 
 [node name="doorMesh" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 2
 
 [node name="doormesh" type="MeshInstance3D" parent="doorMesh"]
 mesh = SubResource("BoxMesh_l2syv")

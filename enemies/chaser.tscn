@@ -12,7 +12,7 @@ viewport_path = NodePath("SubViewport")
 [node name="enemyChaser" instance=ExtResource("1_mdvr3")]
 script = ExtResource("2_iwobo")
 name = "Dog"
-baseHealth = 200.0
+baseHealth = 25.0
 
 [node name="labelSprite" parent="." index="4"]
 texture = SubResource("ViewportTexture_gcvlr")

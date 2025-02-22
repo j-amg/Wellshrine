@@ -8,7 +8,6 @@ public partial class killZone : Zone
         if (GetTree().GetNodesInGroup("enemies").Count > 0) return;
         objectiveComplete = true;
         door.Open();
-        EmitSignal(SignalName.objectiveCompletion);
     }
 
 }

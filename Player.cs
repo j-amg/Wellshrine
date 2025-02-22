@@ -11,7 +11,6 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
 	private float handsMovementSmoothing = 10;
-	private bool pause = false;
 	float zoomFOV = 80;
 	float walkingFOV = 90;
 	float sprintingFOV = 100;
@@ -22,7 +21,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private Node3D hands;
 	public AnimatedSprite3D leftHand;
 	public AnimatedSprite3D rightHand;
-	private TextureRect reticle;
+	public TextureRect reticle;
 	public float _sensitivity;
 	public float _gravity;
 	public Vector3 velocity;
@@ -54,8 +53,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
-		reticle = camera.GetNode<TextureRect>("reticle");
-		//hud = camera.GetNode<Hud>("hud");
+		reticle = camera.GetNode<TextureRect>("CanvasLayer/reticle");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -63,17 +61,12 @@ public partial class Player : CharacterBody3D, IDamageable
 
     public override void _PhysicsProcess(double delta)
 	{
-		if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
-        Input.MouseMode = pause ? Godot.Input.MouseModeEnum.Visible : Godot.Input.MouseModeEnum.Captured;
+		//if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
+        Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 		if (Input.IsActionJustPressed("LeftMouse")) Shoot();
 		last_physics_pos = Position;
-	}
-
-	private void BuffStat(String stat, float amount)
-	{
-
 	}
 
 	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
@@ -81,7 +74,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	void IDamageable.Damage(float amount)
 	{
 		GD.Print("player takes damage");
-		Global.Singleton.currentPlayerHealth -= amount;
+		Global.Singleton.IncrementHealth(-amount);
 		EmitSignal(SignalName.damageTaken);
 	}
 
@@ -137,7 +130,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseMotion eventKey)
+		if (@event is InputEventMouseMotion eventKey && !Global.Singleton.paused && !Global.Singleton.dead)
 		{
 			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity;
 			head.RotateX(xRot);

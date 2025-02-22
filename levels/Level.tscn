@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dsmtm148snrlw" path="res://shaders/test3D.tres" id="3_q8w1r"]
 [ext_resource type="Shader" path="res://shaders/Level.gdshader" id="3_ylr7b"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="4_8inwp"]
-[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="8_n1jcy"]
+[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="8_vysqy"]
 [ext_resource type="PackedScene" uid="uid://c3vdhcirt7p4w" path="res://shrine.tscn" id="10_pw5xu"]
 
 [sub_resource type="Sky" id="Sky_x4bu4"]
@@ -64,7 +64,7 @@ environment = SubResource("Environment_xvvfk")
 camera_attributes = SubResource("CameraAttributesPractical_xvr7h")
 
 [node name="player" parent="." instance=ExtResource("2_xqj8t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.68248, 1.46145, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.68248, 1.46145, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.626082, -0.231855, 0.74449, -0.779757, -0.18611, 0.59778, -4.1414e-05, -0.954781, -0.297311, 0, 4.44279, -20.049)
@@ -151,13 +151,12 @@ shape = SubResource("BoxShape3D_iebmc")
 
 [node name="enemySpawner" parent="." instance=ExtResource("4_8inwp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07231, 0.5, 16.5514)
-enemyName = "shooter"
 
 [node name="enemySpawner2" parent="." instance=ExtResource("4_8inwp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98987, 0.5, 8.00893)
 
-[node name="door" parent="." instance=ExtResource("8_n1jcy")]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 20, 0.5, 0)
-
 [node name="shrine" parent="." instance=ExtResource("10_pw5xu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.89526, 0.5, -19.0037)
+
+[node name="door" parent="." instance=ExtResource("8_vysqy")]
+transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, -2.49289, 0.5, 23.9424)

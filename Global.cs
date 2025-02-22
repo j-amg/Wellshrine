@@ -1,15 +1,15 @@
 using Godot;
-using System;
+using Godot.Collections;
 
 public partial class Global : Node
 {
 
-		public Zone CurrentZone;
+		public Node CurrentScene;
 		public int currentLevel = 1;
 		public AudioStreamPlayer musicPlayer;
 		//public Dialogue dialogue;
 		public bool paused = false;
-		//public Pause pauseMenu;
+		public Pause pauseMenu;
 		//private bool enableMusic;
 		//private bool enableSound;
 		public Player player;
@@ -25,17 +25,21 @@ public partial class Global : Node
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
 		public Hud hud;
+		public bool dead = false;
+		private DeathScreen deathScreen;
+		public string Objective = "";
+		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
 		public override void _Ready()
 		{
         Viewport root = GetTree().Root;
-        CurrentZone = (Zone)root.GetChild(root.GetChildCount() - 1);
+        CurrentScene = root.GetChild(root.GetChildCount() - 1);
 
 		// gets
-		//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-		player = CurrentZone.GetNodeOrNull<Player>("player");
-		hud = player.GetNode<Hud>("body/head/Camera3D/hud");
+		player = CurrentScene.GetNodeOrNull<Player>("player");
+		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
+		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
+		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
 		//CurrentZone.Populate(currentLevel);
-		CurrentZone.UpdateObjective();
 		UpdateHUD();
 
 		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
@@ -61,42 +65,81 @@ public partial class Global : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(double delta)
         {
-            //if (Input.IsActionJustPressed("pause") && pauseMenu != null) PauseMenu();
+        if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead)
+		{
+			GD.Print("try pause");
+			PauseMenu();
+		} 
 
         }
 
+		public void IncrementHealth(float value)
+		{
+			if (dead) return;
+			currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, currentPlayerHealth);
+			UpdateHUD();
+			if (currentPlayerHealth <= 0) Die();
+		}
+
+		public void Die()
+    	{
+		player.reticle.Visible = false;
+		Engine.TimeScale = 0;
+		dead = true;
+		//FadeScreen(new Color(0,0,0,.75f), 1);
+		//await ToSignal(GetTree().CreateTimer(2f), "timeout");
+		deathScreen.Show();
+		deathScreen.menuButton.autoFocussed = true;
+		deathScreen.menuButton.GrabFocus();
+    	}
+
+		public void PauseMenu()
+		{
+			if (dead) return;
+			if (paused)
+			{
+				pauseMenu.Hide();
+				Engine.TimeScale = 1;
+			}
+			else
+			{
+				pauseMenu.Show();
+				pauseMenu.resumeButton.autoFocussed = true;
+				pauseMenu.resumeButton.GrabFocus();
+				Engine.TimeScale = 0;
+			}
+			paused = !paused;
+		}
+
 		public void UpdateHUD()
 		{
-			hud.SetValues();
+			hud?.SetValues();
 		}
 
-		public void GotoZone(PackedScene nextZone, Door door)
+		public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
+
+		public void Reset()
 		{
-			playerRelativePosition = player.GlobalTransform.Origin - door.GlobalTransform.Origin;
-			CallDeferred(MethodName.DeferredGotoZone, nextZone);
+			Engine.TimeScale = 1;
+			dead = false;
+			currentPlayerHealth = playerHealth;
+			paused = false;
 		}
 
-		public void DeferredGotoZone(PackedScene nextZone)
+		public void DeferredGotoScene(PackedScene nextScene)
 		{
 			// It is now safe to remove the current scene.
-			CurrentZone.Free();
-
-			// Instance the new scene.
-			CurrentZone = Zone.Initialise(nextZone);
-
-			// Add it to the active scene, as child of root.
-			GetTree().Root.AddChild(CurrentZone);
-
-			// Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
-			GetTree().CurrentScene = CurrentZone;
+			CurrentScene.Free();
+			CurrentScene = nextScene.Instantiate();
+			GetTree().Root.AddChild(CurrentScene);
+			GetTree().CurrentScene = CurrentScene;
 
 			//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-			player = CurrentZone.GetNodeOrNull<Player>("player");
-			hud = player.GetNode<Hud>("body/head/Camera3D/hud");
-			player.GlobalPosition = playerRelativePosition;
-
-			// spawn enemies at current level
-			CurrentZone.Populate(currentLevel);
+			player = CurrentScene?.GetNodeOrNull<Player>("player");
+			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
+			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
+			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+			//player.GlobalPosition = playerRelativePosition;
 			UpdateHUD();
 		}
 

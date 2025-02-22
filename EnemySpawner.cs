@@ -3,18 +3,19 @@ using System;
 
 public partial class EnemySpawner : Node3D
 {
-    [Export]
-    public string enemyName = "chaser";
-    private PackedScene loadedEnemy;
+    private PackedScene LoadedEnemy;
+    private int SpawnSpeed = 1;
     public override void _Ready()
     {
         AddToGroup("spawners");
-        loadedEnemy = ResourceLoader.Load<PackedScene>("res://enemies/" + enemyName + ".tscn");
+        Spawn();
     }
+    public void LoadEnemy(string type) => LoadedEnemy = GD.Load<PackedScene>("res://enemies/" + type + ".tscn");
 
-    public void Spawn(int level)
+    public async void Spawn()
     {
-        Enemy enemy = Enemy.InitEnemy(loadedEnemy, level, GlobalTransform);
+        await ToSignal(GetTree().CreateTimer(SpawnSpeed), "timeout");
+        Enemy enemy = Enemy.InitEnemy(LoadedEnemy, Global.Singleton.currentLevel, GlobalTransform);
         var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", enemy);
     }
