@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=28 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
@@ -65,6 +65,22 @@ gradient = SubResource("Gradient_byoy3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_88dwc"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.640167, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vxrry"]
+gradient = SubResource("Gradient_88dwc")
+fill = 1
+fill_from = Vector2(0.512821, 0.482906)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trox3"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ktqd"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
@@ -84,7 +100,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
 offset = Vector2(-150, -175)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_p25tb")
-animation = &"shoot"
+animation = &"idle"
 
 [node name="rightHand" type="AnimatedSprite3D" parent="body/hands"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
@@ -124,10 +140,35 @@ visible = false
 [node name="deathScreen" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("5_cxwdp")]
 visible = false
 
+[node name="hit" type="TextureRect" parent="body/head/Camera3D/CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_vxrry")
+
+[node name="recharge" type="ProgressBar" parent="body/head/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 28.0
+offset_right = 25.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_trox3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5ktqd")
+show_percentage = false
+
 [node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
-collision_mask = 4
+collision_mask = 6
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

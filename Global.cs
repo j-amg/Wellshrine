@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 using Godot.Collections;
 
@@ -29,6 +30,10 @@ public partial class Global : Node
 		private DeathScreen deathScreen;
 		public string Objective = "";
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
+		public float interactionRange = 5;
+		//BUFFS
+		public float playerDamageScale = 1f;
+
 		public override void _Ready()
 		{
         Viewport root = GetTree().Root;
@@ -65,13 +70,17 @@ public partial class Global : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(double delta)
         {
-        if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead)
-		{
-			GD.Print("try pause");
-			PauseMenu();
-		} 
-
+        	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead)
+			{
+				GD.Print("try pause");
+				PauseMenu();
+			} 
         }
+
+		public void AddBuff(string buff)
+		{
+			if (buff == "damage") playerDamageScale += .25f;
+		}
 
 		public void IncrementHealth(float value)
 		{
@@ -86,8 +95,6 @@ public partial class Global : Node
 		player.reticle.Visible = false;
 		Engine.TimeScale = 0;
 		dead = true;
-		//FadeScreen(new Color(0,0,0,.75f), 1);
-		//await ToSignal(GetTree().CreateTimer(2f), "timeout");
 		deathScreen.Show();
 		deathScreen.menuButton.autoFocussed = true;
 		deathScreen.menuButton.GrabFocus();
@@ -111,10 +118,7 @@ public partial class Global : Node
 			paused = !paused;
 		}
 
-		public void UpdateHUD()
-		{
-			hud?.SetValues();
-		}
+		public void UpdateHUD() => hud?.SetValues();
 
 		public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 
@@ -162,20 +166,4 @@ public partial class Global : Node
 		}
 		public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
 
-		// public void PauseMenu()
-		// {
-		// 	if (paused)
-		// 	{
-		// 		pauseMenu.Hide();
-		// 		Engine.TimeScale = 1;
-		// 	}
-		// 	else
-		// 	{
-		// 		pauseMenu.Show();
-		// 		pauseMenu.resumeButton.autoFocussed = true;
-		// 		pauseMenu.resumeButton.GrabFocus();
-		// 		Engine.TimeScale = 0;
-		// 	}
-		// 	paused = !paused;
-		// }
 }

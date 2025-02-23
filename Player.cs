@@ -34,7 +34,14 @@ public partial class Player : CharacterBody3D, IDamageable
 	private Vector3 last_physics_pos;
 	private StateMachine stateMachine;
 	private RayCast3D lookRay;
-	private Enemy existingHit;
+	private GodotObject existingHit;
+	private TextureRect hitFlash;
+	private string equippedWeapon;
+	private float attackRecharge = 1f;
+	private bool recharging = false;
+	private ProgressBar rechargeBar;
+
+	public float hitDistance = 0;
 
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -54,6 +61,8 @@ public partial class Player : CharacterBody3D, IDamageable
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
 		reticle = camera.GetNode<TextureRect>("CanvasLayer/reticle");
+		rechargeBar = camera.GetNode<ProgressBar>("CanvasLayer/recharge");
+		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -65,8 +74,26 @@ public partial class Player : CharacterBody3D, IDamageable
         Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
-		if (Input.IsActionJustPressed("LeftMouse")) Shoot();
+		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
+		{
+			Shoot();
+			Recharge(attackRecharge);
+		}
+
+		if (Input.IsActionJustPressed("interact"))
+		{
+			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange) interactable.Interact();
+		}
 		last_physics_pos = Position;
+	}
+
+	private async void Recharge(float duration)
+	{
+		recharging = true;
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(rechargeBar, "value", 0, duration).From(100);
+		await ToSignal(GetTree().CreateTimer(duration), "timeout");
+		recharging = false;
 	}
 
 	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
@@ -74,6 +101,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	void IDamageable.Damage(float amount)
 	{
 		GD.Print("player takes damage");
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,1));
 		Global.Singleton.IncrementHealth(-amount);
 		EmitSignal(SignalName.damageTaken);
 	}
@@ -87,18 +116,35 @@ public partial class Player : CharacterBody3D, IDamageable
     {
         float fraction = (float)Engine.GetPhysicsInterpolationFraction();
 		GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
-		Enemy currentHit = (Enemy)lookRay.GetCollider();
+		GodotObject currentHit = lookRay.GetCollider();
+		//GD.Print(currentHit?.GetClass().ToString());
+		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
 		if (currentHit != existingHit)
 		{
-			if (existingHit != null) existingHit.highlighted = false;
-			existingHit = currentHit;
-			if (currentHit != null)
+			if (existingHit != null)
 			{
-				reticle.Modulate = new Color(1,0,0);
-				currentHit.highlighted = true;
+				if (existingHit is Enemy enemy) enemy.highlighted = false;
+				if (existingHit is IInteractable interactable) interactable.Highlighted = false;
+			} 
+			existingHit = currentHit;
+			
+			if (currentHit is Enemy || currentHit is IInteractable)
+			{
+				if (currentHit is Enemy enemy)
+				{
+					enemy.highlighted = true;
+					reticle.Modulate = new Color(1,0,0);
+				} 
+				if (currentHit is IInteractable interactable)
+				{
+					interactable.Highlighted = true;
+					reticle.Modulate = new Color(0,0,1);
+				} 
 			}
 			else reticle.Modulate = new Color(1, 1, 1);
-		} 
+		}
+
+		//if (currentHit is IInteractable)
     }
 
 
@@ -142,14 +188,25 @@ public partial class Player : CharacterBody3D, IDamageable
 	private void Shoot()
 	{
 		//GD.Print("shoot");
-		rightHand.Play("shoot");
-		leftHand.Play("shoot");
+		ShootHands();
+		//leftHand.Play("shoot");
 		Projectile b = bullet.Instantiate() as Projectile;
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", b);
-		b.damage = 5;
+		b.damage = 5 * Global.Singleton.playerDamageScale;
 		b.Transform = head.GlobalTransform;
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
-		
+	}
+
+	private async void ShootHands()
+	{
+		rightHand.Play("shoot");
+		await ToSignal(GetTree().CreateTimer(.25), "timeout");
+		if (stateMachine.current_state.Name == "glide")
+		{
+			rightHand.Play("aim");
+		} else {
+		rightHand.Play("idle");
+		}
 	}
 }

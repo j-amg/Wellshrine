@@ -35,6 +35,8 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public bool highlighted = false;
 	public bool damaged = false;
 	public bool aggro = false;
+
+	private Sprite3D sprite;
 	
 
 	public override void _Ready()
@@ -46,6 +48,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		damageTaken += OnDamageTaken;
 		AddToGroup("enemies");
 		GetNode<EnemyLabel>("SubViewport/label").SetValues();
+		sprite = GetNode<Sprite3D>("sprite");
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
 	}
@@ -58,6 +61,13 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		
 	}
 
+	private async void Stun()
+	{
+		SetPhysicsProcess(false);
+		await ToSignal(GetTree().CreateTimer(.5), "timeout");
+		SetPhysicsProcess(true);
+	}
+
 	public static Enemy InitEnemy(PackedScene scene, int levelParam, Transform3D transformParam)
 	{
 		Enemy enemy = scene.Instantiate<Enemy>();
@@ -68,6 +78,9 @@ public partial class Enemy : CharacterBody3D, IDamageable
 
     void IDamageable.Damage(float amount)
 	{
+		Stun();
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(sprite, "modulate", sprite.Modulate, .25).From(new Color(1,0,0,1));
 		currentHealth -= amount;
 		EmitSignal(SignalName.damageTaken);
 	}

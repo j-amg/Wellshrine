@@ -23,17 +23,27 @@ public partial class Projectile : Area3D
 	{
 		BodyEntered += OnBodyEntered;
 		explosion.explosionFinished += OnExplosionFinished;
+		AreaEntered += OnAreaEntered;
 		//GetNode<Sprite3D>("Projectile").Visible = true;
 		
 	}
 
+    private void OnAreaEntered(Area3D area)
+    {
+    	if (area is Projectile proj)
+		{
+			Hit(proj);
+			proj.Hit(this);
+		} 
+    }
+
     private void OnExplosionFinished() => QueueFree();
 
-    private void OnBodyEntered(Node3D body)
-    {
+	public void Hit(Node3D target)
+	{
 		GetNode<Sprite3D>("projectile").Visible = false;
 		SetPhysicsProcess(false);
-		if(body is IDamageable damageable) {
+		if(target is IDamageable damageable && target != this) {
 			GD.Print("hit enemy!");
         	damageable.Damage(damage);
     	}
@@ -46,8 +56,9 @@ public partial class Projectile : Area3D
 		{
 			QueueFree();
 		}
-		
-    }
+	}
+
+    private void OnBodyEntered(Node3D body) => Hit(body);
 
     public override void _PhysicsProcess(double delta)
 	{
