@@ -12,8 +12,11 @@ viewport_path = NodePath("SubViewport")
 
 [node name="enemy" instance=ExtResource("1_y66yp")]
 script = ExtResource("2_okrev")
+baseMovementSpeed = 3.0
 name = "shooter dog"
 baseHealth = 10.0
+detectionRange = 100.0
+detectionFalloffRange = 100.0
 attackRange = 10.0
 
 [node name="sprite" parent="." index="2"]

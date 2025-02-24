@@ -11,6 +11,7 @@ public partial class BuffShrine : Shrine, IInteractable
     {
         base._Ready();
         SetBuff("Damage");
+        AddToGroup("shrines");
     }
     public void SetBuff(string type)
     {

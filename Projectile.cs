@@ -16,6 +16,8 @@ public partial class Projectile : Area3D
 	public float gravity = 0;
 	[Export]
 	public Explosion explosion;
+
+	private Sprite3D sprite;
 	public Vector3 velocity = Vector3.Zero;
 	public float damage = 0;
 
@@ -24,8 +26,16 @@ public partial class Projectile : Area3D
 		BodyEntered += OnBodyEntered;
 		explosion.explosionFinished += OnExplosionFinished;
 		AreaEntered += OnAreaEntered;
-		//GetNode<Sprite3D>("Projectile").Visible = true;
+		sprite = GetNode<Sprite3D>("projectile");
+		Setup();
 		
+	}
+
+	private async void Setup()
+	{
+		await ToSignal(GetTree().CreateTimer(.1), "timeout");
+		sprite.Visible = true;
+		//SetCollisionMaskValue(2, true);
 	}
 
     private void OnAreaEntered(Area3D area)
@@ -34,14 +44,14 @@ public partial class Projectile : Area3D
 		{
 			Hit(proj);
 			proj.Hit(this);
-		} 
+		}
     }
 
-    private void OnExplosionFinished() => QueueFree();
+    private void OnExplosionFinished() => CallDeferred("queue_free");
 
 	public void Hit(Node3D target)
 	{
-		GetNode<Sprite3D>("projectile").Visible = false;
+		sprite.Visible = false;
 		SetPhysicsProcess(false);
 		if(target is IDamageable damageable && target != this) {
 			GD.Print("hit enemy!");
@@ -54,7 +64,7 @@ public partial class Projectile : Area3D
 			explosion.Explode(damage, explosionDelay);
 		} else
 		{
-			QueueFree();
+			CallDeferred("queue_free");
 		}
 	}
 

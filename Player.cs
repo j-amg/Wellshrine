@@ -74,6 +74,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
     public override void _PhysicsProcess(double delta)
 	{
+		if (Global.Singleton.paused) return;
 		//if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
         Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
@@ -95,7 +96,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		if (Input.IsActionPressed("RightMouse"))
 		{
 			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera, "fov", zoomFOV, .25);
+			tween.TweenProperty(camera, "fov", zoomFOV, .1);
 		}
 
 		if (Input.IsActionJustReleased("RightMouse"))
@@ -128,10 +129,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		EmitSignal(SignalName.damageTaken);
 	}
 
-	private void OnDamageTaken()
-	{
-		return;
-	}
+	private void OnDamageTaken() {return;}
 
     public override void _Process(double delta)
     {
@@ -160,19 +158,25 @@ public partial class Player : CharacterBody3D, IDamageable
 					enemy.highlighted = true;
 					reticle.Modulate = new Color(1,0,0);
 				} 
-				if (currentHit is IInteractable interactable)
+				if (currentHit is IInteractable interactable && interactable.Active)
 				{
 					interactable.Highlighted = true;
 					reticle.Modulate = new Color(0,0,1);
-				} 
+				}
 			}
 			else reticle.Modulate = new Color(1, 1, 1);
 		}
 
-		if (currentHit is IInteractable interactable1 && hitDistance <= Global.Singleton.interactionRange && interactable1.Active)
+		if (currentHit is IInteractable interactable1)
 		{
-			interactLabel.Visible = true;
-		} else interactLabel.Visible = false;
+			if (hitDistance <= Global.Singleton.interactionRange && interactable1.Active)
+			{
+				interactLabel.Visible = true;
+			} else interactLabel.Visible = false;
+
+			if (!interactable1.Active) reticle.Modulate = new Color(1, 1, 1);
+		}
+
     }
 
 
@@ -216,7 +220,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private void Shoot()
 	{
 		//GD.Print("shoot");
-		ShootHands();
+		ShootAnim();
 		//leftHand.Play("shoot");
 		Projectile b = bullet.Instantiate() as Projectile;
 		var main = GetTree().CurrentScene;
@@ -226,8 +230,11 @@ public partial class Player : CharacterBody3D, IDamageable
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
 	}
 
-	private async void ShootHands()
+	private async void ShootAnim()
 	{
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(camera, "rotation_degrees", new Vector3(5, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
+		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .5);
 		rightHand.Play("shoot");
 		await ToSignal(GetTree().CreateTimer(.25), "timeout");
 		if (stateMachine.current_state.Name == "glide")

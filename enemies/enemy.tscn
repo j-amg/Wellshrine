@@ -26,6 +26,7 @@ shape = SubResource("CapsuleShape3D_f8hv5")
 
 [node name="sprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.959964, 0)
+visible = false
 billboard = 2
 texture = ExtResource("2_6w3e6")
 

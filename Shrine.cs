@@ -16,7 +16,6 @@ public partial class Shrine : StaticBody3D, IInteractable
         label = GetNode<Sprite3D>("Sprite3D");
         name = GetNode<Label>("SubViewport/Control/Name");
         effect = GetNode<Label>("SubViewport/Control/Effect");
-        AddToGroup("shrines");
     }
 
     public void Deactivate()

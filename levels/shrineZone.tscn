@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjfaruvqiqlsa"]
+[gd_scene load_steps=12 format=3 uid="uid://cjfaruvqiqlsa"]
 
 [ext_resource type="Script" path="res://levels/shrineZone.cs" id="1_ybmgi"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_anyo3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_73uy1"]
 [ext_resource type="PackedScene" uid="uid://brt67t3q73a3u" path="res://buffShrine.tscn" id="6_hykga"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_n3ams"]
+[ext_resource type="PackedScene" uid="uid://dm5fruxngcou4" path="res://wellShrine.tscn" id="7_w4oj1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_68l3h"]
 shader = ExtResource("2_anyo3")
@@ -70,3 +71,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
 
 [node name="shrine3" parent="." instance=ExtResource("6_hykga")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
+
+[node name="shrine4" parent="." instance=ExtResource("7_w4oj1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)

@@ -14,15 +14,14 @@ public partial class WeaponShrine : Shrine, IInteractable
     {
         base._Ready();
         name.Text = weapon;
-        effect.Text = description; 
+        effect.Text = description;
+        AddToGroup("shrines");
     }
     void IInteractable.Interact()
     {
         GD.Print("Add weapon " + weapon + "!");
         Global.Singleton.equippedWeapon = weapon;
         if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();
-
-
         foreach (Shrine shrine in GetTree().GetNodesInGroup("shrines").Cast<Shrine>()) shrine.Deactivate();
     }
 }

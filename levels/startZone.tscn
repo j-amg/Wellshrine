@@ -11,13 +11,13 @@
 shader = ExtResource("2_6vmps")
 shader_parameter/skyColour = null
 
-[sub_resource type="Sky" id="Sky_ekyga"]
+[sub_resource type="Sky" id="Sky_68b7k"]
 sky_material = SubResource("ShaderMaterial_68l3h")
 
 [sub_resource type="Environment" id="Environment_xvvfk"]
 background_mode = 2
 background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_ekyga")
+sky = SubResource("Sky_68b7k")
 sky_rotation = Vector3(1.5708, 0, 0)
 ambient_light_source = 3
 ambient_light_color = Color(0.290196, 0.290196, 0.290196, 1)
