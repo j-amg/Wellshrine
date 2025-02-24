@@ -19,7 +19,7 @@ public partial class Menu : Control
 	private void OnStartPressed()
 	{
 		Global.Singleton.Reset();
-		PackedScene zone = GD.Load<PackedScene>("res://levels/Level.tscn");
+		PackedScene zone = GD.Load<PackedScene>("res://levels/startZone.tscn");
 		Global.Singleton.GotoScene(zone);
 		//Global.Singleton.PauseMusic();
 	}

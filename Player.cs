@@ -11,8 +11,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
 	private float handsMovementSmoothing = 10;
-	float zoomFOV = 80;
-	float walkingFOV = 90;
+	float zoomFOV = 70;
+	float walkingFOV = 80;
 	float sprintingFOV = 100;
 	public Node3D body;
 	public Node3D head;
@@ -40,12 +40,15 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float attackRecharge = 1f;
 	private bool recharging = false;
 	private ProgressBar rechargeBar;
-
+	private Label interactLabel;
+	public float bodyCrouchHeight = -0.3f;
+    public float bodyStandHeight = 0;
+	public float crouchSpeed = 0.2f;
 	public float hitDistance = 0;
 
-
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	public float gravity = 12;
 
     public override void _Ready()
     {
@@ -63,6 +66,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		reticle = camera.GetNode<TextureRect>("CanvasLayer/reticle");
 		rechargeBar = camera.GetNode<ProgressBar>("CanvasLayer/recharge");
 		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
+		interactLabel = camera.GetNode<Label>("CanvasLayer/interactLabel");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -74,6 +78,9 @@ public partial class Player : CharacterBody3D, IDamageable
         Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
+
+		//GD.Print(head.GlobalBasis.Z);
+
 		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
 		{
 			Shoot();
@@ -82,8 +89,22 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Input.IsActionJustPressed("interact"))
 		{
-			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange) interactable.Interact();
+			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
 		}
+
+		if (Input.IsActionPressed("RightMouse"))
+		{
+			Tween tween = GetTree().CreateTween();
+			tween.TweenProperty(camera, "fov", zoomFOV, .25);
+		}
+
+		if (Input.IsActionJustReleased("RightMouse"))
+		{
+			Tween tween = GetTree().CreateTween();
+			tween.TweenProperty(camera, "fov", walkingFOV, .25);
+		}
+
+
 		last_physics_pos = Position;
 	}
 
@@ -124,7 +145,11 @@ public partial class Player : CharacterBody3D, IDamageable
 			if (existingHit != null)
 			{
 				if (existingHit is Enemy enemy) enemy.highlighted = false;
-				if (existingHit is IInteractable interactable) interactable.Highlighted = false;
+				if (existingHit is IInteractable interactable)
+				{
+					interactable.Highlighted = false;
+					interactLabel.Visible = false;
+				} 
 			} 
 			existingHit = currentHit;
 			
@@ -144,7 +169,10 @@ public partial class Player : CharacterBody3D, IDamageable
 			else reticle.Modulate = new Color(1, 1, 1);
 		}
 
-		//if (currentHit is IInteractable)
+		if (currentHit is IInteractable interactable1 && hitDistance <= Global.Singleton.interactionRange && interactable1.Active)
+		{
+			interactLabel.Visible = true;
+		} else interactLabel.Visible = false;
     }
 
 

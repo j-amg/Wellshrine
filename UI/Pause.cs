@@ -20,6 +20,4 @@ public partial class Pause : Control
         Global.Singleton.GotoScene(menu);
     }
     private void OnQuitPressed() => GetTree().Quit();
-
-
 }

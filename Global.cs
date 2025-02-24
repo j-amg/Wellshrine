@@ -21,7 +21,6 @@ public partial class Global : Node
 		private int playerGold;
 		private float playerAttackSpeed = 1;
 		private float playerMoveSpeed = 1;
-		private float playerDamageMult = 1;
 		private Vector3 playerRelativePosition;
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
@@ -30,7 +29,9 @@ public partial class Global : Node
 		private DeathScreen deathScreen;
 		public string Objective = "";
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
-		public float interactionRange = 5;
+		public float interactionRange = 3;
+
+		public string equippedWeapon;
 		//BUFFS
 		public float playerDamageScale = 1f;
 
@@ -45,6 +46,7 @@ public partial class Global : Node
 		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
 		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
 		//CurrentZone.Populate(currentLevel);
+		if (CurrentScene is Zone zone) Objective = zone.objective;
 		UpdateHUD();
 
 		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
@@ -79,7 +81,7 @@ public partial class Global : Node
 
 		public void AddBuff(string buff)
 		{
-			if (buff == "damage") playerDamageScale += .25f;
+			if (buff == "Damage") playerDamageScale += .25f;
 		}
 
 		public void IncrementHealth(float value)
@@ -118,12 +120,17 @@ public partial class Global : Node
 			paused = !paused;
 		}
 
-		public void UpdateHUD() => hud?.SetValues();
+    public void UpdateHUD()
+    {
+        hud?.SetValues();
+    }
 
-		public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
+    public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 
 		public void Reset()
 		{
+			currentLevel = 1;
+			playerDamageScale = 1;
 			Engine.TimeScale = 1;
 			dead = false;
 			currentPlayerHealth = playerHealth;
@@ -138,12 +145,11 @@ public partial class Global : Node
 			GetTree().Root.AddChild(CurrentScene);
 			GetTree().CurrentScene = CurrentScene;
 
-			//pauseMenu = CurrentScene.GetNodeOrNull<Pause>("camera/CanvasLayer/pause");
-			player = CurrentScene?.GetNodeOrNull<Player>("player");
+			player = CurrentScene.GetNodeOrNull<Player>("player");
 			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
 			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
 			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
-			//player.GlobalPosition = playerRelativePosition;
+			if (CurrentScene is Zone zone) Objective = zone.objective;
 			UpdateHUD();
 		}
 

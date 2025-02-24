@@ -24,6 +24,7 @@ public partial class ChaserChase : State
 		direction = nav.GetNextPathPosition() - enemy.GlobalPosition;
 		direction = direction.Normalized();
 		velocity = velocity.Lerp(direction * enemy.baseMovementSpeed, (float)(enemy.acceleration * delta));
+        if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
 		enemy.Velocity = velocity;
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
         if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");

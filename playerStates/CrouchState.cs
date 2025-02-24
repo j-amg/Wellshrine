@@ -9,18 +9,15 @@ public partial class CrouchState : State
     float acceleration = .25f;
     [Export]
     float deceleration = 0.25f;
-    [Export]
-    float crouchSpeed = 0.1f;
-    [Export]
-    float bodyCrouchHeight = -0.2f;
-    float bodyStandHeight = 0;
+
+
 
     public override void Enter()
     {
 		player.crouchCollision.Disabled = false;
 		player.standCollision.Disabled = true;
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, bodyCrouchHeight, player.body.Position.Z), crouchSpeed).SetTrans(Tween.TransitionType.Sine);
+        tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, player.bodyCrouchHeight, player.body.Position.Z), player.crouchSpeed).SetTrans(Tween.TransitionType.Sine);
         base.Enter();
     }
 
@@ -29,7 +26,7 @@ public partial class CrouchState : State
 		player.crouchCollision.Disabled = true;
 		player.standCollision.Disabled = false;
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, bodyStandHeight, player.body.Position.Z), crouchSpeed).SetTrans(Tween.TransitionType.Sine);
+        tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, player.bodyStandHeight, player.body.Position.Z), player.crouchSpeed).SetTrans(Tween.TransitionType.Sine);
         base.Exit();
     }
     public override void Update(double delta)

@@ -1,25 +1,27 @@
 using Godot;
 using System;
-using Godot.Collections;
+
+using System.Linq;
 
 public partial class Shrine : StaticBody3D, IInteractable
 {
-    private bool highlighted;
-    private string buff;
-    public Array<string> buffTypes = new() {"damage", "crit", "jump", "stun", "attackspeed"};
+    public Sprite3D label;
+    public Label name;
+    public Label effect;
     public bool Highlighted {get; set;}
+    public bool Active {get; set;}
     public override void _Ready()
     {
-        SelectBuff();
+        Active = true;
+        label = GetNode<Sprite3D>("Sprite3D");
+        name = GetNode<Label>("SubViewport/Control/Name");
+        effect = GetNode<Label>("SubViewport/Control/Effect");
+        AddToGroup("shrines");
     }
-    public void SelectBuff()
+
+    public void Deactivate()
     {
-        buff = buffTypes.PickRandom();
-        
-    }
-    void IInteractable.Interact()
-    {
-        GD.Print("Add buff " + buff + "!");
-        Global.Singleton.AddBuff("damage");
+        Active = false;
+        label.Visible = false;
     }
 }

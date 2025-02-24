@@ -39,10 +39,6 @@ text = "Zone: "
 layout_mode = 2
 text = "Objective"
 
-[node name="enemies" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Enemies:"
-
 [node name="health" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7

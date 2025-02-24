@@ -7,14 +7,12 @@ public partial class MenuButton : TextureButton
 	public AudioStream focus;
 	[Export]
 	public AudioStream pressed;
-	private TextureRect selectLeft;
-	private TextureRect selectRight;
+	private TextureRect select;
 	public bool autoFocussed = false;
 	Global globals;
 	public override void _Ready()
 	{
-		selectLeft = GetNode<TextureRect>("selectLeft");
-		selectRight = GetNode<TextureRect>("selectRight");
+		select = GetNode<TextureRect>("select");
 		GetNode<Label>("Label").Text = text;
 		HideSelect();
 		FocusMode = FocusModeEnum.All;
@@ -30,13 +28,11 @@ public partial class MenuButton : TextureButton
 	{
 		//if (!autofocussed) Global.Singleton.PlaySound(focus);
 		autoFocussed = false;
-		selectLeft.Visible = true;
-		selectRight.Visible = true;
+		select.Visible = true;
 		
 	}
 	public void HideSelect()
 	{
-		selectLeft.Visible = false;
-		selectRight.Visible = false;
+		select.Visible = false;
 	}
 }

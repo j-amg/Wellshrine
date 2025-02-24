@@ -31,6 +31,7 @@ public partial class FallState : State
 		{
 			EmitSignal(SignalName.transition, "glide");
 		}
+		
 		if (player.IsOnFloor())
 		{
 			EmitSignal(SignalName.landed);

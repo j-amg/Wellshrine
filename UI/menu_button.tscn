@@ -2,12 +2,28 @@
 
 [ext_resource type="Script" path="res://UI/MenuButton.cs" id="1_3yaqt"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eln1l"]
+[sub_resource type="Gradient" id="Gradient_a72bu"]
+colors = PackedColorArray(1, 1, 0, 1, 0, 1, 1, 0)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ayg3m"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xvmlv"]
+gradient = SubResource("Gradient_a72bu")
+width = 32
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.880795, 0.178808)
 
 [node name="menuButton" type="TextureButton"]
 script = ExtResource("1_3yaqt")
+
+[node name="select" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 160.0
+offset_right = 318.0
+offset_bottom = 22.0
+texture = SubResource("GradientTexture2D_xvmlv")
+flip_h = true
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -20,20 +36,3 @@ theme_override_font_sizes/font_size = 12
 text = "placeholder"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="selectRight" type="TextureRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_left = 300.0
-offset_right = 320.0
-offset_bottom = 20.0
-texture = SubResource("PlaceholderTexture2D_eln1l")
-
-[node name="selectLeft" type="TextureRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_left = 160.0
-offset_right = 180.0
-offset_bottom = 20.0
-texture = SubResource("PlaceholderTexture2D_ayg3m")
-flip_h = true
