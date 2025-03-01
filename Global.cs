@@ -33,7 +33,21 @@ public partial class Global : Node
 
 		public string equippedWeapon;
 		//BUFFS
-		public float playerDamageScale = 1f;
+
+		public const float basePlayerDamageBuff = 1f;
+		public const float basePlayerCritDamageBuff = 2f;
+		public const float basePlayerMoveSpeedBuff = 0f;
+		public const float basePlayerStunDurationBuff = 0f;
+		public const int basePlayerMaxHealthBuff = 0;
+		public const float basePlayerRechargeBuff = .5f;
+
+		public float playerDamageBuff;
+		public float playerCritDamageBuff;
+		public float playerMoveSpeedBuff;
+		public float playerStunDurationBuff;
+		public int playerMaxHealthBuff;
+		public float playerRechargeBuff;
+
 
 		public override void _Ready()
 		{
@@ -47,6 +61,7 @@ public partial class Global : Node
 		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
 		//CurrentZone.Populate(currentLevel);
 		if (CurrentScene is Zone zone) Objective = zone.objective;
+		Reset();
 		UpdateHUD();
 
 		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
@@ -81,7 +96,18 @@ public partial class Global : Node
 
 		public void AddBuff(string buff)
 		{
-			if (buff == "Damage") playerDamageScale += .25f;
+
+			if (buff == "Increased Damage") playerDamageBuff += .25f;
+			if (buff == "Increased Critical Damage") playerCritDamageBuff +=.25f;
+			if (buff == "Increased Move Speed") playerMoveSpeedBuff += 2;
+			if (buff == "Increased Stun Duration") playerStunDurationBuff +=.1f;
+			if (buff == "Increased Max Health")
+			{
+				GD.Print("increase health");
+				playerHealth += 10;
+				UpdateHUD();
+			} 
+			if (buff == "Reduced Rechare") playerRechargeBuff *= .75f;
 		}
 
 		public void IncrementHealth(float value)
@@ -129,8 +155,17 @@ public partial class Global : Node
 
 		public void Reset()
 		{
+
+			playerDamageBuff = basePlayerDamageBuff;
+			playerCritDamageBuff = basePlayerCritDamageBuff;
+			playerMoveSpeedBuff = basePlayerMoveSpeedBuff;
+			playerStunDurationBuff = basePlayerStunDurationBuff;
+			playerMaxHealthBuff = basePlayerMaxHealthBuff;
+			playerRechargeBuff = basePlayerRechargeBuff;
+
+
 			currentLevel = 1;
-			playerDamageScale = 1;
+			playerDamageBuff = 1;
 			Engine.TimeScale = 1;
 			dead = false;
 			currentPlayerHealth = playerHealth;

@@ -176,7 +176,6 @@ public partial class Player : CharacterBody3D, IDamageable
 
 			if (!interactable1.Active) reticle.Modulate = new Color(1, 1, 1);
 		}
-
     }
 
 
@@ -225,7 +224,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		Projectile b = bullet.Instantiate() as Projectile;
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", b);
-		b.damage = 5 * Global.Singleton.playerDamageScale;
+		b.damage = GD.Randf() <= .25f ? 5 * Global.Singleton.playerDamageBuff * Global.Singleton.playerCritDamageBuff : 5 * Global.Singleton.playerDamageBuff;
 		b.Transform = head.GlobalTransform;
 		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
 	}

@@ -134,12 +134,6 @@ texture = SubResource("GradientTexture2D_lercf")
 
 [node name="hud" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("3_gxljr")]
 
-[node name="pause" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("4_quk40")]
-visible = false
-
-[node name="deathScreen" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("5_cxwdp")]
-visible = false
-
 [node name="hit" type="TextureRect" parent="body/head/Camera3D/CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -180,6 +174,12 @@ offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "(X) to interact"
+
+[node name="pause" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("4_quk40")]
+visible = false
+
+[node name="deathScreen" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("5_cxwdp")]
+visible = false
 
 [node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
