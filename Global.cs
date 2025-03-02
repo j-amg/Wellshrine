@@ -31,7 +31,7 @@ public partial class Global : Node
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
 		public float interactionRange = 3;
 
-		public string equippedWeapon;
+		public Weapon equippedWeapon;
 		//BUFFS
 
 		public const float basePlayerDamageBuff = 1f;
@@ -48,6 +48,8 @@ public partial class Global : Node
 		public int playerMaxHealthBuff;
 		public float playerRechargeBuff;
 
+		public Dictionary<string, Weapon> weapons = new();
+
 
 		public override void _Ready()
 		{
@@ -59,6 +61,13 @@ public partial class Global : Node
 		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
 		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
 		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+
+		// create weapons
+		weapons.Add("fireball", Weapon.InitWeapon("fireball", 2, 7, .5f, .2f, 5));
+		weapons.Add("icespike", Weapon.InitWeapon("icespike", 4, 4, .2f, .1f, 2));
+		weapons.Add("shockblade", Weapon.InitWeapon("shockblade", 1, 20, 1f, 1, 10));
+
+
 		//CurrentZone.Populate(currentLevel);
 		if (CurrentScene is Zone zone) Objective = zone.objective;
 		Reset();
@@ -110,12 +119,23 @@ public partial class Global : Node
 			if (buff == "Reduced Rechare") playerRechargeBuff *= .75f;
 		}
 
+		public void EquipWeapon(string weapon)
+		{
+			equippedWeapon = weapons[weapon];
+		}
+
 		public void IncrementHealth(float value)
 		{
 			if (dead) return;
 			currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, currentPlayerHealth);
 			UpdateHUD();
 			if (currentPlayerHealth <= 0) Die();
+		}
+
+		public float GetDamage()
+		{
+			int baseDamage = GD.RandRange(equippedWeapon.damageMin, equippedWeapon.damageMax);
+			return GD.Randf() <= .25f ? baseDamage * playerDamageBuff * playerCritDamageBuff : 5 * playerDamageBuff;
 		}
 
 		public void Die()

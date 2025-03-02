@@ -64,15 +64,15 @@ data = {
 
 [node name="ProjShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
-weapon = "Fireball"
-description = "Lob a fireball that explodes in a small area"
+weapon = "fireball"
+displayName = "FireBall"
 
 [node name="HitscanShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 5)
-weapon = "Ice Spike"
-description = "Shoot a spike of ice that pierces enemies"
+weapon = "icespike"
+displayName = "IceSpike"
 
 [node name="MeleeShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
-weapon = "Thunder grasp"
-description = "Release a high damage jolt of electricity in a small area in front of you"
+weapon = "shockblade"
+displayName = "ShockBlade"

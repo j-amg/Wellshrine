@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 
 public partial class Player : CharacterBody3D, IDamageable
@@ -13,7 +14,6 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float handsMovementSmoothing = 10;
 	float zoomFOV = 70;
 	float walkingFOV = 80;
-	float sprintingFOV = 100;
 	public Node3D body;
 	public Node3D head;
 	private Camera3D camera;
@@ -28,16 +28,16 @@ public partial class Player : CharacterBody3D, IDamageable
 	public Vector2 hvel;
 	public Vector2 inputDir;
 	public Vector3 direction;
-	private PackedScene bullet;
+	private PackedScene fireball;
+	private PackedScene iceray;
 	public CollisionShape3D standCollision;
 	public CollisionShape3D crouchCollision;
+	private Area3D iceCollision;
 	private Vector3 last_physics_pos;
 	private StateMachine stateMachine;
 	private RayCast3D lookRay;
 	private GodotObject existingHit;
 	private TextureRect hitFlash;
-	private string equippedWeapon;
-	private float attackRecharge = 1f;
 	private bool recharging = false;
 	private ProgressBar rechargeBar;
 	private Label interactLabel;
@@ -52,7 +52,8 @@ public partial class Player : CharacterBody3D, IDamageable
 
     public override void _Ready()
     {
-		bullet = ResourceLoader.Load<PackedScene>("res://playerProjectile.tscn");
+		fireball = ResourceLoader.Load<PackedScene>("res://playerProjectile.tscn");
+		iceray = ResourceLoader.Load<PackedScene>("res://iceRay.tscn");
 		body = GetNode<Node3D>("body");
         head = body.GetNode<Node3D>("head");
 		camera = head.GetNode<Camera3D>("Camera3D");
@@ -67,6 +68,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		rechargeBar = camera.GetNode<ProgressBar>("CanvasLayer/recharge");
 		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
 		interactLabel = camera.GetNode<Label>("CanvasLayer/interactLabel");
+		iceCollision = camera.GetNode<Area3D>("iceSpikeCollision");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -84,8 +86,9 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
 		{
+			if (Global.Singleton.equippedWeapon == null) return;
 			Shoot();
-			Recharge(attackRecharge);
+			Recharge(Global.Singleton.equippedWeapon.recharge);
 		}
 
 		if (Input.IsActionJustPressed("interact"))
@@ -221,19 +224,36 @@ public partial class Player : CharacterBody3D, IDamageable
 		//GD.Print("shoot");
 		ShootAnim();
 		//leftHand.Play("shoot");
-		Projectile b = bullet.Instantiate() as Projectile;
-		var main = GetTree().CurrentScene;
-		main.CallDeferred("add_child", b);
-		b.damage = GD.Randf() <= .25f ? 5 * Global.Singleton.playerDamageBuff * Global.Singleton.playerCritDamageBuff : 5 * Global.Singleton.playerDamageBuff;
-		b.Transform = head.GlobalTransform;
-		b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+
+		if (Global.Singleton.equippedWeapon.name == "fireball")
+		{
+			Projectile b = fireball.Instantiate() as Projectile;
+			var main = GetTree().CurrentScene;
+			main.CallDeferred("add_child", b);
+			b.damage = Global.Singleton.GetDamage();
+			b.Transform = head.GlobalTransform;
+			b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+		}
+
+		if (Global.Singleton.equippedWeapon.name == "icespike")
+		{
+			foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(Global.Singleton.GetDamage());
+			foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
+			IceRay ray = iceray.Instantiate() as IceRay;
+			var main = GetTree().CurrentScene;
+			main.CallDeferred("add_child", ray);
+			ray.Transform = head.GlobalTransform;
+
+			
+		}
+
 	}
 
 	private async void ShootAnim()
 	{
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(camera, "rotation_degrees", new Vector3(5, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
-		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .5);
+		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
+		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
 		rightHand.Play("shoot");
 		await ToSignal(GetTree().CreateTimer(.25), "timeout");
 		if (stateMachine.current_state.Name == "glide")

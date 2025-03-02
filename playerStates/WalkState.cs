@@ -11,7 +11,7 @@ public partial class WalkState : State
     float deceleration = 0.25f;
 	public override void Update(double delta)
 	{
-        player.UpdateInput(speed, acceleration, deceleration);
+        player.UpdateInput(speed + Global.Singleton.playerMoveSpeedBuff, acceleration, deceleration);
         player.UpdateVelocity();
 		if (Global.Singleton.player.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
         if (Input.IsActionPressed("Shift")) EmitSignal(SignalName.transition, "slide");

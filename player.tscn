@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=29 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
@@ -80,6 +80,10 @@ bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ktqd"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jx2ko"]
+height = 30.0
+radius = 0.05
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
 
@@ -188,6 +192,15 @@ collision_mask = 6
 
 [node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D"]
 spot_range = 15.0
+
+[node name="iceSpikeCollision" type="Area3D" parent="body/head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
+collision_layer = 9
+collision_mask = 12
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="body/head/Camera3D/iceSpikeCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -15.0386)
+shape = SubResource("CylinderShape3D_jx2ko")
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -36,7 +36,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public bool damaged = false;
 	public bool aggro = false;
 	private Sprite3D sprite;
-
 	private Color defaultModulate;
 	
 
@@ -45,6 +44,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		SetPhysicsProcess(false);
 		baseHealth += level * 0.25f * baseHealth;
 		attackDamage += level * 0.25f * attackDamage;
+		baseMovementSpeed += level/10;
 		currentHealth = baseHealth;
 		damageTaken += OnDamageTaken;
 		AddToGroup("enemies");
@@ -53,6 +53,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
 		defaultModulate = sprite.Modulate;
+		
 	}
 
 	private async void Setup()
@@ -67,7 +68,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private async void Stun()
 	{
 		SetPhysicsProcess(false);
-		await ToSignal(GetTree().CreateTimer(.25), "timeout");
+		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
 		SetPhysicsProcess(true);
 	}
 

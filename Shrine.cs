@@ -23,4 +23,10 @@ public partial class Shrine : StaticBody3D, IInteractable
         Active = false;
         label.Visible = false;
     }
+
+    public void Activate()
+    {
+        Active = true;
+        label.Visible = true;
+    }
 }

@@ -42,12 +42,14 @@ public partial class Projectile : Area3D
     {
     	if (area is Projectile proj)
 		{
+			proj.Destroy();
 			Hit(proj);
-			proj.Hit(this);
 		}
     }
 
     private void OnExplosionFinished() => CallDeferred("queue_free");
+
+	public void Destroy() => CallDeferred("queue_free");
 
 	public void Hit(Node3D target)
 	{
