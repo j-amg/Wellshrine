@@ -49,6 +49,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	private Vector3 handCastPosition = new(-0.075f, 0.1f,-0.25f);
 	private Vector3 handDefaultPosition;
 
+	private bool applyTransform = false;
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 	public float gravity = 12;
@@ -112,8 +114,6 @@ public partial class Player : CharacterBody3D, IDamageable
 			Tween tween = GetTree().CreateTween();
 			tween.TweenProperty(camera, "fov", walkingFOV, .25);
 		}
-
-
 		last_physics_pos = Position;
 	}
 
@@ -141,7 +141,12 @@ public partial class Player : CharacterBody3D, IDamageable
     public override void _Process(double delta)
     {
         float fraction = (float)Engine.GetPhysicsInterpolationFraction();
-		GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
+		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
+		} 
+		else {
+			last_physics_pos = Position;
+			applyTransform = true;
+		} 
 		GodotObject currentHit = lookRay.GetCollider();
 		//GD.Print(currentHit?.GetClass().ToString());
 		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;

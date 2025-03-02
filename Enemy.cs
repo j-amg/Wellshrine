@@ -39,6 +39,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public RayCast3D rc;
 	private Color defaultModulate;
 	public bool inview;
+	public StateMachine sm;
 	
 
 	public override void _Ready()
@@ -53,10 +54,10 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		GetNode<EnemyLabel>("SubViewport/label").SetValues();
 		sprite = GetNode<Sprite3D>("sprite");
 		rc = GetNode<RayCast3D>("rc");
+		sm = GetNode<StateMachine>("sm");
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
-		defaultModulate = sprite.Modulate;
-		
+		defaultModulate = sprite.Modulate;	
 	}
 
 	private async void Setup()
@@ -107,6 +108,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 			zone.UpdateObjective();
 		} 
 		Global.Singleton.UpdateHUD();
+		if (sm.current_state is ShooterAttack s && s.castProj != null) s.castProj.Destroy();  
         CallDeferred("queue_free");
     }
 

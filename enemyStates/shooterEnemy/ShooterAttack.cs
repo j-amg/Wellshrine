@@ -7,6 +7,8 @@ public partial class ShooterAttack : State
     [Export]
     public PackedScene projectile;
     private Vector3 velocity;
+
+    public Projectile castProj;
     public override void Enter()
     {
         base.Enter();
@@ -18,8 +20,6 @@ public partial class ShooterAttack : State
 
     public async void Attack(float windup, float duration, float damage)
     {
-        
-        //GD.Print(Name + " shoots at player for " + damage);
         Projectile b = projectile.Instantiate() as Projectile;
         var main = GetTree().CurrentScene;
         b.Transform = enemy.Transform;
@@ -27,9 +27,11 @@ public partial class ShooterAttack : State
         b.damage = damage;
         b.velocity = new Vector3(0,0,0);
         main.CallDeferred("add_child", b);
+        castProj = b;
         await ToSignal(GetTree().CreateTimer(windup), "timeout");
-        b.LookAt(player.head.GlobalPosition);
-        b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
+        castProj = null;
+        b?.LookAt(player.head.GlobalPosition);
+        if (b != null) b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
         EmitSignal(SignalName.transition, "chase");
     }

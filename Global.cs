@@ -21,7 +21,6 @@ public partial class Global : Node
 		private int playerGold;
 		private float playerAttackSpeed = 1;
 		private float playerMoveSpeed = 1;
-		private Vector3 playerRelativePosition;
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
 		public Hud hud;
@@ -56,19 +55,13 @@ public partial class Global : Node
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
 
-		// gets
-		player = CurrentScene.GetNodeOrNull<Player>("player");
-		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
-		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
-		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+		Gets();
 
 		// create weapons
-		weapons.Add("fireball", Weapon.InitWeapon("fireball", 2, 7, .5f, .2f, 5));
+		weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, .5f, .2f, 5));
 		weapons.Add("icespike", Weapon.InitWeapon("icespike", 6, 6, .2f, .1f, 2));
 		weapons.Add("shockblade", Weapon.InitWeapon("shockblade", 2, 35, 1f, 1, 10));
 
-		//CurrentZone.Populate(currentLevel);
-		if (CurrentScene is Zone zone) Objective = zone.objective;
 		Reset();
 		UpdateHUD();
 
@@ -165,65 +158,63 @@ public partial class Global : Node
 			paused = !paused;
 		}
 
-    public void UpdateHUD()
-    {
-        hud?.SetValues();
-    }
+    public void UpdateHUD() => hud?.SetValues();
+
+	public void Reset()
+	{
+		playerDamageBuff = basePlayerDamageBuff;
+		playerCritDamageBuff = basePlayerCritDamageBuff;
+		playerMoveSpeedBuff = basePlayerMoveSpeedBuff;
+		playerStunDurationBuff = basePlayerStunDurationBuff;
+		playerMaxHealthBuff = basePlayerMaxHealthBuff;
+		playerRechargeBuff = basePlayerRechargeBuff;
+
+
+		currentLevel = 1;
+		playerDamageBuff = 1;
+		Engine.TimeScale = 1;
+		dead = false;
+		currentPlayerHealth = playerHealth;
+		paused = false;
+	}
+
+	private void Gets()
+	{
+		player = CurrentScene.GetNodeOrNull<Player>("player");
+		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
+		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
+		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+		if (CurrentScene is Zone zone) Objective = zone.objective;
+	}
 
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
+	public void DeferredGotoScene(PackedScene nextScene)
+	{
+		CurrentScene.Free();
+		CurrentScene = nextScene.Instantiate();
+		GetTree().Root.AddChild(CurrentScene);
+		GetTree().CurrentScene = CurrentScene;
+		Gets();
+		UpdateHUD();
+	}
 
-		public void Reset()
-		{
+	public void PlaySound3D(Vector3 position, AudioStream audio)
+	{
+		AudioStreamPlayer3D player = new() {Stream = audio};
+		player.Finished += () => RemoveAudio3D(player);
+		AddChild(player);
+		player.Position = position;
+		player.Play();
+	}
+	public static void RemoveAudio3D(AudioStreamPlayer3D player) {player.QueueFree();}
 
-			playerDamageBuff = basePlayerDamageBuff;
-			playerCritDamageBuff = basePlayerCritDamageBuff;
-			playerMoveSpeedBuff = basePlayerMoveSpeedBuff;
-			playerStunDurationBuff = basePlayerStunDurationBuff;
-			playerMaxHealthBuff = basePlayerMaxHealthBuff;
-			playerRechargeBuff = basePlayerRechargeBuff;
-
-
-			currentLevel = 1;
-			playerDamageBuff = 1;
-			Engine.TimeScale = 1;
-			dead = false;
-			currentPlayerHealth = playerHealth;
-			paused = false;
-		}
-
-		public void DeferredGotoScene(PackedScene nextScene)
-		{
-			// It is now safe to remove the current scene.
-			CurrentScene.Free();
-			CurrentScene = nextScene.Instantiate();
-			GetTree().Root.AddChild(CurrentScene);
-			GetTree().CurrentScene = CurrentScene;
-
-			player = CurrentScene.GetNodeOrNull<Player>("player");
-			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
-			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
-			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
-			if (CurrentScene is Zone zone) Objective = zone.objective;
-			UpdateHUD();
-		}
-
-		public void PlaySound3D(Vector3 position, AudioStream audio)
-		{
-			AudioStreamPlayer3D player = new() {Stream = audio};
-			player.Finished += () => RemoveAudio3D(player);
-			AddChild(player);
-			player.Position = position;
-			player.Play();
-		}
-		public static void RemoveAudio3D(AudioStreamPlayer3D player) {player.QueueFree();}
-
-		public void PlaySound2D(AudioStream audio)
-		{
-			AudioStreamPlayer2D player = new() {Stream = audio};
-			player.Finished += () => RemoveAudio2D(player);
-			AddChild(player);
-			player.Play();
-		}
-		public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
+	public void PlaySound2D(AudioStream audio)
+	{
+		AudioStreamPlayer2D player = new() {Stream = audio};
+		player.Finished += () => RemoveAudio2D(player);
+		AddChild(player);
+		player.Play();
+	}
+	public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
 
 }

@@ -2,28 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk3f70tfl0h4v"
-path.s3tc="res://.godot/imported/tileset_tileTextur2e.png-f24e00bb16e8667e096e779aca7bbd89.s3tc.ctex"
+uid="uid://btdw1a3hd3ibd"
+path="res://.godot/imported/wellShrine.png-d29fc0d2c16f9cf67b898461919c6e5b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://meshes/tileset_tileTextur2e.png"
-dest_files=["res://.godot/imported/tileset_tileTextur2e.png-f24e00bb16e8667e096e779aca7bbd89.s3tc.ctex"]
+source_file="res://sprites/wellShrine.png"
+dest_files=["res://.godot/imported/wellShrine.png-d29fc0d2c16f9cf67b898461919c6e5b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -33,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

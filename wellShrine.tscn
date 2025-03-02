@@ -1,17 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm5fruxngcou4"]
+[gd_scene load_steps=5 format=3 uid="uid://dm5fruxngcou4"]
 
-[ext_resource type="PackedScene" uid="uid://q821at5of6hc" path="res://shrine.tscn" id="1_gh34l"]
+[ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_gh34l"]
 [ext_resource type="Script" path="res://WellShrine.cs" id="2_sgipv"]
+[ext_resource type="ArrayMesh" uid="uid://b66a5va6f3wmy" path="res://meshes/wellShrine.obj" id="3_gb64r"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_sh58n"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4pm5"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_e2age"]
-material = SubResource("StandardMaterial3D_u4pm5")
-size = Vector3(0.25, 1, 0.25)
 
 [node name="shrine" instance=ExtResource("1_gh34l")]
 script = ExtResource("2_sgipv")
@@ -23,5 +17,5 @@ text = "Restore Health"
 texture = SubResource("ViewportTexture_sh58n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_e2age")
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -1.49012e-08, 0)
+mesh = ExtResource("3_gb64r")

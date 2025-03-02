@@ -24,7 +24,8 @@ public partial class ShooterChase : State
 		direction = nav.GetNextPathPosition() - enemy.GlobalPosition;
 		direction = direction.Normalized();
 		velocity = velocity.Lerp(direction * enemy.baseMovementSpeed, (float)(enemy.acceleration * delta));
-        if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
+        //if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
+        velocity.Y = 0;
 		enemy.Velocity = velocity;
         //rc.TargetPosition = enemy.ToLocal(player.head.GlobalPosition);
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");

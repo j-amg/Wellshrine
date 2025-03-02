@@ -64,10 +64,7 @@ public partial class Projectile : Area3D
 		{
 			explosion.SetRadius(explosionRadius);
 			explosion.Explode(damage, explosionDelay);
-		} else
-		{
-			CallDeferred("queue_free");
-		}
+		} else CallDeferred("queue_free");
 	}
 
     private void OnBodyEntered(Node3D body) => Hit(body);

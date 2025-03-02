@@ -9,6 +9,7 @@ radius = 0.25
 
 [node name="projectile" type="Area3D" node_paths=PackedStringArray("explosion")]
 collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_50k63")
 muzzleVelocity = 5.0
 explosion = NodePath("explosion")

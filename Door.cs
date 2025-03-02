@@ -1,11 +1,11 @@
 using Godot;
 using System;
+using Godot.Collections;
 
 public partial class Door : Area3D
 {
-    public string killPath = "res://levels/killZone.tscn";
+    public Array<string> killZones = new() {"killZone1", "killZone2"};
     public string shrinePath = "res://levels/shrineZone.tscn";
-
     private PackedScene zoneToLoad;
     private bool open = false;
     public override void _Ready()
@@ -13,11 +13,15 @@ public partial class Door : Area3D
         BodyEntered += OnBodyEntered;
         PreloadZone();
     }
-    private void PreloadZone() => zoneToLoad = Global.Singleton.currentLevel % 3 == 0 ? GD.Load<PackedScene>(shrinePath) : GD.Load<PackedScene>(killPath);
+    private void PreloadZone()
+    {
+        if (Global.Singleton.currentLevel % 3 == 0) { zoneToLoad = GD.Load<PackedScene>(shrinePath);
+        } else zoneToLoad = GD.Load<PackedScene>("res://levels/" + killZones.PickRandom() + ".tscn");
+    }
 
     public void Open()
     {
-        GD.Print("Door open");     
+        //GD.Print("Door open");     
         open = true;   
         Tween tween = GetTree().CreateTween();
         tween.TweenProperty(GetNode<StaticBody3D>("doorMesh"), "position", new Vector3(0,-2.5f, 0), 1.0f);
