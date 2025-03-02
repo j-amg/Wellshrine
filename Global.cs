@@ -34,14 +34,14 @@ public partial class Global : Node
 		public Weapon equippedWeapon;
 		//BUFFS
 
-		public const float basePlayerDamageBuff = 1f;
+		public const int basePlayerDamageBuff = 0;
 		public const float basePlayerCritDamageBuff = 2f;
 		public const float basePlayerMoveSpeedBuff = 0f;
 		public const float basePlayerStunDurationBuff = 0f;
 		public const int basePlayerMaxHealthBuff = 0;
-		public const float basePlayerRechargeBuff = .5f;
+		public const float basePlayerRechargeBuff = 1;
 
-		public float playerDamageBuff;
+		public int playerDamageBuff;
 		public float playerCritDamageBuff;
 		public float playerMoveSpeedBuff;
 		public float playerStunDurationBuff;
@@ -64,9 +64,8 @@ public partial class Global : Node
 
 		// create weapons
 		weapons.Add("fireball", Weapon.InitWeapon("fireball", 2, 7, .5f, .2f, 5));
-		weapons.Add("icespike", Weapon.InitWeapon("icespike", 4, 4, .2f, .1f, 2));
-		weapons.Add("shockblade", Weapon.InitWeapon("shockblade", 1, 20, 1f, 1, 10));
-
+		weapons.Add("icespike", Weapon.InitWeapon("icespike", 6, 6, .2f, .1f, 2));
+		weapons.Add("shockblade", Weapon.InitWeapon("shockblade", 2, 35, 1f, 1, 10));
 
 		//CurrentZone.Populate(currentLevel);
 		if (CurrentScene is Zone zone) Objective = zone.objective;
@@ -106,14 +105,14 @@ public partial class Global : Node
 		public void AddBuff(string buff)
 		{
 
-			if (buff == "Increased Damage") playerDamageBuff += .25f;
+			if (buff == "Increased Damage") playerDamageBuff += 2;
 			if (buff == "Increased Critical Damage") playerCritDamageBuff +=.25f;
-			if (buff == "Increased Move Speed") playerMoveSpeedBuff += 2;
+			if (buff == "Increased Move Speed") playerMoveSpeedBuff += 3;
 			if (buff == "Increased Stun Duration") playerStunDurationBuff +=.1f;
 			if (buff == "Increased Max Health")
 			{
 				GD.Print("increase health");
-				playerHealth += 10;
+				playerHealth += 50;
 				UpdateHUD();
 			} 
 			if (buff == "Reduced Rechare") playerRechargeBuff *= .75f;
@@ -134,8 +133,8 @@ public partial class Global : Node
 
 		public float GetDamage()
 		{
-			int baseDamage = GD.RandRange(equippedWeapon.damageMin, equippedWeapon.damageMax);
-			return GD.Randf() <= .25f ? baseDamage * playerDamageBuff * playerCritDamageBuff : 5 * playerDamageBuff;
+			int baseDamage = GD.RandRange(equippedWeapon.damageMin + playerDamageBuff, equippedWeapon.damageMax + playerDamageBuff);
+			return GD.Randf() <= .25f ? baseDamage * playerCritDamageBuff : baseDamage;
 		}
 
 		public void Die()

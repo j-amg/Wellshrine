@@ -36,7 +36,9 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public bool damaged = false;
 	public bool aggro = false;
 	private Sprite3D sprite;
+	public RayCast3D rc;
 	private Color defaultModulate;
+	public bool inview;
 	
 
 	public override void _Ready()
@@ -50,6 +52,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		AddToGroup("enemies");
 		GetNode<EnemyLabel>("SubViewport/label").SetValues();
 		sprite = GetNode<Sprite3D>("sprite");
+		rc = GetNode<RayCast3D>("rc");
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
 		defaultModulate = sprite.Modulate;
@@ -114,6 +117,8 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		//if (Global.Singleton.toggled) return;
 		GetNode<Sprite3D>("sprite").FlipH = velocity.X > 0;
 		GetNode<Sprite3D>("labelSprite").Visible = highlighted || damaged;
+		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
+		inview = rc.GetCollider() is Player;
 		MoveAndSlide();
 	}
 }

@@ -74,6 +74,7 @@ public partial class Projectile : Area3D
 
     public override void _PhysicsProcess(double delta)
 	{
+		if (velocity.Length() == 0) return;
 		velocity += (Vector3.Down * gravity) * (float)delta;
 		LookAt(Transform.Origin + velocity.Normalized(), Vector3.Up);
 		var transform = Transform;

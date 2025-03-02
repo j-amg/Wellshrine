@@ -7,8 +7,6 @@ public partial class ShooterChase : State
     // Enemy enemy;
     [Export]
     NavigationAgent3D nav;
-    [Export]
-    RayCast3D rc;
     private Vector3 velocity;
     private Enemy enemy;
 
@@ -30,6 +28,6 @@ public partial class ShooterChase : State
 		enemy.Velocity = velocity;
         //rc.TargetPosition = enemy.ToLocal(player.head.GlobalPosition);
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
-        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");
+        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange && enemy.inview) EmitSignal(SignalName.transition, "attack");
     }
 }

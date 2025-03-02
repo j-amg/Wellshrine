@@ -22,6 +22,6 @@ public partial class ChaserIdle : State
         velocity = Vector3.Zero;
         if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
         enemy.Velocity = velocity;
-        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.detectionRange) EmitSignal(SignalName.transition, "chase");
+        if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.detectionRange && enemy.inview) EmitSignal(SignalName.transition, "chase");
     }
 }

@@ -20,6 +20,8 @@ public partial class BuffShrine : Shrine, IInteractable
 
     void IInteractable.Interact()
     {
+        Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(Global.Singleton.player.hitFlash, "modulate", new Color(0,0,0,0), .5).From(new Color(1,1,0,1));
         GD.Print("Add buff " + buff + "!");
         Global.Singleton.AddBuff(buff);
         if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();

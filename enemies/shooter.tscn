@@ -14,7 +14,7 @@ viewport_path = NodePath("SubViewport")
 script = ExtResource("2_okrev")
 baseMovementSpeed = 3.0
 name = "shooter dog"
-baseHealth = 10.0
+baseHealth = 5.0
 detectionRange = 100.0
 detectionFalloffRange = 100.0
 attackRange = 10.0
@@ -32,17 +32,10 @@ current_state = NodePath("idle")
 script = ExtResource("3_68mlj")
 nav = NodePath("../../NavigationAgent3D")
 
-[node name="chase" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav", "rc")]
+[node name="chase" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]
 script = ExtResource("4_7pwm4")
 nav = NodePath("../../NavigationAgent3D")
-rc = NodePath("../../RayCast3D")
 
 [node name="attack" type="Node" parent="sm" index="2"]
 script = ExtResource("5_gnwtc")
 projectile = ExtResource("7_6gbqh")
-
-[node name="RayCast3D" type="RayCast3D" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.39497, 0)
-target_position = Vector3(0, -10, 0)
-collide_with_areas = true
-debug_shape_custom_color = Color(1, 0, 0, 1)

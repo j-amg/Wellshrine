@@ -33,11 +33,12 @@ public partial class Player : CharacterBody3D, IDamageable
 	public CollisionShape3D standCollision;
 	public CollisionShape3D crouchCollision;
 	private Area3D iceCollision;
+	private Area3D shockCollision;
 	private Vector3 last_physics_pos;
 	private StateMachine stateMachine;
 	private RayCast3D lookRay;
 	private GodotObject existingHit;
-	private TextureRect hitFlash;
+	public TextureRect hitFlash;
 	private bool recharging = false;
 	private ProgressBar rechargeBar;
 	private Label interactLabel;
@@ -45,6 +46,8 @@ public partial class Player : CharacterBody3D, IDamageable
     public float bodyStandHeight = 0;
 	public float crouchSpeed = 0.2f;
 	public float hitDistance = 0;
+	private Vector3 handCastPosition = new(-0.075f, 0.1f,-0.25f);
+	private Vector3 handDefaultPosition;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -69,6 +72,8 @@ public partial class Player : CharacterBody3D, IDamageable
 		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
 		interactLabel = camera.GetNode<Label>("CanvasLayer/interactLabel");
 		iceCollision = camera.GetNode<Area3D>("iceSpikeCollision");
+		shockCollision = camera.GetNode<Area3D>("shockBladeCollision");
+		handDefaultPosition = rightHand.Position;
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -87,7 +92,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
 		{
 			if (Global.Singleton.equippedWeapon == null) return;
-			Shoot();
+			Attack();
 			Recharge(Global.Singleton.equippedWeapon.recharge);
 		}
 
@@ -125,9 +130,8 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	void IDamageable.Damage(float amount)
 	{
-		GD.Print("player takes damage");
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,1));
+		tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(new Color(1,0,0,1));
 		Global.Singleton.IncrementHealth(-amount);
 		EmitSignal(SignalName.damageTaken);
 	}
@@ -197,8 +201,6 @@ public partial class Player : CharacterBody3D, IDamageable
 			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
 		}
 		else velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
-		//GD.Print(hvel);
-		//GD.Print(speed);
 	}
 
 	public void UpdateVelocity()
@@ -219,12 +221,9 @@ public partial class Player : CharacterBody3D, IDamageable
 		}
 	}
 
-	private void Shoot()
+	private void Attack()
 	{
-		//GD.Print("shoot");
-		ShootAnim();
-		//leftHand.Play("shoot");
-
+		AttackAnim();
 		if (Global.Singleton.equippedWeapon.name == "fireball")
 		{
 			Projectile b = fireball.Instantiate() as Projectile;
@@ -243,19 +242,28 @@ public partial class Player : CharacterBody3D, IDamageable
 			var main = GetTree().CurrentScene;
 			main.CallDeferred("add_child", ray);
 			ray.Transform = head.GlobalTransform;
-
-			
 		}
 
+		if (Global.Singleton.equippedWeapon.name == "shockblade")
+		{
+			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(Global.Singleton.GetDamage());
+			foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
+			camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
+			Tween tween = GetTree().CreateTween();
+			tween.TweenProperty(camera.GetNode<AnimatedSprite3D>("shock"), "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,.75f));
+
+		}
 	}
 
-	private async void ShootAnim()
+	private async void AttackAnim()
 	{
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
+		rightHand.Position = handCastPosition;
 		rightHand.Play("shoot");
 		await ToSignal(GetTree().CreateTimer(.25), "timeout");
+		rightHand.Position = handDefaultPosition;
 		if (stateMachine.current_state.Name == "glide")
 		{
 			rightHand.Play("aim");

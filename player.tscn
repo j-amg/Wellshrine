@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=34 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_quk40"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_cxwdp"]
 [ext_resource type="Script" path="res://playerStates/WalkState.cs" id="5_iewqs"]
+[ext_resource type="Texture2D" uid="uid://4r8bhpebugsk" path="res://sprites/shock.png" id="6_33h25"]
 [ext_resource type="Script" path="res://playerStates/SprintState.cs" id="6_eaiyh"]
 [ext_resource type="Script" path="res://playerStates/FallState.cs" id="7_l7400"]
 [ext_resource type="Script" path="res://playerStates/JumpState.cs" id="8_883gc"]
@@ -68,7 +69,7 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="Gradient" id="Gradient_88dwc"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.640167, 1)
-colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vxrry"]
 gradient = SubResource("Gradient_88dwc")
@@ -85,6 +86,31 @@ bg_color = Color(1, 1, 1, 1)
 height = 30.0
 radius = 0.05
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ugj77"]
+radius = 1.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdrj7"]
+atlas = ExtResource("6_33h25")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eikx"]
+atlas = ExtResource("6_33h25")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_obw6g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdrj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eikx")
+}],
+"loop": true,
+"name": &"cycle",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
@@ -100,14 +126,14 @@ script = ExtResource("1_4aaio")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="leftHand" type="AnimatedSprite3D" parent="body/hands"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.0442566, -0.25)
 offset = Vector2(-150, -175)
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_p25tb")
 animation = &"idle"
 
 [node name="rightHand" type="AnimatedSprite3D" parent="body/hands"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -0.25)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.0442566, -0.25)
 offset = Vector2(150, -175)
 flip_h = true
 texture_filter = 0
@@ -201,6 +227,23 @@ collision_mask = 12
 [node name="CollisionShape3D" type="CollisionShape3D" parent="body/head/Camera3D/iceSpikeCollision"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -15.0386)
 shape = SubResource("CylinderShape3D_jx2ko")
+
+[node name="shockBladeCollision" type="Area3D" parent="body/head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
+collision_layer = 9
+collision_mask = 12
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="body/head/Camera3D/shockBladeCollision"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.59753)
+shape = SubResource("SphereShape3D_ugj77")
+
+[node name="shock" type="AnimatedSprite3D" parent="body/head/Camera3D"]
+transform = Transform3D(5.082, 0, 0, 0, 5.082, 0, 0, 0, 1, -0.00750744, 0, -2.79227)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_obw6g")
+animation = &"cycle"
+frame_progress = 0.636001
 
 [node name="standCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
