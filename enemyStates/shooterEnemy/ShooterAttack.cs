@@ -16,6 +16,7 @@ public partial class ShooterAttack : State
         velocity = Vector3.Zero;
         enemy.Velocity = velocity;
         Attack(enemy.attackWindup, enemy.attackDuration, enemy.attackDamage);
+        enemy.sprite.Play("cast");
     }
 
     public async void Attack(float windup, float duration, float damage)

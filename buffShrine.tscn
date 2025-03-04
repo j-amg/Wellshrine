@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://brt67t3q73a3u"]
+[gd_scene load_steps=6 format=3 uid="uid://brt67t3q73a3u"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_3jaa1"]
 [ext_resource type="Script" path="res://BuffShrine.cs" id="2_7c7yy"]
+[ext_resource type="AudioStream" uid="uid://frexyqnax0wh" path="res://audio/heartPickup.wav" id="3_fl8rf"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jdf1o"]
 viewport_path = NodePath("SubViewport")
@@ -11,6 +12,7 @@ size = Vector3(0.25, 1, 0.25)
 
 [node name="shrine" instance=ExtResource("1_3jaa1")]
 script = ExtResource("2_7c7yy")
+pickUp = ExtResource("3_fl8rf")
 
 [node name="Sprite3D" parent="." index="2"]
 texture = SubResource("ViewportTexture_jdf1o")

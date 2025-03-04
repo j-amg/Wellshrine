@@ -27,6 +27,7 @@ public partial class ChaserChase : State
         //if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
         velocity.Y = 0;
 		enemy.Velocity = velocity;
+        enemy.sprite.Play("run");
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
         if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");
     }

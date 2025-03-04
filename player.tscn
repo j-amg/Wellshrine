@@ -1,6 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=35 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
+[ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
 [ext_resource type="Texture2D" uid="uid://dtrvh8o527x74" path="res://sprites/hands.png" id="2_yxyrm"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
 [ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
@@ -119,6 +120,7 @@ height = 1.0
 [node name="CharacterBody3D" type="CharacterBody3D"]
 collision_mask = 6
 script = ExtResource("1_4aaio")
+hit = ExtResource("2_24bn3")
 
 [node name="body" type="Node3D" parent="."]
 

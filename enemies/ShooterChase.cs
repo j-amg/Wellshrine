@@ -18,6 +18,7 @@ public partial class ShooterChase : State
     public override void Update(double delta)
     {
         base._PhysicsProcess(delta);
+        enemy.sprite.Play("run");
         Vector3 direction;
 		velocity = enemy.Velocity;
 		nav.TargetPosition = player.GlobalPosition;

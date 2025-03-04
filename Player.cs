@@ -6,6 +6,8 @@ public partial class Player : CharacterBody3D, IDamageable
 {
 	[Signal]
 	public delegate void damageTakenEventHandler();
+	[Export]
+	public AudioStream hit;
 	float mouseSensitivity = 0.15f;
 	float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -48,6 +50,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float hitDistance = 0;
 	private Vector3 handCastPosition = new(-0.075f, 0.1f,-0.25f);
 	private Vector3 handDefaultPosition;
+	
 
 	private bool applyTransform = false;
 
@@ -133,6 +136,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(new Color(1,0,0,1));
 		Global.Singleton.IncrementHealth(-amount);
+		Global.Singleton.PlaySound2D(hit);
 		EmitSignal(SignalName.damageTaken);
 	}
 

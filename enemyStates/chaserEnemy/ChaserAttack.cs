@@ -12,6 +12,7 @@ public partial class ChaserAttack : State
         velocity = Vector3.Zero;
         enemy.Velocity = velocity;
         Attack(enemy.attackWindup, enemy.attackDuration, enemy.attackDamage);
+        enemy.sprite.Play("attack");
     }
 
     public async void Attack(float windup, float duration, float damage)

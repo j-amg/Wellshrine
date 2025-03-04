@@ -9,7 +9,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public float baseMovementSpeed = 2;
 	[Export]
 	public string name = "[PH] Enemy";
-	public double acceleration = 10;
+	public double acceleration = 2;
 	private int currentMovementSpeed;
 	[Export]
 	public float baseHealth;
@@ -31,15 +31,18 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public float attackWindup = .5f;
 	[Export]
 	public float attackDamage = 5;
+	[Export]
+	public AudioStream hit;
 	private Vector3 velocity;
 	public bool highlighted = false;
 	public bool damaged = false;
 	public bool aggro = false;
-	private Sprite3D sprite;
+	public AnimatedSprite3D sprite;
 	public RayCast3D rc;
 	private Color defaultModulate;
 	public bool inview;
 	public StateMachine sm;
+	public bool awake = false;
 	
 
 	public override void _Ready()
@@ -52,7 +55,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		damageTaken += OnDamageTaken;
 		AddToGroup("enemies");
 		GetNode<EnemyLabel>("SubViewport/label").SetValues();
-		sprite = GetNode<Sprite3D>("sprite");
+		sprite = GetNode<AnimatedSprite3D>("sprite");
 		rc = GetNode<RayCast3D>("rc");
 		sm = GetNode<StateMachine>("sm");
 		CallDeferred("Setup");
@@ -88,6 +91,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	{
 		Stun();
 		Tween tween = GetTree().CreateTween();
+		Global.Singleton.PlaySound3D(GlobalPosition, hit);
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1,0,0,1));
 		currentHealth -= amount;
 		EmitSignal(SignalName.damageTaken);
@@ -96,6 +100,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private void OnDamageTaken()
     {
 		damaged = true;
+		Global.Singleton.PlaySound2D(hit);
         if (currentHealth <= 0) Die();
     }
 
@@ -117,7 +122,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public override void _PhysicsProcess(double delta)
 	{
 		//if (Global.Singleton.toggled) return;
-		GetNode<Sprite3D>("sprite").FlipH = velocity.X > 0;
+		sprite.FlipH = velocity.X > 0;
 		GetNode<Sprite3D>("labelSprite").Visible = highlighted || damaged;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
 		inview = rc.GetCollider() is Player;

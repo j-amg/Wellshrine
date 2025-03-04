@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
 [ext_resource type="Script" path="res://enemies/Shooter.cs" id="2_okrev"]
-[ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterIdle.cs" id="3_68mlj"]
+[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="3_yi21b"]
 [ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
 [ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
@@ -13,11 +13,12 @@ viewport_path = NodePath("SubViewport")
 [node name="enemy" instance=ExtResource("1_y66yp")]
 script = ExtResource("2_okrev")
 baseMovementSpeed = 3.0
-name = "shooter dog"
+name = "Skeleton Mage"
 baseHealth = 5.0
 detectionRange = 100.0
 detectionFalloffRange = 100.0
 attackRange = 10.0
+attackWindup = 0.75
 
 [node name="sprite" parent="." index="2"]
 modulate = Color(1, 0.27451, 1, 1)
@@ -29,7 +30,7 @@ texture = SubResource("ViewportTexture_h440o")
 current_state = NodePath("idle")
 
 [node name="idle" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
-script = ExtResource("3_68mlj")
+script = ExtResource("3_yi21b")
 nav = NodePath("../../NavigationAgent3D")
 
 [node name="chase" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]

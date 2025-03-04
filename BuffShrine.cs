@@ -4,6 +4,8 @@ using Godot.Collections;
 using System.Linq;
 public partial class BuffShrine : Shrine, IInteractable
 {
+    [Export]
+	public AudioStream pickUp;
     private string buff;
 
     public override void _Ready()
@@ -24,6 +26,7 @@ public partial class BuffShrine : Shrine, IInteractable
 		tween.TweenProperty(Global.Singleton.player.hitFlash, "modulate", new Color(0,0,0,0), .5).From(new Color(1,1,0,1));
         GD.Print("Add buff " + buff + "!");
         Global.Singleton.AddBuff(buff);
+        Global.Singleton.PlaySound2D(pickUp);
         if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();
         foreach (Shrine shrine in GetTree().GetNodesInGroup("shrines").Cast<Shrine>()) shrine.Deactivate();
     }
