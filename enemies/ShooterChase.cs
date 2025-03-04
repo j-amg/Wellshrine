@@ -19,6 +19,7 @@ public partial class ShooterChase : State
     {
         base._PhysicsProcess(delta);
         enemy.sprite.Play("run");
+        if (enemy.stunned) enemy.sprite.Play("stun");
         Vector3 direction;
 		velocity = enemy.Velocity;
 		nav.TargetPosition = player.GlobalPosition;
@@ -29,6 +30,7 @@ public partial class ShooterChase : State
         velocity.Y = 0;
 		enemy.Velocity = velocity;
         //rc.TargetPosition = enemy.ToLocal(player.head.GlobalPosition);
+        if (enemy.dead) EmitSignal(SignalName.transition, "die");
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
         if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange && enemy.inview) EmitSignal(SignalName.transition, "attack");
     }

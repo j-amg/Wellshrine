@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgis5agan11j5"]
+[gd_scene load_steps=9 format=3 uid="uid://cgis5agan11j5"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
 [ext_resource type="Script" path="res://enemies/Shooter.cs" id="2_okrev"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
 [ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
 [ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
+[ext_resource type="Script" path="res://enemyStates/DieState.cs" id="7_k5dwn"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
 viewport_path = NodePath("SubViewport")
@@ -15,8 +16,7 @@ script = ExtResource("2_okrev")
 baseMovementSpeed = 3.0
 name = "Skeleton Mage"
 baseHealth = 5.0
-detectionRange = 100.0
-detectionFalloffRange = 100.0
+detectionRange = 5.0
 attackRange = 10.0
 attackWindup = 0.75
 
@@ -40,3 +40,6 @@ nav = NodePath("../../NavigationAgent3D")
 [node name="attack" type="Node" parent="sm" index="2"]
 script = ExtResource("5_gnwtc")
 projectile = ExtResource("7_6gbqh")
+
+[node name="die" type="Node" parent="sm" index="3"]
+script = ExtResource("7_k5dwn")

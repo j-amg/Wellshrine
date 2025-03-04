@@ -28,6 +28,8 @@ public partial class ChaserChase : State
         velocity.Y = 0;
 		enemy.Velocity = velocity;
         enemy.sprite.Play("run");
+        if (enemy.stunned) enemy.sprite.Play("stun");
+        if (enemy.dead) EmitSignal(SignalName.transition, "die");
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
         if ((player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");
     }

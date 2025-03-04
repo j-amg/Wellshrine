@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=41 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="2_by5sj"]
@@ -131,6 +131,10 @@ region = Rect2(512, 640, 128, 128)
 atlas = ExtResource("3_xwbua")
 region = Rect2(640, 640, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h312u"]
+atlas = ExtResource("3_xwbua")
+region = Rect2(0, 784, 128, 112)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_18372"]
 animations = [{
 "frames": [{
@@ -140,7 +144,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8wv86")
 }, {
-"duration": 1.0,
+"duration": 10.0,
 "texture": SubResource("AtlasTexture_8hdca")
 }],
 "loop": true,
@@ -157,7 +161,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5rkll")
 }, {
-"duration": 1.0,
+"duration": 10.0,
 "texture": SubResource("AtlasTexture_kwrgh")
 }],
 "loop": true,
@@ -252,6 +256,14 @@ animations = [{
 "loop": true,
 "name": &"spawn",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h312u")
+}],
+"loop": true,
+"name": &"stun",
+"speed": 5.0
 }]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tx16"]
@@ -262,7 +274,6 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
 detectionRange = 10.0
-detectionFalloffRange = 50.0
 nav = NodePath("NavigationAgent3D")
 hit = ExtResource("2_by5sj")
 
@@ -278,7 +289,7 @@ visible = false
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
-animation = &"cast"
+animation = &"stun"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true

@@ -14,23 +14,17 @@ public partial class ChaserIdle : State
     public override void Enter()
     {
         base.Enter();
-        enemy = GetOwner<Enemy>();
-        SpawnDelay();
-    }
-
-    public async void SpawnDelay()
-    {
-		await ToSignal(GetTree().CreateTimer(1), "timeout");
-        enemy.awake = true;
+        enemy = GetOwner<Enemy>(); 
     }
 
     public override void Update(double delta)
     {
-        //if (enemy.sprite.Frame < 6 && enemy.sprite.Animation == "spawn" || enemy.sprite.Animation == "idle") enemy.sprite.Play("idle");
-        enemy.sprite.Play("spawn");
+        if (enemy.awake) enemy.sprite.Play("idle"); else enemy.sprite.Play("spawn"); 
+        if (enemy.stunned) enemy.sprite.Play("stun");
         velocity = Vector3.Zero;
         if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
         enemy.Velocity = velocity;
-        if (enemy.awake && (player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.detectionRange && enemy.inview) EmitSignal(SignalName.transition, "chase");
+        if (enemy.dead) EmitSignal(SignalName.transition, "die");
+        if ((enemy.awake && (player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.detectionRange && enemy.inview) || enemy.damaged) EmitSignal(SignalName.transition, "chase");
     }
 }

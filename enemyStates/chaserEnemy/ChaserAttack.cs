@@ -28,6 +28,12 @@ public partial class ChaserAttack : State
             GD.Print("miss");
         }
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
-        EmitSignal(SignalName.transition, "chase");
+         if (!enemy.dead) EmitSignal(SignalName.transition, "chase");
     }
+
+    public override void Update(double delta)
+    {
+        if (enemy.dead) EmitSignal(SignalName.transition, "die");
+    }
+
 }

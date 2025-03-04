@@ -7,8 +7,6 @@ public partial class ShooterAttack : State
     [Export]
     public PackedScene projectile;
     private Vector3 velocity;
-
-    public Projectile castProj;
     public override void Enter()
     {
         base.Enter();
@@ -27,13 +25,19 @@ public partial class ShooterAttack : State
         b.LookAtFromPosition(b.Position + new Vector3(0,2.5f, 0), player.head.GlobalPosition);
         b.damage = damage;
         b.velocity = new Vector3(0,0,0);
+        await ToSignal(GetTree().CreateTimer(windup * .25), "timeout");
         main.CallDeferred("add_child", b);
-        castProj = b;
-        await ToSignal(GetTree().CreateTimer(windup), "timeout");
-        castProj = null;
-        b?.LookAt(player.head.GlobalPosition);
-        if (b != null) b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
+        await ToSignal(GetTree().CreateTimer(windup * .75), "timeout");
+        if (enemy.dead && b != null) b.Destroy(); else{
+            b.LookAt(player.head.GlobalPosition);
+            b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
+        }
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
-        EmitSignal(SignalName.transition, "chase");
+        if (!enemy.dead) EmitSignal(SignalName.transition, "chase");
+    }
+
+    public override void Update(double delta)
+    {
+        if (enemy.dead) EmitSignal(SignalName.transition, "die");
     }
 }
