@@ -17,8 +17,8 @@ public partial class GlideState : State
 
     public override void Enter()
     {
-		player.leftHand.Play("aim");
-		player.rightHand.Play("aim");
+		player.handSprite.Play("glide");
+		player.handSprite.Play("glide");
 		s = speed;
 		if (player.hvel.Length() > speed) s = player.hvel.Length();
         base.Enter();
@@ -26,8 +26,8 @@ public partial class GlideState : State
 
     public override void Exit()
     {
-		player.leftHand.Play("idle");
-		player.rightHand.Play("idle");
+		player.handSprite.Play(player.currentIdle);
+		player.handSprite.Play(player.currentIdle);
         base.Exit();
     }
     public override void Update(double delta)
@@ -41,7 +41,14 @@ public partial class GlideState : State
 		if (player.IsOnFloor())
 		{
 			EmitSignal(SignalName.landed);
-			EmitSignal(SignalName.transition, "idle");
+			if (Input.IsActionPressed("Shift"))
+			{
+				EmitSignal(SignalName.transition, "slide");
+			}
+			else
+			{
+				EmitSignal(SignalName.transition, player.currentIdle);
+			}
 		}
 	} 
 }

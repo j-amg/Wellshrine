@@ -41,7 +41,7 @@ public partial class FallState : State
 			}
 			else
 			{
-				EmitSignal(SignalName.transition, "idle");
+				EmitSignal(SignalName.transition, player.currentIdle);
 			}
 		}
 	} 

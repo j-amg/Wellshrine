@@ -4,7 +4,7 @@ using System;
 public partial class Enemy : CharacterBody3D, IDamageable
 {
 	[Signal]
-	public delegate void damageTakenEventHandler();
+	public delegate void damageTakenEventHandler(float damageTaken);
 	[Export]
 	public float baseMovementSpeed = 2;
 	[Export]
@@ -84,7 +84,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private async void Stun()
 	{
 		if (dead) return;
-		if (sm.current_state.Name != "attack" || sprite.Animation != "spawn") sprite.Play("stun");
+		if (sm.current_state.Name != "attack" && sprite.Animation != "spawn") sprite.Play("stun");
 		SetPhysicsProcess(false);
 		stunned = true;
 		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
@@ -107,10 +107,10 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		Global.Singleton.PlaySound3D(GlobalPosition, hit);
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1,0,0,1));
 		currentHealth -= amount;
-		EmitSignal(SignalName.damageTaken);
+		EmitSignal(SignalName.damageTaken, amount);
 	}
 
-	private void OnDamageTaken()
+	private void OnDamageTaken(float damage)
     {
 		damaged = true;
 		Global.Singleton.PlaySound2D(hit);
@@ -121,11 +121,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
     {
 		labelSprite.Visible = false;
 		RemoveFromGroup("enemies");
-		if (Global.Singleton.CurrentScene is Zone zone)
-		{
-			GD.Print("try update");
-			zone.UpdateObjective();
-		} 
+		if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();
 		Global.Singleton.UpdateHUD();
 		dead = true;
     }
@@ -134,7 +130,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		//if (Global.Singleton.toggled) return;
 		sprite.FlipH = velocity.X > 0;
 		labelSprite.Visible = (highlighted || damaged) && !dead;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);

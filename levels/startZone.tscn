@@ -66,8 +66,8 @@ displayName = "IceSpike"
 
 [node name="MeleeShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
-weapon = "shockblade"
-displayName = "ShockBlade"
+weapon = "shockburst"
+displayName = "ShockBurst"
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_osk5y")

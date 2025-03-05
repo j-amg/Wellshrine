@@ -14,15 +14,14 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
 	private float handsMovementSmoothing = 10;
-	float zoomFOV = 70;
-	float walkingFOV = 80;
+	public float zoomFOV = 60;
+	public float walkingFOV = 80;
 	public Node3D body;
 	public Node3D head;
-	private Camera3D camera;
+	public Camera3D camera;
 	public Hud hud;
 	private Node3D hands;
-	public AnimatedSprite3D leftHand;
-	public AnimatedSprite3D rightHand;
+	public AnimatedSprite3D handSprite;
 	public TextureRect reticle;
 	public float _sensitivity;
 	public float _gravity;
@@ -50,6 +49,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float hitDistance = 0;
 	private Vector3 handCastPosition = new(-0.075f, 0.1f,-0.25f);
 	private Vector3 handDefaultPosition;
+	public string currentIdle = "idle";
 	
 
 	private bool applyTransform = false;
@@ -66,8 +66,7 @@ public partial class Player : CharacterBody3D, IDamageable
         head = body.GetNode<Node3D>("head");
 		camera = head.GetNode<Camera3D>("Camera3D");
 		hands = body.GetNode<Node3D>("hands");
-		rightHand = hands.GetNode<AnimatedSprite3D>("rightHand");
-		leftHand = hands.GetNode<AnimatedSprite3D>("leftHand");
+		handSprite = hands.GetNode<AnimatedSprite3D>("handSprite");
 		lookRay = camera.GetNode<RayCast3D>("lookRay");
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
@@ -78,7 +77,8 @@ public partial class Player : CharacterBody3D, IDamageable
 		interactLabel = camera.GetNode<Label>("CanvasLayer/interactLabel");
 		iceCollision = camera.GetNode<Area3D>("iceSpikeCollision");
 		shockCollision = camera.GetNode<Area3D>("shockBladeCollision");
-		handDefaultPosition = rightHand.Position;
+		//handDefaultPosition = rightHand.Position;
+		handSprite.Play(currentIdle);
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		AddToGroup("player");
@@ -89,7 +89,8 @@ public partial class Player : CharacterBody3D, IDamageable
 		if (Global.Singleton.paused) return;
 		//if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
         Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), hands.Rotation.Y, hands.Rotation.Z);
+		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing),
+			0, 0);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 
 		//GD.Print(head.GlobalBasis.Z);
@@ -109,13 +110,13 @@ public partial class Player : CharacterBody3D, IDamageable
 		if (Input.IsActionPressed("RightMouse"))
 		{
 			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera, "fov", zoomFOV, .1);
+			tween.TweenProperty(camera, "fov", zoomFOV, .05);
 		}
 
 		if (Input.IsActionJustReleased("RightMouse"))
 		{
 			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera, "fov", walkingFOV, .25);
+			tween.TweenProperty(camera, "fov", walkingFOV, .1);
 		}
 		last_physics_pos = Position;
 	}
@@ -227,6 +228,7 @@ public partial class Player : CharacterBody3D, IDamageable
 			head.RotateX(xRot);
 			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity);
 			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
+			//hands.Rotation = new Vector3(hands.Rotation.X, Mathf.LerpAngle(Mathf.DegToRad(eventKey.Relative.X) * _sensitivity*10, 0, 0.25f), hands.Rotation.Z);
 		}
 	}
 
@@ -253,7 +255,7 @@ public partial class Player : CharacterBody3D, IDamageable
 			ray.Transform = head.GlobalTransform;
 		}
 
-		if (Global.Singleton.equippedWeapon.name == "shockblade")
+		if (Global.Singleton.equippedWeapon.name == "shockburst")
 		{
 			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(Global.Singleton.GetDamage());
 			foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
@@ -269,15 +271,11 @@ public partial class Player : CharacterBody3D, IDamageable
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
-		rightHand.Position = handCastPosition;
-		rightHand.Play("shoot");
+		//rightHand.Position = handCastPosition;
+		handSprite.Play("attack");
 		await ToSignal(GetTree().CreateTimer(.25), "timeout");
-		rightHand.Position = handDefaultPosition;
-		if (stateMachine.current_state.Name == "glide")
-		{
-			rightHand.Play("aim");
-		} else {
-		rightHand.Play("idle");
-		}
+		handSprite.Play(currentIdle);
+		//rightHand.Position = handDefaultPosition;
+		//if (stateMachine.current_state.Name == "glide") rightHand.Play("aim"); else rightHand.Play("idle");
 	}
 }

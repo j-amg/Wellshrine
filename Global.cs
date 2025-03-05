@@ -59,8 +59,8 @@ public partial class Global : Node
 
 		// create weapons
 		weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, .5f, .2f, 5));
-		weapons.Add("icespike", Weapon.InitWeapon("icespike", 6, 6, .2f, .1f, 2));
-		weapons.Add("shockblade", Weapon.InitWeapon("shockblade", 2, 35, 1f, 1, 10));
+		weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, .2f, .1f, 2));
+		weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 1f, 1, 10));
 
 		Reset();
 		UpdateHUD();
@@ -90,7 +90,6 @@ public partial class Global : Node
         {
         	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead)
 			{
-				GD.Print("try pause");
 				PauseMenu();
 			} 
         }
@@ -113,6 +112,8 @@ public partial class Global : Node
 
 		public void EquipWeapon(string weapon)
 		{
+			player.currentIdle = weapon;
+			player.handSprite.Play(player.currentIdle);
 			equippedWeapon = weapons[weapon];
 		}
 

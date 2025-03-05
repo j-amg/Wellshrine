@@ -16,6 +16,7 @@ public partial class CrouchState : State
     {
 		player.crouchCollision.Disabled = false;
 		player.standCollision.Disabled = true;
+        player.handSprite.Offset = new Vector2(0, -10);
         Tween tween = GetTree().CreateTween();
         tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, player.bodyCrouchHeight, player.body.Position.Z), player.crouchSpeed).SetTrans(Tween.TransitionType.Sine);
         base.Enter();
@@ -23,6 +24,7 @@ public partial class CrouchState : State
 
     public override void Exit()
     {
+        player.handSprite.Offset = new Vector2(0, 0);
 		player.crouchCollision.Disabled = true;
 		player.standCollision.Disabled = false;
         Tween tween = GetTree().CreateTween();

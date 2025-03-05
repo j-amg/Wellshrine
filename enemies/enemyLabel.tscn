@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmbqu1ogp3vnb"]
+[gd_scene load_steps=6 format=3 uid="uid://cmbqu1ogp3vnb"]
 
 [ext_resource type="Script" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1evt3"]
+bg_color = Color(0.482353, 0.482353, 0.482353, 0.827451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3es80"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq5re"]
-bg_color = Color(0, 0, 0, 0.392157)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fk17"]
 bg_color = Color(1, 0, 0, 1)
@@ -35,13 +37,37 @@ vertical_alignment = 1
 
 [node name="level" type="Label" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "[PH] Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="health" type="ProgressBar" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 2
+
+[node name="healthBackground" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 2.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1evt3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3es80")
+value = 27.05
+show_percentage = false
+
+[node name="health" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 2.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xq5re")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4fk17")
+value = 15.89
 show_percentage = false
+
+[node name="damage" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1

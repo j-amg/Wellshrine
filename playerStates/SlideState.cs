@@ -18,6 +18,7 @@ public partial class SlideState : State
         Tween tween = GetTree().CreateTween();
         tween.TweenProperty(player.body, "position", new Vector3(player.body.Position.X, player.bodyCrouchHeight, player.body.Position.Z), player.crouchSpeed).SetTrans(Tween.TransitionType.Sine);
         //s = player.hvel.Length() + 15;
+        player.handSprite.Offset = new Vector2(0, -10);
 		//player.UpdateInput(player.hvel.Length() + 15, acceleration, deceleration);
 		//player.velocity.X = player.direction.X * speed;
 		//player.velocity.Z = player.direction.Z * speed;
@@ -26,6 +27,7 @@ public partial class SlideState : State
 
     public override void Exit()
     {
+        player.handSprite.Offset = new Vector2(0, 0);
         player.crouchCollision.Disabled = true;
 		player.standCollision.Disabled = false;
         Tween tween = GetTree().CreateTween();
