@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg6ofxnsno6hs"
-path.s3tc="res://.godot/imported/227.png-970ea5b0a4889fc542b2871ad8092b74.s3tc.ctex"
+uid="uid://4r8bhpebugsk"
+path.s3tc="res://.godot/imported/shock.png-9408a836f90dc27e682072543826bfc1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/227.png"
-dest_files=["res://.godot/imported/227.png-970ea5b0a4889fc542b2871ad8092b74.s3tc.ctex"]
+source_file="res://textures/shock.png"
+dest_files=["res://.godot/imported/shock.png-9408a836f90dc27e682072543826bfc1.s3tc.ctex"]
 
 [params]
 

@@ -25,7 +25,6 @@ public partial class ChaserChase : State
 		direction = direction.Normalized();
 		velocity = velocity.Lerp(direction * enemy.baseMovementSpeed, (float)(enemy.acceleration * delta));
         //if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
-        velocity.Y = 0;
 		enemy.Velocity = velocity;
         enemy.sprite.Play("run");
         if (enemy.stunned) enemy.sprite.Play("stun");

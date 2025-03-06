@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r6jwhuk2to13"
-path.s3tc="res://.godot/imported/226.png-9ae17dbfc52864d28c1e00a5d2f9e178.s3tc.ctex"
+uid="uid://cob3eixxiyvhm"
+path.s3tc="res://.godot/imported/skeletonFull.png-520288d83b9f566845f48f342d9e9f08.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/226.png"
-dest_files=["res://.godot/imported/226.png-9ae17dbfc52864d28c1e00a5d2f9e178.s3tc.ctex"]
+source_file="res://textures/skeletonFull.png"
+dest_files=["res://.godot/imported/skeletonFull.png-520288d83b9f566845f48f342d9e9f08.s3tc.ctex"]
 
 [params]
 

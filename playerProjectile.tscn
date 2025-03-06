@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Projectile.cs" id="1_bkrdi"]
 [ext_resource type="PackedScene" uid="uid://d10st40p8i6ya" path="res://explosion.tscn" id="2_2w7m2"]
-[ext_resource type="Texture2D" uid="uid://cg6ofxnsno6hs" path="res://sprites/227.png" id="3_d086m"]
+[ext_resource type="Texture2D" uid="uid://cg6ofxnsno6hs" path="res://textures/227.png" id="3_d086m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hx064"]
 radius = 0.25

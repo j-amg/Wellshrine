@@ -8,8 +8,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	public delegate void damageTakenEventHandler();
 	[Export]
 	public AudioStream hit;
-	float mouseSensitivity = 0.15f;
-	float aimMouseSensitivity = 0.075f;
+	float mouseSensitivity = 0.1f;
+	float aimMouseSensitivity = 0.05f;
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
@@ -47,9 +47,8 @@ public partial class Player : CharacterBody3D, IDamageable
     public float bodyStandHeight = 0;
 	public float crouchSpeed = 0.2f;
 	public float hitDistance = 0;
-	private Vector3 handCastPosition = new(-0.075f, 0.1f,-0.25f);
-	private Vector3 handDefaultPosition;
-	public string currentIdle = "idle";
+	private Viewport vp;
+	private Window win;
 	
 
 	private bool applyTransform = false;
@@ -77,29 +76,31 @@ public partial class Player : CharacterBody3D, IDamageable
 		interactLabel = camera.GetNode<Label>("CanvasLayer/interactLabel");
 		iceCollision = camera.GetNode<Area3D>("iceSpikeCollision");
 		shockCollision = camera.GetNode<Area3D>("shockBladeCollision");
-		//handDefaultPosition = rightHand.Position;
-		handSprite.Play(currentIdle);
+		handSprite.Play(Global.Singleton.currentIdle);
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
+		FloorMaxAngle = Mathf.DegToRad(65);
+		FloorConstantSpeed = true;
+		vp = GetViewport();
+		win = GetWindow();
+		
 		AddToGroup("player");
     }
 
+
     public override void _PhysicsProcess(double delta)
 	{
+		GD.Print(GetWindow().Size);
 		if (Global.Singleton.paused) return;
-		//if (Godot.Input.IsActionJustPressed("ESC")) pause = !pause;
         Input.MouseMode = Godot.Input.MouseModeEnum.Captured;
-		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing),
-			0, 0);
+		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing),0, 0);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
-
-		//GD.Print(head.GlobalBasis.Z);
 
 		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
 		{
 			if (Global.Singleton.equippedWeapon == null) return;
 			Attack();
-			Recharge(Global.Singleton.equippedWeapon.recharge);
+			Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.playerRechargeBuff);
 		}
 
 		if (Input.IsActionJustPressed("interact"))
@@ -222,11 +223,12 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Input(InputEvent @event)
 	{
+		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
 		if (@event is InputEventMouseMotion eventKey && !Global.Singleton.paused && !Global.Singleton.dead)
 		{
-			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity;
+			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
 			head.RotateX(xRot);
-			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity);
+			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
 			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
 			//hands.Rotation = new Vector3(hands.Rotation.X, Mathf.LerpAngle(Mathf.DegToRad(eventKey.Relative.X) * _sensitivity*10, 0, 0.25f), hands.Rotation.Z);
 		}
@@ -273,8 +275,8 @@ public partial class Player : CharacterBody3D, IDamageable
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
 		//rightHand.Position = handCastPosition;
 		handSprite.Play("attack");
-		await ToSignal(GetTree().CreateTimer(.25), "timeout");
-		handSprite.Play(currentIdle);
+		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.basePlayerRechargeBuff * Global.Singleton.equippedWeapon.recharge)), "timeout");
+		handSprite.Play(Global.Singleton.currentIdle);
 		//rightHand.Position = handDefaultPosition;
 		//if (stateMachine.current_state.Name == "glide") rightHand.Play("aim"); else rightHand.Play("idle");
 	}

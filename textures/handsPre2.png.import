@@ -2,18 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://khfeqqn73j03"
-path.s3tc="res://.godot/imported/tileset2_tileTexture.png-87a9b957f437d3a55997868755848e37.s3tc.ctex"
+uid="uid://bsb6n0rva245f"
+path.s3tc="res://.godot/imported/handsPre2.png-406a6e36d1d1e56952748886f53dd4b3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
-source_file="res://meshes/tileset2_tileTexture.png"
-dest_files=["res://.godot/imported/tileset2_tileTexture.png-87a9b957f437d3a55997868755848e37.s3tc.ctex"]
+source_file="res://textures/handsPre2.png"
+dest_files=["res://.godot/imported/handsPre2.png-406a6e36d1d1e56952748886f53dd4b3.s3tc.ctex"]
 
 [params]
 

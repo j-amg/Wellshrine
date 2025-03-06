@@ -1,5 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvv38lj3ci80m"]
+[gd_scene load_steps=3 format=3 uid="uid://b3ahi8f738gd2"]
 
-[ext_resource type="PackedScene" uid="uid://cm24wp52k8fih" path="res://meshes/tileset2.glb" id="1_jtj8i"]
+[ext_resource type="PackedScene" uid="uid://5fq2e5c0uks0" path="res://meshes/tileset.glb" id="1_c8txw"]
+[ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="2_ij11j"]
 
-[node name="tileset3" instance=ExtResource("1_jtj8i")]
+[node name="handsTileSet3" instance=ExtResource("1_c8txw")]
+
+[node name="floor" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall1" parent="." index="1"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="door2" parent="." index="2"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="floor_001" parent="." index="3"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_008" parent="." index="5"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="floor_004" parent="." index="6"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="corner1_001" parent="." index="7"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_002" parent="." index="8"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_003" parent="." index="9"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_001" parent="." index="10"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="door2_001" parent="." index="11"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="corner1_002" parent="." index="12"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall1_002" parent="." index="13"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall1_003" parent="." index="14"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_004" parent="." index="15"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_005" parent="." index="16"]
+surface_material_override/0 = ExtResource("2_ij11j")

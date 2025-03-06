@@ -13,7 +13,6 @@ config_version=5
 config/name="maybe_racing_roguelike"
 run/main_scene="res://UI/menu.tscn"
 config/features=PackedStringArray("4.2", "C#")
-config/icon="res://old/icon.png"
 
 [autoload]
 

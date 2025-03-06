@@ -26,8 +26,8 @@ public partial class GlideState : State
 
     public override void Exit()
     {
-		player.handSprite.Play(player.currentIdle);
-		player.handSprite.Play(player.currentIdle);
+		player.handSprite.Play(Global.Singleton.currentIdle);
+		player.handSprite.Play(Global.Singleton.currentIdle);
         base.Exit();
     }
     public override void Update(double delta)
@@ -47,7 +47,7 @@ public partial class GlideState : State
 			}
 			else
 			{
-				EmitSignal(SignalName.transition, player.currentIdle);
+				EmitSignal(SignalName.transition, "idle");
 			}
 		}
 	} 

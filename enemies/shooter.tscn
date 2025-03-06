@@ -15,8 +15,8 @@ viewport_path = NodePath("SubViewport")
 script = ExtResource("2_okrev")
 baseMovementSpeed = 3.0
 name = "Skeleton Mage"
-baseHealth = 5.0
-detectionRange = 5.0
+baseHealth = 7.5
+detectionRange = 15.0
 attackRange = 10.0
 attackWindup = 0.75
 

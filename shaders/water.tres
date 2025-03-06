@@ -1,6 +1,4 @@
-[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://bswnv5j5di1m7"]
-
-[ext_resource type="Texture2D" uid="uid://cfav7jp8l84b2" path="res://shaders/waterNoise.tres" id="1_vlcfl"]
+[gd_resource type="VisualShader" load_steps=24 format=3 uid="uid://bswnv5j5di1m7"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_gvikq"]
 operator = 2
@@ -59,15 +57,30 @@ op_type = 0
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.5]
 op_type = 4
 
+[sub_resource type="Gradient" id="Gradient_4o0jx"]
+offsets = PackedFloat32Array(0, 0.710843, 0.993976, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.203922, 0.568627, 0, 1, 0.957831, 0.957831, 0.957831, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o0q3c"]
+noise_type = 5
+frequency = 0.1599
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mkagb"]
+width = 50
+height = 50
+seamless = true
+color_ramp = SubResource("Gradient_4o0jx")
+noise = SubResource("FastNoiseLite_o0q3c")
+
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5l6bl"]
 expanded_output_ports = [0]
 source = 5
-texture = ExtResource("1_vlcfl")
+texture = SubResource("NoiseTexture2D_mkagb")
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_swlga"]
 expanded_output_ports = [0]
 source = 5
-texture = ExtResource("1_vlcfl")
+texture = SubResource("NoiseTexture2D_mkagb")
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_tmeim"]
 parameter_name = "Texture2DParameter"

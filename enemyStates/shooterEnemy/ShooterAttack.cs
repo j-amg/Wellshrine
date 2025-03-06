@@ -25,9 +25,10 @@ public partial class ShooterAttack : State
         b.LookAtFromPosition(b.Position + new Vector3(0,2.5f, 0), player.head.GlobalPosition);
         b.damage = damage;
         b.velocity = new Vector3(0,0,0);
-        await ToSignal(GetTree().CreateTimer(windup * .25), "timeout");
+        await ToSignal(GetTree().CreateTimer(windup * .5), "timeout");
         main.CallDeferred("add_child", b);
-        await ToSignal(GetTree().CreateTimer(windup * .75), "timeout");
+        if (enemy.dead && b != null) b.Destroy();
+        await ToSignal(GetTree().CreateTimer(windup * .5), "timeout");
         if (enemy.dead && b != null) b.Destroy(); else{
             b.LookAt(player.head.GlobalPosition);
             b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);

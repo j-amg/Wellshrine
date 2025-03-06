@@ -62,7 +62,8 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		sm = GetNode<StateMachine>("sm");
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
-		defaultModulate = sprite.Modulate;	
+		defaultModulate = sprite.Modulate;
+		FloorSnapLength = 1;
 		SpawnDelay();
 	}
 
@@ -134,6 +135,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		labelSprite.Visible = (highlighted || damaged) && !dead;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
 		inview = rc.GetCollider() is Player;
+		ApplyFloorSnap();
 		MoveAndSlide();
 	}
 }

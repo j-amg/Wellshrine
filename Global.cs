@@ -47,6 +47,8 @@ public partial class Global : Node
 		public int playerMaxHealthBuff;
 		public float playerRechargeBuff;
 
+		public string currentIdle = "idle";
+
 		public Dictionary<string, Weapon> weapons = new();
 
 
@@ -112,8 +114,8 @@ public partial class Global : Node
 
 		public void EquipWeapon(string weapon)
 		{
-			player.currentIdle = weapon;
-			player.handSprite.Play(player.currentIdle);
+			currentIdle = weapon;
+			player.handSprite.Play(currentIdle);
 			equippedWeapon = weapons[weapon];
 		}
 
@@ -169,7 +171,7 @@ public partial class Global : Node
 		playerStunDurationBuff = basePlayerStunDurationBuff;
 		playerMaxHealthBuff = basePlayerMaxHealthBuff;
 		playerRechargeBuff = basePlayerRechargeBuff;
-
+		equippedWeapon = null;
 
 		currentLevel = 1;
 		playerDamageBuff = 1;

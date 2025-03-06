@@ -4,12 +4,12 @@
 [ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
 [ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
-[ext_resource type="Texture2D" uid="uid://bsb6n0rva245f" path="res://sprites/handsPre2.png" id="4_fhym6"]
+[ext_resource type="Texture2D" uid="uid://bsb6n0rva245f" path="res://textures/handsPre2.png" id="4_fhym6"]
 [ext_resource type="Script" path="res://playerStates/IdleState.cs" id="4_fm7o7"]
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_quk40"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_cxwdp"]
 [ext_resource type="Script" path="res://playerStates/WalkState.cs" id="5_iewqs"]
-[ext_resource type="Texture2D" uid="uid://4r8bhpebugsk" path="res://sprites/shock.png" id="6_33h25"]
+[ext_resource type="Texture2D" uid="uid://4r8bhpebugsk" path="res://textures/shock.png" id="6_33h25"]
 [ext_resource type="Script" path="res://playerStates/SprintState.cs" id="6_eaiyh"]
 [ext_resource type="Script" path="res://playerStates/FallState.cs" id="7_l7400"]
 [ext_resource type="Script" path="res://playerStates/JumpState.cs" id="8_883gc"]
@@ -630,9 +630,9 @@ transform = Transform3D(-0.49, 0, 1.74846e-08, 0, 0.49, 0, -4.28372e-08, 0, -0.2
 flip_h = true
 alpha_cut = 1
 texture_filter = 0
+render_priority = 5
 sprite_frames = SubResource("SpriteFrames_p25tb")
-animation = &"shockburst"
-frame_progress = 0.12114
+animation = &"idle"
 
 [node name="head" type="Node3D" parent="body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

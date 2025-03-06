@@ -16,6 +16,7 @@ script = ExtResource("2_iwobo")
 baseMovementSpeed = 3.0
 name = "Skeleton"
 baseHealth = 20.0
+detectionRange = 15.0
 attackWindup = 0.25
 
 [node name="sprite" parent="." index="2"]
