@@ -4,7 +4,7 @@ using Godot.Collections;
 
 public partial class Door : Area3D
 {
-    public Array<string> killZones = new() {"killZone1", "killZone2"};
+    public Array<string> killZones = new() {"killZone1", "killZone4"};
     public string shrinePath = "res://levels/shrineZone.tscn";
     private PackedScene zoneToLoad;
     private bool open = false;

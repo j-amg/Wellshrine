@@ -1,10 +1,10 @@
+using System;
 using System.Diagnostics;
 using Godot;
 using Godot.Collections;
 
 public partial class Global : Node
 {
-
 		public Node CurrentScene;
 		public int currentLevel = 1;
 		public AudioStreamPlayer musicPlayer;
@@ -24,6 +24,7 @@ public partial class Global : Node
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
 		public Hud hud;
+		public VBoxContainer dialogue;
 		public bool dead = false;
 		private DeathScreen deathScreen;
 		public string Objective = "";
@@ -51,49 +52,131 @@ public partial class Global : Node
 
 		public Dictionary<string, Weapon> weapons = new();
 
+		private string [] currentDialogue;
+		private int currentDialogueStep;
+		private Label dialogueText;
+		public bool inDialogue = false;
+		private bool animatingDialogue = false;
+		private AudioStream charSound;
+
+		private string[] testText = { "Hello", "this is a test", "of the dialogue",};
+
 
 		public override void _Ready()
 		{
-        Viewport root = GetTree().Root;
-        CurrentScene = root.GetChild(root.GetChildCount() - 1);
+        	Viewport root = GetTree().Root;
+        	CurrentScene = root.GetChild(root.GetChildCount() - 1);
+			charSound = GD.Load<AudioStream>("res://audio/bip.wav");
+			Gets();
 
-		Gets();
+			// create weapons
+			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, .5f, .2f, 5));
+			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, .2f, .1f, 2));
+			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 1f, 1, 10));
 
-		// create weapons
-		weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, .5f, .2f, 5));
-		weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, .2f, .1f, 2));
-		weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 1f, 1, 10));
-
-		Reset();
-		UpdateHUD();
-
-		//camera = CurrentScene.GetNode<Player>("player").GetNode<Node3D>("head").GetNode<Camera3D>("Camera3D");
+			Reset();
+			UpdateHUD();
 
 		// audio
 		//music = GD.Load<AudioStream>("res://audio/music.ogg");
 		//musicPlayer = new();
 		//AddChild(musicPlayer);
 		//PlayMusic();
-		//charSound = GD.Load<AudioStream>("res://audio/bip.wav");
 
 		// canvas
 		//worldModulate = new();
 		//AddChild(worldModulate);
 		//ModulateWorld(new Color(0.25f,0.25f,0.25f,1.0f), 0);
+		}
 
-		// dialogue
-		//PackedScene scene = GD.Load<PackedScene>("res://dialogue/dialogue.tscn");
-		//dialogue = scene.Instantiate<Dialogue>();
-		//AddChild(dialogue);
-	}
+		public void Reset()
+		{
+			playerDamageBuff = basePlayerDamageBuff;
+			playerCritDamageBuff = basePlayerCritDamageBuff;
+			playerMoveSpeedBuff = basePlayerMoveSpeedBuff;
+			playerStunDurationBuff = basePlayerStunDurationBuff;
+			playerMaxHealthBuff = basePlayerMaxHealthBuff;
+			playerRechargeBuff = basePlayerRechargeBuff;
+			equippedWeapon = null;
+
+			currentLevel = 1;
+			playerDamageBuff = 1;
+			Engine.TimeScale = 1;
+			dead = false;
+			currentPlayerHealth = playerHealth;
+			paused = false;
+		}
+
+		private void Gets()
+		{
+			player = CurrentScene.GetNodeOrNull<Player>("player");
+			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
+			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
+			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+			dialogue = hud?.GetNode<VBoxContainer>("dialogue");
+			dialogueText = dialogue?.GetNode<Label>("text");
+			if (CurrentScene is Zone zone) Objective = zone.objective;
+		}
+
+		public void EnterDialogue(string[] dialogueText, string name, bool freeze)
+		{
+			player.PauseInput();
+			if (freeze) Engine.TimeScale = 0;
+			inDialogue = true;
+			currentDialogue = dialogueText;
+			currentDialogueStep = 0;
+			dialogue.GetNode<Label>("name").Text = name;
+			AnimateDialogue(dialogueText[0]);
+			dialogue.Visible = true;
+			
+		}
+
+		private async void AnimateDialogue(string text)
+		{
+			float appearSpeed = 0.05f;
+			dialogueText.Text = "";
+			await ToSignal(GetTree().CreateTimer(.1f), "timeout");
+			animatingDialogue = true;
+			foreach(char c in text)
+			{
+				if (!animatingDialogue) break;
+				PlaySound2D(charSound);
+				dialogueText.Text += c;
+				await ToSignal(GetTree().CreateTimer(appearSpeed), "timeout");
+			}
+		}
+
+		public void ProgressDialogue()
+		{
+			if (currentDialogueStep == currentDialogue.Length - 1)
+			{
+				CloseDialogue();
+				return;
+			} 
+			animatingDialogue = false;
+			currentDialogueStep++;
+			AnimateDialogue(currentDialogue[currentDialogueStep]);
+
+			GD.Print("progress dialogue");
+		}
+
+		public async void CloseDialogue()
+		{
+			GD.Print("close dialogue");
+			if (Engine.TimeScale != 1) Engine.TimeScale = 1;
+			dialogue.Visible = false;
+			inDialogue = false;
+			await ToSignal(GetTree().CreateTimer(.5f), "timeout");
+			player.ResumeInput();
+			
+		}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(double delta)
         {
-        	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead)
-			{
-				PauseMenu();
-			} 
+        	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
+			if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
+			if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
         }
 
 		public void AddBuff(string buff)
@@ -105,7 +188,7 @@ public partial class Global : Node
 			if (buff == "Increased Stun Duration") playerStunDurationBuff +=.1f;
 			if (buff == "Increased Max Health")
 			{
-				GD.Print("increase health");
+				//GD.Print("increase health");
 				playerHealth += 50;
 				UpdateHUD();
 			} 
@@ -148,11 +231,13 @@ public partial class Global : Node
 			if (dead) return;
 			if (paused)
 			{
+				player.ResumeInput();
 				pauseMenu.Hide();
 				Engine.TimeScale = 1;
 			}
 			else
 			{
+				player.PauseInput();
 				pauseMenu.Show();
 				pauseMenu.resumeButton.autoFocussed = true;
 				pauseMenu.resumeButton.GrabFocus();
@@ -162,33 +247,6 @@ public partial class Global : Node
 		}
 
     public void UpdateHUD() => hud?.SetValues();
-
-	public void Reset()
-	{
-		playerDamageBuff = basePlayerDamageBuff;
-		playerCritDamageBuff = basePlayerCritDamageBuff;
-		playerMoveSpeedBuff = basePlayerMoveSpeedBuff;
-		playerStunDurationBuff = basePlayerStunDurationBuff;
-		playerMaxHealthBuff = basePlayerMaxHealthBuff;
-		playerRechargeBuff = basePlayerRechargeBuff;
-		equippedWeapon = null;
-
-		currentLevel = 1;
-		playerDamageBuff = 1;
-		Engine.TimeScale = 1;
-		dead = false;
-		currentPlayerHealth = playerHealth;
-		paused = false;
-	}
-
-	private void Gets()
-	{
-		player = CurrentScene.GetNodeOrNull<Player>("player");
-		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
-		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
-		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
-		if (CurrentScene is Zone zone) Objective = zone.objective;
-	}
 
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 	public void DeferredGotoScene(PackedScene nextScene)

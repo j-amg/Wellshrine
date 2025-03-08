@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://71n8w0xi8ovv"]
+[gd_scene load_steps=6 format=3 uid="uid://71n8w0xi8ovv"]
 
 [ext_resource type="Script" path="res://Shrine.cs" id="1_7aram"]
+[ext_resource type="Theme" uid="uid://boeoqdsqw7hgt" path="res://fonts/baseTheme.tres" id="2_sdnt2"]
+[ext_resource type="FontFile" uid="uid://kehachqcyi4t" path="res://fonts/monogram.ttf" id="3_e2lb7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_imbuu"]
 size = Vector3(0.5, 1, 0.5)
@@ -48,14 +50,18 @@ size_flags_horizontal = 4
 
 [node name="Name" type="Label" parent="SubViewport/Control"]
 layout_mode = 2
-horizontal_alignment = 1
-
-[node name="Effect" type="Label" parent="SubViewport/Control"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme = ExtResource("2_sdnt2")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_e2lb7")
 horizontal_alignment = 1
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52936, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32936, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_yr3vb")
+
+[node name="magic" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29336, 0)
+billboard = 1
+texture_filter = 0

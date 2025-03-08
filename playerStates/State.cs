@@ -17,6 +17,7 @@ public partial class State : Node
     }
     public virtual void Enter()
 	{
+		
 		return;
 	}
 

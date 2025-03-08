@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3ahi8f738gd2"]
+[gd_scene load_steps=3 format=3 uid="uid://scq5jrf62aiv"]
 
-[ext_resource type="PackedScene" uid="uid://5fq2e5c0uks0" path="res://meshes/tileset.glb" id="1_c8txw"]
+[ext_resource type="PackedScene" uid="uid://d36vt3fy23mbw" path="res://meshes/handsTileSet3.glb" id="1_0cij0"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="2_ij11j"]
 
-[node name="handsTileSet3" instance=ExtResource("1_c8txw")]
+[node name="handsTileSet3" instance=ExtResource("1_0cij0")]
 
 [node name="floor" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_ij11j")
@@ -17,38 +17,53 @@ surface_material_override/0 = ExtResource("2_ij11j")
 [node name="floor_001" parent="." index="3"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_008" parent="." index="5"]
+[node name="wall2_008" parent="." index="4"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="floor_004" parent="." index="6"]
+[node name="floor_004" parent="." index="5"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="corner1_001" parent="." index="7"]
+[node name="corner1_001" parent="." index="6"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_002" parent="." index="8"]
+[node name="wall2_002" parent="." index="7"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_003" parent="." index="9"]
+[node name="wall2_003" parent="." index="8"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_001" parent="." index="10"]
+[node name="wall2_001" parent="." index="9"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="door2_001" parent="." index="11"]
+[node name="door2_001" parent="." index="10"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="corner1_002" parent="." index="12"]
+[node name="corner1_002" parent="." index="11"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall1_002" parent="." index="13"]
+[node name="wall1_002" parent="." index="12"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall1_003" parent="." index="14"]
+[node name="wall1_003" parent="." index="13"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_004" parent="." index="15"]
+[node name="wall2_004" parent="." index="14"]
 surface_material_override/0 = ExtResource("2_ij11j")
 
-[node name="wall2_005" parent="." index="16"]
+[node name="wall2_005" parent="." index="15"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_006" parent="." index="16"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_007" parent="." index="17"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_009" parent="." index="18"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="floor_003" parent="." index="19"]
+surface_material_override/0 = ExtResource("2_ij11j")
+
+[node name="wall2_010" parent="." index="20"]
 surface_material_override/0 = ExtResource("2_ij11j")

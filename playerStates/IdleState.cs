@@ -14,8 +14,8 @@ public partial class IdleState : State
         player.UpdateVelocity();
 	if (player.Velocity.Length() > 0.0 && player.IsOnFloor()) EmitSignal(SignalName.transition, "walk");
         if (!player.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
-        if (Input.IsActionPressed("Shift")) EmitSignal(SignalName.transition, "crouch");
-        if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "jump");
+        if (Input.IsActionPressed("Shift") && !player.inputPaused) EmitSignal(SignalName.transition, "crouch");
+        if (Input.IsActionJustPressed("Space") && !player.inputPaused) EmitSignal(SignalName.transition, "jump");
         } 
 
 }

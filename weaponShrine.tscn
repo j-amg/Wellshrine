@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bky2rab0cedur"]
+[gd_scene load_steps=7 format=3 uid="uid://bky2rab0cedur"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_xvlt7"]
 [ext_resource type="Script" path="res://WeaponShrine.cs" id="2_kyw0b"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="3_14u1x"]
+[ext_resource type="SpriteFrames" uid="uid://b0x0stgxpki5f" path="res://sprites/magic.tres" id="4_tk4qb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a2mti"]
 size = Vector3(0.25, 1, 0.25)
@@ -23,3 +24,6 @@ mesh = SubResource("BoxMesh_a2mti")
 
 [node name="Sprite3D" parent="." index="3"]
 texture = SubResource("ViewportTexture_u8h0p")
+
+[node name="magic" parent="." index="4"]
+sprite_frames = ExtResource("4_tk4qb")

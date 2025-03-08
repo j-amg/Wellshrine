@@ -10,5 +10,4 @@ script = ExtResource("1_u5xqn")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(15.0909, 0, 0, 0, 15.0909, 0, 0, 0, 1, 0, 0, 0)
-visible = false
 texture = SubResource("PlaceholderTexture2D_3g0a5")

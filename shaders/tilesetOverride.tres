@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://2lqiy1gaxg7a" path="res://textures/tileset2.png" id="1_bcgt6"]
 
 [resource]
-cull_mode = 2
 specular_mode = 2
 albedo_texture = ExtResource("1_bcgt6")
 metallic = 0.32

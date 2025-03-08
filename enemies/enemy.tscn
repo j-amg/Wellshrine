@@ -175,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ivxnk")
 }, {
-"duration": 1.0,
+"duration": 10.0,
 "texture": SubResource("AtlasTexture_m0g8g")
 }],
 "loop": true,
@@ -289,7 +289,7 @@ visible = false
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
-animation = &"stun"
+animation = &"die"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true

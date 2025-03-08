@@ -7,6 +7,7 @@ public partial class StateMachine : Node
 	
 	[Export]
 	public State current_state;
+	public bool pauseInput = false;
 	private Dictionary<StringName, State> states = new();
 	public override void _Ready()
 	{

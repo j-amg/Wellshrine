@@ -12,9 +12,6 @@ viewport_path = NodePath("SubViewport")
 script = ExtResource("2_sgipv")
 pickUp = ExtResource("3_ixn6x")
 
-[node name="Effect" parent="SubViewport/Control" index="1"]
-text = "Restore Health"
-
 [node name="Sprite3D" parent="." index="2"]
 texture = SubResource("ViewportTexture_sh58n")
 

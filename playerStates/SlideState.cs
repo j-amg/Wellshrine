@@ -45,8 +45,7 @@ public partial class SlideState : State
         player.UpdateVelocity();
 		if (speed <= 3) EmitSignal(SignalName.transition, "crouch");
 		if (player.velocity != Vector3.Zero && Input.IsActionJustReleased("Shift")) EmitSignal(SignalName.transition, "walk");
-		if (player.velocity != Vector3.Zero && Input.IsActionPressed("Alt")) EmitSignal(SignalName.transition, "sprint");
-		if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "dash");
+		if (Input.IsActionJustPressed("Space") && !player.inputPaused) EmitSignal(SignalName.transition, "dash");
         if (!player.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
 	}
 }

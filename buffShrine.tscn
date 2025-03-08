@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://brt67t3q73a3u"]
+[gd_scene load_steps=7 format=3 uid="uid://brt67t3q73a3u"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_3jaa1"]
 [ext_resource type="Script" path="res://BuffShrine.cs" id="2_7c7yy"]
 [ext_resource type="AudioStream" uid="uid://frexyqnax0wh" path="res://audio/heartPickup.wav" id="3_fl8rf"]
+[ext_resource type="SpriteFrames" uid="uid://b0x0stgxpki5f" path="res://sprites/magic.tres" id="4_cqvu2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jdf1o"]
 viewport_path = NodePath("SubViewport")
@@ -20,3 +21,6 @@ texture = SubResource("ViewportTexture_jdf1o")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_5ynsr")
+
+[node name="magic" parent="." index="4"]
+sprite_frames = ExtResource("4_cqvu2")

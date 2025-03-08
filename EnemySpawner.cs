@@ -14,7 +14,11 @@ public partial class EnemySpawner : Node3D
 
     public async void Spawn()
     {
+        
         await ToSignal(GetTree().CreateTimer(SpawnSpeed), "timeout");
+        if (LoadedEnemy == null) return;
+        //GD.Print("try spawn");
+        
         Enemy enemy = Enemy.InitEnemy(LoadedEnemy, Global.Singleton.currentLevel, GlobalTransform);
         var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", enemy);

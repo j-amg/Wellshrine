@@ -17,7 +17,6 @@ public partial class WeaponShrine : Shrine, IInteractable
     {
         base._Ready();
         name.Text = displayName;
-        effect.Text = description;
         AddToGroup("shrines");
     }
     void IInteractable.Interact()

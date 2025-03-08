@@ -27,7 +27,7 @@ public partial class FallState : State
         player.UpdateInput(s, acceleration, deceleration);
 		player.velocity.Y -= player.gravity * (float)delta;
         player.UpdateVelocity();
-		if (Input.IsActionPressed("RightMouse"))
+		if (Input.IsActionPressed("RightMouse") && !player.inputPaused)
 		{
 			EmitSignal(SignalName.transition, "glide");
 		}
@@ -35,7 +35,7 @@ public partial class FallState : State
 		if (player.IsOnFloor())
 		{
 			EmitSignal(SignalName.landed);
-			if (Input.IsActionPressed("Shift"))
+			if (Input.IsActionPressed("Shift") && !player.inputPaused)
 			{
 				EmitSignal(SignalName.transition, "slide");
 			}

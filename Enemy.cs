@@ -114,7 +114,7 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	private void OnDamageTaken(float damage)
     {
 		damaged = true;
-		Global.Singleton.PlaySound2D(hit);
+		//Global.Singleton.PlaySound2D(hit);
         if (currentHealth <= 0) Die();
     }
 
