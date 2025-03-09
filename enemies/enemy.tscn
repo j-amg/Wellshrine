@@ -298,7 +298,7 @@ transparent_bg = true
 [node name="label" parent="SubViewport" instance=ExtResource("3_dee20")]
 
 [node name="labelSprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40553, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_8tx16")
 

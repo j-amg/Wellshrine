@@ -5,6 +5,8 @@ using Godot.Collections;
 
 public partial class Global : Node
 {
+		[Signal]
+		public delegate void actionChangedEventHandler();
 		public Node CurrentScene;
 		public int currentLevel = 1;
 		public AudioStreamPlayer musicPlayer;
@@ -56,11 +58,13 @@ public partial class Global : Node
 		private int currentDialogueStep;
 		private Label dialogueText;
 		public bool inDialogue = false;
+		public bool inPopup = false;
 		private bool animatingDialogue = false;
 		private AudioStream charSound;
+		private string currentAction;
+		public string awaitedAction;
 
 		private string[] testText = { "Hello", "this is a test", "of the dialogue",};
-
 
 		public override void _Ready()
 		{
@@ -115,12 +119,47 @@ public partial class Global : Node
 			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
 			dialogue = hud?.GetNode<VBoxContainer>("dialogue");
 			dialogueText = dialogue?.GetNode<Label>("text");
+			
 			if (CurrentScene is Zone zone) Objective = zone.objective;
+		}
+
+		// Called every frame. 'delta' is the elapsed time since the previous frame.
+        public override void _Process(double delta)
+        {
+        	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
+			if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
+			if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
+			if (Input.IsActionJustPressed("popup") && !inPopup) SendPopUp("Jump while crouching to dash", "dash");
+        }
+
+		public void SendPopUp(string text, string action)
+		{
+			inPopup = true;
+			Label popup = hud.GetNode<Label>("popup");
+			awaitedAction = action;
+			popup.Text = text;
+			popup.Visible = true;
+		}
+
+		public void SetAction(string action)
+		{
+			GD.Print(currentAction);
+			currentAction = action;
+			if (awaitedAction == action && hud?.GetNode<Label>("popup").Visible == true) ClosePopUp();
+		}
+
+		public async void ClosePopUp()
+		{
+			await ToSignal(GetTree().CreateTimer(1), "timeout");
+			awaitedAction = "";
+			hud.GetNode<Label>("popup").Visible = false;
+			inPopup = false;
 		}
 
 		public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 		{
 			player.PauseInput();
+			player.reticle.Visible = false;
 			if (freeze) Engine.TimeScale = 0;
 			inDialogue = true;
 			currentDialogue = dialogueText;
@@ -168,16 +207,9 @@ public partial class Global : Node
 			inDialogue = false;
 			await ToSignal(GetTree().CreateTimer(.5f), "timeout");
 			player.ResumeInput();
+			player.reticle.Visible = true;
 			
 		}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-        public override void _Process(double delta)
-        {
-        	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
-			if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
-			if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
-        }
 
 		public void AddBuff(string buff)
 		{

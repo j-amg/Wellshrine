@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://scq5jrf62aiv"]
+[gd_scene load_steps=3 format=3 uid="uid://c8vwxeb5eocqv"]
 
-[ext_resource type="PackedScene" uid="uid://d36vt3fy23mbw" path="res://meshes/handsTileSet3.glb" id="1_0cij0"]
+[ext_resource type="PackedScene" uid="uid://4c7mnglvemk0" path="res://meshes/handsTileSet4.glb" id="1_c0mlx"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="2_ij11j"]
 
-[node name="handsTileSet3" instance=ExtResource("1_0cij0")]
+[node name="handsTileSet4" instance=ExtResource("1_c0mlx")]
 
 [node name="floor" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_ij11j")

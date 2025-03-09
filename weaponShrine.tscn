@@ -1,15 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://bky2rab0cedur"]
+[gd_scene load_steps=10 format=3 uid="uid://bky2rab0cedur"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_xvlt7"]
 [ext_resource type="Script" path="res://WeaponShrine.cs" id="2_kyw0b"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="3_14u1x"]
-[ext_resource type="SpriteFrames" uid="uid://b0x0stgxpki5f" path="res://sprites/magic.tres" id="4_tk4qb"]
+[ext_resource type="Texture2D" uid="uid://br7tg1wsqislp" path="res://textures/fire.png" id="4_m4of1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a2mti"]
 size = Vector3(0.25, 1, 0.25)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u8h0p"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ldm"]
+atlas = ExtResource("4_m4of1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb40i"]
+atlas = ExtResource("4_m4of1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qr8ku"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ldm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rb40i")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="shrine" instance=ExtResource("1_xvlt7")]
 script = ExtResource("2_kyw0b")
@@ -26,4 +48,6 @@ mesh = SubResource("BoxMesh_a2mti")
 texture = SubResource("ViewportTexture_u8h0p")
 
 [node name="magic" parent="." index="4"]
-sprite_frames = ExtResource("4_tk4qb")
+sprite_frames = SubResource("SpriteFrames_qr8ku")
+animation = &"idle"
+frame_progress = 0.782624

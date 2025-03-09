@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d36vt3fy23mbw"
-path="res://.godot/imported/handsTileSet3.glb-fe866b1396d94814850d8c520f04f181.scn"
+uid="uid://4c7mnglvemk0"
+path="res://.godot/imported/handsTileSet4.glb-c5cc32e0cd973c52fc9d3d8e7b372bb9.scn"
 
 [deps]
 
-source_file="res://meshes/handsTileSet3.glb"
-dest_files=["res://.godot/imported/handsTileSet3.glb-fe866b1396d94814850d8c520f04f181.scn"]
+source_file="res://meshes/handsTileSet4.glb"
+dest_files=["res://.godot/imported/handsTileSet4.glb-c5cc32e0cd973c52fc9d3d8e7b372bb9.scn"]
 
 [params]
 

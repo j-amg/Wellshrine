@@ -5,7 +5,6 @@ public partial class Hud : Control
 {
     private ProgressBar healthBar;
 	private Label zoneNumberLabel;
-	//private Label enemyNumberLabel;
     private Label objectiveLabel;
     private Player parent;
     public override void _Ready()
@@ -16,6 +15,12 @@ public partial class Hud : Control
     }
 
     private void OnDamageTaken() => healthBar.Value = Global.Singleton.currentPlayerHealth;
+
+    public  void FlashCrossHair()
+    {
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(GetNode<Control>("crossHair"), "modulate", new Color(0,0,0,0), .2).From(new Color(1,0,0,.5f));
+    }
 
     public void SetValues()
     {

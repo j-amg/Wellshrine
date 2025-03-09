@@ -19,6 +19,7 @@ public partial class ShooterIdle : State
 
     public override void Update(double delta)
     {
+        enemy.sprite.Play("spawn");
         velocity = Vector3.Zero;
         if (!enemy.IsOnFloor()) velocity.Y -= player.gravity * (float)delta;
         enemy.Velocity = velocity;

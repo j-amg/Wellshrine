@@ -23,10 +23,8 @@ public partial class EnemyLabel : VBoxContainer
 		healthBar = GetNode<ProgressBar>("Control/health");
 		healthBackground = GetNode<ProgressBar>("Control/healthBackground");
 		nameLabel = GetNode<Label>("name");
-		levelLabel = GetNode<Label>("level");
 		damageLabel = GetNode<Label>("damage");
 		nameLabel.Text = parent.name.ToString();
-		levelLabel.Text = parent.level.ToString();
 		healthBar.MaxValue = parent.baseHealth;
 		healthBar.Value = parent.baseHealth;
 		healthBackground.MaxValue = parent.baseHealth;

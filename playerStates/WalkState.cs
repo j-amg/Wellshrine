@@ -3,15 +3,14 @@ using System;
 
 public partial class WalkState : State
 {
-    [Export]
-    float speed = 5;
+
     [Export]
     float acceleration = .5f;
     [Export]
     float deceleration = 0.25f;
 	public override void Update(double delta)
 	{
-        player.UpdateInput(speed + Global.Singleton.playerMoveSpeedBuff, acceleration, deceleration);
+        player.UpdateInput(player.currentSpeed + Global.Singleton.playerMoveSpeedBuff, acceleration, deceleration);
         player.UpdateVelocity();
 		if (Global.Singleton.player.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
         if (Input.IsActionPressed("Shift") && !player.inputPaused) EmitSignal(SignalName.transition, "slide");

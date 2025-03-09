@@ -33,6 +33,7 @@ public partial class shrineZone : Zone
             }
         }
     }
+    
     public override void UpdateObjective()
     {
         objectiveComplete = true;

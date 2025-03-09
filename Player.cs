@@ -16,6 +16,9 @@ public partial class Player : CharacterBody3D, IDamageable
 	private float handsMovementSmoothing = 10;
 	public float zoomFOV = 60;
 	public float walkingFOV = 80;
+	public float walkSpeed = 5;
+	public float aimSpeed = 3;
+	public float currentSpeed;
 	public Node3D body;
 	public Node3D head;
 	public Camera3D camera;
@@ -79,8 +82,6 @@ public partial class Player : CharacterBody3D, IDamageable
 		standCollision = GetNode<CollisionShape3D>("standCollision");
 		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
 		stateMachine = GetNode<StateMachine>("playerStateMachine");
-
-
 		
 		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
 		
@@ -93,6 +94,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		handSprite.Play(Global.Singleton.currentIdle);
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
+		currentSpeed = walkSpeed;
 		FloorMaxAngle = Mathf.DegToRad(65);
 		FloorConstantSpeed = true;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -135,12 +137,16 @@ public partial class Player : CharacterBody3D, IDamageable
 		{
 			Tween tween = GetTree().CreateTween();
 			tween.TweenProperty(camera, "fov", zoomFOV, .05);
+			_sensitivity = aimMouseSensitivity;
+			currentSpeed = aimSpeed;
 		}
 
 		if (Input.IsActionJustReleased("RightMouse"))
 		{
 			Tween tween = GetTree().CreateTween();
 			tween.TweenProperty(camera, "fov", walkingFOV, .1);
+			_sensitivity = mouseSensitivity;
+			currentSpeed = walkSpeed;
 		}
 		
 	}
@@ -198,6 +204,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Input(InputEvent @event)
 	{
+		if (Global.Singleton.awaitedAction == "look") Global.Singleton.ClosePopUp();
 		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
 		if (@event is InputEventMouseMotion eventKey)
 		{
@@ -245,6 +252,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (direction != Vector3.Zero)
 		{
+			if (Global.Singleton.awaitedAction == "walk") Global.Singleton.ClosePopUp();
 			velocity.X = Mathf.Lerp(velocity.X, direction.X * speed, acceleration);
 			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
 		}
@@ -259,6 +267,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	private void Attack()
 	{
+		if (Global.Singleton.awaitedAction == "attack") Global.Singleton.ClosePopUp();
 		AttackAnim();
 		if (Global.Singleton.equippedWeapon.name == "fireball")
 		{

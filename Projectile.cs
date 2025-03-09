@@ -17,7 +17,7 @@ public partial class Projectile : Area3D
 	[Export]
 	public Explosion explosion;
 
-	private Sprite3D sprite;
+	private AnimatedSprite3D sprite;
 	public Vector3 velocity = Vector3.Zero;
 	public float damage = 0;
 
@@ -26,7 +26,8 @@ public partial class Projectile : Area3D
 		BodyEntered += OnBodyEntered;
 		explosion.explosionFinished += OnExplosionFinished;
 		AreaEntered += OnAreaEntered;
-		sprite = GetNode<Sprite3D>("projectile");
+		sprite = GetNode<AnimatedSprite3D>("projectile");
+		sprite.Play("throw");
 		Setup();
 		
 	}
