@@ -17,14 +17,11 @@ public partial class BuffShrine : Shrine, IInteractable
     {
         buff = type;
         name.Text = buff;
-        //effect.Text = buff;
     }
 
     void IInteractable.Interact()
     {
-        Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(Global.Singleton.player.hitFlash, "modulate", new Color(0,0,0,0), .5).From(new Color(1,1,0,1));
-        GD.Print("Add buff " + buff + "!");
+        Global.Singleton.hud.Flash(new Color(1,1,0));
         Global.Singleton.AddBuff(buff);
         Global.Singleton.PlaySound2D(pickUp);
         if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();

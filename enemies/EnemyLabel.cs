@@ -4,10 +4,13 @@ using Godot;
 
 public partial class EnemyLabel : VBoxContainer
 {
+	[Export]
 	private ProgressBar healthBar;
+	[Export]
 	private ProgressBar healthBackground;
+	[Export]
 	private Label nameLabel;
-	private Label levelLabel;
+	[Export]
 	private Label damageLabel;
 	private Enemy parent;
 
@@ -15,15 +18,10 @@ public partial class EnemyLabel : VBoxContainer
 	{
 		parent = GetOwner<Enemy>();
 		parent.damageTaken += OnDamageTaken;
-
 	}
 
 	public void SetValues()
 	{
-		healthBar = GetNode<ProgressBar>("Control/health");
-		healthBackground = GetNode<ProgressBar>("Control/healthBackground");
-		nameLabel = GetNode<Label>("name");
-		damageLabel = GetNode<Label>("damage");
 		nameLabel.Text = parent.name.ToString();
 		healthBar.MaxValue = parent.baseHealth;
 		healthBar.Value = parent.baseHealth;

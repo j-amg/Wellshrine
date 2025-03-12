@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
 [ext_resource type="Script" path="res://enemies/Shooter.cs" id="2_okrev"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="3_yi21b"]
-[ext_resource type="Script" path="res://enemies/ShooterChase.cs" id="4_7pwm4"]
-[ext_resource type="Script" path="res://enemyStates/shooterEnemy/ShooterAttack.cs" id="5_gnwtc"]
+[ext_resource type="Script" path="res://enemyStates/EnemyIdle.cs" id="3_yi21b"]
+[ext_resource type="Script" path="res://enemyStates/EnemyChase.cs" id="4_nduyg"]
+[ext_resource type="Script" path="res://enemyStates/ShooterAttack.cs" id="5_gnwtc"]
 [ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
-[ext_resource type="Script" path="res://enemyStates/DieState.cs" id="7_k5dwn"]
+[ext_resource type="Script" path="res://enemyStates/EnemyDie.cs" id="7_k5dwn"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
 viewport_path = NodePath("SubViewport")
@@ -26,20 +26,18 @@ modulate = Color(1, 0.27451, 1, 1)
 [node name="labelSprite" parent="." index="4"]
 texture = SubResource("ViewportTexture_h440o")
 
-[node name="sm" parent="." index="5" node_paths=PackedStringArray("current_state")]
+[node name="statemachine" parent="." index="5" node_paths=PackedStringArray("current_state")]
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
+[node name="idle" type="Node" parent="statemachine" index="0"]
 script = ExtResource("3_yi21b")
-nav = NodePath("../../NavigationAgent3D")
 
-[node name="chase" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]
-script = ExtResource("4_7pwm4")
-nav = NodePath("../../NavigationAgent3D")
+[node name="chase" type="Node" parent="statemachine" index="1"]
+script = ExtResource("4_nduyg")
 
-[node name="attack" type="Node" parent="sm" index="2"]
+[node name="attack" type="Node" parent="statemachine" index="2"]
 script = ExtResource("5_gnwtc")
 projectile = ExtResource("7_6gbqh")
 
-[node name="die" type="Node" parent="sm" index="3"]
+[node name="die" type="Node" parent="statemachine" index="3"]
 script = ExtResource("7_k5dwn")

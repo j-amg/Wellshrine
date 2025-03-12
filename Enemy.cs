@@ -6,21 +6,29 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	[Signal]
 	public delegate void damageTakenEventHandler(float damageTaken);
 	[Export]
+	public NavigationAgent3D nav;
+	[Export]
+	public StateMachine sm;
+	[Export]
+	public AudioStream hit;
+	[Export]
+	public AnimatedSprite3D sprite;
+	[Export]
+	public Sprite3D labelSprite;
+	[Export]
+	public EnemyLabel label;
+	[Export]
+	public RayCast3D rc;
+	[Export]
 	public float baseMovementSpeed = 2;
 	[Export]
 	public string name = "[PH] Enemy";
-	public double acceleration = 2;
-	private int currentMovementSpeed;
 	[Export]
 	public float baseHealth;
 	[Export]
 	public const string enemyScenePath = "res://enemies/enemy";
 	[Export]
 	public float detectionRange = 200;
-	public float currentHealth;
-	public int level = 1;
-	[Export]
-	public NavigationAgent3D nav;
 	[Export]
 	public float attackRange = 2;
 	[Export]
@@ -29,21 +37,21 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	public float attackWindup = .5f;
 	[Export]
 	public float attackDamage = 5;
-	[Export]
-	public AudioStream hit;
+	public double acceleration = 2;
+
+	public int level = 1;
 	private Vector3 velocity;
-	public bool highlighted = false;
-	public bool damaged = false;
-	public bool aggro = false;
-	public AnimatedSprite3D sprite;
-	public Sprite3D labelSprite;
-	public RayCast3D rc;
 	private Color defaultModulate;
-	public bool inview;
-	public StateMachine sm;
+	private int currentMovementSpeed;
+	public float currentHealth;
+	
 	public bool awake = false;
 	public bool dead = false;
 	public bool stunned = false;
+	public bool inview;
+	public bool highlighted = false;
+	public bool damaged = false;
+	public bool aggro = false;
 	
 
 	public override void _Ready()
@@ -54,12 +62,9 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		baseMovementSpeed += level/10;
 		currentHealth = baseHealth;
 		damageTaken += OnDamageTaken;
+		label.SetValues();
 		AddToGroup("enemies");
-		GetNode<EnemyLabel>("SubViewport/label").SetValues();
-		sprite = GetNode<AnimatedSprite3D>("sprite");
-		labelSprite = GetNode<Sprite3D>("labelSprite");
-		rc = GetNode<RayCast3D>("rc");
-		sm = GetNode<StateMachine>("sm");
+
 		CallDeferred("Setup");
 		Global.Singleton.UpdateHUD();
 		defaultModulate = sprite.Modulate;

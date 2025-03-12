@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_mdvr3"]
 [ext_resource type="Script" path="res://enemies/Chaser.cs" id="2_iwobo"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserChase.cs" id="3_qyiik"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserIdle.cs" id="4_jo8ps"]
-[ext_resource type="Script" path="res://enemyStates/chaserEnemy/ChaserAttack.cs" id="5_e577w"]
-[ext_resource type="Script" path="res://enemyStates/DieState.cs" id="6_c45yr"]
+[ext_resource type="Script" path="res://enemyStates/EnemyChase.cs" id="3_qyiik"]
+[ext_resource type="Script" path="res://enemyStates/EnemyIdle.cs" id="4_jo8ps"]
+[ext_resource type="Script" path="res://enemyStates/ChaserAttack.cs" id="5_e577w"]
+[ext_resource type="Script" path="res://enemyStates/EnemyDie.cs" id="6_c45yr"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gcvlr"]
 viewport_path = NodePath("SubViewport")
@@ -25,19 +25,17 @@ animation = &"spawn"
 [node name="labelSprite" parent="." index="4"]
 texture = SubResource("ViewportTexture_gcvlr")
 
-[node name="sm" parent="." index="5" node_paths=PackedStringArray("current_state")]
+[node name="statemachine" parent="." index="5" node_paths=PackedStringArray("current_state")]
 current_state = NodePath("idle")
 
-[node name="chase" type="Node" parent="sm" index="0" node_paths=PackedStringArray("nav")]
+[node name="chase" type="Node" parent="statemachine" index="0"]
 script = ExtResource("3_qyiik")
-nav = NodePath("../../NavigationAgent3D")
 
-[node name="idle" type="Node" parent="sm" index="1" node_paths=PackedStringArray("nav")]
+[node name="idle" type="Node" parent="statemachine" index="1"]
 script = ExtResource("4_jo8ps")
-nav = NodePath("../../NavigationAgent3D")
 
-[node name="attack" type="Node" parent="sm" index="2"]
+[node name="attack" type="Node" parent="statemachine" index="2"]
 script = ExtResource("5_e577w")
 
-[node name="die" type="Node" parent="sm" index="3"]
+[node name="die" type="Node" parent="statemachine" index="3"]
 script = ExtResource("6_c45yr")

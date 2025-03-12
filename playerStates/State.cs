@@ -6,15 +6,8 @@ public partial class State : Node
 {
 	[Signal]
 	public delegate void transitionEventHandler(StringName stateName);
-    public Player player;
-	public CharacterBody3D parentNode;
-
-    public override async void _Ready()
-    {
-        await ToSignal(Owner, "ready");
-		player = (Player)GetTree().GetNodesInGroup("player")[0];
-		parentNode = GetOwner<CharacterBody3D>();
-    }
+    public dynamic owner;
+    public override void _Ready() => owner = Owner;
     public virtual void Enter()
 	{
 		return;

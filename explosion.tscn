@@ -54,10 +54,10 @@ shape = SubResource("SphereShape3D_ox6gx")
 [node name="sprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(5.22527, 0, 0, 0, 5.22527, 0, 0, 0, 1, 0, 0, 0)
 visible = false
-modulate = Color(1, 0.396078, 0.172549, 1)
+modulate = Color(1, 0.592157, 0.384314, 1)
 billboard = 1
 no_depth_test = true
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_o7bhb")
 animation = &"explode"
-frame_progress = 0.443243
+frame_progress = 0.989055

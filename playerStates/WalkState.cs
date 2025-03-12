@@ -3,18 +3,13 @@ using System;
 
 public partial class WalkState : State
 {
-
-    [Export]
-    float acceleration = .5f;
-    [Export]
-    float deceleration = 0.25f;
 	public override void Update(double delta)
 	{
-        player.UpdateInput(player.currentSpeed + Global.Singleton.playerMoveSpeedBuff, acceleration, deceleration);
-        player.UpdateVelocity();
-		if (Global.Singleton.player.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
-        if (Input.IsActionPressed("Shift") && !player.inputPaused) EmitSignal(SignalName.transition, "slide");
-        if (Input.IsActionJustPressed("Space") && !player.inputPaused) EmitSignal(SignalName.transition, "jump");
-        if(!player.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
+        owner.UpdateInput(owner.currentSpeed + Global.Singleton.playerMoveSpeedBuff, owner.acceleration, owner.deceleration);
+        owner.UpdateVelocity();
+		if (owner.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
+        if (Input.IsActionPressed("Shift") && !owner.inputPaused) EmitSignal(SignalName.transition, "slide");
+        if (Input.IsActionJustPressed("Space") && !owner.inputPaused) EmitSignal(SignalName.transition, "jump");
+        if(!owner.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
 	}
 }

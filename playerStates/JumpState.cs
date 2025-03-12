@@ -3,23 +3,16 @@ using System;
 
 public partial class JumpState : State
 {
-    [Export]
-    float speed = 5;
-    [Export]
-    float acceleration = 1f;
-    [Export]
-    float deceleration = 0.25f;
-	[Export]
-	float jumpVelocity = 5f;
     public override void Enter()
     {
-        player.UpdateInput(speed, acceleration, deceleration);
-        player.velocity.Y += jumpVelocity;
-        base.Enter();
+        owner.UpdateInput(owner.currentSpeed, 1, owner.deceleration);
+        Vector3 vel = owner.velocity;
+        vel.Y += 5;
+        owner.velocity = vel;
     }
     public override void Update(double delta)
 	{
-        player.UpdateVelocity();
+        owner.UpdateVelocity();
 		EmitSignal(SignalName.transition, "fall");
-	} 
+	}
 }

@@ -269,13 +269,18 @@ animations = [{
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tx16"]
 viewport_path = NodePath("SubViewport")
 
-[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav")]
+[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav", "sm", "sprite", "labelSprite", "label", "rc")]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
-detectionRange = 10.0
 nav = NodePath("NavigationAgent3D")
+sm = NodePath("statemachine")
 hit = ExtResource("2_by5sj")
+sprite = NodePath("sprite")
+labelSprite = NodePath("labelSprite")
+label = NodePath("SubViewport/label")
+rc = NodePath("rc")
+detectionRange = 10.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -300,9 +305,10 @@ transparent_bg = true
 [node name="labelSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
 billboard = 1
+texture_filter = 0
 texture = SubResource("ViewportTexture_8tx16")
 
-[node name="sm" type="Node" parent="."]
+[node name="statemachine" type="Node" parent="."]
 script = ExtResource("4_aab5i")
 
 [node name="rc" type="RayCast3D" parent="."]

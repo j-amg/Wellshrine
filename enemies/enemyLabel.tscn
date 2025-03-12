@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmbqu1ogp3vnb"]
+[gd_scene load_steps=7 format=3 uid="uid://cmbqu1ogp3vnb"]
 
 [ext_resource type="Script" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://textures/UI.tres" id="2_8klcy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1evt3"]
 bg_color = Color(0.482353, 0.482353, 0.482353, 0.827451)
@@ -14,7 +15,7 @@ bg_color = Color(0, 0, 0, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fk17"]
 bg_color = Color(1, 0, 0, 1)
 
-[node name="enemyLabel" type="VBoxContainer"]
+[node name="enemyLabel" type="VBoxContainer" node_paths=PackedStringArray("healthBar", "healthBackground", "nameLabel", "damageLabel")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -27,13 +28,15 @@ offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kutdu")
+healthBar = NodePath("Control/health")
+healthBackground = NodePath("Control/healthBackground")
+nameLabel = NodePath("name")
+damageLabel = NodePath("damage")
 
 [node name="name" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme = ExtResource("2_8klcy")
 text = "[PH] Name"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -63,7 +66,8 @@ show_percentage = false
 modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme = ExtResource("2_8klcy")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1

@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 public partial class StateMachine : Node
 {
-	
 	[Export]
 	public State current_state;
-	public bool pauseInput = false;
 	private Dictionary<StringName, State> states = new();
 	public override void _Ready()
 	{
@@ -34,7 +32,8 @@ public partial class StateMachine : Node
 
 	private void OnChildTransition(StringName state)
 	{
-		//GD.Print(state);
+		GD.Print(state);
+		if (Owner is Player && Global.Singleton.awaitedAction == state) Global.Singleton.ClosePopUp();
 		State new_state = states[state];
 		if (new_state != null)
 		{

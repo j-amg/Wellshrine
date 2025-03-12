@@ -1,7 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://csteklro6et5n"]
+[gd_scene load_steps=15 format=3 uid="uid://csteklro6et5n"]
 
 [ext_resource type="Script" path="res://Hud.cs" id="1_afaig"]
-[ext_resource type="FontFile" uid="uid://kehachqcyi4t" path="res://fonts/monogram.ttf" id="2_fa70p"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://textures/UI.tres" id="3_3g6xu"]
+
+[sub_resource type="Gradient" id="Gradient_88dwc"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.640167, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a63qm"]
+gradient = SubResource("Gradient_88dwc")
+fill = 1
+fill_from = Vector2(0.512821, 0.482906)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xbx5"]
 bg_color = Color(0.341176, 0.341176, 0.341176, 0.509804)
@@ -9,9 +19,8 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 corner_detail = 1
-shadow_size = 1
-shadow_offset = Vector2(0, 1)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2fuu"]
@@ -38,7 +47,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_byoy3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.782051, 0.213675)
+fill_to = Vector2(0.790598, 0.196581)
 
 [sub_resource type="Gradient" id="Gradient_ua45o"]
 interpolation_mode = 1
@@ -49,7 +58,14 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ua45o")
 width = 16
 
-[node name="HUD" type="Control"]
+[sub_resource type="Gradient" id="Gradient_em6qm"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ijg63"]
+gradient = SubResource("Gradient_em6qm")
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,28 +73,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_afaig")
+healthBar = NodePath("health")
+zoneLabel = NodePath("zoneInformation/zone")
+objectiveLabel = NodePath("zoneInformation/objective")
+dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
+dialogueName = NodePath("dialogue/MarginContainer/vbox/name")
+dialogue = NodePath("dialogue")
+popup = NodePath("popup")
+popupText = NodePath("popup/MarginContainer/popup")
+reticle = NodePath("reticle")
+crossHair = NodePath("reticle/crossHair")
+interactLabel = NodePath("interactLabel")
+hitFlash = NodePath("overlay")
+rechargeBar = NodePath("recharge")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="overlay" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_a63qm")
+
+[node name="zoneInformation" type="VBoxContainer" parent="."]
 layout_mode = 1
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 97.0
 offset_bottom = 74.0
 
-[node name="zone" type="Label" parent="VBoxContainer"]
+[node name="zone" type="Label" parent="zoneInformation"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
+theme = ExtResource("3_3g6xu")
 text = "Zone: "
 
-[node name="objective" type="Label" parent="VBoxContainer"]
+[node name="objective" type="Label" parent="zoneInformation"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
+theme = ExtResource("3_3g6xu")
 text = "Objective"
 
 [node name="health" type="ProgressBar" parent="."]
@@ -100,6 +133,25 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_f2fuu")
 value = 50.0
 show_percentage = false
 
+[node name="interactLabel" type="Label" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -20.0
+offset_right = 131.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_3g6xu")
+text = "[X] to interact"
+vertical_alignment = 1
+
 [node name="recharge" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -117,28 +169,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_ydjn8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b5574")
 show_percentage = false
 
-[node name="interactLabel" type="Label" parent="."]
-visible = false
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 25.0
-offset_top = -20.0
-offset_right = 131.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
-text = "[X] to interact"
-vertical_alignment = 1
-
 [node name="reticle" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
@@ -155,7 +185,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_qht3n")
 
-[node name="crossHair" type="Control" parent="."]
+[node name="crossHair" type="Control" parent="reticle"]
 modulate = Color(1, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -172,7 +202,7 @@ grow_vertical = 2
 rotation = 0.785398
 pivot_offset = Vector2(20, 20)
 
-[node name="TextureRect" type="TextureRect" parent="crossHair"]
+[node name="TextureRect" type="TextureRect" parent="reticle/crossHair"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -188,7 +218,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_6wme6")
 
-[node name="TextureRect2" type="TextureRect" parent="crossHair"]
+[node name="TextureRect2" type="TextureRect" parent="reticle/crossHair"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -205,70 +235,107 @@ rotation = 1.5708
 pivot_offset = Vector2(8, 0)
 texture = SubResource("GradientTexture1D_6wme6")
 
-[node name="dialogue" type="VBoxContainer" parent="."]
+[node name="dialogue" type="Panel" parent="."]
 visible = false
+texture_filter = 1
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -211.0
-offset_top = -171.79
-offset_right = 189.0
-offset_bottom = -44.7894
+offset_left = 260.0
+offset_top = 350.0
+offset_right = -260.0
+offset_bottom = -70.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme = ExtResource("3_3g6xu")
 
-[node name="name" type="Label" parent="dialogue"]
+[node name="TextureRect" type="TextureRect" parent="dialogue"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ijg63")
+
+[node name="MarginContainer" type="MarginContainer" parent="dialogue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_3g6xu")
+
+[node name="vbox" type="VBoxContainer" parent="dialogue/MarginContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
+
+[node name="name" type="Label" parent="dialogue/MarginContainer/vbox"]
+layout_mode = 2
+theme = ExtResource("3_3g6xu")
 text = "Example name"
 
-[node name="text" type="Label" parent="dialogue"]
+[node name="text" type="Label" parent="dialogue/MarginContainer/vbox"]
 texture_filter = 1
-custom_minimum_size = Vector2(400, 100)
+custom_minimum_size = Vector2(400, 40)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
+theme = ExtResource("3_3g6xu")
 text = "[PH] Hello this is an example text for the dialogue system."
 autowrap_mode = 2
 
-[node name="hint" type="Label" parent="dialogue"]
+[node name="hint" type="Label" parent="dialogue/MarginContainer/vbox"]
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
+size_flags_vertical = 8
+theme = ExtResource("3_3g6xu")
 text = "[␣] to progress dialogue"
 horizontal_alignment = 1
 
-[node name="popup" type="Label" parent="."]
+[node name="popup" type="Panel" parent="."]
 visible = false
-texture_filter = 1
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(160, 64)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = -60.0
-offset_bottom = 60.0
+offset_left = -172.0
+offset_top = -24.0
+offset_right = -12.0
+offset_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_fa70p")
-theme_override_font_sizes/font_size = 16
-text = "[PH] popup text"
+theme = ExtResource("3_3g6xu")
+
+[node name="TextureRect" type="TextureRect" parent="popup"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ijg63")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="popup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_3g6xu")
+
+[node name="popup" type="Label" parent="popup/MarginContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 24)
+layout_mode = 2
+theme = ExtResource("3_3g6xu")
+text = "[PH] hello this is a test"
 vertical_alignment = 1
 autowrap_mode = 2

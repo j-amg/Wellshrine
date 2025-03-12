@@ -3,46 +3,28 @@ using System;
 
 public partial class FallState : State
 {
-	[Export]
-    float speed = 2;
 	private float s;
-    [Export]
-    float acceleration = .1f;
-    [Export]
-    float deceleration = 0.005f;
-	[Export]
-	float input_multiplier = 0.9f;
-	[Signal]
-	public delegate void landedEventHandler();
 
     public override void Enter()
     {
-		s = speed;
-		if (player.hvel.Length() > speed) s = player.hvel.Length();
-        base.Enter();
+		s = owner.hvel.Length() > owner.fallSpeed ? owner.hvel.Length() : owner.fallSpeed;
     }
     public override void Update(double delta)
 	{
-		//speed = player.velocity.Length();
-        player.UpdateInput(s, acceleration, deceleration);
-		player.velocity.Y -= player.gravity * (float)delta;
-        player.UpdateVelocity();
-		if (Input.IsActionPressed("RightMouse") && !player.inputPaused)
-		{
-			EmitSignal(SignalName.transition, "glide");
-		}
+        owner.UpdateInput(s, owner.airAcceleration, owner.airDeceleration);
+		Vector3 vel = owner.velocity;
+		vel.Y -= owner.gravity * (float)delta;
+		owner.velocity = vel;
+        owner.UpdateVelocity();
+		if (Input.IsActionPressed("RightMouse") && !owner.inputPaused) EmitSignal(SignalName.transition, "glide");
 		
-		if (player.IsOnFloor())
+		if (owner.IsOnFloor())
 		{
-			EmitSignal(SignalName.landed);
-			if (Input.IsActionPressed("Shift") && !player.inputPaused)
+			if (Input.IsActionPressed("Shift") && !owner.inputPaused)
 			{
 				EmitSignal(SignalName.transition, "slide");
 			}
-			else
-			{
-				EmitSignal(SignalName.transition, "idle");
-			}
+			else EmitSignal(SignalName.transition, "idle");
 		}
 	} 
 }

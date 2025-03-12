@@ -6,11 +6,8 @@ using Godot.Collections;
 public partial class Global : Node
 {
 		[Signal]
-		public delegate void actionChangedEventHandler();
-		public Node CurrentScene;
-		public int currentLevel = 1;
+		public delegate void ZoneEnteredEventHandler();
 		public AudioStreamPlayer musicPlayer;
-		//public Dialogue dialogue;
 		public bool paused = false;
 		public Pause pauseMenu;
 		//private bool enableMusic;
@@ -20,22 +17,15 @@ public partial class Global : Node
 		//public CanvasModulate worldModulate;
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
-		private int playerGold;
-		private float playerAttackSpeed = 1;
-		private float playerMoveSpeed = 1;
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
 		public Hud hud;
-		public VBoxContainer dialogue;
 		public bool dead = false;
 		private DeathScreen deathScreen;
 		public string Objective = "";
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
-		public float interactionRange = 3;
 
-		public Weapon equippedWeapon;
 		//BUFFS
-
 		public const int basePlayerDamageBuff = 0;
 		public const float basePlayerCritDamageBuff = 2f;
 		public const float basePlayerMoveSpeedBuff = 0f;
@@ -50,19 +40,24 @@ public partial class Global : Node
 		public int playerMaxHealthBuff;
 		public float playerRechargeBuff;
 
-		public string currentIdle = "idle";
 
 		public Dictionary<string, Weapon> weapons = new();
 
-		private string [] currentDialogue;
-		private int currentDialogueStep;
-		private Label dialogueText;
+
 		public bool inDialogue = false;
 		public bool inPopup = false;
 		private bool animatingDialogue = false;
 		private AudioStream charSound;
+
+
 		private string currentAction;
 		public string awaitedAction;
+		public Node CurrentScene;
+		public int currentLevel;
+		private string [] currentDialogue;
+		private int currentDialogueStep;
+		public string currentIdle = "idle";
+		public Weapon equippedWeapon;
 
 		private string[] testText = { "Hello", "this is a test", "of the dialogue",};
 
@@ -117,13 +112,9 @@ public partial class Global : Node
 			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
 			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
 			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
-			dialogue = hud?.GetNode<VBoxContainer>("dialogue");
-			dialogueText = dialogue?.GetNode<Label>("text");
 			
 			if (CurrentScene is Zone zone) Objective = zone.objective;
 		}
-
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
         public override void _Process(double delta)
         {
         	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
@@ -135,52 +126,51 @@ public partial class Global : Node
 		public void SendPopUp(string text, string action)
 		{
 			inPopup = true;
-			Label popup = hud.GetNode<Label>("popup");
 			awaitedAction = action;
-			popup.Text = text;
-			popup.Visible = true;
+			hud.popupText.Text = text;
+			hud.popup.Visible = true;
 		}
 
 		public void SetAction(string action)
 		{
 			GD.Print(currentAction);
 			currentAction = action;
-			if (awaitedAction == action && hud?.GetNode<Label>("popup").Visible == true) ClosePopUp();
+			if (awaitedAction == action && hud?.popup.Visible == true) ClosePopUp();
 		}
 
 		public async void ClosePopUp()
 		{
 			await ToSignal(GetTree().CreateTimer(1), "timeout");
 			awaitedAction = "";
-			hud.GetNode<Label>("popup").Visible = false;
+			hud.popup.Visible = false;
 			inPopup = false;
 		}
 
 		public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 		{
 			player.PauseInput();
-			player.reticle.Visible = false;
+			hud.reticle.Visible = false;
 			if (freeze) Engine.TimeScale = 0;
 			inDialogue = true;
 			currentDialogue = dialogueText;
 			currentDialogueStep = 0;
-			dialogue.GetNode<Label>("name").Text = name;
+			hud.dialogueName.Text = name;
 			AnimateDialogue(dialogueText[0]);
-			dialogue.Visible = true;
+			hud.dialogue.Visible = true;
 			
 		}
 
 		private async void AnimateDialogue(string text)
 		{
 			float appearSpeed = 0.05f;
-			dialogueText.Text = "";
+			hud.dialogueText.Text = "";
 			await ToSignal(GetTree().CreateTimer(.1f), "timeout");
 			animatingDialogue = true;
 			foreach(char c in text)
 			{
 				if (!animatingDialogue) break;
 				PlaySound2D(charSound);
-				dialogueText.Text += c;
+				hud.dialogueText.Text += c;
 				await ToSignal(GetTree().CreateTimer(appearSpeed), "timeout");
 			}
 		}
@@ -195,20 +185,16 @@ public partial class Global : Node
 			animatingDialogue = false;
 			currentDialogueStep++;
 			AnimateDialogue(currentDialogue[currentDialogueStep]);
-
-			GD.Print("progress dialogue");
 		}
 
 		public async void CloseDialogue()
 		{
-			GD.Print("close dialogue");
 			if (Engine.TimeScale != 1) Engine.TimeScale = 1;
-			dialogue.Visible = false;
+			hud.dialogue.Visible = false;
 			inDialogue = false;
 			await ToSignal(GetTree().CreateTimer(.5f), "timeout");
 			player.ResumeInput();
-			player.reticle.Visible = true;
-			
+			hud.reticle.Visible = true;
 		}
 
 		public void AddBuff(string buff)
@@ -220,7 +206,6 @@ public partial class Global : Node
 			if (buff == "Increased Stun Duration") playerStunDurationBuff +=.1f;
 			if (buff == "Increased Max Health")
 			{
-				//GD.Print("increase health");
 				playerHealth += 50;
 				UpdateHUD();
 			} 
@@ -250,8 +235,9 @@ public partial class Global : Node
 
 		public void Die()
     	{
-		player.reticle.Visible = false;
-		Engine.TimeScale = 0;
+		hud.reticle.Visible = false;
+		//Engine.TimeScale = 0;
+		player.PauseInput();
 		dead = true;
 		deathScreen.Show();
 		deathScreen.menuButton.autoFocussed = true;
@@ -278,7 +264,11 @@ public partial class Global : Node
 			paused = !paused;
 		}
 
-    public void UpdateHUD() => hud?.SetValues();
+    public void UpdateHUD()
+    {
+		hud.zoneLabel.Text = "Zone: " + currentLevel.ToString();
+        hud.objectiveLabel.Text = "Objective: " + Objective.ToString();
+    }
 
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 	public void DeferredGotoScene(PackedScene nextScene)

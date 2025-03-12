@@ -20,7 +20,7 @@ public partial class Shrine : StaticBody3D, IInteractable
         name = GetNode<Label>("SubViewport/Control/Name");
         magic = GetNode<AnimatedSprite3D>("magic");
         magic.Modulate = magicModulate;
-        magic.Play("idle");
+        magic?.Play("idle");
     }
 
     public void Deactivate()

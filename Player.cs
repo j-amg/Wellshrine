@@ -8,8 +8,37 @@ public partial class Player : CharacterBody3D, IDamageable
 	public delegate void damageTakenEventHandler();
 	[Export]
 	public AudioStream hit;
-	float mouseSensitivity = 0.1f;
-	float aimMouseSensitivity = 0.05f;
+	[Export]
+	public StateMachine stateMachine;
+	[Export]
+	private RayCast3D lookRay;
+	[Export]
+	public Node3D body;
+	[Export]
+	public Node3D head;
+	[Export]
+	public Camera3D camera;
+	[Export]
+	public Hud hud;
+	[Export]
+	private Node3D hands;
+	[Export]
+	public AnimatedSprite3D handSprite;
+	[Export]
+	public CollisionShape3D standCollision;
+	[Export]
+	public CollisionShape3D crouchCollision;
+	[Export]
+	private Area3D iceCollision;
+	[Export]
+	private Area3D shockCollision;
+	[Export]
+	private PackedScene fireball;
+	[Export]
+	private PackedScene iceray;
+
+	private float mouseSensitivity = 0.1f;
+	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
@@ -17,77 +46,45 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float zoomFOV = 60;
 	public float walkingFOV = 80;
 	public float walkSpeed = 5;
-	public float aimSpeed = 3;
+	public  float aimSpeed = 3;
+	public float slideSpeed = 25;
+	public float crouchSpeed = 3;
+	public float crouchAnimSpeed = .2f;
+	public float interactionRange = 3;
+	public float gravity = 12;
+	public float acceleration = .5f;
+	public float deceleration = .25f;
+    public float airAcceleration = .1f;
+    public float airDeceleration = 0.005f;
+	public float dashVelocity = 15f;
+    public float fallSpeed = 2;
+	public float jumpVelocity = 5;
+	public Vector3 bodyCrouchPosition = new (0,-0.3f,0);
+    public Vector3 bodyStandPosition = new (0,0,0);
+
+
+	public float hitDistance;
 	public float currentSpeed;
-	public Node3D body;
-	public Node3D head;
-	public Camera3D camera;
-	public Hud hud;
-	private Node3D hands;
-	public AnimatedSprite3D handSprite;
-	public TextureRect reticle;
 	public float _sensitivity;
-	public float _gravity;
 	public Vector3 velocity;
 	public Vector2 hvel;
 	public Vector2 inputDir;
 	public Vector3 direction;
-	private PackedScene fireball;
-	private PackedScene iceray;
-	public CollisionShape3D standCollision;
-	public CollisionShape3D crouchCollision;
-	private Area3D iceCollision;
-	private Area3D shockCollision;
 	private Vector3 last_physics_pos;
-	public StateMachine stateMachine;
-	private RayCast3D lookRay;
 	private GodotObject existingHit;
-	public TextureRect hitFlash;
-	private bool recharging = false;
-	private ProgressBar rechargeBar;
-	private Label interactLabel;
-	public float bodyCrouchHeight = -0.3f;
-    public float bodyStandHeight = 0;
-	public float crouchSpeed = 0.2f;
-	public float hitDistance = 0;
+	
+
+
 	private Viewport vp;
 	private Window win;
 	private bool applyTransform = false;
 	public bool inputPaused = false;
+	private bool recharging = false;
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	//public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-	public float gravity = 12;
+	
 
     public override void _Ready()
     {
-
-		//particles
-		fireball = ResourceLoader.Load<PackedScene>("res://playerProjectile.tscn");
-		iceray = ResourceLoader.Load<PackedScene>("res://iceRay.tscn");
-
-
-		body = GetNode<Node3D>("body");
-        head = body.GetNode<Node3D>("head");
-		camera = head.GetNode<Camera3D>("Camera3D");
-		hands = body.GetNode<Node3D>("hands");
-		handSprite = hands.GetNode<AnimatedSprite3D>("handSprite");
-		lookRay = camera.GetNode<RayCast3D>("lookRay");
-		hud = camera.GetNode<Hud>("CanvasLayer/hud");
-		reticle = hud.GetNode<TextureRect>("reticle");
-		rechargeBar = hud.GetNode<ProgressBar>("recharge");
-		interactLabel = hud.GetNode<Label>("interactLabel");
-
-
-		standCollision = GetNode<CollisionShape3D>("standCollision");
-		crouchCollision = GetNode<CollisionShape3D>("crouchCollision");
-		stateMachine = GetNode<StateMachine>("playerStateMachine");
-		
-		hitFlash = camera.GetNode<TextureRect>("CanvasLayer/hit");
-		
-		iceCollision = camera.GetNode<Area3D>("iceSpikeCollision");
-		shockCollision = camera.GetNode<Area3D>("shockBladeCollision");
-
 		vp = GetViewport();
 		win = GetWindow();
 
@@ -130,7 +127,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Input.IsActionJustPressed("interact"))
 		{
-			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
+			if (existingHit is IInteractable interactable && hitDistance <= interactionRange && interactable.Active) interactable.Interact();
 		}
 
 		if (Input.IsActionPressed("RightMouse"))
@@ -170,7 +167,7 @@ public partial class Player : CharacterBody3D, IDamageable
 				if (existingHit is IInteractable interactable)
 				{
 					interactable.Highlighted = false;
-					interactLabel.Visible = false;
+					hud.interactLabel.Visible = false;
 				} 
 			} 
 			existingHit = currentHit;
@@ -180,25 +177,25 @@ public partial class Player : CharacterBody3D, IDamageable
 				if (currentHit is Enemy enemy)
 				{
 					enemy.highlighted = true;
-					reticle.Modulate = new Color(1,0,0);
+					hud.reticle.Modulate = new Color(1,0,0);
 				} 
 				if (currentHit is IInteractable interactable && interactable.Active)
 				{
 					interactable.Highlighted = true;
-					reticle.Modulate = new Color(0,0,1);
+					hud.reticle.Modulate = new Color(0,0,1);
 				}
 			}
-			else reticle.Modulate = new Color(1, 1, 1);
+			else hud.reticle.Modulate = new Color(1, 1, 1);
 		}
 
 		if (currentHit is IInteractable interactable1)
 		{
-			if (hitDistance <= Global.Singleton.interactionRange && interactable1.Active && !inputPaused)
+			if (hitDistance <= interactionRange && interactable1.Active && !inputPaused)
 			{
-				interactLabel.Visible = true;
-			} else interactLabel.Visible = false;
+				hud.interactLabel.Visible = true;
+			} else hud.interactLabel.Visible = false;
 
-			if (!interactable1.Active) reticle.Modulate = new Color(1, 1, 1);
+			if (!interactable1.Active) hud.reticle.Modulate = new Color(1, 1, 1);
 		}
     }
 
@@ -212,7 +209,6 @@ public partial class Player : CharacterBody3D, IDamageable
 			head.RotateX(xRot);
 			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
 			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
-			//hands.Rotation = new Vector3(hands.Rotation.X, Mathf.LerpAngle(Mathf.DegToRad(eventKey.Relative.X) * _sensitivity*10, 0, 0.25f), hands.Rotation.Z);
 		}
 	}
 
@@ -220,24 +216,29 @@ public partial class Player : CharacterBody3D, IDamageable
 	{
 		recharging = true;
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(rechargeBar, "value", 0, duration).From(100);
+		tween.TweenProperty(hud.rechargeBar, "value", 0, duration).From(100);
 		await ToSignal(GetTree().CreateTimer(duration), "timeout");
 		recharging = false;
+	}
+
+	public void SetCrouch(bool val)
+	{
+		crouchCollision.Disabled = !val;
+		standCollision.Disabled = val;
+		Vector3 pos = val ? bodyCrouchPosition : bodyStandPosition;
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(body, "position", pos, crouchAnimSpeed).SetTrans(Tween.TransitionType.Sine);
 	}
 
 	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
 
 	void IDamageable.Damage(float amount)
 	{
-		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(new Color(1,0,0,1));
+		hud.Flash(new Color(1,0,0,0));
 		Global.Singleton.IncrementHealth(-amount);
 		Global.Singleton.PlaySound2D(hit);
 		EmitSignal(SignalName.damageTaken);
 	}
-
-	private void OnDamageTaken() {return;}
-
 
     public void UpdateInput(float speed, float acceleration, float deceleration)
 	{
