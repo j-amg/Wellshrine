@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://nymerq4u1m0o"]
+[gd_scene load_steps=12 format=3 uid="uid://nymerq4u1m0o"]
 
 [ext_resource type="Script" path="res://zones/ShrineZone.cs" id="1_6ik5r"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_6vmps"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
+[ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_2uyrr"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_m42jd"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_osk5y"]
 [ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://weaponShrine.tscn" id="6_x5xxv"]
@@ -55,6 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
 weapon = "fireball"
 displayName = "FireBall"
 magicModulate = Color(0.737255, 0.388235, 0, 1)
+pickUp = ExtResource("5_2uyrr")
 
 [node name="HitscanShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 5)

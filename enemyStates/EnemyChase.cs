@@ -3,6 +3,18 @@ using System;
 
 public partial class EnemyChase : State
 {
+    public override void Enter()
+    {
+        base.Enter();
+        owner.audioPlayer.Stream = owner.walkSound;
+        owner.audioPlayer.Play();
+    }
+
+    public override void Exit()
+    {
+        base.Enter();
+        owner.audioPlayer.Stop();
+    }
     public override void Update(double delta)
     {
         Enemy enemy = Owner as Enemy;

@@ -17,7 +17,7 @@ public partial class BuffShrine : Shrine, IInteractable
         Global.Singleton.AddPlayerModifier(buff);
         foreach (Shrine shrine in GetTree().GetNodesInGroup("shrines").Cast<Shrine>())
         {
-            if (shrine.GetClass() == GetClass()) shrine.Deactivate();
+            if (shrine is BuffShrine) shrine.Deactivate();
         }
     }
 }

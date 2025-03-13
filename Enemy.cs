@@ -28,6 +28,10 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	[Export]
 	public const string enemyScenePath = "res://enemies/enemy";
 	[Export]
+	public AudioStream walkSound;
+	[Export]
+	public AudioStreamPlayer3D audioPlayer;
+	[Export]
 	public float detectionRange = 250;
 	[Export]
 	public float attackRange = 2;
@@ -123,7 +127,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		sprite.FlipH = velocity.X > 0;
 		labelSprite.Visible = (highlighted || damaged) && !dead;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
-		inview = rc.GetCollider() is Player;
+		inview = rc.GetCollider() is Player && !Global.Singleton.dead;
 		ApplyFloorSnap();
 		MoveAndSlide();
 	}
