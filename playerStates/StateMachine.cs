@@ -16,23 +16,16 @@ public partial class StateMachine : Node
 				states.Add(state.Name, state);
 				state.transition += OnChildTransition;
 			}
-			else
-			{
-				GD.PrintErr("State Machine contains incompatible child node");
-			}
+			else GD.PrintErr("State Machine contains incompatible child node");
 		}
 		current_state.Enter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		current_state.Update(delta);
-	}
+	public override void _Process(double delta) => current_state.Update(delta);
 
 	private void OnChildTransition(StringName state)
 	{
-		GD.Print(state);
 		if (Owner is Player && Global.Singleton.awaitedAction == state) Global.Singleton.ClosePopUp();
 		State new_state = states[state];
 		if (new_state != null)
@@ -44,9 +37,6 @@ public partial class StateMachine : Node
 				current_state = new_state;
 			}
 		}
-		else
-		{
-			GD.PrintErr("State does not exist");
-		}
+		else GD.PrintErr("State does not exist");
 	}
 }

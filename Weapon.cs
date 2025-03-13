@@ -4,18 +4,20 @@ using System;
 public partial class Weapon : Node
 	{
     		public string name;
-    		public int damageMin;
-    		public int damageMax;
+    		public float damageMin;
+    		public float damageMax;
+            public float critChance;
     		public float recharge;
     		public float stunDuration;
             public float recoil;
 
-            public static Weapon InitWeapon(string name, int damageMin, int damageMax, float recharge, float stunDuration, float recoil)
+            public static Weapon InitWeapon(string name, float damageMin, float damageMax, float critChance, float recharge, float stunDuration, float recoil)
             {
                 Weapon w = new();
                 w.name = name;
                 w.damageMin = damageMin;
                 w.damageMax = damageMax;
+                w.critChance = critChance;
                 w.recharge = recharge;
                 w.stunDuration = stunDuration;
                 w.recoil = recoil;

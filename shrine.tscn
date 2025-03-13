@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://71n8w0xi8ovv"]
 
 [ext_resource type="Script" path="res://Shrine.cs" id="1_7aram"]
-[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://textures/UI.tres" id="2_y12qf"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_yy2na"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_imbuu"]
 size = Vector3(0.5, 1.4, 0.5)
@@ -9,9 +9,12 @@ size = Vector3(0.5, 1.4, 0.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_yr3vb"]
 viewport_path = NodePath("SubViewport")
 
-[node name="shrine" type="StaticBody3D"]
+[node name="shrine" type="StaticBody3D" node_paths=PackedStringArray("magic", "label", "name")]
 collision_layer = 2
 script = ExtResource("1_7aram")
+magic = NodePath("magic")
+label = NodePath("Sprite3D")
+name = NodePath("SubViewport/Control/Name")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.699653, 0)
@@ -51,8 +54,7 @@ size_flags_horizontal = 4
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("2_y12qf")
-text = "test"
+theme = ExtResource("2_yy2na")
 horizontal_alignment = 1
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

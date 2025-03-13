@@ -5,6 +5,8 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 {
 	[Signal]
 	public delegate void damageTakenEventHandler(Damage damageTaken);
+	[Signal]
+	public delegate void enemyDiedEventHandler(Enemy enemy);
 	[Export]
 	public NavigationAgent3D nav;
 	[Export]
@@ -26,7 +28,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	[Export]
 	public const string enemyScenePath = "res://enemies/enemy";
 	[Export]
-	public float detectionRange = 200;
+	public float detectionRange = 250;
 	[Export]
 	public float attackRange = 2;
 	[Export]
@@ -65,7 +67,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		label.SetValues();
 		AddToGroup("enemies");
 		ReticleModulate = new Color(1,0,0);
-		Global.Singleton.UpdateHUD();
 		defaultModulate = sprite.Modulate;
 		FloorSnapLength = 1;
 		SpawnDelay();
@@ -83,7 +84,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		if (sm.current_state.Name != "attack" && sprite.Animation != "spawn") sprite.Play("stun");
 		SetPhysicsProcess(false);
 		stunned = true;
-		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
+		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration + Global.Singleton.GetPlayerModifier("stun")), "timeout");
 		stunned = false;
 		SetPhysicsProcess(true);
 	}
@@ -103,7 +104,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		d.Hit();
 		Stun();
 		EmitSignal(SignalName.damageTaken, d);
-		//Global.Singleton.PlaySound3D(GlobalPosition, hit);
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1,0,0,1));
 		damaged = true;
@@ -111,10 +111,10 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 
     public void Die()
     {
+		EmitSignal(SignalName.enemyDied, this);
+		GD.Print("dead");
 		labelSprite.Visible = false;
 		RemoveFromGroup("enemies");
-		if (Global.Singleton.CurrentScene is Zone zone) zone.UpdateObjective();
-		Global.Singleton.UpdateHUD();
 		dead = true;
     }
 

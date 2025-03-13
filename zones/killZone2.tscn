@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c0xvv4h575iid"]
 
-[ext_resource type="Script" path="res://killZone.cs" id="1_rv07t"]
+[ext_resource type="Script" path="res://zones/KillZone.cs" id="1_rv07t"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_tli3v"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="3_yfd8q"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="4_vahj5"]

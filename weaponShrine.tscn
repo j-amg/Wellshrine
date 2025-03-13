@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bky2rab0cedur"]
+[gd_scene load_steps=9 format=3 uid="uid://bky2rab0cedur"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_xvlt7"]
 [ext_resource type="Script" path="res://WeaponShrine.cs" id="2_kyw0b"]
-[ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="3_14u1x"]
 [ext_resource type="Texture2D" uid="uid://br7tg1wsqislp" path="res://textures/fire.png" id="4_m4of1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a2mti"]
@@ -37,8 +36,6 @@ animations = [{
 script = ExtResource("2_kyw0b")
 weapon = ""
 displayName = ""
-description = ""
-pickUp = ExtResource("3_14u1x")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cmbqu1ogp3vnb"]
 
 [ext_resource type="Script" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
-[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://textures/UI.tres" id="2_8klcy"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_38q3w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1evt3"]
 bg_color = Color(0.482353, 0.482353, 0.482353, 0.827451)
@@ -36,7 +36,7 @@ damageLabel = NodePath("damage")
 [node name="name" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("2_8klcy")
+theme = ExtResource("2_38q3w")
 text = "[PH] Name"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -66,7 +66,7 @@ show_percentage = false
 modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 2
-theme = ExtResource("2_8klcy")
+theme = ExtResource("2_38q3w")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 2

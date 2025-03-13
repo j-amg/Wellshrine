@@ -84,8 +84,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private bool applyTransform = false;
 	public bool inputPaused = false;
 	private bool recharging = false;
-
-	
+	float IDamageable.Health{ get; set;}
 
     public override void _Ready()
     {
@@ -99,6 +98,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		FloorMaxAngle = Mathf.DegToRad(65);
 		FloorConstantSpeed = true;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		hud.objectiveLabel.Text = Global.Singleton.currentZone.objective;
 		AddToGroup("player");
     }
 
@@ -126,7 +126,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		{
 			if (Global.Singleton.equippedWeapon == null) return;
 			Attack();
-			Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.playerRechargeBuff);
+			Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
 		}
 
 		if (Input.IsActionJustPressed("interact"))
@@ -203,12 +203,9 @@ public partial class Player : CharacterBody3D, IDamageable
         tween.TweenProperty(body, "position", pos, crouchAnimSpeed).SetTrans(Tween.TransitionType.Sine);
 	}
 
-	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
-
 	void IDamageable.Damage(Damage d)
 	{
-		hud.Flash(new Color(1,0,0,0));
-		Global.Singleton.IncrementHealth(-d.amount);
+		Global.Singleton.IncrementPlayerHealth(-d.amount);
 		Global.Singleton.PlaySound2D(damageTakenSound);
 		EmitSignal(SignalName.damageTaken);
 	}
@@ -287,10 +284,10 @@ public partial class Player : CharacterBody3D, IDamageable
     private async void AttackAnim()
 	{
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
+		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
 		handSprite.Play("attack");
-		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.basePlayerRechargeBuff * Global.Singleton.equippedWeapon.recharge)), "timeout");
+		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.Singleton.GetPlayerModifier("recharge") * Global.Singleton.equippedWeapon.recharge)), "timeout");
 		handSprite.Play(Global.Singleton.currentIdle);
 	}
 }

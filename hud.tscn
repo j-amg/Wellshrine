@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://csteklro6et5n"]
+[gd_scene load_steps=13 format=3 uid="uid://csteklro6et5n"]
 
 [ext_resource type="Script" path="res://Hud.cs" id="1_afaig"]
-[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://textures/UI.tres" id="3_3g6xu"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_q7u4o"]
 
 [sub_resource type="Gradient" id="Gradient_88dwc"]
 interpolation_mode = 2
@@ -58,13 +58,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ua45o")
 width = 16
 
-[sub_resource type="Gradient" id="Gradient_em6qm"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.392157)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ijg63"]
-gradient = SubResource("Gradient_em6qm")
-
 [node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar")]
 layout_mode = 3
 anchors_preset = 15
@@ -106,12 +99,12 @@ offset_bottom = 74.0
 
 [node name="zone" type="Label" parent="zoneInformation"]
 layout_mode = 2
-theme = ExtResource("3_3g6xu")
+theme = ExtResource("2_q7u4o")
 text = "Zone: "
 
 [node name="objective" type="Label" parent="zoneInformation"]
 layout_mode = 2
-theme = ExtResource("3_3g6xu")
+theme = ExtResource("2_q7u4o")
 text = "Objective"
 
 [node name="health" type="ProgressBar" parent="."]
@@ -148,7 +141,7 @@ offset_right = 131.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_3g6xu")
+theme = ExtResource("2_q7u4o")
 text = "[X] to interact"
 vertical_alignment = 1
 
@@ -235,9 +228,10 @@ rotation = 1.5708
 pivot_offset = Vector2(8, 0)
 texture = SubResource("GradientTexture1D_6wme6")
 
-[node name="dialogue" type="Panel" parent="."]
+[node name="dialogue" type="PanelContainer" parent="."]
 visible = false
 texture_filter = 1
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,53 +242,41 @@ offset_right = -260.0
 offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_3g6xu")
-
-[node name="TextureRect" type="TextureRect" parent="dialogue"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_ijg63")
+theme = ExtResource("2_q7u4o")
 
 [node name="MarginContainer" type="MarginContainer" parent="dialogue"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_3g6xu")
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
 
 [node name="vbox" type="VBoxContainer" parent="dialogue/MarginContainer"]
 layout_mode = 2
 
 [node name="name" type="Label" parent="dialogue/MarginContainer/vbox"]
 layout_mode = 2
-theme = ExtResource("3_3g6xu")
+theme = ExtResource("2_q7u4o")
 text = "Example name"
+uppercase = true
 
 [node name="text" type="Label" parent="dialogue/MarginContainer/vbox"]
 texture_filter = 1
-custom_minimum_size = Vector2(400, 40)
+custom_minimum_size = Vector2(400, 47)
 layout_mode = 2
-theme = ExtResource("3_3g6xu")
-text = "[PH] Hello this is an example text for the dialogue system."
+theme = ExtResource("2_q7u4o")
+text = "[PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue "
+vertical_alignment = 1
 autowrap_mode = 2
+clip_text = true
 
 [node name="hint" type="Label" parent="dialogue/MarginContainer/vbox"]
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
 size_flags_vertical = 8
-theme = ExtResource("3_3g6xu")
+theme = ExtResource("2_q7u4o")
 text = "[␣] to progress dialogue"
 horizontal_alignment = 1
 
-[node name="popup" type="Panel" parent="."]
+[node name="popup" type="PanelContainer" parent="."]
 visible = false
 custom_minimum_size = Vector2(160, 64)
 layout_mode = 1
@@ -309,33 +291,17 @@ offset_right = -12.0
 offset_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("3_3g6xu")
-
-[node name="TextureRect" type="TextureRect" parent="popup"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_ijg63")
-expand_mode = 2
+theme = ExtResource("2_q7u4o")
 
 [node name="MarginContainer" type="MarginContainer" parent="popup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_3g6xu")
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
 
 [node name="popup" type="Label" parent="popup/MarginContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
-theme = ExtResource("3_3g6xu")
-text = "[PH] hello this is a test"
+theme = ExtResource("2_q7u4o")
+text = "[PH] hello this is a test of the dialogue  system to see if it expands correctly to fit the messages I am typing"
 vertical_alignment = 1
 autowrap_mode = 2
