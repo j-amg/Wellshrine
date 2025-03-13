@@ -29,13 +29,13 @@ public partial class Hud : Control
     public TextureRect hitFlash;
     [Export]
     public ProgressBar rechargeBar;
-    public Player parent;
+    public Player player;
     public override void _Ready()
     {
-        parent = GetOwner<Player>();
-		parent.damageTaken += OnDamageTaken;
+        player = GetOwner<Player>();
+		    player.damageTaken += OnDamageTaken;
         healthBar.MaxValue = Global.Singleton.playerHealth;
-		healthBar.Value = Global.Singleton.playerHealth;
+		    healthBar.Value = Global.Singleton.playerHealth;
     }
 
     private void OnDamageTaken() => healthBar.Value = Global.Singleton.currentPlayerHealth;

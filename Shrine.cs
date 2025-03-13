@@ -3,7 +3,7 @@ using System;
 
 using System.Linq;
 
-public partial class Shrine : StaticBody3D, IInteractable
+public partial class Shrine : StaticBody3D, IInteractable, IHoverable
 {
     [Export]
     public Color magicModulate;
@@ -12,6 +12,7 @@ public partial class Shrine : StaticBody3D, IInteractable
     public Label name;
     public bool Highlighted {get; set;}
     public bool Active {get; set;}
+    public Color ReticleModulate { get; set; }
 
     public override void _Ready()
     {
@@ -19,6 +20,7 @@ public partial class Shrine : StaticBody3D, IInteractable
         label = GetNode<Sprite3D>("Sprite3D");
         name = GetNode<Label>("SubViewport/Control/Name");
         magic = GetNode<AnimatedSprite3D>("magic");
+        ReticleModulate = new Color(0,0,1);
         magic.Modulate = magicModulate;
         magic?.Play("idle");
     }
@@ -27,6 +29,7 @@ public partial class Shrine : StaticBody3D, IInteractable
     {
         Active = false;
         label.Visible = false;
+        magic.Visible = false;
     }
 
     public void Activate()

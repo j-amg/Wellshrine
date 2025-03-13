@@ -3,6 +3,6 @@ using System;
 
 public partial interface IDamageable
 {
-	float Health { get; set; }
-	void Damage(float amount);
+	float Health {get; set;}
+	void Damage(Damage damage);
 }

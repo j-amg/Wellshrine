@@ -28,14 +28,13 @@ public partial class EnemyLabel : VBoxContainer
 		healthBackground.MaxValue = parent.baseHealth;
 		healthBackground.Value = parent.baseHealth;
 	}
-    private async void OnDamageTaken(float damage)
+    private async void OnDamageTaken(Damage damage)
     {
-		damageLabel.Text = Math.Round(damage).ToString();
+		damageLabel.Text = Math.Round(damage.amount).ToString();
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(damageLabel, "modulate", new Color (0,0,0,0), 2).From(new Color(1,1,1,1));
-
-        healthBar.Value = parent.currentHealth;
+        healthBar.Value = parent.Health;
 		await ToSignal(GetTree().CreateTimer(.25), "timeout");
-		healthBackground.Value = parent.currentHealth;
+		healthBackground.Value = parent.Health;
     }
 }

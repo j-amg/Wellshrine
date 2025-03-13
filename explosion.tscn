@@ -42,11 +42,12 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="explosion" type="Area3D"]
+[node name="explosion" type="Area3D" node_paths=PackedStringArray("sprite")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_d1mav")
+sprite = NodePath("sprite")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ox6gx")

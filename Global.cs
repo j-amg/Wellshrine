@@ -227,10 +227,12 @@ public partial class Global : Node
 			if (currentPlayerHealth <= 0) Die();
 		}
 
-		public float GetDamage()
+		public Damage GetPlayerDamage()
 		{
-			int baseDamage = GD.RandRange(equippedWeapon.damageMin + playerDamageBuff, equippedWeapon.damageMax + playerDamageBuff);
-			return GD.Randf() <= .25f ? baseDamage * playerCritDamageBuff : baseDamage;
+			float damage = GD.RandRange(equippedWeapon.damageMin + playerDamageBuff, equippedWeapon.damageMax + playerDamageBuff);
+			bool crit = GD.Randf() <= .25f;
+			damage =  crit ? damage * playerCritDamageBuff : damage;
+			return Damage.InitDamage(damage, crit, player);
 		}
 
 		public void Die()

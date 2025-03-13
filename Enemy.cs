@@ -1,16 +1,14 @@
-using Godot;
 using System;
+using Godot;
 
-public partial class Enemy : CharacterBody3D, IDamageable
+public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 {
 	[Signal]
-	public delegate void damageTakenEventHandler(float damageTaken);
+	public delegate void damageTakenEventHandler(Damage damageTaken);
 	[Export]
 	public NavigationAgent3D nav;
 	[Export]
 	public StateMachine sm;
-	[Export]
-	public AudioStream hit;
 	[Export]
 	public AnimatedSprite3D sprite;
 	[Export]
@@ -36,36 +34,37 @@ public partial class Enemy : CharacterBody3D, IDamageable
 	[Export]
 	public float attackWindup = .5f;
 	[Export]
-	public float attackDamage = 5;
+	public float damage = 5;
 	public double acceleration = 2;
 
 	public int level = 1;
 	private Vector3 velocity;
 	private Color defaultModulate;
 	private int currentMovementSpeed;
-	public float currentHealth;
 	
 	public bool awake = false;
 	public bool dead = false;
 	public bool stunned = false;
-	public bool inview;
 	public bool highlighted = false;
 	public bool damaged = false;
 	public bool aggro = false;
-	
+	public bool inview;
 
-	public override void _Ready()
+    public Color ReticleModulate { get; set; }
+    public float Health { get; set; }
+    public bool Highlighted { get; set; }
+    public bool Active { get; set; }
+
+    public override void _Ready()
 	{
-		SetPhysicsProcess(false);
 		baseHealth += level * 0.25f * baseHealth;
-		attackDamage += level * 0.25f * attackDamage;
+		damage += level * 0.25f * damage;
 		baseMovementSpeed += level/10;
-		currentHealth = baseHealth;
-		damageTaken += OnDamageTaken;
+		Health = baseHealth;
+		Active = true;
 		label.SetValues();
 		AddToGroup("enemies");
-
-		CallDeferred("Setup");
+		ReticleModulate = new Color(1,0,0);
 		Global.Singleton.UpdateHUD();
 		defaultModulate = sprite.Modulate;
 		FloorSnapLength = 1;
@@ -77,15 +76,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		await ToSignal(GetTree().CreateTimer(1), "timeout");
         awake = true;
     }
-
-	private async void Setup()
-	{
-		// need to do this to wait for the navigation thingie to sync
-		await ToSignal(GetTree(), "physics_frame");
-		SetPhysicsProcess(true);
-		sprite.Visible = true;
-		
-	}
 
 	private async void Stun()
 	{
@@ -106,23 +96,18 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		return enemy;
 	}
 
-    void IDamageable.Damage(float amount)
+    public void Damage(Damage d)
 	{
+		Health -= d.amount;
+		if (Health <= 0) Die();
+		d.Hit();
 		Stun();
+		EmitSignal(SignalName.damageTaken, d);
+		//Global.Singleton.PlaySound3D(GlobalPosition, hit);
 		Tween tween = GetTree().CreateTween();
-		Global.Singleton.PlaySound3D(GlobalPosition, hit);
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1,0,0,1));
-		currentHealth -= amount;
-		EmitSignal(SignalName.damageTaken, amount);
-	}
-
-	private void OnDamageTaken(float damage)
-    {
 		damaged = true;
-		Global.Singleton.hud.FlashCrossHair();
-		//Global.Singleton.PlaySound2D(hit);
-        if (currentHealth <= 0) Die();
-    }
+	}
 
     public void Die()
     {
@@ -132,8 +117,6 @@ public partial class Enemy : CharacterBody3D, IDamageable
 		Global.Singleton.UpdateHUD();
 		dead = true;
     }
-
-    float IDamageable.Health{ get{ return baseHealth; } set{}}
 
 	public override void _PhysicsProcess(double delta)
 	{

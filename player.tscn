@@ -1,7 +1,8 @@
-[gd_scene load_steps=99 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=100 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
+[ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="3_5t7b0"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
 [ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
 [ext_resource type="PackedScene" uid="uid://nsl6qu0aey1x" path="res://playerProjectile.tscn" id="3_m032j"]
@@ -593,7 +594,9 @@ height = 1.0
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hud", "hands", "handSprite", "standCollision", "crouchCollision", "iceCollision", "shockCollision")]
 collision_mask = 6
 script = ExtResource("1_4aaio")
-hit = ExtResource("2_24bn3")
+damageTakenSound = ExtResource("2_24bn3")
+damageDealtSound = ExtResource("3_5t7b0")
+critDealtSound = ExtResource("2_24bn3")
 stateMachine = NodePath("statemachine")
 lookRay = NodePath("body/head/Camera3D/lookRay")
 body = NodePath("body")

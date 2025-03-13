@@ -1,7 +1,6 @@
-[gd_scene load_steps=41 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=40 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
-[ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="2_by5sj"]
 [ext_resource type="PackedScene" uid="uid://cmbqu1ogp3vnb" path="res://enemies/enemyLabel.tscn" id="3_dee20"]
 [ext_resource type="Texture2D" uid="uid://cob3eixxiyvhm" path="res://textures/skeletonFull.png" id="3_xwbua"]
 [ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
@@ -275,7 +274,6 @@ collision_mask = 15
 script = ExtResource("1_ek8g6")
 nav = NodePath("NavigationAgent3D")
 sm = NodePath("statemachine")
-hit = ExtResource("2_by5sj")
 sprite = NodePath("sprite")
 labelSprite = NodePath("labelSprite")
 label = NodePath("SubViewport/label")
@@ -290,7 +288,6 @@ shape = SubResource("CapsuleShape3D_f8hv5")
 
 [node name="sprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
-visible = false
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")

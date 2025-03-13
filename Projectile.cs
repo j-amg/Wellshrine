@@ -16,10 +16,9 @@ public partial class Projectile : Area3D
 	public float gravity = 0;
 	[Export]
 	public Explosion explosion;
-
 	private AnimatedSprite3D sprite;
 	public Vector3 velocity = Vector3.Zero;
-	public float damage = 0;
+	public Damage damage;
 
 	public override void _Ready()
 	{
@@ -36,7 +35,6 @@ public partial class Projectile : Area3D
 	{
 		await ToSignal(GetTree().CreateTimer(.1), "timeout");
 		sprite.Visible = true;
-		//SetCollisionMaskValue(2, true);
 	}
 
     private void OnAreaEntered(Area3D area)
@@ -56,10 +54,7 @@ public partial class Projectile : Area3D
 	{
 		sprite.Visible = false;
 		SetPhysicsProcess(false);
-		if(target is IDamageable damageable && target != this) {
-			GD.Print("hit enemy!");
-        	damageable.Damage(damage);
-    	}
+		if(target is IDamageable damageable) damageable.Damage(damage);
 
 		if (explode)
 		{
@@ -73,7 +68,7 @@ public partial class Projectile : Area3D
     public override void _PhysicsProcess(double delta)
 	{
 		if (velocity.Length() == 0) return;
-		velocity += (Vector3.Down * gravity) * (float)delta;
+		velocity += Vector3.Down * gravity * (float)delta;
 		LookAt(Transform.Origin + velocity.Normalized(), Vector3.Up);
 		var transform = Transform;
 		transform.Origin = Transform.Origin + velocity * (float)delta;

@@ -7,7 +7,11 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Signal]
 	public delegate void damageTakenEventHandler();
 	[Export]
-	public AudioStream hit;
+	public AudioStream damageTakenSound;
+	[Export]
+	public AudioStream damageDealtSound;
+	[Export]
+	public AudioStream critDealtSound;
 	[Export]
 	public StateMachine stateMachine;
 	[Export]
@@ -150,53 +154,22 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Process(double delta)
     {
+		// Weird smoothnes fix
         float fraction = (float)Engine.GetPhysicsInterpolationFraction();
-		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));
-		} 
-		else {
-			last_physics_pos = Position;
-			applyTransform = true;
-		} 
+		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));} 
+		else {last_physics_pos = Position; applyTransform = true;} 
+
 		GodotObject currentHit = lookRay.GetCollider();
 		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
 		if (currentHit != existingHit)
 		{
-			if (existingHit != null)
-			{
-				if (existingHit is Enemy enemy) enemy.highlighted = false;
-				if (existingHit is IInteractable interactable)
-				{
-					interactable.Highlighted = false;
-					hud.interactLabel.Visible = false;
-				} 
-			} 
+			if (existingHit is Enemy existingEnemy) existingEnemy.highlighted = false;
 			existingHit = currentHit;
-			
-			if (currentHit is Enemy || currentHit is IInteractable)
-			{
-				if (currentHit is Enemy enemy)
-				{
-					enemy.highlighted = true;
-					hud.reticle.Modulate = new Color(1,0,0);
-				} 
-				if (currentHit is IInteractable interactable && interactable.Active)
-				{
-					interactable.Highlighted = true;
-					hud.reticle.Modulate = new Color(0,0,1);
-				}
-			}
-			else hud.reticle.Modulate = new Color(1, 1, 1);
 		}
 
-		if (currentHit is IInteractable interactable1)
-		{
-			if (hitDistance <= interactionRange && interactable1.Active && !inputPaused)
-			{
-				hud.interactLabel.Visible = true;
-			} else hud.interactLabel.Visible = false;
-
-			if (!interactable1.Active) hud.reticle.Modulate = new Color(1, 1, 1);
-		}
+		if (currentHit is Enemy currentEnemy) currentEnemy.highlighted = true;
+		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1,1,1);
+		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= interactionRange;
     }
 
 	public override void _Input(InputEvent @event)
@@ -232,11 +205,11 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	float IDamageable.Health{ get{ return Global.Singleton.currentPlayerHealth; } set{}}
 
-	void IDamageable.Damage(float amount)
+	void IDamageable.Damage(Damage d)
 	{
 		hud.Flash(new Color(1,0,0,0));
-		Global.Singleton.IncrementHealth(-amount);
-		Global.Singleton.PlaySound2D(hit);
+		Global.Singleton.IncrementHealth(-d.amount);
+		Global.Singleton.PlaySound2D(damageTakenSound);
 		EmitSignal(SignalName.damageTaken);
 	}
 
@@ -268,6 +241,8 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	private void Attack()
 	{
+		Damage d = Global.Singleton.GetPlayerDamage();
+		d.damageExecuted += OnDamageExecuted;
 		if (Global.Singleton.awaitedAction == "attack") Global.Singleton.ClosePopUp();
 		AttackAnim();
 		if (Global.Singleton.equippedWeapon.name == "fireball")
@@ -275,14 +250,14 @@ public partial class Player : CharacterBody3D, IDamageable
 			Projectile b = fireball.Instantiate() as Projectile;
 			var main = GetTree().CurrentScene;
 			main.CallDeferred("add_child", b);
-			b.damage = Global.Singleton.GetDamage();
+			b.damage = d;
 			b.Transform = head.GlobalTransform;
 			b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
 		}
 
 		if (Global.Singleton.equippedWeapon.name == "icespike")
 		{
-			foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(Global.Singleton.GetDamage());
+			foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
 			foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
 			IceRay ray = iceray.Instantiate() as IceRay;
 			var main = GetTree().CurrentScene;
@@ -292,7 +267,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Global.Singleton.equippedWeapon.name == "shockburst")
 		{
-			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(Global.Singleton.GetDamage());
+			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
 			foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
 			camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
 			Tween tween = GetTree().CreateTween();
@@ -301,7 +276,15 @@ public partial class Player : CharacterBody3D, IDamageable
 		}
 	}
 
-	private async void AttackAnim()
+    private void OnDamageExecuted(Damage d)
+    {
+		if (d.crit) Global.Singleton.PlaySound2D(critDealtSound);
+		Global.Singleton.PlaySound2D(damageDealtSound);
+		GD.Print("test");
+		hud.FlashCrossHair();
+    }
+
+    private async void AttackAnim()
 	{
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .1);
