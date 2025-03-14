@@ -4,7 +4,6 @@ using Godot.Collections;
 
 public partial class Door : Area3D
 {
-    public Array<string> killZones = new() {"killZone1", "killZone4"};
     public string shrinePath = "res://zones/shrineZone.tscn";
     private PackedScene zoneToLoad;
     private bool open = false;
@@ -16,7 +15,7 @@ public partial class Door : Area3D
     private void PreloadZone()
     {
         if (Global.Singleton.currentLevel % 3 == 0) { zoneToLoad = GD.Load<PackedScene>(shrinePath);
-        } else zoneToLoad = GD.Load<PackedScene>("res://zones/" + killZones.PickRandom() + ".tscn");
+        } else zoneToLoad = GD.Load<PackedScene>("res://zones/" + Global.Singleton.killZones.PickRandom() + ".tscn");
     }
 
     public void Open()

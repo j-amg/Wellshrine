@@ -24,7 +24,7 @@ public partial class Global : Node
 		public bool dead = false;
 		private DeathScreen deathScreen;
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
-
+		public Array<string> killZones = new() {"killZone1","killZone2","killZone3", "killZone4"};
 		public Dictionary<string, StatModifier> statModifiers = new();
 		public Dictionary<string, Weapon> weapons = new();
 
@@ -51,6 +51,8 @@ public partial class Global : Node
 		{
 			Gets();
 			Reset();
+			InitEquipment();
+
 
 		// audio
 		//music = GD.Load<AudioStream>("res://audio/music.ogg");
@@ -78,7 +80,9 @@ public partial class Global : Node
 
 		public void Reset()
 		{
+			statModifiers.Clear();
 			InitEquipment();
+			equippedWeapon = null;
 			currentLevel = 1;
 			Engine.TimeScale = 1;
 			dead = false;
@@ -235,6 +239,7 @@ public partial class Global : Node
     	{
 		hud.reticle.Visible = false;
 		player.PauseInput();
+		player.handSprite.Visible = false;
 		dead = true;
 		deathScreen.Show();
 		deathScreen.menuButton.autoFocussed = true;
