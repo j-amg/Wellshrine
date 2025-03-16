@@ -1,24 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjfaruvqiqlsa"]
+[gd_scene load_steps=11 format=3 uid="uid://df14h66aba5tf"]
 
-[ext_resource type="Script" path="res://zones/ShrineZone.cs" id="1_ybmgi"]
-[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_anyo3"]
-[ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_w4jal"]
-[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_73uy1"]
-[ext_resource type="PackedScene" uid="uid://brt67t3q73a3u" path="res://buffShrine.tscn" id="6_hykga"]
-[ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_n3ams"]
-[ext_resource type="PackedScene" uid="uid://dm5fruxngcou4" path="res://wellShrine.tscn" id="7_w4oj1"]
+[ext_resource type="Script" path="res://zones/version1/V1_1.cs" id="1_hbbiw"]
+[ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_bt8nw"]
+[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_1333v"]
+[ext_resource type="PackedScene" uid="uid://djkpt6w54vlmi" path="res://zones/version1/v1_2.tscn" id="4_laykp"]
+[ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_4c3w8"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="7_xvlux"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3c0g"]
-shader = ExtResource("2_anyo3")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p12kx"]
+shader = ExtResource("7_xvlux")
 shader_parameter/skyColour = null
 
-[sub_resource type="Sky" id="Sky_5mlvb"]
-sky_material = SubResource("ShaderMaterial_i3c0g")
+[sub_resource type="Sky" id="Sky_ekyga"]
+sky_material = SubResource("ShaderMaterial_p12kx")
 
-[sub_resource type="Environment" id="Environment_sht6t"]
+[sub_resource type="Environment" id="Environment_jm85c"]
 background_mode = 2
 background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_5mlvb")
+sky = SubResource("Sky_ekyga")
 sky_rotation = Vector3(1.5708, 0, 0)
 ambient_light_source = 3
 ambient_light_color = Color(0.917647, 0.917647, 0.917647, 1)
@@ -37,36 +36,26 @@ volumetric_fog_detail_spread = 6.0
 volumetric_fog_sky_affect = 0.982
 volumetric_fog_temporal_reprojection_enabled = false
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_8hi34"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rvdgw"]
 dof_blur_far_transition = 35.41
 
 [node name="level" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
-script = ExtResource("1_ybmgi")
-objective = "Select a Shrine"
+script = ExtResource("1_hbbiw")
+objective = "?"
 door = NodePath("door")
 checkpoints = []
-zoneValueOverride = "Amplichamber"
+zoneValueOverride = "???"
+hideZoneLabel = true
 
-[node name="player" parent="." instance=ExtResource("3_w4jal")]
+[node name="player" parent="." instance=ExtResource("2_bt8nw")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="door" parent="." instance=ExtResource("5_73uy1")]
+[node name="door" parent="." instance=ExtResource("3_1333v")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
-
-[node name="shrine" parent="." instance=ExtResource("6_hykga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-
-[node name="shrine2" parent="." instance=ExtResource("6_hykga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
-
-[node name="shrine3" parent="." instance=ExtResource("6_hykga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
-
-[node name="shrine4" parent="." instance=ExtResource("7_w4oj1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+zoneOverride = ExtResource("4_laykp")
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource("6_n3ams")
+mesh_library = ExtResource("6_4c3w8")
 collision_layer = 3
 collision_mask = 15
 data = {
@@ -75,5 +64,5 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 3, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sht6t")
-camera_attributes = SubResource("CameraAttributesPractical_8hi34")
+environment = SubResource("Environment_jm85c")
+camera_attributes = SubResource("CameraAttributesPractical_rvdgw")

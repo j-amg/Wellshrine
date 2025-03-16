@@ -12,7 +12,16 @@ public partial class Zone : Node3D
     public string objective;
     [Export]
     public Door door;
+    [Export]
+    public Checkpoint[] checkpoints;
+    [Export]
+    public bool increasesLevel = false;
+    [Export]
+    public string zoneValueOverride;
+    [Export]
+    public bool hideZoneLabel;
     public bool objectiveComplete = false;
+
     public override void _Ready()
     {
         CallDeferred("emit_signal", SignalName.ZoneEntered, this);
@@ -21,6 +30,7 @@ public partial class Zone : Node3D
     public virtual void UpdateObjective() => CompleteObjective();
     public void CompleteObjective()
     {
+        objectiveComplete = true;
         objective = "Enter the next zone";
         EmitSignal(SignalName.ZoneOjectiveComplete, this);
         door.Open();

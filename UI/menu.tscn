@@ -15,7 +15,7 @@ height = 360
 color_ramp = SubResource("Gradient_d7agj")
 noise = SubResource("FastNoiseLite_22fd6")
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" node_paths=PackedStringArray("version1", "version2", "version3", "version4", "quit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aour6")
+version1 = NodePath("VBoxContainer/version1")
+version2 = NodePath("VBoxContainer/version2")
+version3 = NodePath("VBoxContainer/version3")
+version4 = NodePath("VBoxContainer/version4")
+quit = NodePath("VBoxContainer/quit")
 
 [node name="backdrop" type="TextureRect" parent="."]
 texture_filter = 1
@@ -79,9 +84,21 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="start" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
+[node name="version1" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
 layout_mode = 2
-text = "Start"
+text = "Version 1"
+
+[node name="version2" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
+layout_mode = 2
+text = "Version 2"
+
+[node name="version3" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
+layout_mode = 2
+text = "Version 3"
+
+[node name="version4" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
+layout_mode = 2
+text = "Version 4"
 
 [node name="quit" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
 layout_mode = 2

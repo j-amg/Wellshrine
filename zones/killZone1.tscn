@@ -44,11 +44,13 @@ volumetric_fog_temporal_reprojection_enabled = false
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_mqavy"]
 dof_blur_far_transition = 35.41
 
-[node name="level" type="Node3D" node_paths=PackedStringArray("door")]
+[node name="level" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
 script = ExtResource("1_2vq1i")
 enemyAmount = 4
 objective = "Kill all enemies"
 door = NodePath("door")
+checkpoints = []
+increasesLevel = true
 
 [node name="player" parent="." instance=ExtResource("2_mp5sa")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 4, -19.2003)

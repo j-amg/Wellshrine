@@ -5,6 +5,8 @@ public partial class EnemySpawner : Node3D
 {
     [Signal]
     public delegate void EnemySpawnedEventHandler(Enemy enemy);
+    [Export]
+    public string typeOverride;
     private Enemy LoadedEnemy;
     private int SpawnSpeed = 1;
     public override void _Ready()
@@ -14,7 +16,8 @@ public partial class EnemySpawner : Node3D
     }
     public void LoadEnemy(string type)
     {
-        PackedScene enemy = GD.Load<PackedScene>("res://enemies/" + type + ".tscn");
+        PackedScene enemy = typeOverride != null ? GD.Load<PackedScene>("res://enemies/" + typeOverride + ".tscn") :
+            GD.Load<PackedScene>("res://enemies/" + type + ".tscn");
         LoadedEnemy = Enemy.InitEnemy(enemy, Global.Singleton.currentLevel, GlobalTransform);
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://csteklro6et5n"]
+[gd_scene load_steps=15 format=3 uid="uid://csteklro6et5n"]
 
 [ext_resource type="Script" path="res://Hud.cs" id="1_afaig"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_q7u4o"]
@@ -58,7 +58,14 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_ua45o")
 width = 16
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar")]
+[sub_resource type="Gradient" id="Gradient_6i0hs"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
+gradient = SubResource("Gradient_6i0hs")
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +73,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_afaig")
-healthBar = NodePath("health")
+healthBar = NodePath("VBoxContainer/health")
+healthLabel = NodePath("VBoxContainer/healthLabel")
 zoneLabel = NodePath("zoneInformation/zone")
 objectiveLabel = NodePath("zoneInformation/objective")
 dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
@@ -79,6 +87,7 @@ crossHair = NodePath("reticle/crossHair")
 interactLabel = NodePath("interactLabel")
 hitFlash = NodePath("overlay")
 rechargeBar = NodePath("recharge")
+screen = NodePath("screen")
 
 [node name="overlay" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 0)
@@ -107,8 +116,7 @@ layout_mode = 2
 theme = ExtResource("2_q7u4o")
 text = "Objective"
 
-[node name="health" type="ProgressBar" parent="."]
-texture_filter = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -116,11 +124,24 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -120.0
-offset_top = -36.75
+offset_top = -40.0
 offset_right = 120.0
-offset_bottom = -26.75
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="healthLabel" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "[PH]"
+vertical_alignment = 1
+
+[node name="health" type="ProgressBar" parent="VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_8xbx5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_f2fuu")
 value = 50.0
@@ -305,3 +326,13 @@ theme = ExtResource("2_q7u4o")
 text = "[PH] hello this is a test of the dialogue  system to see if it expands correctly to fit the messages I am typing"
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="screen" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ggvx8")

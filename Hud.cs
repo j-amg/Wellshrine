@@ -6,7 +6,9 @@ public partial class Hud : Control
     [Export]
     public ProgressBar healthBar;
     [Export]
-	  public Label zoneLabel;
+    public Label healthLabel;
+    [Export]
+	public Label zoneLabel;
     [Export]
     public Label objectiveLabel;
     [Export]
@@ -29,18 +31,19 @@ public partial class Hud : Control
     public TextureRect hitFlash;
     [Export]
     public ProgressBar rechargeBar;
+    [Export]
+    public TextureRect screen;
     public Player player;
     public override void _Ready()
     {
         player = GetOwner<Player>();
-		    player.damageTaken += OnDamageTaken;
+		player.damageTaken += OnDamageTaken;
         Global.Singleton.HealthChanged += OnHealthChanged;
         if (Global.Singleton.currentZone != null) {
           Global.Singleton.currentZone.ZoneEntered += OnZoneEntered;
           Global.Singleton.currentZone.ZoneOjectiveComplete += OnZoneObjectiveComplete;
-        } 
-        healthBar.MaxValue = Global.Singleton.playerHealth;
-		    healthBar.Value = Global.Singleton.playerHealth;
+        }
+        if (Global.Singleton.currentZone.hideZoneLabel) zoneLabel.Visible = false;
     }
 
     private void OnZoneObjectiveComplete(Zone zone)
@@ -48,21 +51,33 @@ public partial class Hud : Control
         objectiveLabel.Text = "Objective: " + zone.objective.ToString();
     }
 
-    private void OnZoneEntered(Zone zone)
+    private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);
+
+    public void UpdateZoneInformation(Zone zone)
     {
-        GD.Print("zone entered");
-        zoneLabel.Text = "Zone: " + Global.Singleton.currentLevel.ToString();
+        zoneLabel.Text = zone.zoneValueOverride == null ?
+        "Zone: " + Global.Singleton.currentLevel.ToString() 
+        : "Zone: " + zone.zoneValueOverride.ToString();
         objectiveLabel.Text = "Objective: " + zone.objective.ToString();
+
+        UpdateHealth();
     }
 
-    private void OnHealthChanged()
+    private void OnHealthChanged() => UpdateHealth();
+
+    public void UpdateHealth()
     {
         healthBar.MaxValue = Global.Singleton.playerHealth;
         healthBar.Value = Global.Singleton.currentPlayerHealth;
-        GD.Print("health");
+        healthLabel.Text = "HP: " + Global.Singleton.playerHealth + "/" + Mathf.Round(Global.Singleton.currentPlayerHealth);
     }
 
-    private void OnDamageTaken() => Flash(new Color(1,0,0));
+    private void OnDamageTaken()
+    {
+        Tween tween = CreateTween();
+        tween.TweenProperty(healthLabel, "modulate", new Color(1,1,1), .25f).From(new Color(1,0,0));
+        Flash(new Color(1, 0, 0));
+    }
 
     public void FlashCrossHair()
     {
@@ -81,5 +96,16 @@ public partial class Hud : Control
         Global.Singleton.HealthChanged -= OnHealthChanged;
         Global.Singleton.currentZone.ZoneEntered -= OnZoneEntered;
         Global.Singleton.currentZone.ZoneOjectiveComplete -= OnZoneObjectiveComplete;
+    }
+
+    public void SetScreen(Color col)
+    {
+        screen.Modulate = col;
+    }
+
+    public void FadeScreen(Color col, float dur)
+    {
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(screen, "modulate", col, dur);
     }
 }

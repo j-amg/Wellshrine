@@ -98,7 +98,6 @@ public partial class Player : CharacterBody3D, IDamageable
 		FloorMaxAngle = Mathf.DegToRad(65);
 		FloorConstantSpeed = true;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-		hud.objectiveLabel.Text = Global.Singleton.currentZone.objective;
 		AddToGroup("player");
     }
 
@@ -174,7 +173,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Global.Singleton.awaitedAction == "look") Global.Singleton.ClosePopUp();
+		Global.Singleton.SetAction("look");
 		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
 		if (@event is InputEventMouseMotion eventKey)
 		{
@@ -223,7 +222,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (direction != Vector3.Zero)
 		{
-			if (Global.Singleton.awaitedAction == "walk") Global.Singleton.ClosePopUp();
+			Global.Singleton.SetAction("walk");
 			velocity.X = Mathf.Lerp(velocity.X, direction.X * speed, acceleration);
 			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
 		}
@@ -240,7 +239,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	{
 		Damage d = Global.Singleton.GetPlayerDamage();
 		d.damageExecuted += OnDamageExecuted;
-		if (Global.Singleton.awaitedAction == "attack") Global.Singleton.ClosePopUp();
+		Global.Singleton.SetAction("attack");
 		AttackAnim();
 		if (Global.Singleton.equippedWeapon.name == "fireball")
 		{

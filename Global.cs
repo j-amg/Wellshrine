@@ -7,6 +7,10 @@ public partial class Global : Node
 {
 		[Signal]
 		public delegate void HealthChangedEventHandler();
+		[Signal]
+		public delegate void PopUpClosedEventHandler(string action);
+		[Signal]
+		public delegate void DialogueFinishedEventHandler();
 		public AudioStreamPlayer musicPlayer;
 		public bool paused = false;
 		public Pause pauseMenu;
@@ -45,13 +49,12 @@ public partial class Global : Node
 		public string currentIdle = "idle";
 		public Weapon equippedWeapon;
 
-		private string[] testText = { "Hello", "this is a test", "of the dialogue",};
+		public string[] testText = { "Hello", "this is a test", "of the dialogue",};
 
 		public override void _Ready()
 		{
 			Gets();
 			Reset();
-			InitEquipment();
 
 
 		// audio
@@ -81,6 +84,7 @@ public partial class Global : Node
 		public void Reset()
 		{
 			statModifiers.Clear();
+			weapons.Clear();
 			InitEquipment();
 			equippedWeapon = null;
 			currentLevel = 1;
@@ -88,15 +92,16 @@ public partial class Global : Node
 			dead = false;
 			currentPlayerHealth = playerHealth;
 			paused = false;
+			hud?.UpdateZoneInformation(currentZone);
 		}
 
 		public void InitEquipment()
 		{
-			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .2f, 5));
-			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.25f, .2f, .1f, 2));
+			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5));
+			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.25f, .2f, .2f, 2));
 			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.25f, 1f, 1, 10));
 
-			statModifiers.Add("damage", StatModifier.InitModifier("damage", "+25% Damage", "add", .25f, 0, 0));
+			statModifiers.Add("damage", StatModifier.InitModifier("damage", "+5 Damage", "add", 5, 0, 0));
 			statModifiers.Add("critDamage", StatModifier.InitModifier("critDamage", "+25% Critical Damage", "add", .25f, 2, 0));
 			statModifiers.Add("moveSpeed", StatModifier.InitModifier("moveSpeed", "+3 Run Speed", "add", 3, 0, 0));
 			statModifiers.Add("stun", StatModifier.InitModifier("stun", "+0.15s Stun Duration", "add", .15f, 0, 0));
@@ -125,12 +130,14 @@ public partial class Global : Node
         {
         	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
 			if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
-			if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
-			if (Input.IsActionJustPressed("popup") && !inPopup) SendPopUp("Jump while crouching to dash", "dash");
+			//if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
+			//if (Input.IsActionJustPressed("popup") && !inPopup) SendPopUp("Jump while crouching to dash", "dash");
         }
 
 		public void SendPopUp(string text, string action)
 		{
+			hud.popupText.Modulate = new Color(1, 1, 0);
+			GD.Print("popup with " + text);
 			inPopup = true;
 			awaitedAction = action;
 			hud.popupText.Text = text;
@@ -139,23 +146,33 @@ public partial class Global : Node
 
 		public void SetAction(string action)
 		{
-			GD.Print(currentAction);
+			//GD.Print(currentAction);
 			currentAction = action;
-			if (awaitedAction == action && hud?.popup.Visible == true) ClosePopUp();
+			if (awaitedAction == action && inPopup)
+			{
+				GD.Print("emitted signal with action " + action);
+				ClosePopUp(action, false);
+			} 
 		}
 
-		public async void ClosePopUp()
+		public async void ClosePopUp(string action, bool overrideWait)
 		{
-			await ToSignal(GetTree().CreateTimer(1), "timeout");
-			awaitedAction = "";
-			hud.popup.Visible = false;
+			hud.popupText.Modulate = new Color(0, 1, 0);
 			inPopup = false;
+			awaitedAction = "";
+			if (!overrideWait) await ToSignal(GetTree().CreateTimer(2.5), "timeout");
+			hud.popup.Visible = false;
+			EmitSignal(SignalName.PopUpClosed, action);
+
+			
 		}
 
 		public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 		{
 			player.PauseInput();
 			hud.reticle.Visible = false;
+			hud.healthBar.Visible = false;
+			hud.healthLabel.Visible = false;
 			if (freeze) Engine.TimeScale = 0;
 			inDialogue = true;
 			currentDialogue = dialogueText;
@@ -201,6 +218,9 @@ public partial class Global : Node
 			await ToSignal(GetTree().CreateTimer(.5f), "timeout");
 			player.ResumeInput();
 			hud.reticle.Visible = true;
+			hud.healthBar.Visible = true;
+			hud.healthLabel.Visible = true;
+			EmitSignal(SignalName.DialogueFinished);
 		}
 
 

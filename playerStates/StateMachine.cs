@@ -26,7 +26,7 @@ public partial class StateMachine : Node
 
 	private void OnChildTransition(StringName state)
 	{
-		if (Owner is Player && Global.Singleton.awaitedAction == state) Global.Singleton.ClosePopUp();
+		if (Owner is Player) Global.Singleton.SetAction(state);
 		State new_state = states[state];
 		if (new_state != null)
 		{
