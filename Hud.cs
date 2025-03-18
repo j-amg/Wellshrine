@@ -98,10 +98,7 @@ public partial class Hud : Control
         Global.Singleton.currentZone.ZoneOjectiveComplete -= OnZoneObjectiveComplete;
     }
 
-    public void SetScreen(Color col)
-    {
-        screen.Modulate = col;
-    }
+    public void SetScreen(Color col) => screen.Modulate = col;
 
     public void FadeScreen(Color col, float dur)
     {

@@ -2,19 +2,21 @@ using Godot;
 public partial class MenuButton : TextureButton
 {
 	[Export]
-	public string text;
-	[Export]
 	public AudioStream focus;
 	[Export]
 	public AudioStream pressed;
-	private TextureRect select;
+	[Export]
+	public TextureRect select;
+	[Export]
+	public Label label;
+	[Export]
+	public string text;
 	public bool autoFocussed = false;
 	Global globals;
 	public override void _Ready()
 	{
-		select = GetNode<TextureRect>("select");
-		GetNode<Label>("Label").Text = text;
 		HideSelect();
+		label.Text = text;
 		FocusMode = FocusModeEnum.All;
 		FocusEntered += OnFocusEntered;
 		FocusExited += OnFocusExited;

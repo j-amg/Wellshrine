@@ -1,14 +1,14 @@
 using Godot;
 public partial class Pause : Control
 {
-	public MenuButton resumeButton;
+	[Export] public MenuButton resumeButton;
+	[Export] public MenuButton settingsButton;
+	[Export] public MenuButton menuButton;
+	[Export] public MenuButton quitButton;
 	public override void _Ready()
 	{
-		resumeButton = GetNode<MenuButton>("VBoxContainer/resume");
 		resumeButton.Pressed += OnResumePressed;
-		MenuButton menuButton = GetNode<MenuButton>("VBoxContainer/menu");
 		menuButton.Pressed += OnMenuPressed;
-		MenuButton quitButton = GetNode<MenuButton>("VBoxContainer/quit");
 		quitButton.Pressed += OnQuitPressed;
 	}
 

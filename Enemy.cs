@@ -116,7 +116,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
     public void Die()
     {
 		EmitSignal(SignalName.enemyDied, this);
-		GD.Print("dead");
 		labelSprite.Visible = false;
 		RemoveFromGroup("enemies");
 		dead = true;

@@ -61,12 +61,10 @@ alignment = 1
 [node name="menu" parent="VBoxContainer" instance=ExtResource("1_5rhbh")]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "menu"
 
 [node name="quit" parent="VBoxContainer" instance=ExtResource("1_5rhbh")]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "quit"
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1

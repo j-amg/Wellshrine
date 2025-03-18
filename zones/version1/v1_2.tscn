@@ -48,6 +48,7 @@ script = ExtResource("1_5n8w1")
 objective = "Reach the door"
 door = NodePath("door")
 checkpoints = [NodePath("checkPoint1"), NodePath("checkPoint2")]
+hideZoneLabel = true
 
 [node name="player" parent="." instance=ExtResource("2_yynft")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -9.29262)

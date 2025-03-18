@@ -1,38 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://b038xdr6ado51"]
+[gd_scene load_steps=5 format=3 uid="uid://b038xdr6ado51"]
 
 [ext_resource type="Script" path="res://UI/MenuButton.cs" id="1_3yaqt"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_iau7j"]
 
 [sub_resource type="Gradient" id="Gradient_a72bu"]
 colors = PackedColorArray(1, 1, 0, 1, 0, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xvmlv"]
 gradient = SubResource("Gradient_a72bu")
-width = 32
 height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.880795, 0.178808)
 
-[node name="menuButton" type="TextureButton"]
+[node name="menuButton" type="TextureButton" node_paths=PackedStringArray("select", "label")]
+custom_minimum_size = Vector2(120, 16)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
 script = ExtResource("1_3yaqt")
+select = NodePath("CenterContainer/select")
+label = NodePath("CenterContainer/Label")
 
-[node name="select" type="TextureRect" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="select" type="TextureRect" parent="CenterContainer"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 160.0
-offset_right = 318.0
-offset_bottom = 22.0
+layout_mode = 2
 texture = SubResource("GradientTexture2D_xvmlv")
 flip_h = true
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="CenterContainer"]
 texture_filter = 1
-layout_mode = 0
-offset_right = 480.0
-offset_bottom = 20.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+layout_mode = 2
+theme = ExtResource("2_iau7j")
 text = "placeholder"
 horizontal_alignment = 1
 vertical_alignment = 1

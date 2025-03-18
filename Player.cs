@@ -276,7 +276,6 @@ public partial class Player : CharacterBody3D, IDamageable
     {
 		if (d.crit) Global.Singleton.PlaySound2D(critDealtSound);
 		Global.Singleton.PlaySound2D(damageDealtSound);
-		GD.Print("test");
 		hud.FlashCrossHair();
     }
 

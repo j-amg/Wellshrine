@@ -44,7 +44,7 @@ volumetric_fog_temporal_reprojection_enabled = false
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_pd51s"]
 dof_blur_far_transition = 35.41
 
-[node name="level" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
+[node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
 script = ExtResource("1_tpqqp")
 enemyAmount = 8
 objective = "Kill all enemies"

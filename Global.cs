@@ -58,10 +58,12 @@ public partial class Global : Node
 
 
 		// audio
-		//music = GD.Load<AudioStream>("res://audio/music.ogg");
-		//musicPlayer = new();
-		//AddChild(musicPlayer);
-		//PlayMusic();
+		music = GD.Load<AudioStream>("res://audio/wellshrine.wav");
+		musicPlayer = new();
+		musicPlayer.VolumeDb = .01f;
+		AddChild(musicPlayer);
+		
+		PlayMusic();
 
 		// canvas
 		//worldModulate = new();
@@ -98,8 +100,8 @@ public partial class Global : Node
 		public void InitEquipment()
 		{
 			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5));
-			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.25f, .2f, .2f, 2));
-			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.25f, 1f, 1, 10));
+			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2));
+			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10));
 
 			statModifiers.Add("damage", StatModifier.InitModifier("damage", "+5 Damage", "add", 5, 0, 0));
 			statModifiers.Add("critDamage", StatModifier.InitModifier("critDamage", "+25% Critical Damage", "add", .25f, 2, 0));
@@ -107,6 +109,7 @@ public partial class Global : Node
 			statModifiers.Add("stun", StatModifier.InitModifier("stun", "+0.15s Stun Duration", "add", .15f, 0, 0));
 			statModifiers.Add("health", StatModifier.InitModifier("health", "+50 health", "add", 50, 0, 0));
 			statModifiers.Add("recharge", StatModifier.InitModifier("recharge", "-25% recharge", "mult", .75f, 1, 0));
+			statModifiers.Add("critChance", StatModifier.InitModifier("critChance", "+10% Critical Chance", "add", .1f, 0, 0));
 		}
 
 		public float GetPlayerModifier(string modifier)
@@ -130,14 +133,11 @@ public partial class Global : Node
         {
         	if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
 			if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
-			//if (Input.IsActionJustPressed("toggle") && !inDialogue) EnterDialogue(testText, "blah", false);
-			//if (Input.IsActionJustPressed("popup") && !inPopup) SendPopUp("Jump while crouching to dash", "dash");
         }
 
 		public void SendPopUp(string text, string action)
 		{
 			hud.popupText.Modulate = new Color(1, 1, 0);
-			GD.Print("popup with " + text);
 			inPopup = true;
 			awaitedAction = action;
 			hud.popupText.Text = text;
@@ -146,13 +146,8 @@ public partial class Global : Node
 
 		public void SetAction(string action)
 		{
-			//GD.Print(currentAction);
 			currentAction = action;
-			if (awaitedAction == action && inPopup)
-			{
-				GD.Print("emitted signal with action " + action);
-				ClosePopUp(action, false);
-			} 
+			if (awaitedAction == action && inPopup)ClosePopUp(action, false);
 		}
 
 		public async void ClosePopUp(string action, bool overrideWait)
@@ -247,23 +242,31 @@ public partial class Global : Node
 		}
 		public Damage GetPlayerDamage()
 		{
-			//base damge
+			//base damage
 			float damage = (float)GD.RandRange(equippedWeapon.damageMin + GetPlayerModifier("damage"), equippedWeapon.damageMax + GetPlayerModifier("damage"));
 			//crit
-			bool crit = GD.Randf() <= equippedWeapon.critChance;
-			damage =  crit ? damage * GetPlayerModifier("critDamage") : damage;
+			float critValue = equippedWeapon.critChance + GetPlayerModifier("critChance");
+			float critBase = Mathf.Ceil(critValue);
+			float critRoll = GD.Randf();
+			bool crit = critRoll <= critValue;
+			bool critExcess = critRoll <= (critValue - MathF.Truncate(critValue));
+			GD.Print("crit" + crit);
+			GD.Print("critExcess " + critExcess);
+			GD.Print("critBase " + critBase);
+			damage *= critExcess ? (GetPlayerModifier("critDamage") * critBase) : 1;
+			GD.Print("damage " + damage);
 			return Damage.InitDamage(damage, crit, player);
 		}
 
 		public void Die()
     	{
-		hud.reticle.Visible = false;
-		player.PauseInput();
-		player.handSprite.Visible = false;
-		dead = true;
-		deathScreen.Show();
-		deathScreen.menuButton.autoFocussed = true;
-		deathScreen.menuButton.GrabFocus();
+			hud.reticle.Visible = false;
+			player.PauseInput();
+			player.handSprite.Visible = false;
+			dead = true;
+			deathScreen.Show();
+			deathScreen.menuButton.autoFocussed = true;
+			deathScreen.menuButton.GrabFocus();
     	}
 
 		public void PauseMenu()
@@ -315,5 +318,15 @@ public partial class Global : Node
 		player.Play();
 	}
 	public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
+
+	public void PlayMusic()
+		{
+			musicPlayer.Stream = music;
+			musicPlayer.Play();
+		}
+
+    public void PauseMusic() => musicPlayer.StreamPaused = true;
+
+    public void ResumeMusic() => musicPlayer.StreamPaused = false;
 
 }
