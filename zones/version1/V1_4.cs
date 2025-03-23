@@ -15,7 +15,7 @@ public partial class V1_4 : ShrineZone
         currentStep = 1;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.EnterDialogue(new string[] {"You made it",
-        "The road ahead is dangerous, choose one of the spells from the shrines here"}, "???", false);
+        "The road ahead is dangerous, equip yourself with one of the spells from the shrines here"}, "???", false);
     }
 
 }

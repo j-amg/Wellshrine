@@ -22,12 +22,12 @@ public partial class Menu : Control
 		quit.Pressed += OnQuitPressed;
 		version1.autoFocussed = true;
 		version1.GrabFocus();
-		//if (!Global.Singleton.musicPlayer.Playing) Global.Singleton.PlayMusic();
+		Global.Singleton.Reset();
+		//Global.Singleton.PlayMusic();
 	}
 
     private void OnVersion4Pressed()
     {
-        Global.Singleton.Reset();
 		PackedScene zone = GD.Load<PackedScene>("res://zones/startZone.tscn");
 		Global.Singleton.GotoScene(zone);
 		//Global.Singleton.PauseMusic();
@@ -35,7 +35,6 @@ public partial class Menu : Control
 
     private void OnVersion3Pressed()
     {
-        Global.Singleton.Reset();
 		PackedScene zone = GD.Load<PackedScene>("res://zones/startZone.tscn");
 		Global.Singleton.GotoScene(zone);
 		//Global.Singleton.PauseMusic();
@@ -43,7 +42,6 @@ public partial class Menu : Control
 
     private void OnVersion2Pressed()
     {
-        Global.Singleton.Reset();
 		PackedScene zone = GD.Load<PackedScene>("res://zones/startZone.tscn");
 		Global.Singleton.GotoScene(zone);
 		//Global.Singleton.PauseMusic();
@@ -51,8 +49,7 @@ public partial class Menu : Control
 
     private void OnVersion1Pressed()
 	{
-		Global.Singleton.Reset();
-		PackedScene zone = GD.Load<PackedScene>("res://zones/version1/v1startZone.tscn");
+		PackedScene zone = GD.Load<PackedScene>("res://zones/version1/v1_1.tscn");
 		Global.Singleton.GotoScene(zone);
 		//Global.Singleton.PauseMusic();
 	}

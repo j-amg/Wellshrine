@@ -51,7 +51,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	public bool awake = false;
 	public bool dead = false;
 	public bool stunned = false;
-	public bool highlighted = false;
 	public bool damaged = false;
 	public bool aggro = false;
 	public bool inview;
@@ -60,6 +59,9 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
     public float Health { get; set; }
     public bool Highlighted { get; set; }
     public bool Active { get; set; }
+    public bool PopUp { get; set; }
+    public string PopUpText { get; set; }
+    public float HoverRange { get; set; }
 
     public override void _Ready()
 	{
@@ -68,11 +70,15 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		baseMovementSpeed += level/10;
 		Health = baseHealth;
 		Active = true;
+		HoverRange = 1000;
 		label.SetValues();
+		PopUp = false;
+		PopUpText = "";
 		AddToGroup("enemies");
 		ReticleModulate = new Color(1,0,0);
 		defaultModulate = sprite.Modulate;
 		FloorSnapLength = 1;
+		
 		SpawnDelay();
 	}
 
@@ -124,10 +130,19 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	public override void _PhysicsProcess(double delta)
 	{
 		sprite.FlipH = velocity.X > 0;
-		labelSprite.Visible = (highlighted || damaged) && !dead;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
 		inview = rc.GetCollider() is Player && !Global.Singleton.dead;
 		ApplyFloorSnap();
 		MoveAndSlide();
 	}
+
+    public void StartHover()
+    {
+        if (!dead) labelSprite.Visible = true; 
+    }
+
+    public void EndHover()
+    {
+        if (!damaged) labelSprite.Visible = false;
+    }
 }

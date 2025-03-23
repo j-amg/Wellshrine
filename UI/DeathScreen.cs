@@ -16,7 +16,7 @@ public partial class DeathScreen : Control
     //private void OnResumePressed() => Global.Singleton.Respawn();
     private void OnMenuPressed()
     {
-		PackedScene menu = GD.Load<PackedScene>("res://UI/menu.tscn");
+		PackedScene menu = GD.Load<PackedScene>("res://UI/title.tscn");
         Global.Singleton.GotoScene(menu);
 		Engine.TimeScale = 1;
     }

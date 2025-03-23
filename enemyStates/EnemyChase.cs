@@ -28,6 +28,6 @@ public partial class EnemyChase : State
         if (enemy.stunned) enemy.sprite.Play("stun");
         if (enemy.dead) EmitSignal(SignalName.transition, "die");
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
-        if ((Global.Singleton.player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange) EmitSignal(SignalName.transition, "attack");
+        if ((Global.Singleton.player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange && !Global.Singleton.dead) EmitSignal(SignalName.transition, "attack");
     }
 }

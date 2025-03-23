@@ -7,12 +7,12 @@
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_k1xix"]
+[sub_resource type="Gradient" id="Gradient_tj3ro"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0.784314)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xw4ef"]
-gradient = SubResource("Gradient_k1xix")
+gradient = SubResource("Gradient_tj3ro")
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 

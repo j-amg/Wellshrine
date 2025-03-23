@@ -80,22 +80,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 4, 1.1361)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 8, 4.0361)
 
 [node name="enemySpawner6" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, -0.2, 4.0361)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 4.036)
 
 [node name="enemySpawner11" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, -0.2, -0.4639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7, 0, -0.464)
 
 [node name="enemySpawner7" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, -0.2, -2.0639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4, 0, -2.064)
 
 [node name="enemySpawner8" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 1.8, -5.1639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 2, -5.164)
 
 [node name="enemySpawner9" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 1.8, -6.5639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 2, -6.564)
 
 [node name="enemySpawner10" parent="." instance=ExtResource("6_kqvpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 3.8, -1.6639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 4, -1.664)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8lgbj")

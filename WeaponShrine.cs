@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class WeaponShrine : Shrine, IInteractable
+public partial class WeaponShrine : Shrine
 {
     [Export]
     public string weapon;
@@ -13,6 +13,7 @@ public partial class WeaponShrine : Shrine, IInteractable
     {
         base._Ready();
         name.Text = displayName;
+        PopUpText = Global.Singleton.weapons[weapon].description;
     }
     public override void OnInteract()
     {

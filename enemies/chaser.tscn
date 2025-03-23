@@ -15,7 +15,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000153542, -0.012781, -0.00
 script = ExtResource("2_iwobo")
 baseMovementSpeed = 3.0
 name = "Skeleton"
-baseHealth = 20.0
+baseHealth = 10.0
 detectionRange = 17.5
 attackWindup = 0.25
 

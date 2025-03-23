@@ -1,0 +1,142 @@
+[gd_scene load_steps=17 format=3 uid="uid://dcjgbshr51onj"]
+
+[ext_resource type="Script" path="res://NPC.cs" id="1_acsdh"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_e858n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lwxmy"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yr12p"]
+load_path = "res://.godot/imported/skeletonFull.png-912512638b6eb0e7ef8a9431ed28753f.s3tc.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kugty"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf56o"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oepc"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8atyd"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(384, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv4xh"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(512, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5kn0"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(640, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfl3v"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(768, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x40lt"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(896, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dqiy"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(1024, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46qla"]
+atlas = SubResource("CompressedTexture2D_yr12p")
+region = Rect2(1152, 384, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1lc6q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kugty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf56o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oepc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8atyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yv4xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5kn0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfl3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x40lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dqiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46qla")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eimih"]
+
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "labelSprite")]
+collision_layer = 256
+script = ExtResource("1_acsdh")
+displayName = "ShrineKeeper"
+sprite = NodePath("sprite")
+labelSprite = NodePath("labelSprite")
+
+[node name="labelSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_lwxmy")
+
+[node name="sprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
+modulate = Color(1, 0.827451, 0.619608, 1)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_1lc6q")
+animation = &"idle"
+frame_progress = 0.0837389
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_eimih")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Control" type="VBoxContainer" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -25.0
+offset_right = 41.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Name" type="Label" parent="SubViewport/Control"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_e858n")
+text = "ShrineKeeper"
+horizontal_alignment = 1

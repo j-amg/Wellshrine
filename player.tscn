@@ -592,7 +592,7 @@ animations = [{
 height = 1.0
 
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hud", "hands", "handSprite", "standCollision", "crouchCollision", "iceCollision", "shockCollision")]
-collision_mask = 6
+collision_mask = 262
 script = ExtResource("1_4aaio")
 damageTakenSound = ExtResource("2_24bn3")
 damageDealtSound = ExtResource("3_5t7b0")
@@ -645,7 +645,7 @@ visible = false
 [node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
-collision_mask = 6
+collision_mask = 262
 
 [node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D"]
 spot_range = 15.0

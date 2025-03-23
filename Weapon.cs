@@ -10,8 +10,9 @@ public partial class Weapon : Node
     		public float recharge;
     		public float stunDuration;
             public float recoil;
+            public string description;
 
-            public static Weapon InitWeapon(string name, float damageMin, float damageMax, float critChance, float recharge, float stunDuration, float recoil)
+            public static Weapon InitWeapon(string name, float damageMin, float damageMax, float critChance, float recharge, float stunDuration, float recoil, string description)
             {
                 Weapon w = new();
                 w.name = name;
@@ -21,6 +22,7 @@ public partial class Weapon : Node
                 w.recharge = recharge;
                 w.stunDuration = stunDuration;
                 w.recoil = recoil;
+                w.description = description;
                 return w;
             }
 	}

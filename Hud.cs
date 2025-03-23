@@ -58,8 +58,7 @@ public partial class Hud : Control
         zoneLabel.Text = zone.zoneValueOverride == null ?
         "Zone: " + Global.Singleton.currentLevel.ToString() 
         : "Zone: " + zone.zoneValueOverride.ToString();
-        objectiveLabel.Text = "Objective: " + zone.objective.ToString();
-
+        objectiveLabel.Text = zone.objective == null ? "" : "Objective: " + zone.objective.ToString();
         UpdateHealth();
     }
 

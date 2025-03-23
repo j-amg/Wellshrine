@@ -30,7 +30,7 @@ public partial class ShooterAttack : State
             b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
         }
         await ToSignal(GetTree().CreateTimer(owner.attackDuration), "timeout");
-        if (!owner.dead) EmitSignal(SignalName.transition, "chase");
+        if (!owner.dead || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");
     }
 
     public override void Update(double delta)

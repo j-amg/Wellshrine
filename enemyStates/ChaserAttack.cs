@@ -20,7 +20,7 @@ public partial class ChaserAttack : State
             ((IDamageable)Global.Singleton.player).Damage(damage);
         }
         await ToSignal(GetTree().CreateTimer(duration), "timeout");
-         if (!owner.dead) EmitSignal(SignalName.transition, "chase");
+         if (!owner.dead  || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");
     }
 
     public override void Update(double delta)

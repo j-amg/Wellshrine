@@ -162,13 +162,16 @@ public partial class Player : CharacterBody3D, IDamageable
 		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
 		if (currentHit != existingHit)
 		{
-			if (existingHit is Enemy existingEnemy) existingEnemy.highlighted = false;
+			if (existingHit is IHoverable hov) hov.EndHover();
 			existingHit = currentHit;
 		}
 
-		if (currentHit is Enemy currentEnemy) currentEnemy.highlighted = true;
 		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1,1,1);
-		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= interactionRange;
+		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance  <= interactionRange && !Global.Singleton.inDialogue;
+		if (currentHit is IHoverable h)
+		{
+			if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover();
+		}
     }
 
 	public override void _Input(InputEvent @event)

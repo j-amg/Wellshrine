@@ -2,13 +2,14 @@ using Godot;
 using System;
 using Godot.Collections;
 using System.Linq;
-public partial class BuffShrine : Shrine, IInteractable
+public partial class BuffShrine : Shrine
 {
     private string buff;
     public void SetBuff(string type)
     {
         buff = type;
         name.Text = Global.Singleton.statModifiers[type].description;
+        PopUpText = Global.Singleton.statModifiers[type].longDescription;
     }
 
     public override void OnInteract()

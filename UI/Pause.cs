@@ -16,7 +16,7 @@ public partial class Pause : Control
     private void OnMenuPressed()
     {
 		Global.Singleton.PauseMenu();
-		PackedScene menu = GD.Load<PackedScene>("res://UI/menu.tscn");
+		PackedScene menu = GD.Load<PackedScene>("res://UI/title.tscn");
         Global.Singleton.GotoScene(menu);
     }
     private void OnQuitPressed() => GetTree().Quit();

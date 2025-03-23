@@ -28,7 +28,7 @@ public partial class Global : Node
 		public bool dead = false;
 		private DeathScreen deathScreen;
 		public Array<string> EnemyTypes = new() {"shooter", "chaser"};
-		public Array<string> killZones = new() {"killZone1","killZone2","killZone3", "killZone4"};
+		public Array<string> killZones = new() {"killZone1","killZone2","killZone3", "killZone4", "killZone5"};
 		public Dictionary<string, StatModifier> statModifiers = new();
 		public Dictionary<string, Weapon> weapons = new();
 
@@ -60,10 +60,10 @@ public partial class Global : Node
 		// audio
 		music = GD.Load<AudioStream>("res://audio/wellshrine.wav");
 		musicPlayer = new();
-		musicPlayer.VolumeDb = .01f;
+		musicPlayer.VolumeDb = Mathf.LinearToDb(.1f);
 		AddChild(musicPlayer);
 		
-		PlayMusic();
+		//PlayMusic();
 
 		// canvas
 		//worldModulate = new();
@@ -99,17 +99,17 @@ public partial class Global : Node
 
 		public void InitEquipment()
 		{
-			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5));
-			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2));
-			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10));
+			weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5, "Launch a ball of flame that explodes in a small area on impact. Moderate damage, and moderate recharge duration."));
+			weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2, "Shoot a fast moving spike of ice that pierces enemies and walls. Low damage, but reduced recharge duration."));
+			weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10, "Release a burst of lighting in a short-range area. High damage, but high recharge duration."));
 
-			statModifiers.Add("damage", StatModifier.InitModifier("damage", "+5 Damage", "add", 5, 0, 0));
-			statModifiers.Add("critDamage", StatModifier.InitModifier("critDamage", "+25% Critical Damage", "add", .25f, 2, 0));
-			statModifiers.Add("moveSpeed", StatModifier.InitModifier("moveSpeed", "+3 Run Speed", "add", 3, 0, 0));
-			statModifiers.Add("stun", StatModifier.InitModifier("stun", "+0.15s Stun Duration", "add", .15f, 0, 0));
-			statModifiers.Add("health", StatModifier.InitModifier("health", "+50 health", "add", 50, 0, 0));
-			statModifiers.Add("recharge", StatModifier.InitModifier("recharge", "-25% recharge", "mult", .75f, 1, 0));
-			statModifiers.Add("critChance", StatModifier.InitModifier("critChance", "+10% Critical Chance", "add", .1f, 0, 0));
+			statModifiers.Add("damage", StatModifier.InitModifier("damage", "+5 Damage", "Increases the base damage of a spell.", "add", 5, 0, 0));
+			statModifiers.Add("critDamage", StatModifier.InitModifier("critDamage", "+25% Critical Damage", "Multiples the damage of a spell on a Critical Hit. Starts at a 200% multiplier.", "add", .25f, 2, 0));
+			statModifiers.Add("moveSpeed", StatModifier.InitModifier("moveSpeed", "+3 Run Speed", "Increases player movement speed", "add", 3, 0, 0));
+			statModifiers.Add("stun", StatModifier.InitModifier("stun", "+0.15s Stun Duration", "Increases the duration that an enemy stops moving after being hit by a spell.", "add", .15f, 0, 0));
+			statModifiers.Add("health", StatModifier.InitModifier("health", "+50 health", "Increases current and maximum player Health. (The amount of damage that a player can sustain before dying.)", "add", 50, 0, 0));
+			statModifiers.Add("recharge", StatModifier.InitModifier("recharge", "-25% recharge", "Reduces the time between when a spell can be recast", "mult", .75f, 1, 0));
+			statModifiers.Add("critChance", StatModifier.InitModifier("critChance", "+10% Critical Chance", "Increases the likeliness that a spell hit will critically strike, dealing increased damage. Critical hit chance above 100% increases the damage multiplier.", "add", .1f, 0, 0));
 		}
 
 		public float GetPlayerModifier(string modifier)
@@ -126,6 +126,7 @@ public partial class Global : Node
 			if (modifier == "health")
 			{
 				playerHealth = basePlayerHealth + GetPlayerModifier("health");
+				IncrementPlayerHealth(GetPlayerModifier("health"));
 				EmitSignal(SignalName.HealthChanged);
 			}
     	}
@@ -180,29 +181,39 @@ public partial class Global : Node
 
 		private async void AnimateDialogue(string text)
 		{
-			float appearSpeed = 0.05f;
+			animatingDialogue = true;
 			hud.dialogueText.Text = "";
 			await ToSignal(GetTree().CreateTimer(.1f), "timeout");
-			animatingDialogue = true;
+			
 			foreach(char c in text)
 			{
 				if (!animatingDialogue) break;
 				PlaySound2D(charSound);
 				hud.dialogueText.Text += c;
-				await ToSignal(GetTree().CreateTimer(appearSpeed), "timeout");
+				float waitTime = c == ',' || c == '.' ? .15f : 0.05f;
+				await ToSignal(GetTree().CreateTimer(waitTime), "timeout");
 			}
+			animatingDialogue = false;
 		}
 
 		public void ProgressDialogue()
 		{
-			if (currentDialogueStep == currentDialogue.Length - 1)
+			if (animatingDialogue)
 			{
-				CloseDialogue();
-				return;
+				animatingDialogue = false;
+				hud.dialogueText.Text = currentDialogue[currentDialogueStep];
 			} 
-			animatingDialogue = false;
-			currentDialogueStep++;
-			AnimateDialogue(currentDialogue[currentDialogueStep]);
+			else
+			{
+				if (currentDialogueStep == currentDialogue.Length - 1)
+				{
+					CloseDialogue();
+					return;
+				} 
+				currentDialogueStep++;
+				AnimateDialogue(currentDialogue[currentDialogueStep]);
+			}
+
 		}
 
 		public async void CloseDialogue()
@@ -264,6 +275,7 @@ public partial class Global : Node
 			player.PauseInput();
 			player.handSprite.Visible = false;
 			dead = true;
+			player.SetCollisionLayerValue(1,false);
 			deathScreen.Show();
 			deathScreen.menuButton.autoFocussed = true;
 			deathScreen.menuButton.GrabFocus();

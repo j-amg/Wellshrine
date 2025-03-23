@@ -11,11 +11,11 @@ public partial class KillZone : Zone
     {
         base._Ready();
         PreloadSpawners();
+        //if (!Global.Singleton.musicPlayer.Playing) Global.Singleton.PlayMusic();
     }
     public void PreloadSpawners()
     {
         Array<Node> spawners = GetTree().GetNodesInGroup("spawners");
-        GD.Print(spawners.Count);
 
         EnemySpawner s;
         for(int i = 0; i < enemyAmount; i++)

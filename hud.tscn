@@ -283,6 +283,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(400, 47)
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue "
 vertical_alignment = 1
 autowrap_mode = 2
@@ -294,7 +295,7 @@ texture_repeat = 1
 layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("2_q7u4o")
-text = "[␣] to progress dialogue"
+text = "[SpaceBar] to progress dialogue"
 horizontal_alignment = 1
 
 [node name="popup" type="PanelContainer" parent="."]
@@ -323,6 +324,7 @@ texture_filter = 1
 custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[PH] hello this is a test of the dialogue  system to see if it expands correctly to fit the messages I am typing"
 vertical_alignment = 1
 autowrap_mode = 2
