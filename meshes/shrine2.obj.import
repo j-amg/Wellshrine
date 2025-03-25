@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d3hwd78q3epfv"
+path="res://.godot/imported/shrine2.obj-696d94fc8211c09e75cd1254ffda75ea.mesh"
+
+[deps]
+
+files=["res://.godot/imported/shrine2.obj-696d94fc8211c09e75cd1254ffda75ea.mesh"]
+
+source_file="res://meshes/shrine2.obj"
+dest_files=["res://.godot/imported/shrine2.obj-696d94fc8211c09e75cd1254ffda75ea.mesh", "res://.godot/imported/shrine2.obj-696d94fc8211c09e75cd1254ffda75ea.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

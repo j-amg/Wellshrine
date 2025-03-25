@@ -68,7 +68,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 9, 0)
 
 [node name="door" parent="." instance=ExtResource("4_dotnl")]
-transform = Transform3D(1, -0.000296632, -0.000503858, 0.000296444, 1, -0.00038155, 0.000503969, 0.000381404, 1, -1.9, 8.1, -16.5)
+transform = Transform3D(1, -0.000296632, -0.000503858, 0.000296444, 1, -0.00038155, 0.000503969, 0.000381404, 1, -2, 8, -16.5)
 
 [node name="enemySpawner3" parent="." instance=ExtResource("5_uvcel")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 6, 10.1361)

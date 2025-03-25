@@ -24,6 +24,7 @@ script = ExtResource("1_6u8wn")
 
 [node name="backdrop" type="TextureRect" parent="."]
 texture_filter = 1
+layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
 grow_horizontal = 2
