@@ -25,9 +25,7 @@ public partial class V1_2 : Zone
     private async void Sequence1()
     {
         GD.Print("sequence1");
-        //await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         currentStep = 1;
-        //GD.Print("step 1");
         await ToSignal(GetTree().CreateTimer(1f), "timeout");
         Global.Singleton.hud.FadeScreen(new Color(0, 0, 0, 0), .5f);
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
@@ -41,7 +39,7 @@ public partial class V1_2 : Zone
         currentStep = 2;
         await ToSignal(GetTree().CreateTimer(1f), "timeout");
         //GD.Print("step 2");
-        Global.Singleton.SendPopUp("Press [␣] to Jump", "jump");
+        Global.Singleton.SendPopUp("[Spacebar] to Jump", "jump");
     }
 
         private async void Sequence3()

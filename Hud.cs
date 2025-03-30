@@ -33,6 +33,11 @@ public partial class Hud : Control
     public ProgressBar rechargeBar;
     [Export]
     public TextureRect screen;
+    [Export]
+    public PanelContainer tooltip;
+    [Export]
+    public Label tooltipText;
+    [Export] BoxContainer zoneInformation;
     public Player player;
     public override void _Ready()
     {
@@ -41,9 +46,10 @@ public partial class Hud : Control
         Global.Singleton.HealthChanged += OnHealthChanged;
         if (Global.Singleton.currentZone != null) {
           Global.Singleton.currentZone.ZoneEntered += OnZoneEntered;
-          Global.Singleton.currentZone.ZoneOjectiveComplete += OnZoneObjectiveComplete;
+          Global.Singleton.currentZone.ZoneObjectiveComplete += OnZoneObjectiveComplete;
         }
         if (Global.Singleton.currentZone.hideZoneLabel) zoneLabel.Visible = false;
+        if (Global.Singleton.disableObjectives) zoneInformation.Visible = false;
     }
 
     private void OnZoneObjectiveComplete(Zone zone)
@@ -68,7 +74,7 @@ public partial class Hud : Control
     {
         healthBar.MaxValue = Global.Singleton.playerHealth;
         healthBar.Value = Global.Singleton.currentPlayerHealth;
-        healthLabel.Text = "HP: " + Global.Singleton.playerHealth + "/" + Mathf.Round(Global.Singleton.currentPlayerHealth);
+        healthLabel.Text = "HP: " +  Mathf.Round(Global.Singleton.currentPlayerHealth) + "/" + Global.Singleton.playerHealth;
     }
 
     private void OnDamageTaken()
@@ -94,7 +100,7 @@ public partial class Hud : Control
     {
         Global.Singleton.HealthChanged -= OnHealthChanged;
         Global.Singleton.currentZone.ZoneEntered -= OnZoneEntered;
-        Global.Singleton.currentZone.ZoneOjectiveComplete -= OnZoneObjectiveComplete;
+        Global.Singleton.currentZone.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
     }
 
     public void SetScreen(Color col) => screen.Modulate = col;

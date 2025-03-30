@@ -21,7 +21,7 @@ public partial class V2_1 : Zone
         Global.Singleton.hud.FadeScreen(new Color(0, 0, 0, 0), .5f);
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         //GD.Print("step 2");
-        Global.Singleton.SendPopUp("Use Mouse to look around", "look");
+        Global.Singleton.SendPopUp("[Mouse] to look around", "look");
     }
 
     private async void Sequence2()
@@ -30,7 +30,7 @@ public partial class V2_1 : Zone
         currentStep = 2;
         await ToSignal(GetTree().CreateTimer(1f), "timeout");
         //GD.Print("step 3");
-        Global.Singleton.SendPopUp("Use WASD to move", "walk");
+        Global.Singleton.SendPopUp("WASD to move", "walk");
     }
 
     private async void Sequence3()

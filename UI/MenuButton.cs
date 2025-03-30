@@ -20,12 +20,17 @@ public partial class MenuButton : TextureButton
 		FocusMode = FocusModeEnum.All;
 		FocusEntered += OnFocusEntered;
 		FocusExited += OnFocusExited;
-		//Pressed += OnPressed;
+		Pressed += OnPressed;
 
 	}
-    //private void OnPressed() => Global.Singleton.PlaySound(pressed);
+    private void OnPressed() => Global.Singleton.PlaySound2D(pressed);
     private void OnFocusExited() => HideSelect();
-    private void OnFocusEntered() => ShowSelect(autoFocussed);
+    private void OnFocusEntered()
+    {
+		Global.Singleton.PlaySound2D(pressed);
+        ShowSelect(autoFocussed);
+    }
+
     public void ShowSelect(bool autofocussed)
 	{
 		//if (!autofocussed) Global.Singleton.PlaySound(focus);

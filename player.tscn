@@ -1,6 +1,7 @@
-[gd_scene load_steps=100 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=104 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
+[ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
 [ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
 [ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="3_5t7b0"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
@@ -14,8 +15,11 @@
 [ext_resource type="Script" path="res://playerStates/WalkState.cs" id="5_iewqs"]
 [ext_resource type="Texture2D" uid="uid://4r8bhpebugsk" path="res://textures/shock.png" id="6_33h25"]
 [ext_resource type="Script" path="res://playerStates/FallState.cs" id="7_l7400"]
+[ext_resource type="AudioStream" uid="uid://cx2jdni8pgpmb" path="res://audio/playerCast.wav" id="7_xtdqc"]
+[ext_resource type="AudioStream" uid="uid://ieibq6gst28v" path="res://audio/playerCastFire.wav" id="8_2rq05"]
 [ext_resource type="Script" path="res://playerStates/JumpState.cs" id="8_883gc"]
 [ext_resource type="Script" path="res://playerStates/GlideState.cs" id="9_5x1gy"]
+[ext_resource type="AudioStream" uid="uid://dp1vbu08u4rp2" path="res://audio/playerCastShock.wav" id="9_c4g0j"]
 [ext_resource type="Script" path="res://playerStates/DashState.cs" id="10_23kto"]
 [ext_resource type="Script" path="res://playerStates/CrouchState.cs" id="11_ptp12"]
 [ext_resource type="Script" path="res://playerStates/SlideState.cs" id="12_2347s"]
@@ -594,7 +598,7 @@ height = 1.0
 [node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hud", "hands", "handSprite", "standCollision", "crouchCollision", "iceCollision", "shockCollision")]
 collision_mask = 262
 script = ExtResource("1_4aaio")
-damageTakenSound = ExtResource("2_24bn3")
+damageTakenSound = ExtResource("2_1f480")
 damageDealtSound = ExtResource("3_5t7b0")
 critDealtSound = ExtResource("2_24bn3")
 stateMachine = NodePath("statemachine")
@@ -611,6 +615,9 @@ iceCollision = NodePath("body/head/Camera3D/iceSpikeCollision")
 shockCollision = NodePath("body/head/Camera3D/shockBladeCollision")
 fireball = ExtResource("3_m032j")
 iceray = ExtResource("4_8e1g0")
+castFire = ExtResource("8_2rq05")
+castIce = ExtResource("7_xtdqc")
+castShock = ExtResource("9_c4g0j")
 
 [node name="body" type="Node3D" parent="."]
 

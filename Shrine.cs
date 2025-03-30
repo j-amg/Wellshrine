@@ -11,15 +11,15 @@ public partial class Shrine : StaticBody3D, IInteractable, IHoverable
     [Export]
 	public AudioStream pickUp;
     [Export]
-    private AnimatedSprite3D magic;
+    public AnimatedSprite3D magic;
     [Export]
     public Sprite3D label;
     [Export]
     public Label name;
     public bool Active {get; set;}
     public Color ReticleModulate { get; set; }
-    public bool PopUp { get; set; }
-    public string PopUpText { get; set; }
+    public bool Tooltip { get; set; }
+    public string TooltipText { get; set; }
     public float HoverRange { get; set; }
 
     public override void _Ready()
@@ -27,42 +27,36 @@ public partial class Shrine : StaticBody3D, IInteractable, IHoverable
         Active = true;
         ReticleModulate = new Color(0,0,1);
         magic.Modulate = magicModulate;
-        magic?.Play("idle");
         AddToGroup("shrines");
-        HoverRange = Global.Singleton.player.interactionRange;
-        PopUp = true;
+        HoverRange = Global.Singleton.interactionRange;
+        HoverRange = 2;
+        Tooltip = true;
     }
 
     public void Deactivate()
     {
         Active = false;
         label.Visible = false;
-        magic.Visible = false;
+        if (magic != null)magic.Visible = false;
     }
 
     public void Activate()
     {
         Active = true;
         label.Visible = true;
-        magic.Visible = true;
+        if (magic != null) magic.Visible = true;
     }
 
     void IInteractable.Interact() => OnInteract();
 
     public virtual void OnInteract()
     { 
-        Global.Singleton.PlaySound2D(pickUp);
+        Global.Singleton.PlaySound3D(GlobalPosition, pickUp);
         Global.Singleton.hud.Flash(new Color(1,1,0));
         EmitSignal(SignalName.ShrineInteracted);   
     }
 
-    public void StartHover()
-    {
-        if (!Global.Singleton.inPopup) Global.Singleton.SendPopUp(PopUpText, "");
-    }
+    public void StartHover() => Global.Singleton.ShowTooltip(TooltipText);
 
-    public void EndHover()
-    {
-        Global.Singleton.ClosePopUp("", true);
-    }
+    public void EndHover() => Global.Singleton.CloseTooltip();
 }

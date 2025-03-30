@@ -41,6 +41,8 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	public float attackWindup = .5f;
 	[Export]
 	public float damage = 5;
+	[Export]
+	public AudioStream attackSound;
 	public double acceleration = 2;
 
 	public int level = 1;
@@ -57,10 +59,9 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 
     public Color ReticleModulate { get; set; }
     public float Health { get; set; }
-    public bool Highlighted { get; set; }
     public bool Active { get; set; }
-    public bool PopUp { get; set; }
-    public string PopUpText { get; set; }
+    public bool Tooltip { get; set; }
+    public string TooltipText { get; set; }
     public float HoverRange { get; set; }
 
     public override void _Ready()
@@ -72,8 +73,8 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		Active = true;
 		HoverRange = 1000;
 		label.SetValues();
-		PopUp = false;
-		PopUpText = "";
+		Tooltip = false;
+		TooltipText = "";
 		AddToGroup("enemies");
 		ReticleModulate = new Color(1,0,0);
 		defaultModulate = sprite.Modulate;

@@ -40,6 +40,12 @@ public partial class Player : CharacterBody3D, IDamageable
 	private PackedScene fireball;
 	[Export]
 	private PackedScene iceray;
+	[Export]
+	private AudioStream castFire;
+	[Export]
+	private AudioStream castIce;
+	[Export]
+	private AudioStream castShock;
 
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
@@ -54,7 +60,6 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float slideSpeed = 25;
 	public float crouchSpeed = 3;
 	public float crouchAnimSpeed = .2f;
-	public float interactionRange = 3;
 	public float gravity = 12;
 	public float acceleration = .5f;
 	public float deceleration = .25f;
@@ -130,11 +135,12 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Input.IsActionJustPressed("interact"))
 		{
-			if (existingHit is IInteractable interactable && hitDistance <= interactionRange && interactable.Active) interactable.Interact();
+			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
 		}
 
 		if (Input.IsActionPressed("RightMouse"))
 		{
+			Global.Singleton.SetAction("aim");
 			Tween tween = GetTree().CreateTween();
 			tween.TweenProperty(camera, "fov", zoomFOV, .05);
 			_sensitivity = aimMouseSensitivity;
@@ -167,7 +173,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		}
 
 		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1,1,1);
-		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance  <= interactionRange && !Global.Singleton.inDialogue;
+		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance  <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
 		if (currentHit is IHoverable h)
 		{
 			if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover();
@@ -176,10 +182,10 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public override void _Input(InputEvent @event)
 	{
-		Global.Singleton.SetAction("look");
 		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
 		if (@event is InputEventMouseMotion eventKey)
 		{
+			Global.Singleton.SetAction("look");
 			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
 			head.RotateX(xRot);
 			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
@@ -246,6 +252,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		AttackAnim();
 		if (Global.Singleton.equippedWeapon.name == "fireball")
 		{
+			Global.Singleton.PlaySound2D(castFire);
 			Projectile b = fireball.Instantiate() as Projectile;
 			var main = GetTree().CurrentScene;
 			main.CallDeferred("add_child", b);
@@ -256,6 +263,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Global.Singleton.equippedWeapon.name == "icespike")
 		{
+			Global.Singleton.PlaySound2D(castIce);
 			foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
 			foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
 			IceRay ray = iceray.Instantiate() as IceRay;
@@ -266,6 +274,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		if (Global.Singleton.equippedWeapon.name == "shockburst")
 		{
+			Global.Singleton.PlaySound2D(castShock);
 			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
 			foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
 			camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");

@@ -12,8 +12,9 @@ public partial class WeaponShrine : Shrine
     public override void _Ready()
     {
         base._Ready();
+        magic?.Play("idle");
         name.Text = displayName;
-        PopUpText = Global.Singleton.weapons[weapon].description;
+        TooltipText = Global.Singleton.weapons[weapon].description;
     }
     public override void OnInteract()
     {

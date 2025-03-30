@@ -22,6 +22,7 @@ public partial class ShooterAttack : State
         b.damage = damage;
         b.velocity = new Vector3(0,0,0);
         await ToSignal(GetTree().CreateTimer(owner.attackWindup * .5), "timeout");
+        Global.Singleton.PlaySound3D(owner.GlobalPosition, owner.attackSound);
         main.CallDeferred("add_child", b);
         if (owner.dead && b != null) b.Destroy();
         await ToSignal(GetTree().CreateTimer(owner.attackWindup * .5), "timeout");

@@ -5,11 +5,16 @@ using System.Linq;
 public partial class BuffShrine : Shrine
 {
     private string buff;
+    public override void _Ready()
+    {
+        base._Ready();
+        magic?.Play("idle");
+    }
     public void SetBuff(string type)
     {
         buff = type;
         name.Text = Global.Singleton.statModifiers[type].description;
-        PopUpText = Global.Singleton.statModifiers[type].longDescription;
+        TooltipText = Global.Singleton.statModifiers[type].longDescription;
     }
 
     public override void OnInteract()

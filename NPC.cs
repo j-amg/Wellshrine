@@ -12,8 +12,8 @@ public partial class NPC : CharacterBody3D, IHoverable, IInteractable
     public string[] dialogue;
     public bool Active { get; set; }
     public Color ReticleModulate { get; set; }
-    public bool PopUp { get; set; }
-    public string PopUpText { get; set; }
+    public bool Tooltip { get; set; }
+    public string TooltipText { get; set; }
     public float HoverRange { get; set; }
     public bool talking = false;
 
@@ -23,16 +23,13 @@ public partial class NPC : CharacterBody3D, IHoverable, IInteractable
         Global.Singleton.DialogueFinished += OnDialogueFinished;
         ReticleModulate = new Color(0,0,1);
         Active = true;
-        PopUp = false;
-        PopUpText = "";
+        Tooltip = false;
+        TooltipText = "";
         HoverRange = 1000;
         sprite.Play("idle");
     }
 
-    private void OnDialogueFinished()
-    {
-        talking = false;
-    }
+    private void OnDialogueFinished() => talking = false;
 
     void IInteractable.Interact() => OnInteract();
 
@@ -51,8 +48,5 @@ public partial class NPC : CharacterBody3D, IHoverable, IInteractable
         if (!talking) labelSprite.Visible = true;
     }
 
-    public void EndHover()
-    {
-        labelSprite.Visible = false;
-    }
+    public void EndHover() => labelSprite.Visible = false;
 }

@@ -14,6 +14,7 @@ public partial class ChaserAttack : State
     {
         Damage damage = Damage.InitDamage(owner.damage, false, owner);
         await ToSignal(GetTree().CreateTimer(windup), "timeout");
+        Global.Singleton.PlaySound3D(owner.GlobalPosition, owner.attackSound);
         GD.Print(Name + " attacks player for " + damage);
         if ((Global.Singleton.player.GlobalPosition - owner.GlobalPosition).Length() <= owner.attackRange)
         {

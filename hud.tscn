@@ -65,7 +65,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
 gradient = SubResource("Gradient_6i0hs")
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "tooltip", "tooltipText", "zoneInformation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,6 +88,9 @@ interactLabel = NodePath("interactLabel")
 hitFlash = NodePath("overlay")
 rechargeBar = NodePath("recharge")
 screen = NodePath("screen")
+tooltip = NodePath("tooltip")
+tooltipText = NodePath("tooltip/MarginContainer/tooltipText")
+zoneInformation = NodePath("zoneInformation")
 
 [node name="overlay" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 0)
@@ -325,7 +328,35 @@ custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "[PH] hello this is a test of the dialogue  system to see if it expands correctly to fit the messages I am typing"
+text = "[PH] hello this i"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="tooltip" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(160, 64)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -37.5
+offset_right = 180.0
+offset_bottom = 37.5001
+grow_vertical = 2
+theme = ExtResource("2_q7u4o")
+
+[node name="MarginContainer" type="MarginContainer" parent="tooltip"]
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+
+[node name="tooltipText" type="Label" parent="tooltip/MarginContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 24)
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "[PH] hello this is a tes"
 vertical_alignment = 1
 autowrap_mode = 2
 

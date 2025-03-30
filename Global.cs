@@ -11,6 +11,8 @@ public partial class Global : Node
 		public delegate void PopUpClosedEventHandler(string action);
 		[Signal]
 		public delegate void DialogueFinishedEventHandler();
+		[Signal] public delegate void EquippedWeaponEventHandler();
+
 		public AudioStreamPlayer musicPlayer;
 		public bool paused = false;
 		public Pause pauseMenu;
@@ -24,6 +26,7 @@ public partial class Global : Node
 		public float basePlayerHealth = 100;
 		public float playerHealth = 100;
 		public float currentPlayerHealth = 100;
+		public float interactionRange = 3;
 		public Hud hud;
 		public bool dead = false;
 		private DeathScreen deathScreen;
@@ -36,6 +39,9 @@ public partial class Global : Node
 		public bool inDialogue = false;
 		public bool inPopup = false;
 		private bool animatingDialogue = false;
+		public bool fullscreen = false;
+		public bool disableTooltips = false;
+		public bool disableObjectives = false;
 		private AudioStream charSound;
 
 
@@ -48,6 +54,7 @@ public partial class Global : Node
 		private int currentDialogueStep;
 		public string currentIdle = "idle";
 		public Weapon equippedWeapon;
+		public bool sfx = true;
 
 		public string[] testText = { "Hello", "this is a test", "of the dialogue",};
 
@@ -156,14 +163,21 @@ public partial class Global : Node
 			hud.popupText.Modulate = new Color(0, 1, 0);
 			inPopup = false;
 			awaitedAction = "";
-			if (!overrideWait) await ToSignal(GetTree().CreateTimer(2.5), "timeout");
+			if (!overrideWait) await ToSignal(GetTree().CreateTimer(1.5), "timeout");
 			hud.popup.Visible = false;
 			EmitSignal(SignalName.PopUpClosed, action);
-
-			
 		}
 
-		public void EnterDialogue(string[] dialogueText, string name, bool freeze)
+		public void ShowTooltip(string text)
+		{
+			if (disableTooltips) return;
+			hud.tooltip.Visible = true;
+			hud.tooltipText.Text = text;
+		}
+
+    	public void CloseTooltip() => hud.tooltip.Visible = false;
+
+    	public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 		{
 			player.PauseInput();
 			hud.reticle.Visible = false;
@@ -232,6 +246,7 @@ public partial class Global : Node
 
 		public void EquipWeapon(string weapon)
 		{
+			EmitSignal(SignalName.EquippedWeapon);
 			currentIdle = weapon;
 			player.handSprite.Play(currentIdle);
 			equippedWeapon = weapons[weapon];
@@ -286,14 +301,16 @@ public partial class Global : Node
 			if (dead) return;
 			if (paused)
 			{
-				player.ResumeInput();
+				if (!inDialogue) player.ResumeInput();
 				pauseMenu.Hide();
+				pauseMenu.settings.Visible = false;
 				Engine.TimeScale = 1;
 			}
 			else
 			{
 				player.PauseInput();
 				pauseMenu.Show();
+				pauseMenu.container.Visible = true;
 				pauseMenu.resumeButton.autoFocussed = true;
 				pauseMenu.resumeButton.GrabFocus();
 				Engine.TimeScale = 0;
@@ -310,20 +327,24 @@ public partial class Global : Node
 		GetTree().Root.AddChild(currentScene);
 		GetTree().CurrentScene = currentScene;
 		Gets();
+		
 	}
 
 	public void PlaySound3D(Vector3 position, AudioStream audio)
 	{
-		AudioStreamPlayer3D player = new() {Stream = audio};
-		player.Finished += () => RemoveAudio3D(player);
-		AddChild(player);
-		player.Position = position;
-		player.Play();
+		if (!sfx) return;
+		AudioStreamPlayer3D p = new() {Stream = audio};
+		p.VolumeDb = Mathf.LinearToDb(0.25f);
+		p.Finished += () => RemoveAudio3D(p);
+		AddChild(p);
+		p.Position = position;
+		p.Play();
 	}
 	public static void RemoveAudio3D(AudioStreamPlayer3D player) {player.QueueFree();}
 
 	public void PlaySound2D(AudioStream audio)
 	{
+		if (!sfx) return;
 		AudioStreamPlayer2D player = new() {Stream = audio};
 		player.Finished += () => RemoveAudio2D(player);
 		AddChild(player);

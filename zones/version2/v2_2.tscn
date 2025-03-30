@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcls0nlom5kye"]
+[gd_scene load_steps=14 format=3 uid="uid://bcls0nlom5kye"]
 
 [ext_resource type="Script" path="res://zones/version2/V2_2.cs" id="1_xouip"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_feliu"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_ww1s5"]
+[ext_resource type="PackedScene" uid="uid://di1565rnlhbgi" path="res://zones/version2/v2_3.tscn" id="4_h5q2v"]
 [ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://weaponShrine.tscn" id="4_i2way"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_wyadg"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_mlrrp"]
@@ -43,6 +44,7 @@ dof_blur_far_transition = 35.41
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
 script = ExtResource("1_xouip")
+objectiveOverride = true
 objective = "Equip a spell"
 door = NodePath("door")
 checkpoints = []
@@ -53,6 +55,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 
 [node name="door" parent="." instance=ExtResource("3_ww1s5")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
+zoneOverride = ExtResource("4_h5q2v")
 
 [node name="ProjShrine" parent="." instance=ExtResource("4_i2way")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
@@ -66,12 +69,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 5)
 weapon = "icespike"
 displayName = "IceSpike"
 magicModulate = Color(0.580392, 0.937255, 0.992157, 1)
+pickUp = ExtResource("5_wyadg")
 
 [node name="MeleeShrine" parent="." instance=ExtResource("4_i2way")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
 weapon = "shockburst"
 displayName = "ShockBurst"
 magicModulate = Color(0.356863, 0.403922, 1, 1)
+pickUp = ExtResource("5_wyadg")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_mlrrp")
@@ -88,4 +93,4 @@ camera_attributes = SubResource("CameraAttributesPractical_rvdgw")
 
 [node name="NPC" parent="." instance=ExtResource("8_qybwh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 1)
-dialogue = PackedStringArray("Take one of the spells from the shrines.", "You can freely swap between the spells here.", "However, once you leave this room, you won\'t be able to return.")
+dialogue = PackedStringArray("Take one of the spells from the shrines.", "Once you leave this room you won\'t be able to change spells,", "So it\'s a good idea to try them each out to see which one feels right before you leave.", "I like fireball personally, classic.")

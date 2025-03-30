@@ -65,12 +65,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 5)
 weapon = "icespike"
 displayName = "IceSpike"
 magicModulate = Color(0.580392, 0.937255, 0.992157, 1)
+pickUp = ExtResource("5_2uyrr")
 
 [node name="MeleeShrine" parent="." instance=ExtResource("6_x5xxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
 weapon = "shockburst"
 displayName = "ShockBurst"
 magicModulate = Color(0.356863, 0.403922, 1, 1)
+pickUp = ExtResource("5_2uyrr")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_osk5y")

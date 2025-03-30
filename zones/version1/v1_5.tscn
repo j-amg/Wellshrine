@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://rrw8snjlgerc"]
+[gd_scene load_steps=15 format=3 uid="uid://rrw8snjlgerc"]
 
 [ext_resource type="Script" path="res://zones/version1/V1_5.cs" id="1_pofut"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_m5nt1"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_def4f"]
+[ext_resource type="PackedScene" uid="uid://ceo0tw5oei3kw" path="res://zones/version1/v1_6.tscn" id="4_belv3"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="6_63wwk"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_cbx5y"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="7_57nxx"]
@@ -60,6 +61,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 
 [node name="door" parent="." instance=ExtResource("3_def4f")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
+zoneOverride = ExtResource("4_belv3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jm85c")
@@ -86,7 +88,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
 [node name="Node3D" parent="." instance=ExtResource("7_hhoga")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433106, 0, -0.140697)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433106, 0, -1.90181)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.535309, 4.23853, 0)

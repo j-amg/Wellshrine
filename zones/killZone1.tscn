@@ -46,7 +46,7 @@ dof_blur_far_transition = 35.41
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
 script = ExtResource("1_2vq1i")
-enemyAmount = 4
+enemyAmount = 5
 objective = "Kill all enemies"
 door = NodePath("door")
 checkpoints = []
@@ -84,6 +84,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 
 [node name="enemySpawner5" parent="." instance=ExtResource("6_tqbb0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4116, 4, -7.493)
+
+[node name="enemySpawner6" parent="." instance=ExtResource("6_tqbb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5884, 4, -10.693)
+
+[node name="enemySpawner7" parent="." instance=ExtResource("6_tqbb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9884, 4, -7.193)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fgm0i")

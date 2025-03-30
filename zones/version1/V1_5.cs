@@ -7,10 +7,15 @@ public partial class V1_5 : KillZone
     public override void _Ready()
     {
         base._Ready();
-        //CallDeferred("Sequence1");
         checkpoints[0].BodyEntered += OnBodyEntered;
         Global.Singleton.DialogueFinished += OnDialogueFinished;
-        ZoneOjectiveComplete += OnObjectiveComplete;
+        ZoneObjectiveComplete += OnObjectiveComplete;
+        Global.Singleton.PopUpClosed += OnPopUpClosed;
+    }
+
+    private void OnPopUpClosed(string action)
+    {
+        if (currentStep == 2) Sequence3();
     }
 
     private void OnDialogueFinished()
@@ -18,9 +23,11 @@ public partial class V1_5 : KillZone
         if (currentStep == 1) Sequence2();
     }
 
+    
+
     private void OnObjectiveComplete(Zone zone)
     {
-        if (currentStep == 2) Sequence3();
+        Sequence4();
     }
 
     private void OnBodyEntered(Node3D body)
@@ -31,19 +38,18 @@ public partial class V1_5 : KillZone
         }
     }
 
-    private async void Sequence3()
+    private async void Sequence4()
     {
-        currentStep = 3;
+        currentStep = 4;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-        Global.Singleton.EnterDialogue(new string[] {"The rooms ahead are uncharted,",
-        "try to stay alive won't you."}, "???", false);
+        Global.Singleton.EnterDialogue(new string[] {"Excellently done, however the dead won't always be found in such a fortuitous situation.", "Continue"}, "???", false);
     }
 
     private async void Sequence1()
     {
         currentStep = 1;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-        Global.Singleton.EnterDialogue(new string[] {"Those poor souls are trapped there...",
+        Global.Singleton.EnterDialogue(new string[] {"These poor souls are trapped here...",
         "well... may as well use this as an opportunity to test out that spell you picked up."}, "???", false);
     }
 
@@ -51,13 +57,17 @@ public partial class V1_5 : KillZone
     {
         currentStep = 2;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-        Global.Singleton.EnterDialogue(new string[] {"Bloodthirsty...", "noted.",
-        "The rooms ahead are uncharted,", "try to stay alive won't you."}, "???", false);
+        Global.Singleton.EnterDialogue(new string[] {"Bloodthirsty...", "noted.",}, "???", false);
     }
 
     private void Sequence2()
     {
         currentStep = 2;
+        Global.Singleton.SendPopUp("[Right Mouse Button] to Aim", "aim");
+    }
+    private void Sequence3()
+    {
+        currentStep = 3;
         Global.Singleton.SendPopUp("[Left Mouse Button] to Attack", "attack");
     }
 

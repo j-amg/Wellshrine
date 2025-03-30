@@ -32,18 +32,18 @@ public partial class V1_1 : Zone
     {
         GD.Print("sequence2");
         currentStep = 2;
-        await ToSignal(GetTree().CreateTimer(1f), "timeout");
+        await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         //GD.Print("step 2");
-        Global.Singleton.SendPopUp("Use Mouse to look around", "look");
+        Global.Singleton.SendPopUp("[Mouse] to look around", "look");
     }
 
     private async void Sequence3()
     {
         GD.Print("sequence3");
         currentStep = 3;
-        await ToSignal(GetTree().CreateTimer(1f), "timeout");
+        await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         //GD.Print("step 3");
-        Global.Singleton.SendPopUp("Use WASD to move", "walk");
+        Global.Singleton.SendPopUp("WASD to move", "walk");
     }
 
     private async void Sequence4()

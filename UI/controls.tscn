@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2mhfeok4jyib"]
+
+[ext_resource type="Script" path="res://UI/Controls.cs" id="1_1pcb3"]
+[ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="2_g56j0"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="3_pxarm"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tfyf2"]
+blend_mode = 1
+light_mode = 1
+
+[node name="controls" type="Control" node_paths=PackedStringArray("backButton")]
+top_level = true
+material = SubResource("CanvasItemMaterial_tfyf2")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1pcb3")
+backButton = NodePath("VBoxContainer/back")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(480, 180)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -180.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="back" parent="VBoxContainer" instance=ExtResource("2_g56j0")]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+text = "Back"
+
+[node name="controlContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(480, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -90.0
+offset_right = 240.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="controlContainer"]
+layout_mode = 2
+theme = ExtResource("3_pxarm")
+theme_override_font_sizes/font_size = 29
+text = "[WASD] Move
+[Shift]: Crouch/Slide
+[Spacebar]: Jump
+[Shift] + [Spacebar]: Dash
+[Right Mouse]: Aim/Glide
+[Left Mouse]: Shoot
+[Escape]: Pause"

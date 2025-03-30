@@ -5,6 +5,7 @@ using Godot.Collections;
 
 public partial class ShrineZone : Zone
 {
+    [Export] public bool objectiveOverride;
     public override void _Ready()
     {
         base._Ready();
@@ -29,6 +30,6 @@ public partial class ShrineZone : Zone
     private void OnShrineInteracted()
     {
         GD.Print("ShrineInteracted");
-        CompleteObjective();
+        if (!objectiveOverride) CompleteObjective();
     }
 }
