@@ -31,26 +31,27 @@ public partial class V1_1 : Zone
     private async void Sequence2()
     {
         GD.Print("sequence2");
-        currentStep = 2;
+        
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-        //GD.Print("step 2");
+        currentStep = 2;
         Global.Singleton.SendPopUp("[Mouse] to look around", "look");
     }
 
     private async void Sequence3()
     {
         GD.Print("sequence3");
-        currentStep = 3;
+        
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-        //GD.Print("step 3");
+        currentStep = 3;
         Global.Singleton.SendPopUp("WASD to move", "walk");
     }
 
     private async void Sequence4()
     {
         GD.Print("sequence4");
-        currentStep = 4;
+        
         await ToSignal(GetTree().CreateTimer(1f), "timeout");
+        currentStep = 4;
         Global.Singleton.EnterDialogue(new string[] {
         "When you feel ready, head through the door"}, "???", false);
     }
@@ -60,21 +61,24 @@ public partial class V1_1 : Zone
         currentStep = 4;
         await ToSignal(GetTree().CreateTimer(1f), "timeout");
         CompleteObjective();
-        Global.Singleton.hud.objectiveLabel.Visible = true;
     }
 
     private void OnDialogueFinished()
     {
-        GD.Print("dialogue finished");
         if (currentStep == 1) Sequence2();
         if (currentStep == 4) Sequence5();
     }
 
     private void OnPopUpClosed(string action)
     {
-        //GD.Print("action fulfilled");
         GD.Print(action);
-        if (action == "look" && currentStep == 2) Sequence3();
-        if (action == "walk" && currentStep == 3) Sequence4();
+        if (currentStep == 2) Sequence3();
+        if (currentStep == 3) Sequence4();
+    }
+
+    public override void CloseZone()
+    {
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        Global.Singleton.DialogueFinished -= OnDialogueFinished;
     }
 }

@@ -21,19 +21,19 @@ region = Rect2(384, 0, 128, 128)
 atlas = ExtResource("3_xwbua")
 region = Rect2(512, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pfchs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm6r7"]
 atlas = ExtResource("3_xwbua")
 region = Rect2(0, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1x4m"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mjbp"]
 atlas = ExtResource("3_xwbua")
 region = Rect2(128, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_js7k8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1cim"]
 atlas = ExtResource("3_xwbua")
 region = Rect2(384, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5q1r2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2dec"]
 atlas = ExtResource("3_xwbua")
 region = Rect2(512, 128, 128, 128)
 
@@ -159,16 +159,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pfchs")
+"texture": SubResource("AtlasTexture_hm6r7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n1x4m")
+"texture": SubResource("AtlasTexture_4mjbp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_js7k8")
+"texture": SubResource("AtlasTexture_s1cim")
 }, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5q1r2")
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_l2dec")
 }],
 "loop": true,
 "name": &"cast",
@@ -307,7 +307,7 @@ transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
-animation = &"die"
+animation = &"cast"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true

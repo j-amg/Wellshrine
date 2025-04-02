@@ -16,11 +16,8 @@ public partial class Global : Node
 		public AudioStreamPlayer musicPlayer;
 		public bool paused = false;
 		public Pause pauseMenu;
-		//private bool enableMusic;
-		//private bool enableSound;
 		public Player player;
 		public Camera3D camera;
-		//public CanvasModulate worldModulate;
 		private AudioStream music;
 		public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
 		public float basePlayerHealth = 100;
@@ -60,34 +57,26 @@ public partial class Global : Node
 
 		public override void _Ready()
 		{
+			charSound = GD.Load<AudioStream>("res://audio/bip.wav");
 			Gets();
 			Reset();
 
 
-		// audio
-		music = GD.Load<AudioStream>("res://audio/wellshrine.wav");
-		musicPlayer = new();
-		musicPlayer.VolumeDb = Mathf.LinearToDb(.1f);
-		AddChild(musicPlayer);
-		
-		//PlayMusic();
-
-		// canvas
-		//worldModulate = new();
-		//AddChild(worldModulate);
-		//ModulateWorld(new Color(0.25f,0.25f,0.25f,1.0f), 0);
+			// audio
+			music = GD.Load<AudioStream>("res://audio/wellshrine.wav");
+        	musicPlayer = new() {VolumeDb = Mathf.LinearToDb(.1f)};
+        	AddChild(musicPlayer);
 		}
 
 		private void Gets()
 		{
 			Viewport root = GetTree().Root;
         	currentScene = root.GetChild(root.GetChildCount() - 1);
-			currentZone = currentScene is Zone ? (Zone)currentScene : null;
+			currentZone = currentScene is Zone zone ? zone : null;
 			player = currentScene.GetNodeOrNull<Player>("player");
 			hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
 			deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
 			pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
-			charSound = GD.Load<AudioStream>("res://audio/bip.wav");
 		}
 
 		public void Reset()
@@ -101,7 +90,7 @@ public partial class Global : Node
 			dead = false;
 			currentPlayerHealth = playerHealth;
 			paused = false;
-			hud?.UpdateZoneInformation(currentZone);
+			currentIdle = "idle";
 		}
 
 		public void InitEquipment()
@@ -321,9 +310,10 @@ public partial class Global : Node
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 	public void DeferredGotoScene(PackedScene nextScene)
 	{
+		currentZone?.CloseZone();
 		currentScene.Free();
 		currentScene = nextScene.Instantiate();
-		currentZone = currentScene is Zone ? (Zone)currentScene : null;
+		currentZone = currentScene is Zone zone ? zone : null;
 		GetTree().Root.AddChild(currentScene);
 		GetTree().CurrentScene = currentScene;
 		Gets();

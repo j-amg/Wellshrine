@@ -21,15 +21,17 @@ public partial class ShooterAttack : State
         b.LookAtFromPosition(b.Position + new Vector3(0,2.5f, 0), Global.Singleton.player.head.GlobalPosition);
         b.damage = damage;
         b.velocity = new Vector3(0,0,0);
-        await ToSignal(GetTree().CreateTimer(owner.attackWindup * .5), "timeout");
-        Global.Singleton.PlaySound3D(owner.GlobalPosition, owner.attackSound);
+        b.owner = owner;
+        b.casting = true;
         main.CallDeferred("add_child", b);
-        if (owner.dead && b != null) b.Destroy();
-        await ToSignal(GetTree().CreateTimer(owner.attackWindup * .5), "timeout");
-        if (owner.dead && b != null) b.Destroy(); else{
+        await ToSignal(GetTree().CreateTimer(owner.attackWindup), "timeout");
+        if (b != null && !owner.dead)
+        {
+            Global.Singleton.PlaySound3D(owner.GlobalPosition, owner.attackSound);
+            b.casting = false;
             b.LookAt(Global.Singleton.player.head.GlobalPosition);
             b.velocity = -b.Transform.Basis.Z * (b.muzzleVelocity + Global.Singleton.currentLevel/2);
-        }
+        } else b.Destroy();
         await ToSignal(GetTree().CreateTimer(owner.attackDuration), "timeout");
         if (!owner.dead || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");
     }

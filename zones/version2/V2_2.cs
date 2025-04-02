@@ -10,6 +10,7 @@ public partial class V2_2 : ShrineZone
         CallDeferred("Sequence1");
         Global.Singleton.PopUpClosed += OnPopUpClosed;
         Global.Singleton.EquippedWeapon += OnEquippedWeapon;
+        currentStep = 0;
     }
 
     private void OnEquippedWeapon()
@@ -27,6 +28,7 @@ public partial class V2_2 : ShrineZone
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         currentStep = 2;
         Global.Singleton.SendPopUp("[Left Mouse] to Shoot", "attack");
+
     }
 
     private async void Sequence1()
@@ -36,5 +38,11 @@ public partial class V2_2 : ShrineZone
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.EnterDialogue(new string[] {"Welcome stranger.",
         "The path ahead is dangerous, equip yourself with one of the spells here before you continue.", "If you need assistance speak with me, I will make myself available where fitting.", "Now go."}, "ShrineKeeper", false);
+    }
+
+    public override void CloseZone()
+    {
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        Global.Singleton.EquippedWeapon -= OnEquippedWeapon;
     }
 }

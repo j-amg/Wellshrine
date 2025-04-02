@@ -43,6 +43,9 @@ public partial class V1_5 : KillZone
         currentStep = 4;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.EnterDialogue(new string[] {"Excellently done, however the dead won't always be found in such a fortuitous situation.", "Continue"}, "???", false);
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        Global.Singleton.DialogueFinished -= OnDialogueFinished;
+        ZoneObjectiveComplete -= OnObjectiveComplete;
     }
 
     private async void Sequence1()
@@ -58,6 +61,7 @@ public partial class V1_5 : KillZone
         currentStep = 2;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.EnterDialogue(new string[] {"Bloodthirsty...", "noted.",}, "???", false);
+
     }
 
     private void Sequence2()
@@ -69,6 +73,13 @@ public partial class V1_5 : KillZone
     {
         currentStep = 3;
         Global.Singleton.SendPopUp("[Left Mouse Button] to Attack", "attack");
+    }
+
+    public override void CloseZone()
+    {
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        Global.Singleton.DialogueFinished -= OnDialogueFinished;
+        ZoneObjectiveComplete -= OnObjectiveComplete;
     }
 
 }

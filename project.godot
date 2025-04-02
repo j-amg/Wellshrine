@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="maybe_racing_roguelike"
+config/name="Wellshrine"
 run/main_scene="res://UI/title.tscn"
 config/features=PackedStringArray("4.2", "C#")
+boot_splash/show_image=false
 
 [autoload]
 
@@ -26,7 +27,7 @@ window/stretch/mode="viewport"
 
 [dotnet]
 
-project/assembly_name="maybe_racing_roguelike"
+project/assembly_name="Wellshrine"
 
 [filesystem]
 
@@ -122,5 +123,5 @@ popup={
 
 textures/canvas_textures/default_texture_filter=0
 textures/default_filters/use_nearest_mipmap_filter=true
+environment/ssao/quality=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false
-anti_aliasing/quality/screen_space_aa=1

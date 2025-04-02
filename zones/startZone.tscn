@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://nymerq4u1m0o"]
 
-[ext_resource type="Script" path="res://zones/ShrineZone.cs" id="1_6ik5r"]
+[ext_resource type="Script" path="res://zones/StartZone.cs" id="1_lr3ls"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_6vmps"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_2uyrr"]
@@ -41,11 +41,9 @@ volumetric_fog_temporal_reprojection_enabled = false
 dof_blur_far_transition = 35.41
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
-script = ExtResource("1_6ik5r")
-objective = "Select a Spell"
+script = ExtResource("1_lr3ls")
 door = NodePath("door")
 checkpoints = []
-zoneValueOverride = "Discendi Locus"
 
 [node name="player" parent="." instance=ExtResource("3_ei8sx")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -0.5)

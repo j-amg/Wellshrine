@@ -34,6 +34,7 @@ public partial class Menu : Control
 		version1.GrabFocus();
 		Global.Singleton.Reset();
 		defaultButton = version1;
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
     private void OnSettingsPressed()
@@ -55,7 +56,7 @@ public partial class Menu : Control
 
     private void OnVersion3Pressed()
     {
-		PackedScene zone = GD.Load<PackedScene>("res://zones/version2/v3_1.tscn");
+		PackedScene zone = GD.Load<PackedScene>("res://zones/version3/v3_1.tscn");
 		Global.Singleton.GotoScene(zone);
     }
 

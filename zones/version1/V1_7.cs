@@ -8,10 +8,10 @@ public partial class V1_7 : ShrineZone
     {
         base._Ready();
         CallDeferred("Sequence1");
-        Global.Singleton.currentZone.ZoneObjectiveComplete += OnObjectiveCompleted;
+       ZoneObjectiveComplete += OnObjectiveComplete;
     }
 
-    private void OnObjectiveCompleted(Zone zone)
+    private void OnObjectiveComplete(Zone zone)
     {
         if (currentStep == 1) Sequence2();
     }
@@ -30,6 +30,11 @@ public partial class V1_7 : ShrineZone
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.EnterDialogue(new string[] {"You found an Amplichamber,",  "if they're still functional you will want to activate one of the shrines here.",
         "They have a range of effects, and won't always be the same.", "You won't be able to change your selection so choose carefully."}, "???", false);
+    }
+
+    public override void CloseZone()
+    {
+        ZoneObjectiveComplete -= OnObjectiveComplete;
     }
 
 

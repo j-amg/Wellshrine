@@ -9,7 +9,7 @@ public partial class V2_3 : KillZone
     {
         base._Ready();
         CallDeferred("Sequence1");
-        Global.Singleton.currentZone.ZoneObjectiveComplete += OnZoneObjectiveComplete;
+        ZoneObjectiveComplete += OnObjectiveComplete;
         Global.Singleton.PopUpClosed += OnPopUpClosed;
     }
 
@@ -18,7 +18,7 @@ public partial class V2_3 : KillZone
         if (currentStep == 2) Sequence3();
     }
 
-    private void OnZoneObjectiveComplete(Zone zone)
+    private void OnObjectiveComplete(Zone zone)
     {
         if (currentStep == 1) Sequence2();
 
@@ -43,6 +43,12 @@ public partial class V2_3 : KillZone
         currentStep = 1;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.SendPopUp("Tap [Shift] while moving to evade enemy attacks", "slide");
+    }
+
+    public override void CloseZone()
+    {
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        ZoneObjectiveComplete -= OnObjectiveComplete;
     }
 
 }

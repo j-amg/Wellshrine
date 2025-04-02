@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Diagnostics;
 
 public partial class Projectile : Area3D
@@ -19,6 +20,8 @@ public partial class Projectile : Area3D
 	private AnimatedSprite3D sprite;
 	public Vector3 velocity = Vector3.Zero;
 	public Damage damage;
+	public bool casting = false;
+	public dynamic owner;
 
 	public override void _Ready()
 	{
@@ -28,10 +31,9 @@ public partial class Projectile : Area3D
 		sprite = GetNode<AnimatedSprite3D>("projectile");
 		sprite.Play("throw");
 		Setup();
-		
 	}
 
-	private async void Setup()
+    private async void Setup()
 	{
 		await ToSignal(GetTree().CreateTimer(.1), "timeout");
 		sprite.Visible = true;

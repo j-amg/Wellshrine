@@ -35,4 +35,9 @@ public partial class Zone : Node3D
         EmitSignal(SignalName.ZoneObjectiveComplete, this);
         door.Open();
     }
+
+    public virtual void CloseZone()
+    {
+
+    }
 }

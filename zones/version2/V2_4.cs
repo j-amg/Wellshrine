@@ -8,10 +8,10 @@ public partial class V2_4 : KillZone
     public override void _Ready()
     {
         base._Ready();
-        Global.Singleton.currentZone.ZoneObjectiveComplete += OnZoneObjectiveComplete;
+        ZoneObjectiveComplete += OnObjectiveComplete;
     }
 
-    private void OnZoneObjectiveComplete(Zone zone)
+    private void OnObjectiveComplete(Zone zone)
     {
         if (currentStep == 0) Sequence1();
 
@@ -22,6 +22,11 @@ public partial class V2_4 : KillZone
         currentStep = 1;
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         Global.Singleton.SendPopUp("Press [Spacebar] while holding [Shift] to Dash", "dash");
+    }
+
+    public override void CloseZone()
+    {
+        ZoneObjectiveComplete -= OnObjectiveComplete;
     }
 
 

@@ -38,5 +38,12 @@ public partial class V3_1 : ShrineZone
         await ToSignal(GetTree().CreateTimer(.5f), "timeout");
         currentStep = 2;
         Global.Singleton.SendPopUp("[Left Mouse] to Shoot", "attack");
+
+    }
+
+    public override void CloseZone()
+    {
+        Global.Singleton.PopUpClosed -= OnPopUpClosed;
+        Global.Singleton.EquippedWeapon -= OnEquippedWeapon;
     }
 }
