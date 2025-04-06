@@ -87,10 +87,12 @@ animations = [{
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eimih"]
 
-[node name="NPC" type="CharacterBody3D"]
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "labelSprite")]
 collision_layer = 256
 script = ExtResource("1_acsdh")
 displayName = "ShrineKeeper"
+sprite = NodePath("sprite")
+labelSprite = NodePath("labelSprite")
 
 [node name="labelSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
