@@ -307,7 +307,7 @@ transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
-animation = &"cast"
+animation = &"die"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
