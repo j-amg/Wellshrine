@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cf62isn430j6e"]
 
-[ext_resource type="Script" path="res://UI/Settings.cs" id="1_iox4o"]
+[ext_resource type="Script" uid="uid://bgv6nkx0bneoo" path="res://UI/Settings.cs" id="1_iox4o"]
 [ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="2_r6n8x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tfyf2"]

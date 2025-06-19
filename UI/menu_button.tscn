@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b038xdr6ado51"]
 
-[ext_resource type="Script" path="res://UI/MenuButton.cs" id="1_3yaqt"]
+[ext_resource type="Script" uid="uid://dqol1un4qvqs2" path="res://UI/MenuButton.cs" id="1_3yaqt"]
 [ext_resource type="AudioStream" uid="uid://ddbryu5ng87gp" path="res://audio/bip.wav" id="2_7d1w1"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_iau7j"]
 

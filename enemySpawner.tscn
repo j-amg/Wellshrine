@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://t0ab31k3xa4u"]
 
-[ext_resource type="Script" path="res://EnemySpawner.cs" id="1_u5xqn"]
+[ext_resource type="Script" uid="uid://dc764xje8ryfw" path="res://EnemySpawner.cs" id="1_u5xqn"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3g0a5"]
 size = Vector2(10, 10)

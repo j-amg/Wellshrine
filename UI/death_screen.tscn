@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://4u253r0q03qk"]
 
 [ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="1_5rhbh"]
-[ext_resource type="Script" path="res://UI/DeathScreen.cs" id="1_6u8wn"]
+[ext_resource type="Script" uid="uid://cjaberp4tbyip" path="res://UI/DeathScreen.cs" id="1_6u8wn"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="3_iup5p"]
 
 [sub_resource type="Gradient" id="Gradient_k1xix"]
