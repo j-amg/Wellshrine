@@ -1,17 +1,17 @@
 [gd_scene load_steps=13 format=3 uid="uid://chkqjxdkciwo"]
 
-[ext_resource type="Script" path="res://zones/version1/V1_4.cs" id="1_8xw2j"]
+[ext_resource type="Script" uid="uid://c0yx0j1lhkahh" path="res://zones/version1/V1_4.cs" id="1_8xw2j"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_qdk38"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_jlk1n"]
 [ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://weaponShrine.tscn" id="4_82437"]
 [ext_resource type="PackedScene" uid="uid://rrw8snjlgerc" path="res://zones/version1/v1_5.tscn" id="4_mkl7t"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_bkvvu"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_1ndjj"]
-[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="7_kcmmq"]
+[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="7_kcmmq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p12kx"]
 shader = ExtResource("7_kcmmq")
-shader_parameter/skyColour = null
+shader_parameter/skyColour = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_ekyga"]
 sky_material = SubResource("ShaderMaterial_p12kx")

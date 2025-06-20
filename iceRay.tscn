@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://borqcrf6hrhwi"]
 
-[ext_resource type="Script" path="res://IceRay.cs" id="1_ihnad"]
+[ext_resource type="Script" uid="uid://1kbty7llq555" path="res://IceRay.cs" id="1_ihnad"]
 
 [sub_resource type="Gradient" id="Gradient_fmoj3"]
 interpolation_mode = 2

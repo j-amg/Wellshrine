@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://c0xvv4h575iid"]
 
-[ext_resource type="Script" path="res://zones/KillZone.cs" id="1_rv07t"]
+[ext_resource type="Script" uid="uid://c1fbaqlq063ii" path="res://zones/KillZone.cs" id="1_rv07t"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_tli3v"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="3_yfd8q"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="4_vahj5"]
-[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="5_2bxh4"]
+[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="5_2bxh4"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="6_jatim"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g474y"]
@@ -14,7 +14,7 @@ agent_max_slope = 60.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ywcn"]
 shader = ExtResource("5_2bxh4")
-shader_parameter/skyColour = null
+shader_parameter/skyColour = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_sevog"]
 sky_material = SubResource("ShaderMaterial_1ywcn")

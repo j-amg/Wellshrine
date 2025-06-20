@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://dcjgbshr51onj"]
 
-[ext_resource type="Script" path="res://NPC.cs" id="1_acsdh"]
+[ext_resource type="Script" uid="uid://csvcx33snko2j" path="res://NPC.cs" id="1_acsdh"]
 [ext_resource type="Texture2D" uid="uid://cob3eixxiyvhm" path="res://textures/skeletonFull.png" id="2_7o3jx"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_e858n"]
 

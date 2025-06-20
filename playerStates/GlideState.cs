@@ -21,6 +21,9 @@ public partial class GlideState : State
 		vel.Y = vel.Y > 0 ? Mathf.MoveToward(vel.Y, 0, 0.1f) : Mathf.MoveToward(vel.Y, -3, 0.01f);
 		owner.velocity = vel;
         owner.UpdateVelocity();
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount) EmitSignal(SignalName.transition, "jump");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.nearWall) EmitSignal(SignalName.transition, "walljump");
+		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount && owner.currentDash < owner.maxDashCount) EmitSignal(SignalName.transition, "dash");
 		if (Input.IsActionJustReleased("RightMouse")) EmitSignal(SignalName.transition, "fall");
 		if (owner.IsOnFloor())
 		{

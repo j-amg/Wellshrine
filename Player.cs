@@ -33,6 +33,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	public CollisionShape3D crouchCollision;
 	[Export]
+	public Area3D wallDetection;
+	[Export]
 	private Area3D iceCollision;
 	[Export]
 	private Area3D shockCollision;
@@ -66,14 +68,21 @@ public partial class Player : CharacterBody3D, IDamageable
     public float airAcceleration = .1f;
     public float airDeceleration = 0.005f;
 	public float dashVelocity = 15f;
+	public float wallJumpVelocity = 10f;
     public float fallSpeed = 2;
-	public float jumpVelocity = 5;
-	public Vector3 bodyCrouchPosition = new (0,-0.3f,0);
+	public float jumpVelocity = 7.5f;
+	public float maxJumpCount = 2;
+	public float maxDashCount = 1;
+	public float wallJumpCD = 0.5f;
+
+	public Vector3 bodyCrouchPosition = new(0, -0.3f, 0);
     public Vector3 bodyStandPosition = new (0,0,0);
 
 
 	public float hitDistance;
 	public float currentSpeed;
+	public float currentJump;
+	public float currentDash;
 	public float _sensitivity;
 	public Vector3 velocity;
 	public Vector2 hvel;
@@ -89,12 +98,17 @@ public partial class Player : CharacterBody3D, IDamageable
 	private bool applyTransform = false;
 	public bool inputPaused = false;
 	private bool recharging = false;
+	public bool nearWall = false;
+	public bool canWallJump = true;
 	float IDamageable.Health{ get; set;}
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		vp = GetViewport();
 		win = GetWindow();
+
+		wallDetection.BodyEntered += OnBodyEntered;
+		wallDetection.BodyExited += OnBodyExited;
 
 		handSprite.Play(Global.Singleton.currentIdle);
 		velocity = Vector3.Zero;
@@ -106,11 +120,13 @@ public partial class Player : CharacterBody3D, IDamageable
 		AddToGroup("player");
     }
 
-	public void PauseInput()
+    private void OnBodyExited(Node3D body) { if (body is GridMap) nearWall = false; }
+    private void OnBodyEntered(Node3D body) { if (body is GridMap) nearWall = true; }
+
+    public void PauseInput()
 	{
 		SetProcessInput(false);
 		inputPaused = true;
-
 	}
 
 	public void ResumeInput()
@@ -119,11 +135,18 @@ public partial class Player : CharacterBody3D, IDamageable
 		inputPaused = false;
 	}
 
+	public async void wallJumpTimer()
+	{
+		canWallJump = false;
+		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
+		canWallJump = true;
+	}
+
     public override void _PhysicsProcess(double delta)
 	{
 		last_physics_pos = Position;
 		if (inputPaused) return;
-		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing),0, 0);
+		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), 0, 0);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 
 		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
@@ -154,15 +177,15 @@ public partial class Player : CharacterBody3D, IDamageable
 			_sensitivity = mouseSensitivity;
 			currentSpeed = walkSpeed;
 		}
-		
+
 	}
 
 	public override void _Process(double delta)
-    {
+	{
 		// Weird smoothnes fix
-        float fraction = (float)Engine.GetPhysicsInterpolationFraction();
-		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction));} 
-		else {last_physics_pos = Position; applyTransform = true;} 
+		float fraction = (float)Engine.GetPhysicsInterpolationFraction();
+		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction)); }
+		else { last_physics_pos = Position; applyTransform = true; }
 
 		GodotObject currentHit = lookRay.GetCollider();
 		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
@@ -172,12 +195,15 @@ public partial class Player : CharacterBody3D, IDamageable
 			existingHit = currentHit;
 		}
 
-		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1,1,1);
-		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance  <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
+		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
+		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
 		if (currentHit is IHoverable h)
 		{
 			if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover();
 		}
+
+		GD.Print(nearWall);
+		GD.Print(wallDetection.GetOverlappingBodies());
     }
 
 	public override void _Input(InputEvent @event)

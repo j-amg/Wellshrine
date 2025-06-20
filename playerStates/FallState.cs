@@ -17,7 +17,11 @@ public partial class FallState : State
 		owner.velocity = vel;
         owner.UpdateVelocity();
 		if (Input.IsActionPressed("RightMouse") && !owner.inputPaused) EmitSignal(SignalName.transition, "glide");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount) EmitSignal(SignalName.transition, "jump");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.nearWall && owner.canWallJump) EmitSignal(SignalName.transition, "walljump");
+		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount && owner.currentDash < owner.maxDashCount) EmitSignal(SignalName.transition, "dash");
 		
+
 		if (owner.IsOnFloor())
 		{
 			if (Input.IsActionPressed("Shift") && !owner.inputPaused)

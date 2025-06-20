@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://brt67t3q73a3u"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_3jaa1"]
-[ext_resource type="Script" path="res://BuffShrine.cs" id="2_7c7yy"]
+[ext_resource type="Script" uid="uid://5vdoujqmmfgm" path="res://BuffShrine.cs" id="2_7c7yy"]
 [ext_resource type="ArrayMesh" uid="uid://d3hwd78q3epfv" path="res://meshes/shrine2.obj" id="3_jgjl0"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="3_ky1jb"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="4_1oh30"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cmbqu1ogp3vnb"]
 
-[ext_resource type="Script" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
+[ext_resource type="Script" uid="uid://mnwpj33wrkkx" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_38q3w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1evt3"]

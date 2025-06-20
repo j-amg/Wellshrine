@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://cgis5agan11j5"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
-[ext_resource type="Script" path="res://enemies/Shooter.cs" id="2_okrev"]
-[ext_resource type="Script" path="res://enemyStates/EnemyIdle.cs" id="3_yi21b"]
-[ext_resource type="Script" path="res://enemyStates/EnemyChase.cs" id="4_nduyg"]
-[ext_resource type="Script" path="res://enemyStates/ShooterAttack.cs" id="5_gnwtc"]
+[ext_resource type="Script" uid="uid://cy247l4u7b5ho" path="res://enemies/Shooter.cs" id="2_okrev"]
+[ext_resource type="Script" uid="uid://bmi4iddtk3dpd" path="res://enemyStates/EnemyIdle.cs" id="3_yi21b"]
+[ext_resource type="Script" uid="uid://dporcj315e0dn" path="res://enemyStates/EnemyChase.cs" id="4_nduyg"]
+[ext_resource type="Script" uid="uid://cdmju3i6oqbck" path="res://enemyStates/ShooterAttack.cs" id="5_gnwtc"]
 [ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
-[ext_resource type="Script" path="res://enemyStates/EnemyDie.cs" id="7_k5dwn"]
+[ext_resource type="Script" uid="uid://bvs3plagd8bj7" path="res://enemyStates/EnemyDie.cs" id="7_k5dwn"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
 viewport_path = NodePath("SubViewport")

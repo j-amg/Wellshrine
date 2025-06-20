@@ -25,8 +25,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 	public string name = "[PH] Enemy";
 	[Export]
 	public float baseHealth;
-	[Export]
-	public const string enemyScenePath = "res://enemies/enemy";
+	public static string enemyScenePath = "res://enemies/enemy";
 	[Export]
 	public AudioStream walkSound;
 	[Export]
