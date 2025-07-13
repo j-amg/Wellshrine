@@ -11,20 +11,21 @@ public partial class KillZone : Zone
     {
         base._Ready();
         PreloadSpawners();
-        //if (!Global.Singleton.musicPlayer.Playing) Global.Singleton.PlayMusic();
     }
     public void PreloadSpawners()
     {
         Array<Node> spawners = GetTree().GetNodesInGroup("spawners");
 
         EnemySpawner s;
-        for(int i = 0; i < enemyAmount; i++)
+        for (int i = 0; i < enemyAmount; i++)
         {
             s = (EnemySpawner)spawners.PickRandom();
             s.EnemySpawned += OnEnemySpawned;
             spawners.Remove(s);
-            string TypeToSpawn = Global.Singleton.EnemyTypes.PickRandom();
-            s.LoadEnemy(TypeToSpawn);
+            int enemyIndex = (int)MathF.Abs(GD.Randi() % 2);
+            GD.Print(enemyIndex);
+            s.LoadEnemy(enemyIndex);
+            
         }
     }
     private void OnEnemySpawned(Enemy enemy) => enemy.enemyDied += OnEnemyDied;

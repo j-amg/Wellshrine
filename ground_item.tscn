@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://2urejxveqm6g"]
+
+[ext_resource type="Script" uid="uid://c4ga8uk43sgj2" path="res://GroundItem.cs" id="1_dgtp1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f7mjy"]
+size = Vector3(0.25, 1, 0.25)
+
+[sub_resource type="Gradient" id="Gradient_dgtp1"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6ecyt"]
+gradient = SubResource("Gradient_dgtp1")
+width = 1
+fill_to = Vector2(1, 1)
+
+[node name="Node3D" type="StaticBody3D"]
+collision_layer = 2
+script = ExtResource("1_dgtp1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_f7mjy")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+centered = false
+billboard = 2
+texture = SubResource("GradientTexture2D_6ecyt")

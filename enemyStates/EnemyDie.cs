@@ -19,6 +19,6 @@ public partial class EnemyDie : State
         Tween tween = GetTree().CreateTween();
         tween.TweenProperty(owner.sprite, "modulate", new Color(0,0,0,0), 1);
         await ToSignal(GetTree().CreateTimer(1), "timeout");
-        CallDeferred("queue_free");
+        owner.Die();
     }
 }

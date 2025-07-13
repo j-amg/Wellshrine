@@ -188,6 +188,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		else { last_physics_pos = Position; applyTransform = true; }
 
 		GodotObject currentHit = lookRay.GetCollider();
+		GD.Print(currentHit);
 		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
 		if (currentHit != existingHit)
 		{
@@ -202,8 +203,8 @@ public partial class Player : CharacterBody3D, IDamageable
 			if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover();
 		}
 
-		GD.Print(nearWall);
-		GD.Print(wallDetection.GetOverlappingBodies());
+		//GD.Print(nearWall);
+		// GD.Print(wallDetection.GetOverlappingBodies());
     }
 
 	public override void _Input(InputEvent @event)

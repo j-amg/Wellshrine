@@ -6,7 +6,7 @@ public partial class EnemySpawner : Node3D
     [Signal]
     public delegate void EnemySpawnedEventHandler(Enemy enemy);
     [Export]
-    public string typeOverride;
+    public int typeOverride = -1;
     private Enemy LoadedEnemy;
     private int SpawnSpeed = 1;
     public override void _Ready()
@@ -14,20 +14,18 @@ public partial class EnemySpawner : Node3D
         AddToGroup("spawners");
         Spawn();
     }
-    public void LoadEnemy(string type)
+    public void LoadEnemy(int type)
     {
-        PackedScene enemy = typeOverride != null ? GD.Load<PackedScene>("res://enemies/" + typeOverride + ".tscn") :
-            GD.Load<PackedScene>("res://enemies/" + type + ".tscn");
-        LoadedEnemy = Enemy.InitEnemy(enemy, Global.Singleton.currentLevel, GlobalTransform);
+        if (typeOverride != -1)
+        { LoadedEnemy = Enemy.InitEnemy(Global.Singleton.enemyArray[typeOverride], Global.Singleton.currentLevel, GlobalTransform);
+        } else LoadedEnemy = Enemy.InitEnemy(Global.Singleton.enemyArray[type], Global.Singleton.currentLevel, GlobalTransform);
     }
 
     public async void Spawn()
     {
         await ToSignal(GetTree().CreateTimer(SpawnSpeed), "timeout");
         if (LoadedEnemy == null) return;
-        
-        var main = GetTree().CurrentScene;
-		main.CallDeferred("add_child", LoadedEnemy);
+		GetTree().CurrentScene.CallDeferred("add_child", LoadedEnemy);
         EmitSignal(SignalName.EnemySpawned, LoadedEnemy);
     }
 }

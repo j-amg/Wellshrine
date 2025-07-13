@@ -110,7 +110,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
     public void Damage(Damage d)
 	{
 		Health -= d.amount;
-		if (Health <= 0) Die();
+		if (Health <= 0) BeginDie();
 		d.Hit();
 		Stun();
 		EmitSignal(SignalName.damageTaken, d);
@@ -119,13 +119,20 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		damaged = true;
 	}
 
-    public void Die()
+    public void BeginDie()
     {
 		EmitSignal(SignalName.enemyDied, this);
 		labelSprite.Visible = false;
 		RemoveFromGroup("enemies");
 		dead = true;
     }
+
+	public void Die()
+	{
+		GroundItem GenItem = GroundItem.InitGroundItem(Position);
+		GetTree().CurrentScene.CallDeferred("add_child", GenItem);
+		CallDeferred("queue_free");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
