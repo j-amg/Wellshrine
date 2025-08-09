@@ -22,7 +22,7 @@ public partial class StateMachine : Node
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) => current_state.Update(delta);
+	public override void _PhysicsProcess(double delta) => current_state.Update(delta);
 
 	private void OnChildTransition(StringName state)
 	{

@@ -13,7 +13,7 @@ gradient = SubResource("Gradient_dgtp1")
 width = 1
 fill_to = Vector2(1, 1)
 
-[node name="Node3D" type="StaticBody3D"]
+[node name="Node3D" type="Area3D"]
 collision_layer = 2
 script = ExtResource("1_dgtp1")
 

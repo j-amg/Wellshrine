@@ -59,16 +59,16 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float walkingFOV = 80;
 	public float walkSpeed = 5;
 	public  float aimSpeed = 3;
-	public float slideSpeed = 25;
+	public float slideSpeed = 15;
 	public float crouchSpeed = 3;
 	public float crouchAnimSpeed = .2f;
 	public float gravity = 12;
-	public float acceleration = .5f;
-	public float deceleration = .25f;
+	public float acceleration = .75f;
+	public float deceleration = .5f;
     public float airAcceleration = .1f;
     public float airDeceleration = 0.005f;
 	public float dashVelocity = 15f;
-	public float wallJumpVelocity = 10f;
+	public float wallJumpVelocity = 2f;
     public float fallSpeed = 2;
 	public float jumpVelocity = 7.5f;
 	public float maxJumpCount = 2;
@@ -144,7 +144,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
     public override void _PhysicsProcess(double delta)
 	{
-		last_physics_pos = Position;
+		//last_physics_pos = Position;
 		if (inputPaused) return;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), 0, 0);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
@@ -183,9 +183,9 @@ public partial class Player : CharacterBody3D, IDamageable
 	public override void _Process(double delta)
 	{
 		// Weird smoothnes fix
-		float fraction = (float)Engine.GetPhysicsInterpolationFraction();
-		if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction)); }
-		else { last_physics_pos = Position; applyTransform = true; }
+		// float fraction = (float)Engine.GetPhysicsInterpolationFraction();
+		// if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction)); }
+		// else { last_physics_pos = Position; applyTransform = true; }
 
 		GodotObject currentHit = lookRay.GetCollider();
 		GD.Print(currentHit);

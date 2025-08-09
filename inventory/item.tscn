@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c28ffdjn7f5ls"]
+
+[ext_resource type="Script" uid="uid://bkl2jmpvg3xw5" path="res://inventory/InvItem.cs" id="1_ijq0q"]
+
+[node name="item" type="ColorRect"]
+custom_minimum_size = Vector2(8, 8)
+color = Color(1, 0, 1, 1)
+script = ExtResource("1_ijq0q")

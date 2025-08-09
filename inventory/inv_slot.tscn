@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfew1xfi07xcp"]
+
+[ext_resource type="PackedScene" uid="uid://c28ffdjn7f5ls" path="res://inventory/item.tscn" id="1_gvx5b"]
+[ext_resource type="Script" uid="uid://c8pgjiuivnnn8" path="res://inventory/InvSlot.cs" id="1_yiowp"]
+
+[sub_resource type="Gradient" id="Gradient_p1kw3"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gvx5b"]
+gradient = SubResource("Gradient_p1kw3")
+width = 16
+height = 16
+fill_to = Vector2(0, 1)
+
+[node name="background" type="TextureRect" node_paths=PackedStringArray("container")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -944.0
+offset_bottom = -524.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_gvx5b")
+script = ExtResource("1_yiowp")
+container = NodePath("centercontainer")
+
+[node name="centercontainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="item" parent="centercontainer" instance=ExtResource("1_gvx5b")]
+layout_mode = 2

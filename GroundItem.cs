@@ -1,13 +1,15 @@
 using Godot;
 using System;
 
-public partial class GroundItem : StaticBody3D, IInteractable, IHoverable
+public partial class GroundItem : Area3D, IInteractable, IHoverable
 {
     public Color ReticleModulate { get; set; }
     public bool Active { get; set; }
     public bool Tooltip { get; set; }
     public string TooltipText { get; set; }
     public float HoverRange { get; set; }
+
+    private Color beamColor = new(0, 0, 0);
 
     private int rarity;
     private string type;

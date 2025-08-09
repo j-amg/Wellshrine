@@ -10,12 +10,13 @@ public partial class WallJumpState : State
         owner.currentDash = 0;
 		owner.UpdateInput(owner.currentSpeed, 1, owner.deceleration);
 		Vector3 vel;
+		float jumpVel = owner.currentSpeed + owner.wallJumpVelocity;
 		if (owner.direction == Vector3.Zero)
 		{
-			vel = -new Vector3(owner.head.GlobalBasis.Z.X, 0, owner.head.GlobalBasis.Z.Z) * owner.wallJumpVelocity;
+			vel = -new Vector3(owner.head.GlobalBasis.Z.X, 0, owner.head.GlobalBasis.Z.Z) * jumpVel;
 
 		}
-		else vel = new Vector3(owner.direction.X, 0, owner.direction.Z) * owner.wallJumpVelocity;
+		else vel = new Vector3(owner.direction.X, 0, owner.direction.Z) * jumpVel;
         vel.Y = 5;
 		owner.velocity = vel;
 	}

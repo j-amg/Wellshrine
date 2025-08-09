@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://lb1wgtvetsdn"]
+
+[ext_resource type="Script" uid="uid://dvauqjodsepfv" path="res://inventory/InvContainer.cs" id="1_64jsw"]
+
+[node name="GridContainer" type="GridContainer"]
+layout_direction = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 12
+script = ExtResource("1_64jsw")
