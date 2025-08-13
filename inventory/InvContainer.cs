@@ -11,8 +11,6 @@ public partial class InvContainer : GridContainer
     public override void _Ready()
     {
         slotScene = GD.Load<PackedScene>("res://inventory/inv_slot.tscn");
-        InventoryData inventoryData = GD.Load<InventoryData>("res://inventory/test_inv.tres");
-        InitSlots(inventoryData);
     }
 
     public void InitSlots(InventoryData inventoryData)
@@ -25,8 +23,6 @@ public partial class InvContainer : GridContainer
         // Columns = colNum;
 
         foreach (Node n in GetChildren()) { n.QueueFree(); }
-
-        GD.Print(inventoryData.slotDatas.ToString());
 
         foreach (SlotData slotdata in inventoryData.slotDatas)
         {
@@ -41,6 +37,17 @@ public partial class InvContainer : GridContainer
             // s.MouseEntered += () => OnMouseEnteredSlot(s);
         }
         
+    }
+
+    public void SetInventoryData(InventoryData inventoryData)
+    {
+        inventoryData.InventoryUpdated += OnInventoryUpdated;
+        InitSlots(inventoryData);
+    }
+
+    private void OnInventoryUpdated(InventoryData inventoryData)
+    {
+        InitSlots(inventoryData);
     }
 
 

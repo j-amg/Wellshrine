@@ -48,6 +48,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	private AudioStream castShock;
 
+	[Export] public InventoryData inventoryData;
+
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -170,48 +172,52 @@ public partial class Player : CharacterBody3D, IDamageable
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
-		if (@event is InputEventMouseMotion eventKey && Input.MouseMode == Input.MouseModeEnum.Captured)
+		if (Input.MouseMode == Input.MouseModeEnum.Captured)
 		{
-			Global.Singleton.SetAction("look");
-			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
-			head.RotateX(xRot);
-			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
-			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
-		}
-
-		if (Input.MouseMode == Input.MouseModeEnum.Visible)
-		{
-			GetViewport().SetInputAsHandled();
-		}
-		
-		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
+			if (@event is InputEventMouseMotion eventKey)
 			{
-				if (Global.Singleton.equippedWeapon == null) return;
-				Attack();
-				Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
+				Global.Singleton.SetAction("look");
+				float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
+				head.RotateX(xRot);
+				RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
+				head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
 			}
 
-		if (Input.IsActionJustPressed("interact"))
-		{
-			if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
+			if (Input.MouseMode == Input.MouseModeEnum.Visible)
+			{
+				GetViewport().SetInputAsHandled();
+			}
+			
+			if (Input.IsActionJustPressed("LeftMouse") && !recharging)
+				{
+					if (Global.Singleton.equippedWeapon == null) return;
+					Attack();
+					Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
+				}
+
+			if (Input.IsActionJustPressed("interact"))
+			{
+				if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
+			}
+
+			if (Input.IsActionPressed("RightMouse"))
+			{
+				Global.Singleton.SetAction("aim");
+				Tween tween = GetTree().CreateTween();
+				tween.TweenProperty(camera, "fov", zoomFOV, .05);
+				_sensitivity = aimMouseSensitivity;
+				currentSpeed = aimSpeed;
+			}
+
+			if (Input.IsActionJustReleased("RightMouse"))
+			{
+				Tween tween = GetTree().CreateTween();
+				tween.TweenProperty(camera, "fov", walkingFOV, .1);
+				_sensitivity = mouseSensitivity;
+				currentSpeed = walkSpeed;
+			}
 		}
 
-		if (Input.IsActionPressed("RightMouse"))
-		{
-			Global.Singleton.SetAction("aim");
-			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera, "fov", zoomFOV, .05);
-			_sensitivity = aimMouseSensitivity;
-			currentSpeed = aimSpeed;
-		}
-
-		if (Input.IsActionJustReleased("RightMouse"))
-		{
-			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera, "fov", walkingFOV, .1);
-			_sensitivity = mouseSensitivity;
-			currentSpeed = walkSpeed;
-		}
 	}
 
 	private async void Recharge(float duration)

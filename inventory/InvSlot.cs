@@ -5,7 +5,7 @@ public partial class InvSlot : Panel
 {
 
     [Signal]
-    public delegate void SlotInputEventHandler(int index);
+    public delegate void SlotInputEventHandler(int index, int buttonIndex);
 
     [Export] public CenterContainer container;
 
@@ -15,9 +15,10 @@ public partial class InvSlot : Panel
     public override void _GuiInput(InputEvent @event)
     {
         //GD.Print("Mouse entered slot");
-        if (@event is InputEventMouseButton mbe && mbe.ButtonIndex == MouseButton.Left && mbe.Pressed)
+        if (@event is InputEventMouseButton mbe && mbe.Pressed)
         {
-            EmitSignal(SignalName.SlotInput, GetIndex());
+            EmitSignal(SignalName.SlotInput, GetIndex(), (int)mbe.ButtonIndex);
+            GD.Print((int)mbe.ButtonIndex);
             GD.Print("Left mouse button was pressed!");
         }
     }

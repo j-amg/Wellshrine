@@ -13,7 +13,6 @@ public partial class GroundItem : Area3D, IInteractable, IHoverable
 
     private int rarity;
     private string type;
-
     private int level;
 
     public override void _Ready()
@@ -42,6 +41,7 @@ public partial class GroundItem : Area3D, IInteractable, IHoverable
     public virtual void OnInteract()
     {
         GD.Print("Picked up item!");
+        
         CallDeferred("queue_free");
     }
 
