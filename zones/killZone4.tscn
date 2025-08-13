@@ -1,9 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://d07mk2742bmic"]
+[gd_scene load_steps=16 format=3 uid="uid://d07mk2742bmic"]
 
 [ext_resource type="Script" uid="uid://c1fbaqlq063ii" path="res://zones/KillZone.cs" id="1_tpqqp"]
+[ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://UI/hud.tscn" id="2_1rifc"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_se2ux"]
+[ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="3_gux77"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="3_qsffv"]
+[ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_5su1s"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="4_ykx31"]
+[ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_777my"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="5_lbowk"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="6_g355k"]
 
@@ -51,6 +55,22 @@ objective = "Kill all enemies"
 door = NodePath("door")
 checkpoints = []
 increasesLevel = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="hud" parent="UI" instance=ExtResource("2_1rifc")]
+mouse_filter = 1
+
+[node name="inventory" parent="UI" instance=ExtResource("3_gux77")]
+visible = false
+
+[node name="pause" parent="UI" instance=ExtResource("4_5su1s")]
+visible = false
+mouse_filter = 2
+
+[node name="deathScreen" parent="UI" instance=ExtResource("5_777my")]
+visible = false
+mouse_filter = 2
 
 [node name="player" parent="." instance=ExtResource("2_se2ux")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 4, -15.3379)

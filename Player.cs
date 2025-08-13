@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Godot;
 
@@ -22,8 +23,6 @@ public partial class Player : CharacterBody3D, IDamageable
 	public Node3D head;
 	[Export]
 	public Camera3D camera;
-	[Export]
-	public Hud hud;
 	[Export]
 	private Node3D hands;
 	[Export]
@@ -142,19 +141,55 @@ public partial class Player : CharacterBody3D, IDamageable
 		canWallJump = true;
 	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		//last_physics_pos = Position;
 		if (inputPaused) return;
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), 0, 0);
 		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
 
-		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
+	}
+
+	public override void _Process(double delta)
+	{
+
+		GodotObject currentHit = lookRay.GetCollider();
+		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
+		if (currentHit != existingHit)
 		{
-			if (Global.Singleton.equippedWeapon == null) return;
-			Attack();
-			Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
+			if (existingHit is IHoverable hov) hov.EndHover();
+			existingHit = currentHit;
 		}
+
+		Global.Singleton.hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
+		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
+		if (currentHit is IHoverable h) { if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover(); }
+
+    }
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
+		if (@event is InputEventMouseMotion eventKey && Input.MouseMode == Input.MouseModeEnum.Captured)
+		{
+			Global.Singleton.SetAction("look");
+			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
+			head.RotateX(xRot);
+			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
+			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
+		}
+
+		if (Input.MouseMode == Input.MouseModeEnum.Visible)
+		{
+			GetViewport().SetInputAsHandled();
+		}
+		
+		if (Input.IsActionJustPressed("LeftMouse") && !recharging)
+			{
+				if (Global.Singleton.equippedWeapon == null) return;
+				Attack();
+				Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
+			}
 
 		if (Input.IsActionJustPressed("interact"))
 		{
@@ -177,54 +212,13 @@ public partial class Player : CharacterBody3D, IDamageable
 			_sensitivity = mouseSensitivity;
 			currentSpeed = walkSpeed;
 		}
-
-	}
-
-	public override void _Process(double delta)
-	{
-		// Weird smoothnes fix
-		// float fraction = (float)Engine.GetPhysicsInterpolationFraction();
-		// if (applyTransform) { GlobalTransform = new Transform3D(GlobalTransform.Basis, last_physics_pos.Lerp(GlobalTransform.Origin, fraction)); }
-		// else { last_physics_pos = Position; applyTransform = true; }
-
-		GodotObject currentHit = lookRay.GetCollider();
-		GD.Print(currentHit);
-		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
-		if (currentHit != existingHit)
-		{
-			if (existingHit is IHoverable hov) hov.EndHover();
-			existingHit = currentHit;
-		}
-
-		hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
-		hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
-		if (currentHit is IHoverable h)
-		{
-			if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover();
-		}
-
-		//GD.Print(nearWall);
-		// GD.Print(wallDetection.GetOverlappingBodies());
-    }
-
-	public override void _Input(InputEvent @event)
-	{
-		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
-		if (@event is InputEventMouseMotion eventKey)
-		{
-			Global.Singleton.SetAction("look");
-			float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
-			head.RotateX(xRot);
-			RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
-			head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
-		}
 	}
 
 	private async void Recharge(float duration)
 	{
 		recharging = true;
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(hud.rechargeBar, "value", 0, duration).From(100);
+		tween.TweenProperty(Global.Singleton.hud.rechargeBar, "value", 0, duration).From(100);
 		await ToSignal(GetTree().CreateTimer(duration), "timeout");
 		recharging = false;
 	}
@@ -315,7 +309,7 @@ public partial class Player : CharacterBody3D, IDamageable
     {
 		if (d.crit) Global.Singleton.PlaySound2D(critDealtSound);
 		Global.Singleton.PlaySound2D(damageDealtSound);
-		hud.FlashCrossHair();
+		Global.Singleton.hud.FlashCrossHair();
     }
 
     private async void AttackAnim()

@@ -4,5 +4,6 @@
 
 [node name="item" type="ColorRect"]
 custom_minimum_size = Vector2(8, 8)
+mouse_filter = 2
 color = Color(1, 0, 1, 1)
 script = ExtResource("1_ijq0q")

@@ -1,20 +1,38 @@
 using Godot;
 using System;
 
-public partial class InvSlot : TextureRect
+public partial class InvSlot : Panel
 {
-    [Export]
-    public CenterContainer container;
-    public InvItem item;
-    public void SetItem(InvItem newItem)
+
+    [Signal]
+    public delegate void SlotInputEventHandler(int index);
+
+    [Export] public CenterContainer container;
+
+    [Export] TextureRect texture;
+
+    [Export] Label quantityLabel;
+    public override void _GuiInput(InputEvent @event)
     {
-        item = newItem;
+        //GD.Print("Mouse entered slot");
+        if (@event is InputEventMouseButton mbe && mbe.ButtonIndex == MouseButton.Left && mbe.Pressed)
+        {
+            EmitSignal(SignalName.SlotInput, GetIndex());
+            GD.Print("Left mouse button was pressed!");
+        }
     }
 
-    public void PickItem()
+    internal void SetSlotData(SlotData slotdata)
     {
-        item.Pick();
-        container.RemoveChild(item);
-        item = null;
+        ItemData itemData = slotdata.itemData;
+        texture.Texture = itemData.texture;
+
+        if (slotdata.Quantity > 1)
+        {
+            quantityLabel.Visible = true;
+            quantityLabel.Text = slotdata.Quantity.ToString();
+        }
+        
+
     }
 }

@@ -25,6 +25,7 @@ public partial class Global : Node
 	public float currentPlayerHealth = 100;
 	public float interactionRange = 3;
 	public Hud hud;
+	public Inv inventory;
 	public bool dead = false;
 	private DeathScreen deathScreen;
 	public Array<string> killZones = ["killZone1","killZone2","killZone3", "killZone4", "killZone5"];
@@ -38,6 +39,7 @@ public partial class Global : Node
 	public bool fullscreen = false;
 	public bool disableTooltips = false;
 	public bool disableObjectives = false;
+	public bool invOpen = false;
 	private AudioStream charSound;
 
 	public Array<PackedScene> enemyArray = [];
@@ -54,8 +56,6 @@ public partial class Global : Node
 	public string currentIdle = "idle";
 	public Weapon equippedWeapon;
 	public bool sfx = true;
-
-	public string[] testText = ["Hello", "this is a test", "of the dialogue",];
 
 	public override void _Ready()
 	{
@@ -83,9 +83,10 @@ public partial class Global : Node
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
 		player = currentScene.GetNodeOrNull<Player>("player");
-		hud = player?.GetNode<Hud>("body/head/Camera3D/CanvasLayer/hud");
-		deathScreen = player?.GetNodeOrNull<DeathScreen>("body/head/Camera3D/CanvasLayer/deathScreen");
-		pauseMenu = player?.GetNodeOrNull<Pause>("body/head/Camera3D/CanvasLayer/pause");
+		hud = currentScene.GetNode<Hud>("UI/hud");
+		inventory = currentScene.GetNode<Inv>("UI/inventory");
+		deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
+		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
 	}
 
 	public void Reset()
@@ -139,7 +140,27 @@ public partial class Global : Node
 	{
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
 		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
+		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
 	}
+
+	    public void ToggleInv()
+    {
+        if (invOpen)
+        {
+            inventory.Visible = false;
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+            //player.ResumeInput();
+            invOpen = false;
+        }
+        else
+        {
+
+            inventory.Visible = true;
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            //player.PauseInput();
+            invOpen = true;
+        }  
+    }
 
 	public void SendPopUp(string text, string action)
 	{
@@ -190,14 +211,15 @@ public partial class Global : Node
 		hud.dialogue.Visible = true;
 		
 	}
+	
 
 	private async void AnimateDialogue(string text)
 	{
 		animatingDialogue = true;
 		hud.dialogueText.Text = "";
 		await ToSignal(GetTree().CreateTimer(.1f), "timeout");
-		
-		foreach(char c in text)
+
+		foreach (char c in text)
 		{
 			if (!animatingDialogue) break;
 			PlaySound2D(charSound);

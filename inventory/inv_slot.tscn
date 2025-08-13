@@ -1,27 +1,33 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfew1xfi07xcp"]
 
-[ext_resource type="PackedScene" uid="uid://c28ffdjn7f5ls" path="res://inventory/item.tscn" id="1_gvx5b"]
 [ext_resource type="Script" uid="uid://c8pgjiuivnnn8" path="res://inventory/InvSlot.cs" id="1_yiowp"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="3_86mxd"]
 
-[sub_resource type="Gradient" id="Gradient_p1kw3"]
+[sub_resource type="Theme" id="Theme_yiowp"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gvx5b"]
-gradient = SubResource("Gradient_p1kw3")
-width = 16
-height = 16
-fill_to = Vector2(0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86mxd"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
-[node name="background" type="TextureRect" node_paths=PackedStringArray("container")]
+[node name="slot" type="Panel" node_paths=PackedStringArray("container", "texture", "quantityLabel")]
+custom_minimum_size = Vector2(32, 32)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -944.0
-offset_bottom = -524.0
+offset_right = -1888.0
+offset_bottom = -1048.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_gvx5b")
+theme = SubResource("Theme_yiowp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_86mxd")
 script = ExtResource("1_yiowp")
 container = NodePath("centercontainer")
+texture = NodePath("centercontainer/TextureRect")
+quantityLabel = NodePath("Label")
 
 [node name="centercontainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -31,5 +37,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="item" parent="centercontainer" instance=ExtResource("1_gvx5b")]
+[node name="TextureRect" type="TextureRect" parent="centercontainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 31.0
+offset_bottom = 24.0
+theme = ExtResource("3_86mxd")
+text = "x99"

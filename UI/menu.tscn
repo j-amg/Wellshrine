@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_eibjd"]
 [ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="2_j6wvs"]
 
-[node name="menu" type="Control" node_paths=PackedStringArray("version1", "version2", "version3", "version4", "settingsButton", "quit", "settings", "container", "title")]
+[node name="menu" type="Control" node_paths=PackedStringArray("start", "settingsButton", "quit", "settings", "container", "title")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,10 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aour6")
-version1 = NodePath("VBoxContainer/version1")
-version2 = NodePath("VBoxContainer/version2")
-version3 = NodePath("VBoxContainer/version3")
-version4 = NodePath("VBoxContainer/version4")
+start = NodePath("VBoxContainer/start")
 settingsButton = NodePath("VBoxContainer/settings")
 quit = NodePath("VBoxContainer/quit")
 settings = NodePath("settings")
@@ -63,19 +60,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="version1" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
-layout_mode = 2
-text = "Version 1"
-
-[node name="version2" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
-layout_mode = 2
-text = "Version 2"
-
-[node name="version3" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
-layout_mode = 2
-text = "Version 3"
-
-[node name="version4" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
+[node name="start" parent="VBoxContainer" instance=ExtResource("2_j6wvs")]
 layout_mode = 2
 text = "Version 4"
 
