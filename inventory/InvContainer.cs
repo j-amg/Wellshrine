@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Linq;
 
 public partial class InvContainer : GridContainer
 {
@@ -32,11 +33,10 @@ public partial class InvContainer : GridContainer
             if (slotdata != null) slot.SetSlotData(slotdata);
 
             slot.SlotInput += inventoryData.OnSlotClicked;
-
-            // s.MouseExited += OnMouseExitedSlot;
-            // s.MouseEntered += () => OnMouseEnteredSlot(s);
+            slot.SlotHover += inventoryData.OnSlotEntered;
+            slot.MouseExited += inventoryData.OnSlotExited;
+            
         }
-        
     }
 
     public void SetInventoryData(InventoryData inventoryData)
@@ -50,14 +50,19 @@ public partial class InvContainer : GridContainer
         InitSlots(inventoryData);
     }
 
+    public void ClearInventoryData(InventoryData inventoryData)
+    {
+        inventoryData.InventoryUpdated -= OnInventoryUpdated;
+    }
 
-    // private void OnMouseExitedSlot()
-    // {
-    //     GD.Print("exited");
-    // }
 
-    // private void OnMouseEnteredSlot(InvSlot slot)
-    // {
-    //     GD.Print("Mouse entered " + slot.Name);
-    // }
+    public void DisconnectSlots(InventoryData inventoryData)
+    {
+        foreach (InvSlot slot in GetChildren().Cast<InvSlot>())
+        {
+            slot.SlotInput -= inventoryData.OnSlotClicked;
+            slot.SlotHover -= inventoryData.OnSlotEntered;
+            slot.MouseExited -= inventoryData.OnSlotExited;
+        }
+    }
 }

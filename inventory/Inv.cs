@@ -7,27 +7,44 @@ public partial class Inv : Control
 
     [Export] public InvContainer invContainer;
     [Export] public InvSlot grabbedSlot;
+    [Export] public InvContainer externalInvContainer;
+    [Export] public PanelContainer externalInv;
+    [Export] public Tooltip tooltip;
+    public Chest currentExternalInventoryOwner;
+    public InventoryData inventoryData;
 
     SlotData grabbedSlotData;
 
     public override void _Ready()
     {
-        InventoryData inventoryData = Global.Singleton.player.inventoryData;
+        inventoryData = Global.Singleton.player.inventoryData;
         invContainer.SetInventoryData(inventoryData);
         inventoryData.InventoryInteracted += OnInventoryInteracted;
+        inventoryData.InventorySlotHovered += OnInventorySlotHovered;
+        inventoryData.InventorySlotExited += OnInventorySlotExited;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (grabbedSlot.Visible) grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5,5);
+        if (grabbedSlot.Visible) grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
+    }
+
+    private void OnInventorySlotHovered(InventoryData inventoryData, int index)
+    {
+        SlotData slot = inventoryData.slotDatas[index];
+        if (slot != null)
+        {
+            tooltip.ShowItem(slot.itemData);
+        }
+    }
+
+    private void OnInventorySlotExited()
+    {
+        tooltip.Remove();
     }
 
     private void OnInventoryInteracted(InventoryData inventoryData, int index, int buttonIndex)
     {
-        //GD.Print(inventoryData.ToString(), index);
-
-        //grabbedSlotData ??= inventoryData.GrabSlotData(index);
-
         if (buttonIndex == 1) // left click
         {
             if (grabbedSlotData != null)
@@ -50,9 +67,6 @@ public partial class Inv : Control
                 // use item
             }
         }
-
-
-        GD.Print(grabbedSlotData);
         UpdateGrabbedSlot();
     }
 
@@ -64,5 +78,39 @@ public partial class Inv : Control
             grabbedSlot.SetSlotData(grabbedSlotData);
         }
         else grabbedSlot.Hide();
+    }
+
+    internal void SetExternalInventory(Chest externalInventoryOwner)
+    {
+        currentExternalInventoryOwner = externalInventoryOwner;
+        InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
+
+        externalInvContainer.SetInventoryData(inventoryData);
+        inventoryData.InventoryInteracted += OnInventoryInteracted;
+        inventoryData.InventorySlotHovered += OnInventorySlotHovered;
+        inventoryData.InventorySlotExited += OnInventorySlotExited;
+        externalInv.Show();
+
+    }
+
+    internal void ClearExternalInventory()
+    {
+        if (currentExternalInventoryOwner != null)
+        {
+            InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
+            currentExternalInventoryOwner = null;
+            externalInvContainer.ClearInventoryData(inventoryData);
+            inventoryData.InventoryInteracted -= OnInventoryInteracted;
+            externalInv.Hide();
+        }
+    }
+
+    public override void _ExitTree()
+    {
+        inventoryData.InventoryInteracted -= OnInventoryInteracted;
+        inventoryData.InventorySlotHovered -= OnInventorySlotHovered;
+        inventoryData.InventorySlotExited -= OnInventorySlotExited;
+        invContainer.DisconnectSlots(inventoryData);
+        invContainer.ClearInventoryData(inventoryData);
     }
 }

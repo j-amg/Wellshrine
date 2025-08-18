@@ -33,6 +33,11 @@ project/assembly_name="Wellshrine"
 
 import/fbx/enabled=false
 
+[global_group]
+
+external_inventories=""
+shrines=""
+
 [input]
 
 W={
@@ -122,6 +127,7 @@ inventory={
 3d_physics/layer_2="World"
 3d_physics/layer_3="Enemies"
 3d_physics/layer_4="Particles"
+3d_physics/layer_5="items"
 3d_physics/layer_9="NPCs"
 
 [physics]

@@ -8,12 +8,24 @@ public partial class InventoryData : Resource
 
     [Signal] public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int buttonIndex);
     [Signal] public delegate void InventoryUpdatedEventHandler(InventoryData inventoryData);
+    [Signal] public delegate void InventorySlotHoveredEventHandler(InventoryData inventoryData, int index);
+    [Signal] public delegate void InventorySlotExitedEventHandler();
     
     [Export] public Array<SlotData> slotDatas = [];
 
     public void OnSlotClicked(int index, int buttonIndex)
     {
         EmitSignal(SignalName.InventoryInteracted, this, index, buttonIndex);
+    }
+
+    public void OnSlotEntered(int index)
+    {
+        EmitSignal(SignalName.InventorySlotHovered, this, index);
+    }
+
+    public void OnSlotExited()
+    {
+        EmitSignal(SignalName.InventorySlotExited);
     }
 
     public SlotData GrabSlotData(int index)
@@ -68,5 +80,19 @@ public partial class InventoryData : Resource
 
         EmitSignal(SignalName.InventoryUpdated, this);
         if (grabbedSlotData.Quantity > 0) return grabbedSlotData; else return null;
+    }
+
+    public bool PickUpSlotData(SlotData slotData)
+    {
+        for (int i = 0; i < slotDatas.Count; i++)
+        {
+            if (slotDatas[i] == null)
+            {
+                slotDatas[i] = slotData;
+                EmitSignal(SignalName.InventoryUpdated, this);
+                return true;
+            }
+        }
+        return false;
     }
 }

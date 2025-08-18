@@ -23,7 +23,6 @@ public partial class KillZone : Zone
             s.EnemySpawned += OnEnemySpawned;
             spawners.Remove(s);
             int enemyIndex = (int)MathF.Abs(GD.Randi() % 2);
-            GD.Print(enemyIndex);
             s.LoadEnemy(enemyIndex);
             
         }

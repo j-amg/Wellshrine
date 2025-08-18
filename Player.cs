@@ -47,9 +47,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	private AudioStream castIce;
 	[Export]
 	private AudioStream castShock;
-
 	[Export] public InventoryData inventoryData;
-
+	
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -165,7 +164,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 		Global.Singleton.hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
 		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
-		if (currentHit is IHoverable h) { if (hitDistance <= h.HoverRange && h.Active) h.StartHover(); else h.EndHover(); }
+		if (currentHit is IHoverable h) { if (hitDistance <= Global.Singleton.interactionRange && h.Active) h.StartHover(); else h.EndHover(); }
 
     }
 

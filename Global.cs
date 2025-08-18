@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -83,10 +84,60 @@ public partial class Global : Node
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
 		player = currentScene.GetNodeOrNull<Player>("player");
-		hud = currentScene.GetNode<Hud>("UI/hud");
-		inventory = currentScene.GetNode<Inv>("UI/inventory");
+		hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
+		inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
 		deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
+		foreach (Chest n in GetTree().GetNodesInGroup("external_inventories").Cast<Chest>())
+		{
+			GD.Print("connected");
+			n.ToggleInventory += OnExternalInventoryToggle;
+		}
+	}
+
+    private void OnExternalInventoryToggle(Chest inventoryOwner)
+    {
+        ToggleInv(inventoryOwner);
+    }
+
+	public void ToggleInv(Chest externalInventoryOwner = null)
+	{
+		if (invOpen)
+		{
+			inventory.Visible = false;
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+			//player.ResumeInput();
+			invOpen = false;
+		}
+		else
+		{
+
+			inventory.Visible = true;
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+			//player.PauseInput();
+			invOpen = true;
+		}
+
+		if (externalInventoryOwner != null)
+		{
+			inventory.SetExternalInventory(externalInventoryOwner);
+		}
+		else
+		{
+			inventory.ClearExternalInventory();
+		}
+    }
+
+    public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
+	public void DeferredGotoScene(PackedScene nextScene)
+	{
+		currentZone?.CloseZone();
+		currentScene.Free();
+		currentScene = nextScene.Instantiate();
+		currentZone = currentScene is Zone zone ? zone : null;
+		GetTree().Root.AddChild(currentScene);
+		GetTree().CurrentScene = currentScene;
+		Gets();
 	}
 
 	public void Reset()
@@ -143,24 +194,7 @@ public partial class Global : Node
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
 	}
 
-	    public void ToggleInv()
-    {
-        if (invOpen)
-        {
-            inventory.Visible = false;
-            Input.MouseMode = Input.MouseModeEnum.Captured;
-            //player.ResumeInput();
-            invOpen = false;
-        }
-        else
-        {
 
-            inventory.Visible = true;
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-            //player.PauseInput();
-            invOpen = true;
-        }  
-    }
 
 	public void SendPopUp(string text, string action)
 	{
@@ -337,19 +371,6 @@ public partial class Global : Node
 			Engine.TimeScale = 0;
 		}
 		paused = !paused;
-	}
-
-    public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
-	public void DeferredGotoScene(PackedScene nextScene)
-	{
-		currentZone?.CloseZone();
-		currentScene.Free();
-		currentScene = nextScene.Instantiate();
-		currentZone = currentScene is Zone zone ? zone : null;
-		GetTree().Root.AddChild(currentScene);
-		GetTree().CurrentScene = currentScene;
-		Gets();
-		
 	}
 
 	public void PlaySound3D(Vector3 position, AudioStream audio)

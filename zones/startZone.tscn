@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://nymerq4u1m0o"]
+[gd_scene load_steps=27 format=4 uid="uid://nymerq4u1m0o"]
 
 [ext_resource type="Script" uid="uid://bt2kng7g012s4" path="res://zones/StartZone.cs" id="1_lr3ls"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="2_6vmps"]
@@ -13,6 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="10_dkoc8"]
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="12_qbchw"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="13_xj85n"]
+[ext_resource type="PackedScene" uid="uid://c6jnxetwosnsg" path="res://chest.tscn" id="14_bysxa"]
+[ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://InventoryData.cs" id="15_jqp77"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://SlotData.cs" id="16_2lqes"]
+[ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="17_5b0lf"]
+[ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://ground_item.tscn" id="18_2lqes"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2drdb"]
 lightmap_size_hint = Vector2i(434, 422)
@@ -62,6 +67,17 @@ volumetric_fog_temporal_reprojection_enabled = false
 dof_blur_far_transition = 35.41
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_u1nxo"]
+
+[sub_resource type="Resource" id="Resource_ssr2x"]
+script = ExtResource("16_2lqes")
+itemData = ExtResource("17_5b0lf")
+Quantity = 50
+metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
+
+[sub_resource type="Resource" id="Resource_hsp5b"]
+script = ExtResource("15_jqp77")
+slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"), null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
 script = ExtResource("1_lr3ls")
@@ -133,3 +149,22 @@ light_bake_mode = 1
 [node name="LightmapGI" type="LightmapGI" parent="."]
 camera_attributes = SubResource("CameraAttributesPractical_u1nxo")
 light_data = ExtResource("9_aulnw")
+
+[node name="chest" parent="." groups=["external_inventories"] instance=ExtResource("14_bysxa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+inventoryData = SubResource("Resource_hsp5b")
+
+[node name="groundItem" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3342, -4.76837e-07, 8.50373)
+
+[node name="groundItem2" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.707045, -4.76837e-07, 8.50373)
+
+[node name="groundItem3" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.965827, -4.76837e-07, 8.50373)
+
+[node name="groundItem4" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.965827, -4.76837e-07, 10.3902)
+
+[node name="groundItem5" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.965827, -4.76837e-07, 6.29826)

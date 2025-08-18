@@ -27,9 +27,6 @@ public partial class Shrine : StaticBody3D, IInteractable, IHoverable
         Active = true;
         ReticleModulate = new Color(0,0,1);
         magic.Modulate = magicModulate;
-        AddToGroup("shrines");
-        HoverRange = Global.Singleton.interactionRange;
-        HoverRange = 2;
         Tooltip = true;
     }
 
