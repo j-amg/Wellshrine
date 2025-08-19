@@ -9,7 +9,7 @@ public partial class InventoryData : Resource
     [Signal] public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int buttonIndex);
     [Signal] public delegate void InventoryUpdatedEventHandler(InventoryData inventoryData);
     [Signal] public delegate void InventorySlotHoveredEventHandler(InventoryData inventoryData, int index);
-    [Signal] public delegate void InventorySlotExitedEventHandler();
+    [Signal] public delegate void InventorySlotExitedEventHandler(InventoryData inventoryData, int index);
     
     [Export] public Array<SlotData> slotDatas = [];
 
@@ -20,12 +20,14 @@ public partial class InventoryData : Resource
 
     public void OnSlotEntered(int index)
     {
+        GD.Print("entered");
         EmitSignal(SignalName.InventorySlotHovered, this, index);
     }
 
-    public void OnSlotExited()
+    public void OnSlotExited(int index)
     {
-        EmitSignal(SignalName.InventorySlotExited);
+        GD.Print("exited");
+        EmitSignal(SignalName.InventorySlotExited, this, index);
     }
 
     public SlotData GrabSlotData(int index)
@@ -44,10 +46,9 @@ public partial class InventoryData : Resource
         }
     }
 
-    public SlotData DropSlotData(int index, SlotData grabbedSlotData)
+    public virtual SlotData DropSlotData(int index, SlotData grabbedSlotData)
     {
         SlotData currentSlotData = slotDatas[index];
-
 
         SlotData returnSlotData = null;
         if (currentSlotData != null && currentSlotData.CanFullyMergeWith(grabbedSlotData))
@@ -84,6 +85,17 @@ public partial class InventoryData : Resource
 
     public bool PickUpSlotData(SlotData slotData)
     {
+
+        for (int i = 0; i < slotDatas.Count; i++)
+        {
+            if (slotDatas[i] != null && slotDatas[i].CanFullyMergeWith(slotData))
+            {
+                slotDatas[i].FullyMergeWith(slotData);
+                EmitSignal(SignalName.InventoryUpdated, this);
+                return true;
+            }
+        }
+
         for (int i = 0; i < slotDatas.Count; i++)
         {
             if (slotDatas[i] == null)

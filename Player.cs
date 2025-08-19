@@ -48,7 +48,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	private AudioStream castShock;
 	[Export] public InventoryData inventoryData;
-	
+
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -58,25 +58,25 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float zoomFOV = 60;
 	public float walkingFOV = 80;
 	public float walkSpeed = 5;
-	public  float aimSpeed = 3;
+	public float aimSpeed = 3;
 	public float slideSpeed = 15;
 	public float crouchSpeed = 3;
 	public float crouchAnimSpeed = .2f;
 	public float gravity = 12;
 	public float acceleration = .75f;
 	public float deceleration = .5f;
-    public float airAcceleration = .1f;
-    public float airDeceleration = 0.005f;
+	public float airAcceleration = .1f;
+	public float airDeceleration = 0.005f;
 	public float dashVelocity = 15f;
 	public float wallJumpVelocity = 2f;
-    public float fallSpeed = 2;
+	public float fallSpeed = 2;
 	public float jumpVelocity = 7.5f;
 	public float maxJumpCount = 2;
 	public float maxDashCount = 1;
 	public float wallJumpCD = 0.5f;
 
 	public Vector3 bodyCrouchPosition = new(0, -0.3f, 0);
-    public Vector3 bodyStandPosition = new (0,0,0);
+	public Vector3 bodyStandPosition = new(0, 0, 0);
 
 
 	public float hitDistance;
@@ -90,7 +90,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	public Vector3 direction;
 	private Vector3 last_physics_pos;
 	private GodotObject existingHit;
-	
+
 
 
 	private Viewport vp;
@@ -100,7 +100,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private bool recharging = false;
 	public bool nearWall = false;
 	public bool canWallJump = true;
-	float IDamageable.Health{ get; set;}
+	float IDamageable.Health { get; set; }
 
 	public override void _Ready()
 	{
@@ -118,28 +118,6 @@ public partial class Player : CharacterBody3D, IDamageable
 		FloorConstantSpeed = true;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		AddToGroup("player");
-    }
-
-    private void OnBodyExited(Node3D body) { if (body is GridMap) nearWall = false; }
-    private void OnBodyEntered(Node3D body) { if (body is GridMap) nearWall = true; }
-
-    public void PauseInput()
-	{
-		SetProcessInput(false);
-		inputPaused = true;
-	}
-
-	public void ResumeInput()
-	{
-		SetProcessInput(true);
-		inputPaused = false;
-	}
-
-	public async void wallJumpTimer()
-	{
-		canWallJump = false;
-		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
-		canWallJump = true;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -166,7 +144,37 @@ public partial class Player : CharacterBody3D, IDamageable
 		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
 		if (currentHit is IHoverable h) { if (hitDistance <= Global.Singleton.interactionRange && h.Active) h.StartHover(); else h.EndHover(); }
 
-    }
+	}
+
+	private void OnBodyExited(Node3D body) { if (body is GridMap) nearWall = false; }
+	private void OnBodyEntered(Node3D body) { if (body is GridMap) nearWall = true; }
+
+	public Vector3 GetDropPosition()
+	{
+		Vector3 dir = -camera.GlobalTransform.Basis.Z;
+		return camera.GlobalPosition + dir;
+	}
+
+    public void PauseInput()
+	{
+		SetProcessInput(false);
+		inputPaused = true;
+	}
+
+	public void ResumeInput()
+	{
+		SetProcessInput(true);
+		inputPaused = false;
+	}
+
+	public async void wallJumpTimer()
+	{
+		canWallJump = false;
+		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
+		canWallJump = true;
+	}
+
+
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
@@ -216,7 +224,6 @@ public partial class Player : CharacterBody3D, IDamageable
 				currentSpeed = walkSpeed;
 			}
 		}
-
 	}
 
 	private async void Recharge(float duration)

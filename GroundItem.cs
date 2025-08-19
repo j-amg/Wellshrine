@@ -9,24 +9,28 @@ public partial class GroundItem : RigidBody3D, IInteractable, IHoverable
     public string TooltipText { get; set; }
     private Color beamColor = new(0, 0, 0);
 
-    SlotData slotData = new();
+    [Export] public SlotData slotData;
 
     public override void _Ready()
     {
         Active = true;
         ReticleModulate = new Color(1, 1, 0);
-        AddToGroup("items");
         Tooltip = true;
-        TooltipText = "[PH] grab item name and type"
-        + "Rarity: ";
-        slotData.itemData = GD.Load<ItemData>("res://inventory/items/gold.tres");
+        AddToGroup("items");
+
+        if (slotData != null)
+        {
+            TooltipText = slotData.itemData.name;
+            if (slotData.Quantity > 1) TooltipText += " x" + slotData.Quantity;
+        }
     }
 
-    public static GroundItem InitGroundItem(Vector3 position)
+    public static GroundItem InitGroundItem(SlotData slot, Vector3 position)
 	{
         GroundItem item = Global.Singleton.item.Instantiate<GroundItem>();
-        
+        item.slotData = slot;
 		item.Position = position;
+        item.TooltipText = slot.itemData.name;
 		return item;
 	}
 

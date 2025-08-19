@@ -34,7 +34,7 @@ public partial class InvContainer : GridContainer
 
             slot.SlotInput += inventoryData.OnSlotClicked;
             slot.SlotHover += inventoryData.OnSlotEntered;
-            slot.MouseExited += inventoryData.OnSlotExited;
+            slot.SlotExit += inventoryData.OnSlotExited;
             
         }
     }
@@ -62,7 +62,7 @@ public partial class InvContainer : GridContainer
         {
             slot.SlotInput -= inventoryData.OnSlotClicked;
             slot.SlotHover -= inventoryData.OnSlotEntered;
-            slot.MouseExited -= inventoryData.OnSlotExited;
+            slot.SlotExit -= inventoryData.OnSlotExited;
         }
     }
 }

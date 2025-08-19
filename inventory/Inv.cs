@@ -5,15 +5,17 @@ using System.Text.RegularExpressions;
 public partial class Inv : Control
 {
 
+    [Signal] public delegate void DropSlotDataFromInventoryEventHandler(SlotData slotData);
+
     [Export] public InvContainer invContainer;
     [Export] public InvSlot grabbedSlot;
     [Export] public InvContainer externalInvContainer;
     [Export] public PanelContainer externalInv;
     [Export] public Tooltip tooltip;
+    [Export] public InvContainer equipmentInvContainer1;
     public Chest currentExternalInventoryOwner;
     public InventoryData inventoryData;
-
-    SlotData grabbedSlotData;
+    public SlotData grabbedSlotData;
 
     public override void _Ready()
     {
@@ -26,7 +28,11 @@ public partial class Inv : Control
 
     public override void _PhysicsProcess(double delta)
     {
-        if (grabbedSlot.Visible) grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
+        if (Visible)
+        {
+            tooltip.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
+            grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
+        }    
     }
 
     private void OnInventorySlotHovered(InventoryData inventoryData, int index)
@@ -34,13 +40,14 @@ public partial class Inv : Control
         SlotData slot = inventoryData.slotDatas[index];
         if (slot != null)
         {
-            tooltip.ShowItem(slot.itemData);
+            tooltip.SetItem(slot.itemData);
+            tooltip.Show();
         }
     }
 
-    private void OnInventorySlotExited()
+    private void OnInventorySlotExited(InventoryData inventoryData, int index)
     {
-        tooltip.Remove();
+        tooltip.Hide();
     }
 
     private void OnInventoryInteracted(InventoryData inventoryData, int index, int buttonIndex)
@@ -102,6 +109,21 @@ public partial class Inv : Control
             externalInvContainer.ClearInventoryData(inventoryData);
             inventoryData.InventoryInteracted -= OnInventoryInteracted;
             externalInv.Hide();
+        }
+    }
+
+    public override void _GuiInput(InputEvent @event)
+    {
+        //GD.Print("Mouse entered slot");
+        if (@event is InputEventMouseButton mbe && mbe.Pressed && mbe.ButtonIndex == MouseButton.Left)
+        {
+            if (grabbedSlotData != null)
+            {
+                EmitSignal(SignalName.DropSlotDataFromInventory, grabbedSlotData);
+                grabbedSlotData = null;
+                UpdateGrabbedSlot();
+            }
+
         }
     }
 

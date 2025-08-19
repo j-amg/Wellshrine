@@ -90,10 +90,19 @@ public partial class Global : Node
 		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
 		foreach (Chest n in GetTree().GetNodesInGroup("external_inventories").Cast<Chest>())
 		{
-			GD.Print("connected");
 			n.ToggleInventory += OnExternalInventoryToggle;
 		}
+		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 	}
+
+	private void OnDropSlotDataFromInventory(SlotData slotData)
+	{
+		GroundItem groundItem = (GroundItem)item.Instantiate();
+		groundItem.slotData = slotData;
+		groundItem.Position = player.GetDropPosition();
+		GetTree().CurrentScene.CallDeferred("add_child", groundItem);
+
+    }
 
     private void OnExternalInventoryToggle(Chest inventoryOwner)
     {

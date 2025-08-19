@@ -81,7 +81,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		
 		SpawnDelay();
 	}
-
 	public async void SpawnDelay()
     {
 		await ToSignal(GetTree().CreateTimer(1), "timeout");
@@ -129,7 +128,8 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 
 	public void Die()
 	{
-		GroundItem GenItem = GroundItem.InitGroundItem(Position);
+        SlotData slotData = new() {itemData = GD.Load<ItemData>("res://inventory/items/gold.tres")};
+        GroundItem GenItem = GroundItem.InitGroundItem(slotData, Position);
 		GetTree().CurrentScene.CallDeferred("add_child", GenItem);
 		CallDeferred("queue_free");
 	}
