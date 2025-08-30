@@ -9,10 +9,11 @@ public partial class Inv : Control
 
     [Export] public InvContainer invContainer;
     [Export] public InvSlot grabbedSlot;
-    [Export] public InvContainer externalInvContainer;
-    [Export] public PanelContainer externalInv;
+    [Export] public InvContainer chestInvContainer;
+    [Export] public PanelContainer chestInv;
+    [Export] public PanelContainer doorChestInv;
+    [Export] public InvContainer doorChestInvContainer;
     [Export] public Tooltip tooltip;
-    [Export] public InvContainer equipmentInvContainer1;
     public Chest currentExternalInventoryOwner;
     public InventoryData inventoryData;
     public SlotData grabbedSlotData;
@@ -92,12 +93,22 @@ public partial class Inv : Control
         currentExternalInventoryOwner = externalInventoryOwner;
         InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
 
-        externalInvContainer.SetInventoryData(inventoryData);
         inventoryData.InventoryInteracted += OnInventoryInteracted;
         inventoryData.InventorySlotHovered += OnInventorySlotHovered;
         inventoryData.InventorySlotExited += OnInventorySlotExited;
-        externalInv.Show();
 
+        switch (externalInventoryOwner.chestType)
+        {
+            case "chest":
+                chestInvContainer.SetInventoryData(inventoryData);
+                chestInv.Show();
+                break;
+            case "doorchest":
+                GD.Print("show door inv");
+                doorChestInvContainer.SetInventoryData(inventoryData);
+                doorChestInv.Show();
+                break;
+        }
     }
 
     internal void ClearExternalInventory()
@@ -105,10 +116,21 @@ public partial class Inv : Control
         if (currentExternalInventoryOwner != null)
         {
             InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
-            currentExternalInventoryOwner = null;
-            externalInvContainer.ClearInventoryData(inventoryData);
+
+            switch (currentExternalInventoryOwner.chestType)
+            {
+                case "chest":
+                    chestInvContainer.ClearInventoryData(inventoryData);
+                    chestInv.Hide();
+                    break;
+                case "doorchest":
+                    doorChestInvContainer.ClearInventoryData(inventoryData);
+                    doorChestInv.Hide();
+                    break;
+            }
+
             inventoryData.InventoryInteracted -= OnInventoryInteracted;
-            externalInv.Hide();
+            currentExternalInventoryOwner = null;
         }
     }
 

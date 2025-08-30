@@ -88,25 +88,18 @@ public partial class Global : Node
 		inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
 		deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-		foreach (Chest n in GetTree().GetNodesInGroup("external_inventories").Cast<Chest>())
-		{
-			n.ToggleInventory += OnExternalInventoryToggle;
-		}
+		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()){ n.ToggleInventory += OnChestInventoryToggle;}
 		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 	}
 
+    private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
+	
 	private void OnDropSlotDataFromInventory(SlotData slotData)
 	{
 		GroundItem groundItem = (GroundItem)item.Instantiate();
 		groundItem.slotData = slotData;
 		groundItem.Position = player.GetDropPosition();
 		GetTree().CurrentScene.CallDeferred("add_child", groundItem);
-
-    }
-
-    private void OnExternalInventoryToggle(Chest inventoryOwner)
-    {
-        ToggleInv(inventoryOwner);
     }
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
@@ -115,27 +108,25 @@ public partial class Global : Node
 		{
 			inventory.Visible = false;
 			Input.MouseMode = Input.MouseModeEnum.Captured;
-			//player.ResumeInput();
 			invOpen = false;
 		}
 		else
 		{
-
 			inventory.Visible = true;
 			Input.MouseMode = Input.MouseModeEnum.Visible;
-			//player.PauseInput();
 			invOpen = true;
 		}
 
 		if (externalInventoryOwner != null)
 		{
+			GD.Print("inv owner not null");
 			inventory.SetExternalInventory(externalInventoryOwner);
 		}
 		else
 		{
 			inventory.ClearExternalInventory();
 		}
-    }
+	}
 
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 	public void DeferredGotoScene(PackedScene nextScene)

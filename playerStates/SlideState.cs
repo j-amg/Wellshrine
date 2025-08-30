@@ -4,7 +4,6 @@ using System;
 public partial class SlideState : State
 {
     private float speed;
-
     public override void Enter()
     {
         speed = owner.slideSpeed;
@@ -17,8 +16,7 @@ public partial class SlideState : State
     }
     public override void Update(double delta)
 	{
-        
-		speed -= .75f;
+		speed -= 1f;
         owner.UpdateInput(speed, owner.acceleration, owner.deceleration);
         owner.UpdateVelocity();
 		if (speed <= owner.crouchSpeed) EmitSignal(SignalName.transition, "crouch");

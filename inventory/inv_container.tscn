@@ -4,6 +4,13 @@
 
 [node name="GridContainer" type="GridContainer"]
 layout_direction = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/h_separation = 0

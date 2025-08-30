@@ -35,8 +35,8 @@ import/fbx/enabled=false
 
 [global_group]
 
-external_inventories=""
 shrines=""
+chests=""
 
 [input]
 

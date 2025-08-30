@@ -12,6 +12,7 @@ public partial class InventoryData : Resource
     [Signal] public delegate void InventorySlotExitedEventHandler(InventoryData inventoryData, int index);
     
     [Export] public Array<SlotData> slotDatas = [];
+    [Export] public int allowedTypeID;
 
     public void OnSlotClicked(int index, int buttonIndex)
     {

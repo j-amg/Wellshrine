@@ -16,7 +16,6 @@ noise = SubResource("FastNoiseLite_pat8s")
 script = ExtResource("1_3onu5")
 name = "Gold"
 description = "Basic Currency dropped from enemies"
-level = 1
 stackable = true
 texture = SubResource("NoiseTexture2D_2bq6f")
 metadata/_custom_type_script = "uid://ua387f0tvq2s"

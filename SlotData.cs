@@ -5,6 +5,7 @@ using Godot;
 public partial class SlotData : Resource
 {
     public const int MAX_STACK_SIZE = 99;
+    [Export] public int AllowedTypeID;
     [Export] public ItemData itemData;
     private int quantity = 1;
     [Export(PropertyHint.Range, "1, 99, 1")]

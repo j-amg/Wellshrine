@@ -18,7 +18,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 0, 1)
 
-[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "externalInvContainer", "externalInv", "tooltip")]
+[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "chestInvContainer", "chestInv", "doorChestInv", "doorChestInvContainer", "tooltip")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,8 +28,10 @@ grow_vertical = 2
 script = ExtResource("3_vqpb6")
 invContainer = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer2/CenterContainer/invborder/GridContainer")
 grabbedSlot = NodePath("grabbedSlot")
-externalInvContainer = NodePath("externalInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
-externalInv = NodePath("externalInventory")
+chestInvContainer = NodePath("externalInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
+chestInv = NodePath("externalInventory")
+doorChestInv = NodePath("doorInventory")
+doorChestInvContainer = NodePath("doorInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
 tooltip = NodePath("tooltip")
 
 [node name="playerInventory" type="PanelContainer" parent="."]
@@ -93,7 +95,29 @@ set
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 
-[node name="GridContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container" instance=ExtResource("4_e03q1")]
+[node name="CenterContainer" type="CenterContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer"]
+layout_mode = 2
+
+[node name="GridContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="GridContainer2" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="GridContainer3" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="GridContainer4" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="GridContainer5" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
@@ -150,11 +174,58 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="GridContainer2" parent="externalInventory/MarginContainer/VBoxContainer/CenterContainer" instance=ExtResource("4_e03q1")]
-custom_minimum_size = Vector2(320, 240)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
+
+[node name="doorInventory" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -57.5
+offset_right = 60.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="MarginContainer" type="MarginContainer" parent="doorInventory"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="doorInventory/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keyhole"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="doorInventory/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer2" parent="doorInventory/MarginContainer/VBoxContainer/CenterContainer" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="doorInventory/MarginContainer/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+text = "Open"
 
 [node name="grabbedSlot" parent="." instance=ExtResource("4_bgm1y")]
 visible = false

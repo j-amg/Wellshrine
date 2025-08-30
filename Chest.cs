@@ -5,12 +5,12 @@ public partial class Chest : StaticBody3D, IInteractable, IHoverable
 {
 
     [Signal] public delegate void ToggleInventoryEventHandler(Chest inventoryOwner);
+    [Export(PropertyHint.Enum, "chest,doorchest")] public string chestType;
+    [Export] public InventoryData inventoryData;
     public Color ReticleModulate { get; set; }
     public bool Active { get; set; }
     public bool Tooltip { get; set; }
     public string TooltipText { get; set; }
-
-    [Export] public InventoryData inventoryData;
 
     public override void _Ready()
     {
@@ -23,7 +23,6 @@ public partial class Chest : StaticBody3D, IInteractable, IHoverable
     public virtual void OnInteract()
     {
         EmitSignal(SignalName.ToggleInventory, this);
-        //GD.Print("chest interact");
     }
 
     public void StartHover()

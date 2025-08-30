@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_l40o6"]
 script = ExtResource("3_3idk0")
+AllowedTypeID = 0
 itemData = ExtResource("2_a60gu")
 Quantity = 1
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"

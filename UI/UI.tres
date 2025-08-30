@@ -16,6 +16,7 @@ texture_margin_bottom = 14.0
 [resource]
 default_font = ExtResource("1_ipcts")
 default_font_size = 16
+Button/font_sizes/font_size = 32
 Label/colors/font_color = Color(1, 1, 0, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -33,3 +34,4 @@ MarginContainer/constants/margin_right = 8
 MarginContainer/constants/margin_top = 8
 Panel/styles/panel = SubResource("StyleBoxTexture_hc4gp")
 PanelContainer/styles/panel = ExtResource("3_esjin")
+VBoxContainer/constants/separation = 8
