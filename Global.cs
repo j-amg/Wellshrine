@@ -60,14 +60,14 @@ public partial class Global : Node
 
 	public override void _Ready()
 	{
-		charSound = GD.Load<AudioStream>("res://audio/bip.wav");
+
 		Gets();
 		Reset();
 		PreloadObjects();
 		// audio
-		music = GD.Load<AudioStream>("res://audio/wellshrine.wav");
-		musicPlayer = new() { VolumeDb = Mathf.LinearToDb(.1f) };
-		AddChild(musicPlayer);
+		// musicPlayer = new() { VolumeDb = Mathf.LinearToDb(.1f) };
+		// AddChild(musicPlayer);
+		charSound = GD.Load<AudioStream>("res://audio/bip.wav");
 			
 		}
 		
@@ -75,7 +75,7 @@ public partial class Global : Node
 	{
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
-		item = GD.Load<PackedScene>("res://ground_item.tscn");
+		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
 	}
 
 	private void Gets()
@@ -88,8 +88,9 @@ public partial class Global : Node
 		inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
 		deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()){ n.ToggleInventory += OnChestInventoryToggle;}
+		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
 		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
+		inventory.SetPlayerInventoryData(player.inventoryData);
 	}
 
     private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }

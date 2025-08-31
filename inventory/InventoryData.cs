@@ -6,29 +6,26 @@ using Godot.Collections;
 public partial class InventoryData : Resource
 {
 
-    [Signal] public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int buttonIndex);
     [Signal] public delegate void InventoryUpdatedEventHandler(InventoryData inventoryData);
-    [Signal] public delegate void InventorySlotHoveredEventHandler(InventoryData inventoryData, int index);
-    [Signal] public delegate void InventorySlotExitedEventHandler(InventoryData inventoryData, int index);
-    
+    [Signal] public delegate void InventoryInteractedEventHandler(InventoryData inventoryData, int index, int buttonIndex, InvSlot invSlot);
+    [Signal] public delegate void InventorySlotHoveredEventHandler(InventoryData inventoryData, int index, InvSlot invSlot);
+    [Signal] public delegate void InventorySlotExitedEventHandler(InventoryData inventoryData, int index, InvSlot invSlot);
     [Export] public Array<SlotData> slotDatas = [];
     [Export] public int allowedTypeID;
 
-    public void OnSlotClicked(int index, int buttonIndex)
+    public void OnSlotClicked(int index, int buttonIndex, InvSlot invSlot)
     {
-        EmitSignal(SignalName.InventoryInteracted, this, index, buttonIndex);
+        EmitSignal(SignalName.InventoryInteracted, this, index, buttonIndex, invSlot);
     }
 
-    public void OnSlotEntered(int index)
+    public void OnSlotEntered(int index, InvSlot invslot)
     {
-        GD.Print("entered");
-        EmitSignal(SignalName.InventorySlotHovered, this, index);
+        EmitSignal(SignalName.InventorySlotHovered, this, index, invslot);
     }
 
-    public void OnSlotExited(int index)
+    public void OnSlotExited(int index, InvSlot invSlot)
     {
-        GD.Print("exited");
-        EmitSignal(SignalName.InventorySlotExited, this, index);
+        EmitSignal(SignalName.InventorySlotExited, this, index, invSlot);
     }
 
     public SlotData GrabSlotData(int index)
@@ -49,12 +46,15 @@ public partial class InventoryData : Resource
 
     public virtual SlotData DropSlotData(int index, SlotData grabbedSlotData)
     {
+
+        if (allowedTypeID != 0 && grabbedSlotData.itemData.TypeID != allowedTypeID) return grabbedSlotData;
+
         SlotData currentSlotData = slotDatas[index];
 
         SlotData returnSlotData = null;
         if (currentSlotData != null && currentSlotData.CanFullyMergeWith(grabbedSlotData))
         {
-            
+
             currentSlotData.FullyMergeWith(grabbedSlotData);
         }
         else
@@ -107,5 +107,10 @@ public partial class InventoryData : Resource
             }
         }
         return false;
+    }
+    
+    public bool IsItemAllowed(ItemData item)
+    {
+        return allowedTypeID == 0 || allowedTypeID == item.TypeID;
     }
 }

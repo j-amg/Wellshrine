@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bokxw5jvk4mq1"]
+[gd_scene load_steps=5 format=3 uid="uid://71n8w0xi8ovv"]
 
-[ext_resource type="Script" path="res://Shrine.cs" id="1_7aram"]
+[ext_resource type="Script" uid="uid://c8qtl3gqmjbip" path="res://zones/zoneComponents/Shrine.cs" id="1_7aram"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_yy2na"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_imbuu"]
@@ -12,7 +12,6 @@ viewport_path = NodePath("SubViewport")
 [node name="shrine" type="StaticBody3D" node_paths=PackedStringArray("magic", "label", "name") groups=["shrines"]]
 collision_layer = 2
 script = ExtResource("1_7aram")
-magicModulate = null
 magic = NodePath("magic")
 label = NodePath("Sprite3D")
 name = NodePath("SubViewport/Control/Name")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ce0iewpnmvmjr" path="res://UI/Hud.cs" id="1_afaig"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_q7u4o"]
-[ext_resource type="Script" uid="uid://qaany8ek8icj" path="res://ItemInHand.cs" id="4_640wx"]
+[ext_resource type="Script" uid="uid://qaany8ek8icj" path="res://inventory/ItemInHand.cs" id="4_640wx"]
 
 [sub_resource type="Gradient" id="Gradient_88dwc"]
 interpolation_mode = 2

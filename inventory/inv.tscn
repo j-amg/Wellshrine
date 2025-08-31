@@ -18,7 +18,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 0, 1)
 
-[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "chestInvContainer", "chestInv", "doorChestInv", "doorChestInvContainer", "tooltip")]
+[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,11 +28,16 @@ grow_vertical = 2
 script = ExtResource("3_vqpb6")
 invContainer = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer2/CenterContainer/invborder/GridContainer")
 grabbedSlot = NodePath("grabbedSlot")
-chestInvContainer = NodePath("externalInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
 chestInv = NodePath("externalInventory")
+chestInvContainer = NodePath("externalInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
 doorChestInv = NodePath("doorInventory")
 doorChestInvContainer = NodePath("doorInventory/MarginContainer/VBoxContainer/CenterContainer/GridContainer2")
 tooltip = NodePath("tooltip")
+EquipmentInvContainer1 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot1")
+EquipmentInvContainer2 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot2")
+EquipmentInvContainer3 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot3")
+EquipmentInvContainer4 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot4")
+EquipmentInvContainer5 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot5")
 
 [node name="playerInventory" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 1080)
@@ -101,23 +106,23 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer"]
 layout_mode = 2
 
-[node name="GridContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot1" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="GridContainer2" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot2" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="GridContainer3" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot3" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="GridContainer4" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot4" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="GridContainer5" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot5" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 

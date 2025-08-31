@@ -47,8 +47,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private AudioStream castIce;
 	[Export]
 	private AudioStream castShock;
-	[Export] public InventoryData inventoryData;
-
+	[Export] public InventoryData[] inventoryData;
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;

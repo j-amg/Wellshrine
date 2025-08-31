@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://diqqia20mq3iu"]
 
-[ext_resource type="Script" uid="uid://bjkp2bdgm0i0l" path="res://Checkpoint.cs" id="1_2sxsr"]
+[ext_resource type="Script" uid="uid://bjkp2bdgm0i0l" path="res://zones/zoneComponents/Checkpoint.cs" id="1_2sxsr"]
 
 [node name="Node3D" type="Area3D"]
 script = ExtResource("1_2sxsr")

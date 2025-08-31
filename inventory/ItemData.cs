@@ -8,4 +8,5 @@ public partial class ItemData : Resource
     [Export] public string description = "";
     [Export] public bool stackable = false;
     [Export] public Texture2D texture;
+    [Export] public int TypeID = 0;
 }

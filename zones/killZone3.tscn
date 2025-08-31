@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="3_ety1f"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="3_ojwv2"]
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_m1ufs"]
-[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="4_vrpaj"]
+[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://zones/zoneComponents/door.tscn" id="4_vrpaj"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_206aa"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="5_ayyio"]
-[ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://enemySpawner.tscn" id="6_kqvpp"]
+[ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://zones/zoneComponents/enemySpawner.tscn" id="6_kqvpp"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="8_m1ufs"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g474y"]
@@ -150,6 +150,7 @@ mouse_filter = 2
 
 [node name="player" parent="." instance=ExtResource("2_vpcb4")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 8, -14.0523)
+inventoryData = null
 metadata/_edit_lock_ = true
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]

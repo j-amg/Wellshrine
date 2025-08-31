@@ -2,8 +2,8 @@
 
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
-uid="uid://bducgynngy8jq"
-path.bptc="res://.godot/imported/startZone.exr-b737f762c07421ccf72d454e39e0dcde.bptc.ctexarray"
+uid="uid://bfcgs4dvwfkdr"
+path.bptc="res://.godot/imported/killZone5.exr-83451a1709871d4eac3f0b0f277dd5d8.bptc.ctexarray"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://startZone.exr"
-dest_files=["res://.godot/imported/startZone.exr-b737f762c07421ccf72d454e39e0dcde.bptc.ctexarray"]
+source_file="res://tileset/killZone5.exr"
+dest_files=["res://.godot/imported/killZone5.exr-83451a1709871d4eac3f0b0f277dd5d8.bptc.ctexarray"]
 
 [params]
 

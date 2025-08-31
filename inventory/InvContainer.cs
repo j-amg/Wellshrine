@@ -9,19 +9,10 @@ public partial class InvContainer : GridContainer
     public PackedScene slotScene;
     private int slotSize = 32;
 
-    public override void _Ready()
-    {
-        slotScene = GD.Load<PackedScene>("res://inventory/inv_slot.tscn");
-    }
-
     public void InitSlots(InventoryData inventoryData)
     {
-        //dynamic sizing
-
-        // int colNum = (int)MathF.Floor(Size.X / slotSize);
-        // int rowNum = (int)MathF.Floor(Size.Y / slotSize);
-        // int numSlots = colNum * rowNum;
-        // Columns = colNum;
+        Global.Singleton.inventory.SlotGrabbed += slotData => OnSlotGrabbed(slotData, inventoryData);
+        slotScene = GD.Load<PackedScene>("res://inventory/inv_slot.tscn");
 
         foreach (Node n in GetChildren()) { n.QueueFree(); }
 
@@ -35,7 +26,17 @@ public partial class InvContainer : GridContainer
             slot.SlotInput += inventoryData.OnSlotClicked;
             slot.SlotHover += inventoryData.OnSlotEntered;
             slot.SlotExit += inventoryData.OnSlotExited;
-            
+        }
+    }
+
+    private void OnSlotGrabbed(SlotData slotData, InventoryData inventoryData)
+    {
+        if (slotData.itemData.TypeID == inventoryData.allowedTypeID && inventoryData.allowedTypeID != 0)
+        {
+            foreach (InvSlot s in GetChildren().Cast<InvSlot>())
+            {
+                s.SelfModulate = new Color(0, 1, 0, 1);
+            }
         }
     }
 

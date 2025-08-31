@@ -5,20 +5,20 @@
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://UI/hud.tscn" id="4_dkoc8"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_2uyrr"]
-[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_m42jd"]
+[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://zones/zoneComponents/door.tscn" id="5_m42jd"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_osk5y"]
-[ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://weaponShrine.tscn" id="6_x5xxv"]
+[ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://zones/zoneComponents/weaponShrine.tscn" id="6_x5xxv"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="7_r6k4g"]
-[ext_resource type="LightmapGIData" uid="uid://dyuglitguf7fs" path="res://startZone.lmbake" id="9_aulnw"]
+[ext_resource type="LightmapGIData" uid="uid://dyuglitguf7fs" path="res://tileset/startZone.lmbake" id="9_aulnw"]
 [ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="10_dkoc8"]
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="12_qbchw"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="13_xj85n"]
-[ext_resource type="PackedScene" uid="uid://c6jnxetwosnsg" path="res://chest.tscn" id="14_bysxa"]
-[ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://InventoryData.cs" id="15_jqp77"]
-[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://SlotData.cs" id="16_2lqes"]
+[ext_resource type="PackedScene" uid="uid://c6jnxetwosnsg" path="res://zones/zoneComponents/chest.tscn" id="14_bysxa"]
+[ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="15_jqp77"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="16_2lqes"]
 [ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="17_5b0lf"]
-[ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://ground_item.tscn" id="18_2lqes"]
-[ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://doorInv.tres" id="19_5b0lf"]
+[ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://inventory/ground_item.tscn" id="18_2lqes"]
+[ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://inventory/inventories/doorInventory.tres" id="19_5b0lf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2drdb"]
 lightmap_size_hint = Vector2i(434, 422)
@@ -71,7 +71,6 @@ dof_blur_far_transition = 35.41
 
 [sub_resource type="Resource" id="Resource_ssr2x"]
 script = ExtResource("16_2lqes")
-AllowedTypeID = 0
 itemData = ExtResource("17_5b0lf")
 Quantity = 50
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
@@ -79,6 +78,7 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 [sub_resource type="Resource" id="Resource_hsp5b"]
 script = ExtResource("15_jqp77")
 slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"), null, null, null, null, null, null])
+allowedTypeID = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
@@ -157,16 +157,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 chestType = "chest"
 inventoryData = SubResource("Resource_hsp5b")
 
-[node name="groundItem" parent="." instance=ExtResource("18_2lqes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77434, 0, 8.22087)
-
-[node name="groundItem2" parent="." instance=ExtResource("18_2lqes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52575, 0, 8.78769)
-
-[node name="groundItem3" parent="." instance=ExtResource("18_2lqes")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.69247, -1.19209e-07, 8.14166)
-
 [node name="doorChest" parent="." groups=["chests"] instance=ExtResource("14_bysxa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 11.5)
 chestType = "doorchest"
 inventoryData = ExtResource("19_5b0lf")
+
+[node name="groundItem" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83246, 0, 7.34623)
+
+[node name="groundItem2" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32082, 0, 8.49403)
+
+[node name="groundItem3" parent="." instance=ExtResource("18_2lqes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0797, 0, 7.04872)

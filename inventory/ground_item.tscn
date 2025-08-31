@@ -1,12 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://2urejxveqm6g"]
 
-[ext_resource type="Script" uid="uid://c4ga8uk43sgj2" path="res://GroundItem.cs" id="1_dgtp1"]
+[ext_resource type="Script" uid="uid://c4ga8uk43sgj2" path="res://inventory/GroundItem.cs" id="1_dgtp1"]
 [ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="2_a60gu"]
-[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://SlotData.cs" id="3_3idk0"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="3_3idk0"]
 
 [sub_resource type="Resource" id="Resource_l40o6"]
 script = ExtResource("3_3idk0")
-AllowedTypeID = 0
 itemData = ExtResource("2_a60gu")
 Quantity = 1
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"

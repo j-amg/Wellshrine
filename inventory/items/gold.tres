@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://bst6l3jo81ft8"]
 
-[ext_resource type="Script" uid="uid://ua387f0tvq2s" path="res://ItemData.cs" id="1_3onu5"]
+[ext_resource type="Script" uid="uid://ua387f0tvq2s" path="res://inventory/ItemData.cs" id="1_3onu5"]
 
 [sub_resource type="Gradient" id="Gradient_3onu5"]
 
@@ -18,4 +18,5 @@ name = "Gold"
 description = "Basic Currency dropped from enemies"
 stackable = true
 texture = SubResource("NoiseTexture2D_2bq6f")
+TypeID = 0
 metadata/_custom_type_script = "uid://ua387f0tvq2s"

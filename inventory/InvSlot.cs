@@ -4,51 +4,43 @@ using System;
 public partial class InvSlot : Panel
 {
 
-	[Signal] public delegate void SlotInputEventHandler(int index, int buttonIndex);
-	[Signal] public delegate void SlotHoverEventHandler(int index);
-	[Signal] public delegate void SlotExitEventHandler(int index);
-
+	[Signal] public delegate void SlotInputEventHandler(int index, int buttonIndex, InvSlot invSlot);
+	[Signal] public delegate void SlotHoverEventHandler(int index, InvSlot invSlot);
+	[Signal] public delegate void SlotExitEventHandler(int index, InvSlot invSlot);
 	[Export] public CenterContainer container;
-
 	[Export] TextureRect texture;
 	[Export] Label quantityLabel;
-    [Export] Color defaultModulate;
-    
-    public ItemData itemData;
+	public bool highlighted = false;
+    //[Export] Color defaultModulate;
+
 
 	public override void _Ready()
-    {
-        defaultModulate = SelfModulate;
-        MouseEntered += OnMouseEntered;
-        MouseExited += OnMouseExited;
-    }
+	{
+		//defaultModulate = SelfModulate;
+		MouseEntered += OnMouseEntered;
+		MouseExited += OnMouseExited;
+	}
     private void OnMouseEntered()
-    {
-        if (itemData != null || (Global.Singleton.inventory.grabbedSlotData != null && itemData == null))
-        {
-            SelfModulate = new Color(0, 1, 0, defaultModulate.A);
-        }    
-        EmitSignal(SignalName.SlotHover, GetIndex());
+    {   
+        EmitSignal(SignalName.SlotHover, GetIndex(), this);
     }
 
     private void OnMouseExited()
     {
-    	SelfModulate = defaultModulate;
-        EmitSignal(SignalName.SlotExit, GetIndex());
+        EmitSignal(SignalName.SlotExit, GetIndex(), this);
     }
 
     public override void _GuiInput(InputEvent @event)	{
 		if (@event is InputEventMouseButton mbe && mbe.Pressed)
 		{
-			EmitSignal(SignalName.SlotInput, GetIndex(), (int)mbe.ButtonIndex);
+			EmitSignal(SignalName.SlotInput, GetIndex(), (int)mbe.ButtonIndex, this);
 		}
 	}
 	
 
 	public void SetSlotData(SlotData slotdata)
 	{
-		itemData = slotdata.itemData;
-		texture.Texture = itemData.texture;
+		texture.Texture = slotdata.itemData.texture;
 		quantityLabel.Text = slotdata.Quantity.ToString();
 
 		if (slotdata.Quantity > 1)

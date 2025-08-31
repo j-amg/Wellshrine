@@ -6,26 +6,24 @@ public partial class Inv : Control
 {
 
     [Signal] public delegate void DropSlotDataFromInventoryEventHandler(SlotData slotData);
+    [Signal] public delegate void SlotGrabbedEventHandler(SlotData slotData);
 
     [Export] public InvContainer invContainer;
     [Export] public InvSlot grabbedSlot;
-    [Export] public InvContainer chestInvContainer;
     [Export] public PanelContainer chestInv;
+    [Export] public InvContainer chestInvContainer;
     [Export] public PanelContainer doorChestInv;
     [Export] public InvContainer doorChestInvContainer;
     [Export] public Tooltip tooltip;
+    [Export] public InvContainer EquipmentInvContainer1;
+    [Export] public InvContainer EquipmentInvContainer2;
+    [Export] public InvContainer EquipmentInvContainer3;
+    [Export] public InvContainer EquipmentInvContainer4;
+    [Export] public InvContainer EquipmentInvContainer5;
+
     public Chest currentExternalInventoryOwner;
     public InventoryData inventoryData;
     public SlotData grabbedSlotData;
-
-    public override void _Ready()
-    {
-        inventoryData = Global.Singleton.player.inventoryData;
-        invContainer.SetInventoryData(inventoryData);
-        inventoryData.InventoryInteracted += OnInventoryInteracted;
-        inventoryData.InventorySlotHovered += OnInventorySlotHovered;
-        inventoryData.InventorySlotExited += OnInventorySlotExited;
-    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -33,25 +31,100 @@ public partial class Inv : Control
         {
             tooltip.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
             grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
-        }    
+        }
     }
 
-    private void OnInventorySlotHovered(InventoryData inventoryData, int index)
+    public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)
+    {
+        inventoryData = PlayerInventoryData[0];
+        invContainer.SetInventoryData(PlayerInventoryData[0]);
+        EquipmentInvContainer1.SetInventoryData(PlayerInventoryData[1]);
+        EquipmentInvContainer2.SetInventoryData(PlayerInventoryData[2]);
+        EquipmentInvContainer3.SetInventoryData(PlayerInventoryData[3]);
+        EquipmentInvContainer4.SetInventoryData(PlayerInventoryData[4]);
+        EquipmentInvContainer5.SetInventoryData(PlayerInventoryData[5]);
+
+        foreach (InventoryData id in PlayerInventoryData)
+        {
+            id.InventoryInteracted += OnInventoryInteracted;
+            id.InventorySlotHovered += OnInventorySlotHovered;
+            id.InventorySlotExited += OnInventorySlotExited;
+        }
+    }
+
+    public void SetExternalInventory(Chest externalInventoryOwner)
+    {
+        currentExternalInventoryOwner = externalInventoryOwner;
+        InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
+
+        inventoryData.InventoryInteracted += OnInventoryInteracted;
+        inventoryData.InventorySlotHovered += OnInventorySlotHovered;
+        inventoryData.InventorySlotExited += OnInventorySlotExited;
+
+        switch (externalInventoryOwner.chestType)
+        {
+            case "chest":
+                chestInvContainer.SetInventoryData(inventoryData);
+                chestInv.Show();
+                break;
+            case "doorchest":
+                doorChestInvContainer.SetInventoryData(inventoryData);
+                doorChestInv.Show();
+                break;
+        }
+    }
+
+    internal void ClearExternalInventory()
+    {
+        if (currentExternalInventoryOwner != null)
+        {
+            InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
+
+            switch (currentExternalInventoryOwner.chestType)
+            {
+                case "chest":
+                    chestInvContainer.ClearInventoryData(inventoryData);
+                    chestInv.Hide();
+                    break;
+                case "doorchest":
+                    doorChestInvContainer.ClearInventoryData(inventoryData);
+                    doorChestInv.Hide();
+                    break;
+            }
+
+            inventoryData.InventoryInteracted -= OnInventoryInteracted;
+            currentExternalInventoryOwner = null;
+        }
+    }
+
+
+    private void OnInventorySlotHovered(InventoryData inventoryData, int index, InvSlot invSlot)
     {
         SlotData slot = inventoryData.slotDatas[index];
+
+        if (grabbedSlotData != null && slot == null)
+        {
+            if (inventoryData.IsItemAllowed(grabbedSlotData.itemData))
+            {
+                invSlot.SelfModulate = new Color(0, 1, 0, 1);
+            } else invSlot.SelfModulate = new Color(1, 0, 0, 1);
+        }
+        
         if (slot != null)
         {
+            invSlot.SelfModulate = new Color(0, 1, 0, 1);
             tooltip.SetItem(slot.itemData);
             tooltip.Show();
         }
     }
 
-    private void OnInventorySlotExited(InventoryData inventoryData, int index)
+    private void OnInventorySlotExited(InventoryData inventoryData, int index, InvSlot invSlot)
     {
+        invSlot.SelfModulate = new Color(1,1,1,1);
         tooltip.Hide();
     }
 
-    private void OnInventoryInteracted(InventoryData inventoryData, int index, int buttonIndex)
+    private void OnInventoryInteracted(InventoryData inventoryData, int index, int buttonIndex, InvSlot invSlot)
     {
         if (buttonIndex == 1) // left click
         {
@@ -84,54 +157,9 @@ public partial class Inv : Control
         {
             grabbedSlot.Show();
             grabbedSlot.SetSlotData(grabbedSlotData);
+            EmitSignal(SignalName.SlotGrabbed, grabbedSlotData);
         }
         else grabbedSlot.Hide();
-    }
-
-    internal void SetExternalInventory(Chest externalInventoryOwner)
-    {
-        currentExternalInventoryOwner = externalInventoryOwner;
-        InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
-
-        inventoryData.InventoryInteracted += OnInventoryInteracted;
-        inventoryData.InventorySlotHovered += OnInventorySlotHovered;
-        inventoryData.InventorySlotExited += OnInventorySlotExited;
-
-        switch (externalInventoryOwner.chestType)
-        {
-            case "chest":
-                chestInvContainer.SetInventoryData(inventoryData);
-                chestInv.Show();
-                break;
-            case "doorchest":
-                GD.Print("show door inv");
-                doorChestInvContainer.SetInventoryData(inventoryData);
-                doorChestInv.Show();
-                break;
-        }
-    }
-
-    internal void ClearExternalInventory()
-    {
-        if (currentExternalInventoryOwner != null)
-        {
-            InventoryData inventoryData = currentExternalInventoryOwner.inventoryData;
-
-            switch (currentExternalInventoryOwner.chestType)
-            {
-                case "chest":
-                    chestInvContainer.ClearInventoryData(inventoryData);
-                    chestInv.Hide();
-                    break;
-                case "doorchest":
-                    doorChestInvContainer.ClearInventoryData(inventoryData);
-                    doorChestInv.Hide();
-                    break;
-            }
-
-            inventoryData.InventoryInteracted -= OnInventoryInteracted;
-            currentExternalInventoryOwner = null;
-        }
     }
 
     public override void _GuiInput(InputEvent @event)
