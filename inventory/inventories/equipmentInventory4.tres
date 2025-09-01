@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_vjctc")
 slotDatas = Array[ExtResource("2_qdohy")]([null])
-allowedTypeID = 0
+allowedType = 5
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"

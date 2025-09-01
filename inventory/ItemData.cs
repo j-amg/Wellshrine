@@ -1,6 +1,18 @@
 using System;
 using Godot;
 
+public enum ItemType
+{
+    Generic,
+    Key,
+    Spell,
+    Helmet,
+    Armour,
+    Ring,
+    Amulet,
+    Boot,
+}
+
 [GlobalClass]
 public partial class ItemData : Resource
 {
@@ -8,5 +20,5 @@ public partial class ItemData : Resource
     [Export] public string description = "";
     [Export] public bool stackable = false;
     [Export] public Texture2D texture;
-    [Export] public int TypeID = 0;
+    [Export] public ItemType Type;
 }

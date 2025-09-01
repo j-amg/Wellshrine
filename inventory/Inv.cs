@@ -15,11 +15,16 @@ public partial class Inv : Control
     [Export] public PanelContainer doorChestInv;
     [Export] public InvContainer doorChestInvContainer;
     [Export] public Tooltip tooltip;
+
     [Export] public InvContainer EquipmentInvContainer1;
     [Export] public InvContainer EquipmentInvContainer2;
     [Export] public InvContainer EquipmentInvContainer3;
     [Export] public InvContainer EquipmentInvContainer4;
     [Export] public InvContainer EquipmentInvContainer5;
+
+    [Export] public Label dexLabel;
+    [Export] public Label strLabel;
+    [Export] public Label intLabel;
 
     public Chest currentExternalInventoryOwner;
     public InventoryData inventoryData;
@@ -120,7 +125,11 @@ public partial class Inv : Control
 
     private void OnInventorySlotExited(InventoryData inventoryData, int index, InvSlot invSlot)
     {
-        invSlot.SelfModulate = new Color(1,1,1,1);
+        if (!invSlot.highlighted)
+        {
+            invSlot.SelfModulate = new Color(1,1,1,1);
+        }
+        
         tooltip.Hide();
     }
 
@@ -153,11 +162,11 @@ public partial class Inv : Control
 
     private void UpdateGrabbedSlot()
     {
+        EmitSignal(SignalName.SlotGrabbed, grabbedSlotData);
         if (grabbedSlotData != null)
         {
             grabbedSlot.Show();
             grabbedSlot.SetSlotData(grabbedSlotData);
-            EmitSignal(SignalName.SlotGrabbed, grabbedSlotData);
         }
         else grabbedSlot.Hide();
     }

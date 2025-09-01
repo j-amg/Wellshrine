@@ -75,26 +75,44 @@ size_flags_vertical = 3
 [node name="PanelContainer" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
-text = "test
-tes
-t
-est
-set
-se
-ts
-et
-set
-se
-ts
-et
-set
-s
-et
-set
-set
-"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Intelligence:"
+
+[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "30"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Strength:"
+
+[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "30"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Dexterity:"
+
+[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "30"
 
 [node name="Container" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 240)

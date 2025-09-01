@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Godot;
@@ -48,6 +49,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	private AudioStream castShock;
 	[Export] public InventoryData[] inventoryData;
+	[Export] public AttributeData attributeData;
+
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -198,7 +201,7 @@ public partial class Player : CharacterBody3D, IDamageable
 				{
 					if (Global.Singleton.equippedWeapon == null) return;
 					Attack();
-					Recharge(Global.Singleton.equippedWeapon.recharge * Global.Singleton.GetPlayerModifier("recharge"));
+					Recharge(Global.Singleton.equippedWeapon.recharge);
 				}
 
 			if (Input.IsActionJustPressed("interact"))
@@ -329,7 +332,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);
 		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
 		handSprite.Play("attack");
-		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.Singleton.GetPlayerModifier("recharge") * Global.Singleton.equippedWeapon.recharge)), "timeout");
+		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.Singleton.equippedWeapon.recharge)), "timeout");
 		handSprite.Play(Global.Singleton.currentIdle);
 	}
 }

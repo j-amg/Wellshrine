@@ -7,7 +7,7 @@ public partial class WalkState : State
 	{
         owner.currentJump = 0;
         owner.currentDash = 0;
-        owner.UpdateInput(owner.currentSpeed + Global.Singleton.GetPlayerModifier("moveSpeed"), owner.acceleration, owner.deceleration);
+        owner.UpdateInput(owner.currentSpeed, owner.acceleration, owner.deceleration);
         owner.UpdateVelocity();
 		if (owner.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
         if (Input.IsActionPressed("Shift") && !owner.inputPaused) EmitSignal(SignalName.transition, "slide");

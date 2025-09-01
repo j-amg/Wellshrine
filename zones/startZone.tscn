@@ -78,7 +78,7 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 [sub_resource type="Resource" id="Resource_hsp5b"]
 script = ExtResource("15_jqp77")
 slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"), null, null, null, null, null, null])
-allowedTypeID = 0
+allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
 [node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]

@@ -30,7 +30,6 @@ public partial class Global : Node
 	public bool dead = false;
 	private DeathScreen deathScreen;
 	public Array<string> killZones = ["killZone1","killZone2","killZone3", "killZone4", "killZone5"];
-	public Dictionary<string, StatModifier> statModifiers = [];
 	public Dictionary<string, Weapon> weapons = [];
 
 
@@ -120,7 +119,6 @@ public partial class Global : Node
 
 		if (externalInventoryOwner != null)
 		{
-			GD.Print("inv owner not null");
 			inventory.SetExternalInventory(externalInventoryOwner);
 		}
 		else
@@ -143,7 +141,6 @@ public partial class Global : Node
 
 	public void Reset()
 	{
-		statModifiers.Clear();
 		weapons.Clear();
 		InitEquipment();
 		equippedWeapon = null;
@@ -160,33 +157,6 @@ public partial class Global : Node
 		weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5, "Launch a ball of flame that explodes in a small area on impact. Moderate damage, and moderate recharge duration."));
 		weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2, "Shoot a fast moving spike of ice that pierces enemies and walls. Low damage, but reduced recharge duration."));
 		weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10, "Release a burst of lighting in a short-range area. High damage, but high recharge duration."));
-
-		statModifiers.Add("damage", StatModifier.InitModifier("damage", "+5 Damage", "Increases the base damage of a spell.", "add", 5, 0, 0));
-		statModifiers.Add("critDamage", StatModifier.InitModifier("critDamage", "+25% Critical Damage", "Multiples the damage of a spell on a Critical Hit. Starts at a 200% multiplier.", "add", .25f, 2, 0));
-		statModifiers.Add("moveSpeed", StatModifier.InitModifier("moveSpeed", "+3 Run Speed", "Increases player movement speed", "add", 3, 0, 0));
-		statModifiers.Add("stun", StatModifier.InitModifier("stun", "+0.15s Stun Duration", "Increases the duration that an enemy stops moving after being hit by a spell.", "add", .15f, 0, 0));
-		statModifiers.Add("health", StatModifier.InitModifier("health", "+50 health", "Increases current and maximum player Health. (The amount of damage that a player can sustain before dying.)", "add", 50, 0, 0));
-		statModifiers.Add("recharge", StatModifier.InitModifier("recharge", "-25% recharge", "Reduces the time between when a spell can be recast", "mult", .75f, 1, 0));
-		statModifiers.Add("critChance", StatModifier.InitModifier("critChance", "+10% Critical Chance", "Increases the likeliness that a spell hit will critically strike, dealing increased damage. Critical hit chance above 100% increases the damage multiplier.", "add", .1f, 0, 0));
-	}
-
-	public float GetPlayerModifier(string modifier)
-	{
-		StatModifier m = statModifiers[modifier];
-		if (m.modifier == "add") return m.baseValue + m.value * m.amount;
-		if (m.modifier == "mult") return m.baseValue * (float)Math.Pow(m.value, m.amount);
-		return 0;
-	}
-
-	public void AddPlayerModifier(string modifier)
-	{
-		statModifiers[modifier].amount++;
-		if (modifier == "health")
-		{
-			playerHealth = basePlayerHealth + GetPlayerModifier("health");
-			IncrementPlayerHealth(GetPlayerModifier("health"));
-			EmitSignal(SignalName.HealthChanged);
-		}
 	}
 	public override void _Process(double delta)
 	{
@@ -194,8 +164,6 @@ public partial class Global : Node
 		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
 	}
-
-
 
 	public void SendPopUp(string text, string action)
 	{
@@ -243,8 +211,7 @@ public partial class Global : Node
 		currentDialogueStep = 0;
 		hud.dialogueName.Text = name;
 		AnimateDialogue(dialogueText[0]);
-		hud.dialogue.Visible = true;
-		
+		hud.dialogue.Visible = true;	
 	}
 	
 
@@ -324,18 +291,14 @@ public partial class Global : Node
 	public Damage GetPlayerDamage()
 	{
 		//base damage
-		float damage = (float)GD.RandRange(equippedWeapon.damageMin + GetPlayerModifier("damage"), equippedWeapon.damageMax + GetPlayerModifier("damage"));
+		float damage = (float)GD.RandRange(equippedWeapon.damageMin, equippedWeapon.damageMax);
 		//crit
-		float critValue = equippedWeapon.critChance + GetPlayerModifier("critChance");
+		float critValue = equippedWeapon.critChance;
 		float critBase = Mathf.Ceil(critValue);
 		float critRoll = GD.Randf();
 		bool crit = critRoll <= critValue;
 		bool critExcess = critRoll <= (critValue - MathF.Truncate(critValue));
-		// GD.Print("crit" + crit);
-		// GD.Print("critExcess " + critExcess);
-		// GD.Print("critBase " + critBase);
-		damage *= critExcess ? (GetPlayerModifier("critDamage") * critBase) : 1;
-		// GD.Print("damage " + damage);
+		damage *= critExcess ? critBase : 1;
 		return Damage.InitDamage(damage, crit, player);
 	}
 
@@ -397,13 +360,12 @@ public partial class Global : Node
 	public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
 
 	public void PlayMusic()
-		{
-			musicPlayer.Stream = music;
-			musicPlayer.Play();
-		}
+	{
+		musicPlayer.Stream = music;
+		musicPlayer.Play();
+	}
 
     public void PauseMusic() => musicPlayer.StreamPaused = true;
-
     public void ResumeMusic() => musicPlayer.StreamPaused = false;
 
 }

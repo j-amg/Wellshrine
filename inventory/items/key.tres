@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=3 format=3 uid="uid://kyi80hdxgd40"]
 
-[ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="1_yrljt"]
+[ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="1_qjfcu"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yrljt"]
 size = Vector2(16, 16)
 
 [resource]
-script = ExtResource("1_yrljt")
-defence = 5
-name = "Iron Helmet"
-description = "klaskldmaklsd"
+script = ExtResource("1_qjfcu")
+attributeModifiers = []
+name = "Key"
+description = "Opens a zone"
 stackable = false
 texture = SubResource("PlaceholderTexture2D_yrljt")
-TypeID = 1
+Type = 1
 metadata/_custom_type_script = "uid://bkyeaoa6sbog3"

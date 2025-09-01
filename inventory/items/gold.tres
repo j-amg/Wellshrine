@@ -18,5 +18,5 @@ name = "Gold"
 description = "Basic Currency dropped from enemies"
 stackable = true
 texture = SubResource("NoiseTexture2D_2bq6f")
-TypeID = 0
+Type = 0
 metadata/_custom_type_script = "uid://ua387f0tvq2s"

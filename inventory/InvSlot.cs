@@ -11,12 +11,9 @@ public partial class InvSlot : Panel
 	[Export] TextureRect texture;
 	[Export] Label quantityLabel;
 	public bool highlighted = false;
-    //[Export] Color defaultModulate;
-
 
 	public override void _Ready()
 	{
-		//defaultModulate = SelfModulate;
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;
 	}

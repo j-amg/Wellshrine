@@ -31,10 +31,18 @@ public partial class InvContainer : GridContainer
 
     private void OnSlotGrabbed(SlotData slotData, InventoryData inventoryData)
     {
-        if (slotData.itemData.TypeID == inventoryData.allowedTypeID && inventoryData.allowedTypeID != 0)
+        if (slotData == null)
         {
             foreach (InvSlot s in GetChildren().Cast<InvSlot>())
             {
+                s.highlighted = false;
+                s.SelfModulate = new Color(1, 1, 1, 1);
+            }
+        } else if (slotData.itemData.Type == inventoryData.allowedType && inventoryData.allowedType != 0)
+        {
+            foreach (InvSlot s in GetChildren().Cast<InvSlot>())
+            {
+                s.highlighted = true;
                 s.SelfModulate = new Color(0, 1, 0, 1);
             }
         }

@@ -93,7 +93,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		if (sm.current_state.Name != "attack" && sprite.Animation != "spawn") sprite.Play("stun");
 		SetPhysicsProcess(false);
 		stunned = true;
-		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration + Global.Singleton.GetPlayerModifier("stun")), "timeout");
+		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
 		stunned = false;
 		SetPhysicsProcess(true);
 	}

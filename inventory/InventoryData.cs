@@ -11,7 +11,7 @@ public partial class InventoryData : Resource
     [Signal] public delegate void InventorySlotHoveredEventHandler(InventoryData inventoryData, int index, InvSlot invSlot);
     [Signal] public delegate void InventorySlotExitedEventHandler(InventoryData inventoryData, int index, InvSlot invSlot);
     [Export] public Array<SlotData> slotDatas = [];
-    [Export] public int allowedTypeID;
+    [Export] public ItemType allowedType;
 
     public void OnSlotClicked(int index, int buttonIndex, InvSlot invSlot)
     {
@@ -47,7 +47,7 @@ public partial class InventoryData : Resource
     public virtual SlotData DropSlotData(int index, SlotData grabbedSlotData)
     {
 
-        if (allowedTypeID != 0 && grabbedSlotData.itemData.TypeID != allowedTypeID) return grabbedSlotData;
+        if (allowedType != 0 && grabbedSlotData.itemData.Type != allowedType) return grabbedSlotData;
 
         SlotData currentSlotData = slotDatas[index];
 
@@ -111,6 +111,6 @@ public partial class InventoryData : Resource
     
     public bool IsItemAllowed(ItemData item)
     {
-        return allowedTypeID == 0 || allowedTypeID == item.TypeID;
+        return allowedType == ItemType.Generic || allowedType == item.Type;
     }
 }
