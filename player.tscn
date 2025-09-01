@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=111 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
@@ -26,30 +26,11 @@
 [ext_resource type="Resource" uid="uid://cer33xkt0pkma" path="res://inventory/inventories/equipmentInventory3.tres" id="13_iruf7"]
 [ext_resource type="Resource" uid="uid://d2kvgci7gguif" path="res://inventory/inventories/equipmentInventory4.tres" id="14_j5n4i"]
 [ext_resource type="Resource" uid="uid://di7r3epp7kckd" path="res://inventory/inventories/equipmentInventory5.tres" id="15_634y6"]
-[ext_resource type="Script" uid="uid://braabpjugu5ti" path="res://attributes/PlayerAttribute.cs" id="16_2wuci"]
 [ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="17_iruf7"]
 [ext_resource type="Script" uid="uid://bqksdka4eova" path="res://playerStates/WallJumpState.cs" id="24_dx0e4"]
 
-[sub_resource type="Resource" id="Resource_j5n4i"]
-script = ExtResource("16_2wuci")
-BaseValue = 0.0
-metadata/_custom_type_script = "uid://braabpjugu5ti"
-
-[sub_resource type="Resource" id="Resource_634y6"]
-script = ExtResource("16_2wuci")
-BaseValue = 0.0
-metadata/_custom_type_script = "uid://braabpjugu5ti"
-
-[sub_resource type="Resource" id="Resource_efrwb"]
-script = ExtResource("16_2wuci")
-BaseValue = 0.0
-metadata/_custom_type_script = "uid://braabpjugu5ti"
-
 [sub_resource type="Resource" id="Resource_hiqhm"]
 script = ExtResource("17_iruf7")
-Strength = SubResource("Resource_efrwb")
-Dexterity = SubResource("Resource_j5n4i")
-Intelligence = SubResource("Resource_634y6")
 metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]

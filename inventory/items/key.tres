@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=3 format=3 uid="uid://kyi80hdxgd40"]
+[gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=4 format=3 uid="uid://kyi80hdxgd40"]
 
 [ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="1_qjfcu"]
+[ext_resource type="Script" uid="uid://cmxe61i83vvbx" path="res://attributes/AttributeModifier.cs" id="1_y2klj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yrljt"]
 size = Vector2(16, 16)
 
 [resource]
 script = ExtResource("1_qjfcu")
-attributeModifiers = []
+attributeModifiers = Array[ExtResource("1_y2klj")]([])
 name = "Key"
 description = "Opens a zone"
 stackable = false
