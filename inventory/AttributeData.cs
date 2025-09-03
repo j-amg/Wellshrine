@@ -5,15 +5,10 @@ using Godot;
 [GlobalClass]
 public partial class AttributeData : Resource
 {
-    public PlayerAttribute Strength;
-    public PlayerAttribute Dexterity;
-    public PlayerAttribute Intelligence;
-    public Dictionary<AttributeType, PlayerAttribute> playerAttributes;
-
-    public void InitialisePlayerAttributes()
+    public Dictionary<AttributeType, PlayerAttribute> playerAttributes = new Dictionary<AttributeType, PlayerAttribute>
     {
-        playerAttributes.Add(AttributeType.Strength, Strength);
-        playerAttributes.Add(AttributeType.Dexterity, Dexterity);
-        playerAttributes.Add(AttributeType.Intelligence, Intelligence);
-    }
+        {AttributeType.Strength, new PlayerAttribute(50f)},
+        {AttributeType.Dexterity, new PlayerAttribute(50f)},
+        {AttributeType.Intelligence, new PlayerAttribute(50f)}
+    };
 }

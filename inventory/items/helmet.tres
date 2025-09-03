@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=10 format=3 uid="uid://vlof74pcydiw"]
+
+[ext_resource type="Script" uid="uid://cmxe61i83vvbx" path="res://attributes/AttributeModifier.cs" id="1_mr7yu"]
+[ext_resource type="Script" uid="uid://ds7ch4rdrvkgc" path="res://inventory/ItemAffix.cs" id="1_tq0j5"]
+[ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="2_mr7yu"]
+
+[sub_resource type="Resource" id="Resource_hu0e7"]
+script = ExtResource("1_mr7yu")
+Value = 20.0
+ModType = 0
+Order = 0
+metadata/_custom_type_script = "uid://cmxe61i83vvbx"
+
+[sub_resource type="Resource" id="Resource_65g4n"]
+script = ExtResource("1_tq0j5")
+TargetType = 0
+attributeModifier = SubResource("Resource_hu0e7")
+metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"
+
+[sub_resource type="Resource" id="Resource_xf8xk"]
+script = ExtResource("1_mr7yu")
+Value = 50.0
+ModType = 2
+Order = 0
+metadata/_custom_type_script = "uid://cmxe61i83vvbx"
+
+[sub_resource type="Resource" id="Resource_mr7yu"]
+script = ExtResource("1_tq0j5")
+TargetType = 1
+attributeModifier = SubResource("Resource_xf8xk")
+metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"
+
+[sub_resource type="Gradient" id="Gradient_tq0j5"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mr7yu"]
+gradient = SubResource("Gradient_tq0j5")
+width = 16
+height = 16
+fill_to = Vector2(0, 1)
+
+[resource]
+script = ExtResource("2_mr7yu")
+level = 30
+affixes = Array[ExtResource("1_tq0j5")]([SubResource("Resource_65g4n"), SubResource("Resource_mr7yu")])
+name = "Helmet"
+description = "A test helmet"
+stackable = false
+texture = SubResource("GradientTexture2D_mr7yu")
+Type = 3
+metadata/_custom_type_script = "uid://bkyeaoa6sbog3"

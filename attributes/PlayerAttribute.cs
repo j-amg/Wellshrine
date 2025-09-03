@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
+
+
 public enum AttributeType
 {
     Strength,
@@ -13,7 +15,8 @@ public enum AttributeType
 [GlobalClass]
 public partial class PlayerAttribute : Resource
 {
-    [Export] public float BaseValue;
+    [Signal] public delegate void AttributesUpdatedEventHandler();
+    public readonly float BaseValue;
     private readonly List<AttributeModifier> attributeModifiers;
     private bool isDirty = true;
     private float _value;
@@ -42,9 +45,12 @@ public partial class PlayerAttribute : Resource
 
     public void AddModifier(AttributeModifier mod)
     {
+        GD.Print("added modifier");
+
         isDirty = true;
         attributeModifiers.Add(mod);
         attributeModifiers.Sort(CompareModifierOrder);
+        EmitSignal(SignalName.AttributesUpdated);
     }
 
     private int CompareModifierOrder(AttributeModifier a, AttributeModifier b)
@@ -56,12 +62,14 @@ public partial class PlayerAttribute : Resource
 
     public bool RemoveModifier(AttributeModifier mod)
     {
+        GD.Print("removed modifier");
         isDirty = true;
-
+        
 
         if (attributeModifiers.Remove(mod))
         {
             isDirty = true;
+            EmitSignal(SignalName.AttributesUpdated);
             return true;
         }
         return false;
@@ -69,17 +77,20 @@ public partial class PlayerAttribute : Resource
 
     public bool RemoveAllModifiersFromSource(object source)
     {
+        GD.Print("removed all modifiers from: " + source);
         bool didRemove = false;
-        for (int i = attributeModifiers.Count; i >= 0; i--)
+        for (int i = attributeModifiers.Count - 1; i >= 0; i--)
         {
-
-            if (attributeModifiers[i] == source)
+            if (attributeModifiers[i].Source == source)
             {
+                GD.Print("did remove modifiers");
                 isDirty = true;
                 attributeModifiers.RemoveAt(i);
                 didRemove = true;
+                EmitSignal(SignalName.AttributesUpdated);
             }
         }
+
         return didRemove;
     }
 
@@ -98,12 +109,12 @@ public partial class PlayerAttribute : Resource
                 sumPercentAdd += attributeModifiers[i].Value;
                 if (i + 1 >= attributeModifiers.Count || attributeModifiers[i + 1].ModType != AttributeModType.PercentAdd)
                 {
-                    finalValue *= 1 + sumPercentAdd;
+                    finalValue *= 1 + sumPercentAdd/100;
                 }
             }
             else if (attributeModifiers[i].ModType == AttributeModType.PercentMult)
             {
-                finalValue *= 1 + attributeModifiers[i].Value;
+                finalValue *= 1 + attributeModifiers[i].Value/100;
             }
         }
         return (float)MathF.Round(finalValue, 4);

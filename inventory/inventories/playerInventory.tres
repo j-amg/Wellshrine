@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=8 format=3 uid="uid://b1uqq1wreddj6"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=12 format=3 uid="uid://b1uqq1wreddj6"]
 
 [ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="1_snp5g"]
 [ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="2_6bjuc"]
 [ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="3_6bjuc"]
 [ext_resource type="Resource" uid="uid://kyi80hdxgd40" path="res://inventory/items/key.tres" id="4_bwq5j"]
+[ext_resource type="Resource" uid="uid://vlof74pcydiw" path="res://inventory/items/helmet.tres" id="5_tocfo"]
+[ext_resource type="Resource" uid="uid://c5vucythpgv4q" path="res://inventory/items/rui.tres" id="6_hc2kf"]
 
 [sub_resource type="Resource" id="Resource_6bjuc"]
 script = ExtResource("2_6bjuc")
@@ -17,6 +19,18 @@ itemData = ExtResource("4_bwq5j")
 Quantity = 1
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 
+[sub_resource type="Resource" id="Resource_hc2kf"]
+script = ExtResource("2_6bjuc")
+itemData = ExtResource("5_tocfo")
+Quantity = 1
+metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
+
+[sub_resource type="Resource" id="Resource_70adx"]
+script = ExtResource("2_6bjuc")
+itemData = ExtResource("6_hc2kf")
+Quantity = 1
+metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
+
 [sub_resource type="Resource" id="Resource_bwq5j"]
 script = ExtResource("2_6bjuc")
 itemData = ExtResource("3_6bjuc")
@@ -25,6 +39,6 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 
 [resource]
 script = ExtResource("1_snp5g")
-slotDatas = Array[ExtResource("2_6bjuc")]([SubResource("Resource_6bjuc"), SubResource("Resource_kc4hb"), null, null, null, null, null, null, SubResource("Resource_bwq5j"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slotDatas = Array[ExtResource("2_6bjuc")]([SubResource("Resource_6bjuc"), SubResource("Resource_kc4hb"), null, SubResource("Resource_hc2kf"), null, SubResource("Resource_70adx"), null, SubResource("Resource_bwq5j"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"

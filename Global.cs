@@ -66,8 +66,7 @@ public partial class Global : Node
 		// audio
 		// musicPlayer = new() { VolumeDb = Mathf.LinearToDb(.1f) };
 		// AddChild(musicPlayer);
-		charSound = GD.Load<AudioStream>("res://audio/bip.wav");
-			
+		charSound = GD.Load<AudioStream>("res://audio/bip.wav");	
 		}
 		
 	public void PreloadObjects()
@@ -90,6 +89,12 @@ public partial class Global : Node
 		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
 		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 		inventory.SetPlayerInventoryData(player.inventoryData);
+		inventory.setAttributeLabels(player.attributeData);
+		foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+		{
+			att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
+		}
+		
 	}
 
     private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
@@ -104,6 +109,9 @@ public partial class Global : Node
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
 	{
+		GD.Print("str: " + player.attributeData.playerAttributes[AttributeType.Strength].Value);
+		GD.Print("dex: " + player.attributeData.playerAttributes[AttributeType.Dexterity].Value);
+		GD.Print("int: " + player.attributeData.playerAttributes[AttributeType.Intelligence].Value);
 		if (invOpen)
 		{
 			inventory.Visible = false;

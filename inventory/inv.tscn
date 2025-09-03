@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cchf63h0s68cs"]
+[gd_scene load_steps=8 format=3 uid="uid://cchf63h0s68cs"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_7mfnc"]
 [ext_resource type="Script" uid="uid://boqvsis5crijl" path="res://inventory/Inv.cs" id="3_vqpb6"]
 [ext_resource type="PackedScene" uid="uid://bfew1xfi07xcp" path="res://inventory/inv_slot.tscn" id="4_bgm1y"]
 [ext_resource type="PackedScene" uid="uid://lb1wgtvetsdn" path="res://inventory/inv_container.tscn" id="4_e03q1"]
 [ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="5_bgm1y"]
+[ext_resource type="PackedScene" uid="uid://dgxj5vd2cls7a" path="res://affixToolTipLabel.tscn" id="6_mhxn5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgm1y"]
 content_margin_left = 1.0
@@ -18,7 +19,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 0, 1)
 
-[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5")]
+[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "strLabel", "dexLabel", "intLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,6 +39,9 @@ EquipmentInvContainer2 = NodePath("playerInventory/MarginContainer/VBoxContainer
 EquipmentInvContainer3 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot3")
 EquipmentInvContainer4 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot4")
 EquipmentInvContainer5 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/Container/CenterContainer/HBoxContainer/equipmentSlot5")
+strLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/strLabel")
+dexLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dexLabel")
+intLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3/intLabel")
 
 [node name="playerInventory" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 1080)
@@ -81,12 +85,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Label3" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Intelligence:"
+text = "Strength:"
 
-[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="strLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "30"
 
@@ -96,21 +100,21 @@ layout_mode = 2
 [node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Strength:"
+text = "Dexterity:"
 
-[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="dexLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "30"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label3" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Dexterity:"
+text = "Intelligence:"
 
-[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+[node name="intLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "30"
 
@@ -260,17 +264,21 @@ anchor_bottom = 0.0
 offset_right = 32.0
 offset_bottom = 32.0
 
-[node name="tooltip" type="PanelContainer" parent="." node_paths=PackedStringArray("itemName", "itemDescription")]
+[node name="tooltip" type="PanelContainer" parent="." node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "itemAffixContainer", "itemLevelContainer")]
 visible = false
 self_modulate = Color(1, 1, 1, 0.588235)
 custom_minimum_size = Vector2(200, 0)
-layout_mode = 0
+layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_7mfnc")
 script = ExtResource("5_bgm1y")
-itemName = NodePath("MarginContainer/VBoxContainer/Label")
-itemDescription = NodePath("MarginContainer/VBoxContainer/Label2")
+itemNameLabel = NodePath("MarginContainer/VBoxContainer/name")
+itemTypeLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/type")
+itemLevelLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/levelContainer/levelLabel2")
+itemDescriptionLabel = NodePath("MarginContainer/VBoxContainer/description")
+itemAffixContainer = NodePath("MarginContainer/VBoxContainer/affixContainer")
+itemLevelContainer = NodePath("MarginContainer/VBoxContainer/HBoxContainer/levelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="tooltip"]
 layout_mode = 2
@@ -278,13 +286,56 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="tooltip/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="tooltip/MarginContainer/VBoxContainer"]
+[node name="name" type="Label" parent="tooltip/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Item Name"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="tooltip/MarginContainer/VBoxContainer"]
+[node name="description" type="Label" parent="tooltip/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "Item description"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="tooltip/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="type" type="Label" parent="tooltip/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Helmet"
+autowrap_mode = 2
+
+[node name="levelContainer" type="HBoxContainer" parent="tooltip/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="levelLabel" type="Label" parent="tooltip/MarginContainer/VBoxContainer/HBoxContainer/levelContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Level:"
+autowrap_mode = 2
+
+[node name="levelLabel2" type="Label" parent="tooltip/MarginContainer/VBoxContainer/HBoxContainer/levelContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "16"
+autowrap_mode = 2
+
+[node name="affixContainer" type="VBoxContainer" parent="tooltip/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="affix" parent="tooltip/MarginContainer/VBoxContainer/affixContainer" instance=ExtResource("6_mhxn5")]
+layout_mode = 2

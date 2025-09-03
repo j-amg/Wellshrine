@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=9 format=3 uid="uid://dxklj0rd14rnw"]
+
+[ext_resource type="Script" uid="uid://ds7ch4rdrvkgc" path="res://inventory/ItemAffix.cs" id="1_wu5h8"]
+[ext_resource type="Script" uid="uid://cmxe61i83vvbx" path="res://attributes/AttributeModifier.cs" id="2_m328r"]
+[ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="3_sl6qj"]
+
+[sub_resource type="Resource" id="Resource_hu0e7"]
+script = ExtResource("2_m328r")
+Value = -25.0
+ModType = 1
+Order = 0
+metadata/_custom_type_script = "uid://cmxe61i83vvbx"
+
+[sub_resource type="Resource" id="Resource_65g4n"]
+script = ExtResource("1_wu5h8")
+TargetType = 2
+attributeModifier = SubResource("Resource_hu0e7")
+metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"
+
+[sub_resource type="Resource" id="Resource_xf8xk"]
+script = ExtResource("2_m328r")
+Value = 50.0
+ModType = 2
+Order = 0
+metadata/_custom_type_script = "uid://cmxe61i83vvbx"
+
+[sub_resource type="Resource" id="Resource_mr7yu"]
+script = ExtResource("1_wu5h8")
+TargetType = 1
+attributeModifier = SubResource("Resource_xf8xk")
+metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wu5h8"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("3_sl6qj")
+level = 1
+affixes = Array[ExtResource("1_wu5h8")]([SubResource("Resource_65g4n"), SubResource("Resource_mr7yu")])
+name = "Rui"
+description = "A ring from a lonely spider who killed his whole family when he was 5."
+stackable = false
+texture = SubResource("PlaceholderTexture2D_wu5h8")
+Type = 5
+metadata/_custom_type_script = "uid://bkyeaoa6sbog3"

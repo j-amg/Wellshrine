@@ -22,8 +22,8 @@ public partial class Inv : Control
     [Export] public InvContainer EquipmentInvContainer4;
     [Export] public InvContainer EquipmentInvContainer5;
 
-    [Export] public Label dexLabel;
     [Export] public Label strLabel;
+    [Export] public Label dexLabel;
     [Export] public Label intLabel;
 
     public Chest currentExternalInventoryOwner;
@@ -37,6 +37,18 @@ public partial class Inv : Control
             tooltip.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
             grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
         }
+    }
+
+    internal void OnAttributeDataUpdated(AttributeData attributeData)
+    {
+        setAttributeLabels(attributeData);
+    }
+
+    public void setAttributeLabels(AttributeData attributeData)
+    {
+        strLabel.Text = attributeData.playerAttributes[AttributeType.Strength].Value.ToString();
+        dexLabel.Text = attributeData.playerAttributes[AttributeType.Dexterity].Value.ToString();
+        intLabel.Text = attributeData.playerAttributes[AttributeType.Intelligence].Value.ToString();
     }
 
     public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)
