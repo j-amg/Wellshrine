@@ -30,6 +30,9 @@ public partial class InvSlot : Panel
     public override void _GuiInput(InputEvent @event)	{
 		if (@event is InputEventMouseButton mbe && mbe.Pressed)
 		{
+			// var styleBox = new StyleBoxFlat();
+			// styleBox.SetBgColor(new Color(1, 1, 0));
+			// AddThemeStyleboxOverride("normal", styleBox);
 			EmitSignal(SignalName.SlotInput, GetIndex(), (int)mbe.ButtonIndex, this);
 		}
 	}

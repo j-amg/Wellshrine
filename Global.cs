@@ -67,7 +67,14 @@ public partial class Global : Node
 		// musicPlayer = new() { VolumeDb = Mathf.LinearToDb(.1f) };
 		// AddChild(musicPlayer);
 		charSound = GD.Load<AudioStream>("res://audio/bip.wav");	
-		}
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
+		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
+		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
+	}
 		
 	public void PreloadObjects()
 	{
@@ -89,7 +96,7 @@ public partial class Global : Node
 		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
 		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 		inventory.SetPlayerInventoryData(player.inventoryData);
-		inventory.setAttributeLabels(player.attributeData);
+		inventory.SetAttributeLabels(player.attributeData);
 		foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
 		{
 			att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
@@ -109,30 +116,23 @@ public partial class Global : Node
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
 	{
-		GD.Print("str: " + player.attributeData.playerAttributes[AttributeType.Strength].Value);
-		GD.Print("dex: " + player.attributeData.playerAttributes[AttributeType.Dexterity].Value);
-		GD.Print("int: " + player.attributeData.playerAttributes[AttributeType.Intelligence].Value);
 		if (invOpen)
 		{
-			inventory.Visible = false;
+			inventory.Hide();
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			invOpen = false;
 		}
 		else
 		{
-			inventory.Visible = true;
+			inventory.Show();
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 			invOpen = true;
 		}
 
 		if (externalInventoryOwner != null)
-		{
-			inventory.SetExternalInventory(externalInventoryOwner);
-		}
+		{ inventory.SetExternalInventory(externalInventoryOwner); }
 		else
-		{
-			inventory.ClearExternalInventory();
-		}
+		{ inventory.ClearExternalInventory(); }
 	}
 
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
@@ -166,12 +166,7 @@ public partial class Global : Node
 		weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2, "Shoot a fast moving spike of ice that pierces enemies and walls. Low damage, but reduced recharge duration."));
 		weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10, "Release a burst of lighting in a short-range area. High damage, but high recharge duration."));
 	}
-	public override void _Process(double delta)
-	{
-		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
-		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
-		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
-	}
+
 
 	public void SendPopUp(string text, string action)
 	{

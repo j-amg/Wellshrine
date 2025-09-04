@@ -10,12 +10,6 @@ typeLabel = NodePath("affixType")
 valueLabel = NodePath("affixValue")
 modTypeLabel = NodePath("affixModType")
 
-[node name="affixType" type="Label" parent="."]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
-text = "Strength"
-
 [node name="affixValue" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -29,3 +23,9 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "Flat"
+
+[node name="affixType" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Strength"

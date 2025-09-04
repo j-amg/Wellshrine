@@ -8,6 +8,7 @@ public partial class Inv : Control
     [Signal] public delegate void DropSlotDataFromInventoryEventHandler(SlotData slotData);
     [Signal] public delegate void SlotGrabbedEventHandler(SlotData slotData);
 
+    [Export] public PanelContainer playerInventory;
     [Export] public InvContainer invContainer;
     [Export] public InvSlot grabbedSlot;
     [Export] public PanelContainer chestInv;
@@ -34,17 +35,16 @@ public partial class Inv : Control
     {
         if (Visible)
         {
-            tooltip.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
             grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
         }
     }
 
     internal void OnAttributeDataUpdated(AttributeData attributeData)
     {
-        setAttributeLabels(attributeData);
+        SetAttributeLabels(attributeData);
     }
 
-    public void setAttributeLabels(AttributeData attributeData)
+    public void SetAttributeLabels(AttributeData attributeData)
     {
         strLabel.Text = attributeData.playerAttributes[AttributeType.Strength].Value.ToString();
         dexLabel.Text = attributeData.playerAttributes[AttributeType.Dexterity].Value.ToString();
@@ -119,7 +119,7 @@ public partial class Inv : Control
     {
         SlotData slot = inventoryData.slotDatas[index];
 
-        if (grabbedSlotData != null && slot == null)
+        if (grabbedSlotData != null)
         {
             if (inventoryData.IsItemAllowed(grabbedSlotData.itemData))
             {
@@ -127,10 +127,12 @@ public partial class Inv : Control
             } else invSlot.SelfModulate = new Color(1, 0, 0, 1);
         }
         
-        if (slot != null)
+        if (slot != null && grabbedSlotData == null)
         {
+            GD.Print("hover");
             invSlot.SelfModulate = new Color(0, 1, 0, 1);
             tooltip.SetItem(slot.itemData);
+            tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X/2, invSlot.Size.Y/2) + new Vector2(-(tooltip.Size.X/2), -(tooltip.Size.Y + invSlot.Size.Y/2));
             tooltip.Show();
         }
     }
