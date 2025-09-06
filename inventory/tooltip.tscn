@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://bklldjik8cjkn"]
+
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_c2f6h"]
+[ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="2_gmlu0"]
+[ext_resource type="StyleBox" uid="uid://deqvf74px2tj4" path="res://UI/panelBaseTexture.tres" id="3_jifm2"]
+[ext_resource type="PackedScene" uid="uid://dgxj5vd2cls7a" path="res://affixToolTipLabel.tscn" id="4_php7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m22gv"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+
+[node name="tooltip" type="PanelContainer" node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "itemAffixContainer", "itemLevelContainer")]
+visible = false
+self_modulate = Color(1, 1, 1, 0.588235)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -86.0
+offset_right = 110.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_c2f6h")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m22gv")
+script = ExtResource("2_gmlu0")
+itemNameLabel = NodePath("VBoxContainer/PanelContainer/name")
+itemTypeLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/type")
+itemLevelLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer/levelLabel2")
+itemDescriptionLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/description")
+itemAffixContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/affixContainer")
+itemLevelContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_jifm2")
+
+[node name="name" type="Label" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Item Name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="type" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Helmet"
+
+[node name="levelContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="levelLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "Item Level:"
+
+[node name="levelLabel2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer"]
+layout_mode = 2
+text = "16"
+
+[node name="affixContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="affix" parent="VBoxContainer/MarginContainer/VBoxContainer/affixContainer" instance=ExtResource("4_php7p")]
+layout_mode = 2
+
+[node name="description" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Item description"
+horizontal_alignment = 1
+autowrap_mode = 2

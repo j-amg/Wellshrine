@@ -53,7 +53,13 @@ public partial class Shrine : StaticBody3D, IInteractable, IHoverable
         EmitSignal(SignalName.ShrineInteracted);   
     }
 
-    public void StartHover() => Global.Singleton.ShowTooltip(TooltipText);
+    public void StartHover()
+    {
+        // Global.Singleton.ShowTooltip(TooltipText);
+    }
 
-    public void EndHover() => Global.Singleton.CloseTooltip();
+    public void EndHover()
+    {
+        // Global.Singleton.CloseTooltip();
+    }
 }

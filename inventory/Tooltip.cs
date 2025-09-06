@@ -17,6 +17,51 @@ public partial class Tooltip : PanelContainer
         affixLabelScene = GD.Load<PackedScene>("res://affixToolTipLabel.tscn");
     }
 
+    public Vector2 FindSpawnPosition(InvSlot slot)
+    {
+        Vector2 slotSize = slot.Size;
+        Vector2 localSlotCentre = new(slotSize.X / 2, slotSize.Y / 2);
+        Vector2 localToolTipCentre = new(Size.X / 2, Size.Y / 2);
+        Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
+
+        // set loc to centred on slot
+        Vector2 loc = slot.GlobalPosition + localSlotCentre - localToolTipCentre;
+
+        // spawn directly above item
+        loc += new Vector2(0, (-Size.Y + -slotSize.Y)/2);
+
+        // calculate offset
+        float offsetX = 0;
+        float offsetY = 0;
+
+        //if (0 - 45 < 0) offsetY += Mathf.Abs(0 - 45);
+
+        //top (dont need to calculate bottom since tooltip is always above item)
+        // try to left of item, if that clips, move right
+        if (loc.Y < 0)
+        {
+            offsetY += Size.Y;
+            if ((loc.X - Size.X/2 - slotSize.X / 2)! < 0)
+            {
+                offsetX += Size.X - slotSize.X / 2;
+            }
+            else
+            {
+                offsetX -= Size.X/2 + slotSize.X / 2;
+            }
+        }
+        else
+        {
+            //right
+            if (loc.X + Size.X > viewportSize.X) offsetX -= loc.X + Size.X - viewportSize.X;
+
+            // left
+            if (loc.X < 0) offsetX -= loc.X;
+        } 
+
+        return loc + new Vector2(offsetX, offsetY);
+    }
+
     public void SetItem(ItemData itemData)
     {
         itemNameLabel.Text = itemData.name;

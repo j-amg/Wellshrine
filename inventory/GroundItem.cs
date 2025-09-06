@@ -43,7 +43,7 @@ public partial class GroundItem : RigidBody3D, IInteractable, IHoverable
     }
 
 
-    public void StartHover() => Global.Singleton.ShowTooltip(TooltipText);
+    public void StartHover() => Global.Singleton.ShowTooltip(slotData.itemData);
 
     public void EndHover() => Global.Singleton.CloseTooltip();
 }

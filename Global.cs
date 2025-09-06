@@ -193,14 +193,13 @@ public partial class Global : Node
 		EmitSignal(SignalName.PopUpClosed, action);
 	}
 
-	public void ShowTooltip(string text)
+	public void ShowTooltip(ItemData item)
 	{
-		if (disableTooltips) return;
-		hud.tooltip.Visible = true;
-		hud.tooltipText.Text = text;
-	}
+		hud.itemTooltip.SetItem(item);
+		hud.itemTooltip.Show();
+    }
 
-	public void CloseTooltip() => hud.tooltip.Visible = false;
+    public void CloseTooltip() => hud.itemTooltip.Hide();
 
 	public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 	{

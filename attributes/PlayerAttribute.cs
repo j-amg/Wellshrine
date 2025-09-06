@@ -3,15 +3,6 @@ using System.Collections.Generic;
 using Godot;
 using Godot.Collections;
 
-
-
-public enum AttributeType
-{
-    Strength,
-    Dexterity,
-    Intelligence,
-}
-
 [GlobalClass]
 public partial class PlayerAttribute : Resource
 {

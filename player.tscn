@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene load_steps=117 format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
@@ -26,8 +26,34 @@
 [ext_resource type="Resource" uid="uid://cer33xkt0pkma" path="res://inventory/inventories/equipmentInventory3.tres" id="13_iruf7"]
 [ext_resource type="Resource" uid="uid://d2kvgci7gguif" path="res://inventory/inventories/equipmentInventory4.tres" id="14_j5n4i"]
 [ext_resource type="Resource" uid="uid://di7r3epp7kckd" path="res://inventory/inventories/equipmentInventory5.tres" id="15_634y6"]
+[ext_resource type="Resource" uid="uid://c175438qgw456" path="res://inventory/inventories/equipmentInventory6.tres" id="16_hiqhm"]
 [ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="17_iruf7"]
+[ext_resource type="Script" uid="uid://dfa46awkriixd" path="res://inventory/EquipmentInventoryData.cs" id="17_j5n4i"]
 [ext_resource type="Script" uid="uid://bqksdka4eova" path="res://playerStates/WallJumpState.cs" id="24_dx0e4"]
+
+[sub_resource type="Resource" id="Resource_634y6"]
+script = ExtResource("17_j5n4i")
+slotDatas = [null]
+allowedType = 2
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
+
+[sub_resource type="Resource" id="Resource_efrwb"]
+script = ExtResource("17_j5n4i")
+slotDatas = [null]
+allowedType = 2
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
+
+[sub_resource type="Resource" id="Resource_tkwlq"]
+script = ExtResource("17_j5n4i")
+slotDatas = [null]
+allowedType = 2
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
+
+[sub_resource type="Resource" id="Resource_hl5qd"]
+script = ExtResource("17_j5n4i")
+slotDatas = [null]
+allowedType = 2
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
 [sub_resource type="Resource" id="Resource_hiqhm"]
 script = ExtResource("17_iruf7")
@@ -630,7 +656,7 @@ iceray = ExtResource("4_8e1g0")
 castFire = ExtResource("8_2rq05")
 castIce = ExtResource("7_xtdqc")
 castShock = ExtResource("9_c4g0j")
-inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"), ExtResource("12_2wuci"), ExtResource("13_iruf7"), ExtResource("14_j5n4i"), ExtResource("15_634y6")])
+inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"), ExtResource("12_2wuci"), ExtResource("13_iruf7"), ExtResource("14_j5n4i"), ExtResource("15_634y6"), ExtResource("16_hiqhm"), SubResource("Resource_634y6"), SubResource("Resource_efrwb"), SubResource("Resource_tkwlq"), SubResource("Resource_hl5qd")])
 attributeData = SubResource("Resource_hiqhm")
 
 [node name="body" type="Node3D" parent="."]

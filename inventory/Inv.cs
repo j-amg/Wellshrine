@@ -22,6 +22,11 @@ public partial class Inv : Control
     [Export] public InvContainer EquipmentInvContainer3;
     [Export] public InvContainer EquipmentInvContainer4;
     [Export] public InvContainer EquipmentInvContainer5;
+    [Export] public InvContainer EquipmentInvContainer6;
+    [Export] public InvContainer EquipmentInvContainer7;
+    [Export] public InvContainer EquipmentInvContainer8;
+    [Export] public InvContainer EquipmentInvContainer9;
+    [Export] public InvContainer EquipmentInvContainer10;
 
     [Export] public Label strLabel;
     [Export] public Label dexLabel;
@@ -60,6 +65,11 @@ public partial class Inv : Control
         EquipmentInvContainer3.SetInventoryData(PlayerInventoryData[3]);
         EquipmentInvContainer4.SetInventoryData(PlayerInventoryData[4]);
         EquipmentInvContainer5.SetInventoryData(PlayerInventoryData[5]);
+        EquipmentInvContainer6.SetInventoryData(PlayerInventoryData[6]);
+        EquipmentInvContainer7.SetInventoryData(PlayerInventoryData[7]);
+        EquipmentInvContainer8.SetInventoryData(PlayerInventoryData[8]);
+        EquipmentInvContainer9.SetInventoryData(PlayerInventoryData[9]);
+        EquipmentInvContainer10.SetInventoryData(PlayerInventoryData[10]);
 
         foreach (InventoryData id in PlayerInventoryData)
         {
@@ -133,6 +143,7 @@ public partial class Inv : Control
             invSlot.SelfModulate = new Color(0, 1, 0, 1);
             tooltip.SetItem(slot.itemData);
             tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X/2, invSlot.Size.Y/2) + new Vector2(-(tooltip.Size.X/2), -(tooltip.Size.Y + invSlot.Size.Y/2));
+            tooltip.GlobalPosition = tooltip.FindSpawnPosition(invSlot);
             tooltip.Show();
         }
     }

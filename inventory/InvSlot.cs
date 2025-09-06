@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class InvSlot : Panel
+public partial class InvSlot : PanelContainer
 {
 
 	[Signal] public delegate void SlotInputEventHandler(int index, int buttonIndex, InvSlot invSlot);

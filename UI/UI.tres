@@ -1,8 +1,12 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b1hsqu2ibi8dv"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b1hsqu2ibi8dv"]
 
+[ext_resource type="StyleBox" uid="uid://dln1cwglhwb7s" path="res://UI/buttonNormal.tres" id="1_44a5p"]
+[ext_resource type="StyleBox" uid="uid://dfhen7h3lmjis" path="res://UI/buttonPressed.tres" id="1_f2342"]
 [ext_resource type="FontFile" uid="uid://cgvxepnjgal5b" path="res://fonts/long-live-the-king-mini.ttf" id="1_ipcts"]
 [ext_resource type="Texture2D" uid="uid://cslboq3c30cn2" path="res://textures/UIBORDER.png" id="2_04efv"]
 [ext_resource type="StyleBox" uid="uid://csv5k846a0g30" path="res://UI/panelTexture.tres" id="3_esjin"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f2342"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yb2a4"]
 
@@ -17,6 +21,11 @@ texture_margin_bottom = 14.0
 default_font = ExtResource("1_ipcts")
 default_font_size = 16
 Button/font_sizes/font_size = 32
+Button/styles/focus = SubResource("StyleBoxEmpty_f2342")
+Button/styles/hover = ExtResource("1_44a5p")
+Button/styles/hover_pressed = ExtResource("1_f2342")
+Button/styles/normal = ExtResource("1_44a5p")
+Button/styles/pressed = ExtResource("1_f2342")
 Label/colors/font_color = Color(1, 1, 0, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -25,13 +34,13 @@ Label/constants/outline_size = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
-Label/font_sizes/font_size = 24
+Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_ipcts")
 Label/styles/normal = SubResource("StyleBoxEmpty_yb2a4")
-MarginContainer/constants/margin_bottom = 8
-MarginContainer/constants/margin_left = 8
-MarginContainer/constants/margin_right = 8
-MarginContainer/constants/margin_top = 8
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
 Panel/styles/panel = SubResource("StyleBoxTexture_hc4gp")
 PanelContainer/styles/panel = ExtResource("3_esjin")
 VBoxContainer/constants/separation = 8

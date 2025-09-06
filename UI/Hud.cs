@@ -34,13 +34,9 @@ public partial class Hud : Control
     [Export]
     public TextureRect screen;
     [Export]
-    public PanelContainer tooltip;
-    [Export]
-    public Label tooltipText;
+    public Tooltip itemTooltip;
     [Export]
     BoxContainer zoneInformation;
-    [Export]
-    public ItemInHand itemInHandNode;
     public override void _Ready()
     {
         Global.Singleton.player.damageTaken += OnDamageTaken;

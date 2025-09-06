@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://csteklro6et5n"]
+[gd_scene load_steps=17 format=3 uid="uid://csteklro6et5n"]
 
 [ext_resource type="Script" uid="uid://ce0iewpnmvmjr" path="res://UI/Hud.cs" id="1_afaig"]
+[ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="2_b1lf8"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_q7u4o"]
 [ext_resource type="Script" uid="uid://qaany8ek8icj" path="res://inventory/ItemInHand.cs" id="4_640wx"]
 
@@ -66,7 +67,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
 gradient = SubResource("Gradient_6i0hs")
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "tooltip", "tooltipText", "zoneInformation")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,17 +83,27 @@ objectiveLabel = NodePath("zoneInformation/objective")
 dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
 dialogueName = NodePath("dialogue/MarginContainer/vbox/name")
 dialogue = NodePath("dialogue")
-popup = NodePath("popup")
-popupText = NodePath("popup/MarginContainer/popup")
+popup = NodePath("popUp")
+popupText = NodePath("popUp/MarginContainer/popup")
 reticle = NodePath("reticle")
 crossHair = NodePath("reticle/crossHair")
 interactLabel = NodePath("interactLabel")
 hitFlash = NodePath("overlay")
 rechargeBar = NodePath("recharge")
 screen = NodePath("screen")
-tooltip = NodePath("tooltip")
-tooltipText = NodePath("tooltip/MarginContainer/tooltipText")
+itemTooltip = NodePath("itemTooltip")
 zoneInformation = NodePath("zoneInformation")
+
+[node name="itemTooltip" parent="." instance=ExtResource("2_b1lf8")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = -94.5
+offset_right = 232.0
+offset_bottom = 94.5
+grow_horizontal = 1
 
 [node name="overlay" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 0)
@@ -304,7 +315,7 @@ theme = ExtResource("2_q7u4o")
 text = "[SpaceBar] to progress dialogue"
 horizontal_alignment = 1
 
-[node name="popup" type="PanelContainer" parent="."]
+[node name="popUp" type="PanelContainer" parent="."]
 visible = false
 custom_minimum_size = Vector2(160, 64)
 layout_mode = 1
@@ -321,45 +332,17 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="MarginContainer" type="MarginContainer" parent="popup"]
+[node name="MarginContainer" type="MarginContainer" parent="popUp"]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="popup" type="Label" parent="popup/MarginContainer"]
+[node name="popup" type="Label" parent="popUp/MarginContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[PH] hello this i"
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="tooltip" type="PanelContainer" parent="."]
-visible = false
-custom_minimum_size = Vector2(160, 64)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 16.0
-offset_top = -37.5
-offset_right = 180.0
-offset_bottom = 37.5001
-grow_vertical = 2
-theme = ExtResource("2_q7u4o")
-
-[node name="MarginContainer" type="MarginContainer" parent="tooltip"]
-layout_mode = 2
-theme = ExtResource("2_q7u4o")
-
-[node name="tooltipText" type="Label" parent="tooltip/MarginContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(120, 24)
-layout_mode = 2
-theme = ExtResource("2_q7u4o")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "[PH] hello this is a tes"
 vertical_alignment = 1
 autowrap_mode = 2
 

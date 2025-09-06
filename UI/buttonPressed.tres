@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dfhen7h3lmjis"]
+
+[ext_resource type="Texture2D" uid="uid://be738g5h2fqrm" path="res://textures/buttonPressed.png" id="1_6xkdg"]
+
+[resource]
+texture = ExtResource("1_6xkdg")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0

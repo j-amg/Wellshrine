@@ -2,6 +2,14 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
+public enum AttributeType
+{
+    Strength,
+    Dexterity,
+    Intelligence,
+    Armour
+}
+
 [GlobalClass]
 public partial class AttributeData : Resource
 {
@@ -9,6 +17,7 @@ public partial class AttributeData : Resource
     {
         {AttributeType.Strength, new PlayerAttribute(50f)},
         {AttributeType.Dexterity, new PlayerAttribute(50f)},
-        {AttributeType.Intelligence, new PlayerAttribute(50f)}
+        {AttributeType.Intelligence, new PlayerAttribute(50f)},
+        {AttributeType.Armour, new PlayerAttribute(0f)}
     };
 }
