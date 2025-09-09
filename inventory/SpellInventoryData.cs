@@ -1,13 +1,14 @@
 using Godot;
 using System;
 
-public partial class EquipmentInventoryData : InventoryData
+public partial class SpellInventoryData : InventoryData
 {
+	[Export] public int spellSlotIndex;
 	public override SlotData GrabSlotData(int index)
 	{
 		SlotData slotData = slotDatas[index];
 
-		if (slotData.itemData is ItemEquipmentData item) item.Unequip(Global.Singleton.player);
+		if (slotData.itemData is ItemSpellData spell) spell.Unequip(Global.Singleton.player, this);
 
 		if (slotData == null)
 		{
@@ -28,7 +29,7 @@ public partial class EquipmentInventoryData : InventoryData
 
 		SlotData currentSlotData = slotDatas[index];
 
-		if (grabbedSlotData.itemData is ItemEquipmentData item) item.Equip(Global.Singleton.player);
+		if (grabbedSlotData.itemData is ItemSpellData spell) spell.Equip(Global.Singleton.player, this);
 		
 
 		SlotData returnSlotData = null;

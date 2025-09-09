@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=2 format=3 uid="uid://47ruwetk7keb"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cia7abkugycie"]
 
-[ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="1_5478b"]
+[ext_resource type="Script" uid="uid://tt0k1wvyb0us" path="res://inventory/SpellInventoryData.cs" id="1_ovp75"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="2_l683u"]
 
 [resource]
-script = ExtResource("1_5478b")
-slotDatas = [null]
-allowedType = 7
+script = ExtResource("1_ovp75")
+spellSlotIndex = 0
+slotDatas = Array[ExtResource("2_l683u")]([null])
+allowedType = 2
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"

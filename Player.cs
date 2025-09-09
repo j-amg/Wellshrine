@@ -50,6 +50,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	private AudioStream castShock;
 	[Export] public InventoryData[] inventoryData;
 	[Export] public AttributeData attributeData;
+	[Export] public Spell[] equippedSpells = [null, null, null, null];
 	private float mouseSensitivity = 0.1f;
 	private float aimMouseSensitivity = 0.075f;
 	private float handsMaxXRot = 30f;
@@ -101,7 +102,9 @@ public partial class Player : CharacterBody3D, IDamageable
 	private bool recharging = false;
 	public bool nearWall = false;
 	public bool canWallJump = true;
-	float IDamageable.Health { get; set; }
+    
+
+    float IDamageable.Health { get; set; }
 
 	public override void _Ready()
 	{
@@ -196,12 +199,17 @@ public partial class Player : CharacterBody3D, IDamageable
 				GetViewport().SetInputAsHandled();
 			}
 			
-			if (Input.IsActionJustPressed("LeftMouse") && !recharging)
-				{
-					if (Global.Singleton.equippedWeapon == null) return;
-					Attack();
-					Recharge(Global.Singleton.equippedWeapon.recharge);
-				}
+			if (Input.IsActionJustPressed("LeftMouse"))
+			{
+					//if (Global.Singleton.equippedWeapon == null) return;
+					Attack(0);
+					//Recharge(Global.Singleton.equippedWeapon.recharge);
+			}
+
+			if (Input.IsActionJustPressed("1")) { Attack(0);}
+			if (Input.IsActionJustPressed("2")) { Attack(1);}
+			if (Input.IsActionJustPressed("3")) { Attack(2);}
+			if (Input.IsActionJustPressed("4")) { Attack(3);}
 
 			if (Input.IsActionJustPressed("interact"))
 			{
@@ -278,44 +286,51 @@ public partial class Player : CharacterBody3D, IDamageable
 		MoveAndSlide();
 	}
 
-	private void Attack()
+	private void Attack(int index)
 	{
-		Damage d = Global.Singleton.GetPlayerDamage();
-		d.damageExecuted += OnDamageExecuted;
-		Global.Singleton.SetAction("attack");
+		if (equippedSpells[index] == null)
+		{
+			GD.Print("No equipped spell in slot: " + index);
+			return;
+		}
 		AttackAnim();
-		if (Global.Singleton.equippedWeapon.name == "fireball")
-		{
-			Global.Singleton.PlaySound2D(castFire);
-			Projectile b = fireball.Instantiate() as Projectile;
-			var main = GetTree().CurrentScene;
-			main.CallDeferred("add_child", b);
-			b.damage = d;
-			b.Transform = head.GlobalTransform;
-			b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
-		}
+		equippedSpells[index].Cast(this);
 
-		if (Global.Singleton.equippedWeapon.name == "icespike")
-		{
-			Global.Singleton.PlaySound2D(castIce);
-			foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
-			foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
-			IceRay ray = iceray.Instantiate() as IceRay;
-			var main = GetTree().CurrentScene;
-			main.CallDeferred("add_child", ray);
-			ray.Transform = head.GlobalTransform;
-		}
+		// Damage d = Global.Singleton.GetPlayerDamage();
+		// d.damageExecuted += OnDamageExecuted;
+		// Global.Singleton.SetAction("attack");
+		// if (Global.Singleton.equippedWeapon.name == "fireball")
+		// {
+		// 	Global.Singleton.PlaySound2D(castFire);
+		// 	Projectile b = fireball.Instantiate() as Projectile;
+		// 	var main = GetTree().CurrentScene;
+		// 	main.CallDeferred("add_child", b);
+		// 	b.damage = d;
+		// 	b.Transform = head.GlobalTransform;
+		// 	b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+		// }
 
-		if (Global.Singleton.equippedWeapon.name == "shockburst")
-		{
-			Global.Singleton.PlaySound2D(castShock);
-			foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
-			foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
-			camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
-			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(camera.GetNode<AnimatedSprite3D>("shock"), "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,.75f));
+		// if (Global.Singleton.equippedWeapon.name == "icespike")
+		// {
+		// 	Global.Singleton.PlaySound2D(castIce);
+		// 	foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
+		// 	foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
+		// 	IceRay ray = iceray.Instantiate() as IceRay;
+		// 	var main = GetTree().CurrentScene;
+		// 	main.CallDeferred("add_child", ray);
+		// 	ray.Transform = head.GlobalTransform;
+		// }
 
-		}
+		// if (Global.Singleton.equippedWeapon.name == "shockburst")
+		// {
+		// 	Global.Singleton.PlaySound2D(castShock);
+		// 	foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
+		// 	foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
+		// 	camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
+		// 	Tween tween = GetTree().CreateTween();
+		// 	tween.TweenProperty(camera.GetNode<AnimatedSprite3D>("shock"), "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,.75f));
+
+		// }
 	}
 
     private void OnDamageExecuted(Damage d)
@@ -327,11 +342,11 @@ public partial class Player : CharacterBody3D, IDamageable
 
     private async void AttackAnim()
 	{
-		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);
-		tween.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
+		//Tween tween = GetTree().CreateTween();
+		//tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);
+		//.TweenProperty(camera, "rotation_degrees", new Vector3(0, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .25);
 		handSprite.Play("attack");
-		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, Global.Singleton.equippedWeapon.recharge)), "timeout");
+		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, .2f)), "timeout");
 		handSprite.Play(Global.Singleton.currentIdle);
 	}
 }
