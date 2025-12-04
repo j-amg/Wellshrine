@@ -38,7 +38,7 @@ public partial class GroundItem : RigidBody3D, IInteractable, IHoverable
 
     public virtual void OnInteract()
     {
-        Global.Singleton.inventory.inventoryData.PickUpSlotData(slotData);
+        Global.Singleton.inventory.inventoryDatas[0].PickUpSlotData(slotData);
         CallDeferred("queue_free");
     }
 

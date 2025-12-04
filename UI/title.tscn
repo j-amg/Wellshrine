@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://chnytobic8le5"]
+[gd_scene load_steps=8 format=3 uid="uid://chnytobic8le5"]
 
-[ext_resource type="Script" uid="uid://x4gf8wdv2nw7" path="res://zones/ShrineZone.cs" id="1_3hsy6"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="2_qx3q6"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="3_lw54p"]
 [ext_resource type="PackedScene" uid="uid://c3p1sjdnrrg41" path="res://UI/menu.tscn" id="4_uo22y"]
@@ -37,11 +36,7 @@ volumetric_fog_temporal_reprojection_enabled = false
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rvdgw"]
 dof_blur_far_transition = 35.41
 
-[node name="level2" type="Node3D" node_paths=PackedStringArray("checkpoints")]
-script = ExtResource("1_3hsy6")
-objective = "Select a Spell"
-checkpoints = []
-zoneValueOverride = "Discendi Locus"
+[node name="level2" type="Node3D"]
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("2_qx3q6")

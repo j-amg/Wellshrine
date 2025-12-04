@@ -9,8 +9,6 @@ public partial class Chest : StaticBody3D, IInteractable, IHoverable
     [Export] public InventoryData inventoryData;
     public Color ReticleModulate { get; set; }
     public bool Active { get; set; }
-    public bool Tooltip { get; set; }
-    public string TooltipText { get; set; }
 
     public override void _Ready()
     {

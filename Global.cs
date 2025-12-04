@@ -56,22 +56,20 @@ public partial class Global : Node
 	public string currentIdle = "idle";
 	public Weapon equippedWeapon;
 	public bool sfx = true;
+	public string CurrentDoorDestinationPath = "res://zones/killZone1.tscn";
+
+
+	public PlayerZone playerZone;
 
 	public override void _Ready()
 	{
-
 		Gets();
-		Reset();
 		PreloadObjects();
-		// audio
-		// musicPlayer = new() { VolumeDb = Mathf.LinearToDb(.1f) };
-		// AddChild(musicPlayer);
-		charSound = GD.Load<AudioStream>("res://audio/bip.wav");	
 	}
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) PauseMenu();
+		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();
 		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
 	}
@@ -88,20 +86,26 @@ public partial class Global : Node
 		Viewport root = GetTree().Root;
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
-		player = currentScene.GetNodeOrNull<Player>("player");
-		hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
-		inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
-		deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
-		pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-		foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
-		inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
-		inventory.SetPlayerInventoryData(player.inventoryData);
-		inventory.SetAttributeLabels(player.attributeData);
-		foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+
+		if (currentScene is Zone)
 		{
-			att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
-		}
-		
+			player = currentScene.GetNodeOrNull<Player>("player");
+			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
+			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
+			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
+			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
+			
+			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
+			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
+			inventory.SetPlayerInventoryData(player.inventoryData);
+			inventory.SetAttributeLabels(player.attributeData);
+			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+			{
+				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
+			}
+
+			if (playerZone is null && currentScene is PlayerZone z) playerZone = z; // set player zone reference
+        }
 	}
 
     private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
@@ -135,6 +139,27 @@ public partial class Global : Node
 		{ inventory.ClearExternalInventory(); }
 	}
 
+	public void TogglePause()
+	{
+		if (dead) return;
+		if (paused)
+		{
+			if (!inDialogue) player.ResumeInput();
+			pauseMenu.Hide();
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+			Engine.TimeScale = 1;
+		}
+		else
+		{
+			player.PauseInput();
+			pauseMenu.Show();
+			pauseMenu.container.Visible = true;
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+			Engine.TimeScale = 0;
+		}
+		paused = !paused;
+	}
+
     public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
 	public void DeferredGotoScene(PackedScene nextScene)
 	{
@@ -145,26 +170,7 @@ public partial class Global : Node
 		GetTree().Root.AddChild(currentScene);
 		GetTree().CurrentScene = currentScene;
 		Gets();
-	}
-
-	public void Reset()
-	{
-		weapons.Clear();
-		InitEquipment();
-		equippedWeapon = null;
-		currentLevel = 1;
-		Engine.TimeScale = 1;
-		dead = false;
-		currentPlayerHealth = playerHealth;
-		paused = false;
-		currentIdle = "idle";
-	}
-
-	public void InitEquipment()
-	{
-		weapons.Add("fireball", Weapon.InitWeapon("fireball", 3, 10, 0.25f, .5f, .35f, 5, "Launch a ball of flame that explodes in a small area on impact. Moderate damage, and moderate recharge duration."));
-		weapons.Add("icespike", Weapon.InitWeapon("icespike", 5, 7, 0.1f, .2f, .2f, 2, "Shoot a fast moving spike of ice that pierces enemies and walls. Low damage, but reduced recharge duration."));
-		weapons.Add("shockburst", Weapon.InitWeapon("shockburst", 2, 35, 0.4f, 1f, 1, 10, "Release a burst of lighting in a short-range area. High damage, but high recharge duration."));
+		GD.Print("zone loaded");
 	}
 
 
@@ -226,7 +232,7 @@ public partial class Global : Node
 		foreach (char c in text)
 		{
 			if (!animatingDialogue) break;
-			PlaySound2D(charSound);
+			//PlaySound2D(charSound);
 			hud.dialogueText.Text += c;
 			float waitTime = c == ',' || c == '.' ? .15f : 0.05f;
 			await ToSignal(GetTree().CreateTimer(waitTime), "timeout");
@@ -267,15 +273,6 @@ public partial class Global : Node
 		EmitSignal(SignalName.DialogueFinished);
 	}
 
-
-	public void EquipWeapon(string weapon)
-	{
-		EmitSignal(SignalName.EquippedWeapon);
-		currentIdle = weapon;
-		player.handSprite.Play(currentIdle);
-		equippedWeapon = weapons[weapon];
-	}
-
 	public void IncrementPlayerHealth(float value)
 	{
 		if (dead) return;
@@ -312,32 +309,8 @@ public partial class Global : Node
 		dead = true;
 		player.SetCollisionLayerValue(1, false);
 		deathScreen.Show();
-		deathScreen.menuButton.autoFocussed = true;
-		deathScreen.menuButton.GrabFocus();
 	}
 
-	public void PauseMenu()
-	{
-		if (dead) return;
-		if (paused)
-		{
-			if (!inDialogue) player.ResumeInput();
-			pauseMenu.Hide();
-			pauseMenu.settings.Visible = false;
-			pauseMenu.controls.Visible = false;
-			Engine.TimeScale = 1;
-		}
-		else
-		{
-			player.PauseInput();
-			pauseMenu.Show();
-			pauseMenu.container.Visible = true;
-			pauseMenu.resumeButton.autoFocussed = true;
-			pauseMenu.resumeButton.GrabFocus();
-			Engine.TimeScale = 0;
-		}
-		paused = !paused;
-	}
 
 	public void PlaySound3D(Vector3 position, AudioStream audio)
 	{

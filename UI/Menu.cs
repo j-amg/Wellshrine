@@ -4,43 +4,23 @@ using System;
 public partial class Menu : Control
 {
 	[Export]
-	public MenuButton start;
+	public Button start;
 	[Export]
-	public MenuButton settingsButton;
-	[Export]
-	public MenuButton quit;
-	[Export]
-	public Settings settings;
-	[Export]
-	public VBoxContainer container;
-	[Export]
-	public Label title;
-	public MenuButton defaultButton;
+	public Button quit;
+
+	private PackedScene startZone;
+
 	public override void _Ready()
 	{
 		start.Pressed += OnStartPressed;
-		settingsButton.Pressed += OnSettingsPressed;
 		quit.Pressed += OnQuitPressed;
-		start.autoFocussed = true;
-		start.GrabFocus();
-		Global.Singleton.Reset();
-		defaultButton = start;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
+		startZone = GD.Load<PackedScene>("res://zones/startZone.tscn");
 	}
-
-    private void OnSettingsPressed()
-    {
-		title.Visible = false;
-		settings.Visible = true;
-		container.Visible = false;
-		settings.fullscreenButton.autoFocussed = true;
-		settings.fullscreenButton.GrabFocus();
-    }
 
     private void OnStartPressed()
 	{
-		PackedScene zone = GD.Load<PackedScene>("res://zones/startzone.tscn");
-		Global.Singleton.GotoScene(zone);
+		Global.Singleton.GotoScene(startZone);
 	}
     private void OnQuitPressed() => GetTree().Quit();
 }

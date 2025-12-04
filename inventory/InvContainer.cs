@@ -62,11 +62,7 @@ public partial class InvContainer : GridContainer
     public void ClearInventoryData(InventoryData inventoryData)
     {
         inventoryData.InventoryUpdated -= OnInventoryUpdated;
-    }
 
-
-    public void DisconnectSlots(InventoryData inventoryData)
-    {
         foreach (InvSlot slot in GetChildren().Cast<InvSlot>())
         {
             slot.SlotInput -= inventoryData.OnSlotClicked;

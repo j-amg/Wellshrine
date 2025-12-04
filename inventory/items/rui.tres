@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://cmxe61i83vvbx"
 
 [sub_resource type="Resource" id="Resource_dfdhl"]
 script = ExtResource("1_xrrxa")
+Name = ""
 TargetType = 2
 attributeModifier = SubResource("Resource_hbx4k")
 metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"
@@ -26,6 +27,7 @@ metadata/_custom_type_script = "uid://cmxe61i83vvbx"
 
 [sub_resource type="Resource" id="Resource_tjlrl"]
 script = ExtResource("1_xrrxa")
+Name = ""
 TargetType = 1
 attributeModifier = SubResource("Resource_weyv1")
 metadata/_custom_type_script = "uid://ds7ch4rdrvkgc"

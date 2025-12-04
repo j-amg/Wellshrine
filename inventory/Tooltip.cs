@@ -14,7 +14,7 @@ public partial class Tooltip : PanelContainer
 
     public override void _Ready()
     {
-        affixLabelScene = GD.Load<PackedScene>("res://affixToolTipLabel.tscn");
+        affixLabelScene = GD.Load<PackedScene>("res://inventory/affixToolTipLabel.tscn");
     }
 
     public Vector2 FindSpawnPosition(InvSlot slot)
@@ -69,7 +69,7 @@ public partial class Tooltip : PanelContainer
         itemDescriptionLabel.Text = itemData.description;
 
         // clear container
-        foreach (Control c in itemAffixContainer.GetChildren())
+        foreach (Node c in itemAffixContainer.GetChildren())
         {
             itemAffixContainer.RemoveChild(c);
         }

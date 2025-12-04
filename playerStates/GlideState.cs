@@ -18,12 +18,18 @@ public partial class GlideState : State
 	{
         owner.UpdateInput(s, owner.airAcceleration, owner.airDeceleration);
 		Vector3 vel = owner.velocity;
-		vel.Y = vel.Y > 0 ? Mathf.MoveToward(vel.Y, 0, 0.1f) : Mathf.MoveToward(vel.Y, -3, 0.01f);
+		//vel.Y = vel.Y > 0 ? Mathf.MoveToward(vel.Y, 0, 0.1f) : Mathf.MoveToward(vel.Y, -3, 0.01f);
+
+		if (vel.Y > 0)
+        {
+            vel.Y = Mathf.MoveToward(vel.Y, -3, 1f);
+        }
 		owner.velocity = vel;
         owner.UpdateVelocity();
-		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount) EmitSignal(SignalName.transition, "jump");
-		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && !owner.inputPaused && owner.nearWall) EmitSignal(SignalName.transition, "walljump");
-		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && !owner.inputPaused && owner.currentJump < owner.maxJumpCount && owner.currentDash < owner.maxDashCount) EmitSignal(SignalName.transition, "dash");
+		if (Input.IsActionJustPressed("Shift")) EmitSignal(SignalName.transition, "slide");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owner.currentJump < owner.maxJumpCount) EmitSignal(SignalName.transition, "jump");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owner.nearWall) EmitSignal(SignalName.transition, "walljump");
+		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && owner.currentJump < owner.maxJumpCount && owner.currentDash < owner.maxDashCount) EmitSignal(SignalName.transition, "dash");
 		if (Input.IsActionJustReleased("RightMouse")) EmitSignal(SignalName.transition, "fall");
 		if (owner.IsOnFloor())
 		{

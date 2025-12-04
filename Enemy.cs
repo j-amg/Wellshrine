@@ -59,8 +59,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
     public Color ReticleModulate { get; set; }
     public float Health { get; set; }
     public bool Active { get; set; }
-    public bool Tooltip { get; set; }
-    public string TooltipText { get; set; }
     public float HoverRange { get; set; }
 
     public override void _Ready()
@@ -72,8 +70,6 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		Active = true;
 		HoverRange = 1000;
 		label.SetValues();
-		Tooltip = false;
-		TooltipText = "";
 		AddToGroup("enemies");
 		ReticleModulate = new Color(1,0,0);
 		defaultModulate = sprite.Modulate;

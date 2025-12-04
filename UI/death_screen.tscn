@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://4u253r0q03qk"]
+[gd_scene load_steps=5 format=3 uid="uid://4u253r0q03qk"]
 
-[ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="1_5rhbh"]
 [ext_resource type="Script" uid="uid://dmld4hy3shxfb" path="res://UI/DeathScreen.cs" id="1_6u8wn"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="3_iup5p"]
 
@@ -49,16 +48,6 @@ offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
-
-[node name="menu" parent="VBoxContainer" instance=ExtResource("1_5rhbh")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-text = "Main Menu"
-
-[node name="quit" parent="VBoxContainer" instance=ExtResource("1_5rhbh")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-text = "Quit Game"
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1

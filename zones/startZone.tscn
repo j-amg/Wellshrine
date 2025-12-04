@@ -1,13 +1,11 @@
-[gd_scene load_steps=28 format=4 uid="uid://nymerq4u1m0o"]
+[gd_scene load_steps=26 format=4 uid="uid://nymerq4u1m0o"]
 
-[ext_resource type="Script" uid="uid://bt2kng7g012s4" path="res://zones/StartZone.cs" id="1_lr3ls"]
+[ext_resource type="Script" uid="uid://bt2kng7g012s4" path="res://zones/PlayerZone.cs" id="1_lr3ls"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="2_6vmps"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
 [ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://UI/hud.tscn" id="4_dkoc8"]
-[ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_2uyrr"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://zones/zoneComponents/door.tscn" id="5_m42jd"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_osk5y"]
-[ext_resource type="PackedScene" uid="uid://bky2rab0cedur" path="res://zones/zoneComponents/weaponShrine.tscn" id="6_x5xxv"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="7_r6k4g"]
 [ext_resource type="LightmapGIData" uid="uid://dyuglitguf7fs" path="res://tileset/startZone.lmbake" id="9_aulnw"]
 [ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="10_dkoc8"]
@@ -81,8 +79,9 @@ slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"),
 allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
-[node name="level2" type="Node3D" node_paths=PackedStringArray("door", "checkpoints")]
+[node name="level2" type="Node3D" node_paths=PackedStringArray("doorChest", "door", "checkpoints")]
 script = ExtResource("1_lr3ls")
+doorChest = NodePath("doorChest")
 door = NodePath("door")
 checkpoints = []
 
@@ -107,27 +106,6 @@ mouse_filter = 2
 
 [node name="door" parent="." instance=ExtResource("5_m42jd")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
-
-[node name="ProjShrine" parent="." instance=ExtResource("6_x5xxv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
-weapon = "fireball"
-displayName = "FireBall"
-magicModulate = Color(0.737255, 0.388235, 0, 1)
-pickUp = ExtResource("5_2uyrr")
-
-[node name="HitscanShrine" parent="." instance=ExtResource("6_x5xxv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 5)
-weapon = "icespike"
-displayName = "IceSpike"
-magicModulate = Color(0.580392, 0.937255, 0.992157, 1)
-pickUp = ExtResource("5_2uyrr")
-
-[node name="MeleeShrine" parent="." instance=ExtResource("6_x5xxv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 5)
-weapon = "shockburst"
-displayName = "ShockBurst"
-magicModulate = Color(0.356863, 0.403922, 1, 1)
-pickUp = ExtResource("5_2uyrr")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_osk5y")

@@ -84,6 +84,11 @@ public partial class InventoryData : Resource
 		if (grabbedSlotData.Quantity > 0) return grabbedSlotData; else return null;
 	}
 
+	public void ConsumeSlotData(int index)
+    {
+		slotDatas[index] = null;
+    }
+
 	public bool PickUpSlotData(SlotData slotData)
 	{
 

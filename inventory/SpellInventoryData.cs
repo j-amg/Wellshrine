@@ -6,6 +6,7 @@ public partial class SpellInventoryData : InventoryData
 	[Export] public int spellSlotIndex;
 	public override SlotData GrabSlotData(int index)
 	{
+		GD.Print(index);
 		SlotData slotData = slotDatas[index];
 
 		if (slotData.itemData is ItemSpellData spell) spell.Unequip(Global.Singleton.player, this);

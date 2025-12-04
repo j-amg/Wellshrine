@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dgxj5vd2cls7a"]
 
-[ext_resource type="Script" uid="uid://c158prveiu6gc" path="res://AffixToolTipLabel.cs" id="1_qeex3"]
+[ext_resource type="Script" uid="uid://c158prveiu6gc" path="res://inventory/AffixToolTipLabel.cs" id="1_qeex3"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_r4ouk"]
 
 [node name="affix" type="HBoxContainer" node_paths=PackedStringArray("typeLabel", "valueLabel", "modTypeLabel")]

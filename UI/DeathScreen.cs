@@ -8,18 +8,18 @@ public partial class DeathScreen : Control
 	{
 		//respawnButton = GetNode<MenuButton>("VBoxContainer/respawn");
 		//respawnButton.Pressed += OnResumePressed;
-		menuButton = GetNode<MenuButton>("VBoxContainer/menu");
-		menuButton.Pressed += OnMenuPressed;
-		MenuButton quitButton = GetNode<MenuButton>("VBoxContainer/quit");
-		quitButton.Pressed += OnQuitPressed;
+		// menuButton = GetNode<MenuButton>("VBoxContainer/menu");
+		// menuButton.Pressed += OnMenuPressed;
+		// MenuButton quitButton = GetNode<MenuButton>("VBoxContainer/quit");
+		// quitButton.Pressed += OnQuitPressed;
 	}
     //private void OnResumePressed() => Global.Singleton.Respawn();
-    private void OnMenuPressed()
-    {
-		PackedScene menu = GD.Load<PackedScene>("res://UI/title.tscn");
-        Global.Singleton.GotoScene(menu);
-		Engine.TimeScale = 1;
-    }
+    // private void OnMenuPressed()
+    // {
+	// 	PackedScene menu = GD.Load<PackedScene>("res://UI/title.tscn");
+    //     Global.Singleton.GotoScene(menu);
+	// 	Engine.TimeScale = 1;
+    // }
 
-    private void OnQuitPressed() => GetTree().Quit();
+    // private void OnQuitPressed() => GetTree().Quit();
 }

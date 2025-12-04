@@ -33,7 +33,7 @@ public partial class Inv : Control
     [Export] public Label intLabel;
 
     public Chest currentExternalInventoryOwner;
-    public InventoryData inventoryData;
+    public InventoryData[] inventoryDatas;
     public SlotData grabbedSlotData;
 
     public override void _PhysicsProcess(double delta)
@@ -58,7 +58,7 @@ public partial class Inv : Control
 
     public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)
     {
-        inventoryData = PlayerInventoryData[0];
+        inventoryDatas = PlayerInventoryData;
         invContainer.SetInventoryData(PlayerInventoryData[0]);
         EquipmentInvContainer1.SetInventoryData(PlayerInventoryData[1]);
         EquipmentInvContainer2.SetInventoryData(PlayerInventoryData[2]);
@@ -137,7 +137,7 @@ public partial class Inv : Control
             } else invSlot.SelfModulate = new Color(1, 0, 0, 1);
         }
         
-        if (slot != null && grabbedSlotData == null)
+        if (slot != null)
         {
             GD.Print("hover");
             invSlot.SelfModulate = new Color(0, 1, 0, 1);
@@ -213,10 +213,24 @@ public partial class Inv : Control
 
     public override void _ExitTree()
     {
-        inventoryData.InventoryInteracted -= OnInventoryInteracted;
-        inventoryData.InventorySlotHovered -= OnInventorySlotHovered;
-        inventoryData.InventorySlotExited -= OnInventorySlotExited;
-        invContainer.DisconnectSlots(inventoryData);
-        invContainer.ClearInventoryData(inventoryData);
+        foreach (InventoryData id in inventoryDatas)
+        {
+            id.InventoryInteracted -= OnInventoryInteracted;
+            id.InventorySlotHovered -= OnInventorySlotHovered;
+            id.InventorySlotExited -= OnInventorySlotExited;
+        }
+
+        invContainer.ClearInventoryData(inventoryDatas[0]);
+        EquipmentInvContainer1.ClearInventoryData(inventoryDatas[1]);
+        EquipmentInvContainer2.ClearInventoryData(inventoryDatas[2]);
+        EquipmentInvContainer3.ClearInventoryData(inventoryDatas[3]);
+        EquipmentInvContainer4.ClearInventoryData(inventoryDatas[4]);
+        EquipmentInvContainer5.ClearInventoryData(inventoryDatas[5]);
+        EquipmentInvContainer6.ClearInventoryData(inventoryDatas[6]);
+        EquipmentInvContainer7.ClearInventoryData(inventoryDatas[7]);
+        EquipmentInvContainer8.ClearInventoryData(inventoryDatas[8]);
+        EquipmentInvContainer9.ClearInventoryData(inventoryDatas[9]);
+        EquipmentInvContainer10.ClearInventoryData(inventoryDatas[10]);
+
     }
 }

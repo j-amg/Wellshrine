@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_c2f6h"]
 [ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="2_gmlu0"]
 [ext_resource type="StyleBox" uid="uid://deqvf74px2tj4" path="res://UI/panelBaseTexture.tres" id="3_jifm2"]
-[ext_resource type="PackedScene" uid="uid://dgxj5vd2cls7a" path="res://affixToolTipLabel.tscn" id="4_php7p"]
+[ext_resource type="PackedScene" uid="uid://dgxj5vd2cls7a" path="res://inventory/affixToolTipLabel.tscn" id="4_php7p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m22gv"]
 content_margin_left = 0.0

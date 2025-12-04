@@ -51,8 +51,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export] public InventoryData[] inventoryData;
 	[Export] public AttributeData attributeData;
 	[Export] public Spell[] equippedSpells = [null, null, null, null];
-	private float mouseSensitivity = 0.1f;
-	private float aimMouseSensitivity = 0.075f;
+	private float mouseSensitivity = 0.005f;
+	private float aimMouseSensitivity = 0.025f;
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
@@ -61,15 +61,16 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float walkingFOV = 80;
 	public float walkSpeed = 5;
 	public float aimSpeed = 3;
-	public float slideSpeed = 15;
+	public float slideSpeed = 8; // Additive with current speed
+	public float slideDelta = 6; // how fast the player changes direction during slide
 	public float crouchSpeed = 3;
 	public float crouchAnimSpeed = .2f;
 	public float gravity = 12;
-	public float acceleration = .75f;
+	public float acceleration = .8f;
 	public float deceleration = .5f;
 	public float airAcceleration = .1f;
-	public float airDeceleration = 0.005f;
-	public float dashVelocity = 15f;
+	public float airDeceleration = 0.0f;
+	public float dashVelocity = 12f;
 	public float wallJumpVelocity = 2f;
 	public float fallSpeed = 2;
 	public float jumpVelocity = 7.5f;
@@ -97,13 +98,15 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	private Viewport vp;
 	private Window win;
-	private bool applyTransform = false;
-	public bool inputPaused = false;
 	private bool recharging = false;
 	public bool nearWall = false;
 	public bool canWallJump = true;
-    
 
+
+
+	public Vector3 target_rotation;
+	public Vector3 smooth_rotation = new();
+    
     float IDamageable.Health { get; set; }
 
 	public override void _Ready()
@@ -122,22 +125,21 @@ public partial class Player : CharacterBody3D, IDamageable
 		FloorConstantSpeed = true;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 		AddToGroup("player");
+		target_rotation = Rotation;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		//last_physics_pos = Position;
-		if (inputPaused) return;
+
+		smooth_rotation = smooth_rotation.Lerp(target_rotation, (float)delta * 20);
+		Rotation = new Vector3(0,target_rotation.Y,0);
+		head.Rotation = new Vector3(target_rotation.X,0,0);
 		hands.Rotation = new Vector3(Mathf.LerpAngle(hands.Rotation.X, Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(handsMinXRot), Mathf.DegToRad(handsMaxXRot)), (float)delta * handsMovementSmoothing), 0, 0);
-		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), hands.Position.Y, hands.Position.Z);
-
-	}
-
-	public override void _Process(double delta)
-	{
+		hands.Position = new Vector3(Mathf.Lerp(hands.Position.X, velocity.Normalized().X * handsMaxXPos, (float)delta * handsMovementSmoothing), Mathf.Lerp(hands.Position.Y, 1f, (float)delta * 5f), hands.Position.Z);
 
 		GodotObject currentHit = lookRay.GetCollider();
-		hitDistance = currentHit != null ? lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint()) : 0;
+		if (currentHit == null) return;
+		hitDistance = lookRay.GlobalTransform.Origin.DistanceTo(lookRay.GetCollisionPoint());
 		if (currentHit != existingHit)
 		{
 			if (existingHit is IHoverable hov) hov.EndHover();
@@ -150,36 +152,6 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	}
 
-	private void OnBodyExited(Node3D body) { if (body is GridMap) nearWall = false; }
-	private void OnBodyEntered(Node3D body) { if (body is GridMap) nearWall = true; }
-
-	public Vector3 GetDropPosition()
-	{
-		Vector3 dir = -camera.GlobalTransform.Basis.Z;
-		return camera.GlobalPosition + dir;
-	}
-
-    public void PauseInput()
-	{
-		SetProcessInput(false);
-		inputPaused = true;
-	}
-
-	public void ResumeInput()
-	{
-		SetProcessInput(true);
-		inputPaused = false;
-	}
-
-	public async void wallJumpTimer()
-	{
-		canWallJump = false;
-		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
-		canWallJump = true;
-	}
-
-
-
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		float sensitivityScale = win.Size.X / vp.GetVisibleRect().Size.X;
@@ -187,11 +159,9 @@ public partial class Player : CharacterBody3D, IDamageable
 		{
 			if (@event is InputEventMouseMotion eventKey)
 			{
-				Global.Singleton.SetAction("look");
-				float xRot = -Mathf.DegToRad(eventKey.Relative.Y) * _sensitivity * sensitivityScale;
-				head.RotateX(xRot);
-				RotateY(-Mathf.DegToRad(eventKey.Relative.X) * _sensitivity * sensitivityScale);
-				head.RotationDegrees = new Vector3(Mathf.Clamp(head.RotationDegrees.X, -80, 80), head.RotationDegrees.Y, head.RotationDegrees.Z);
+				target_rotation.X -= eventKey.Relative.Y * mouseSensitivity * sensitivityScale;
+				target_rotation.X = Mathf.Clamp(target_rotation.X, Mathf.DegToRad(-80), Mathf.DegToRad(80));
+				target_rotation.Y -= eventKey.Relative.X * mouseSensitivity * sensitivityScale;
 			}
 
 			if (Input.MouseMode == Input.MouseModeEnum.Visible)
@@ -235,6 +205,56 @@ public partial class Player : CharacterBody3D, IDamageable
 		}
 	}
 
+	public void UpdateInput(float speed, float acceleration, float deceleration)
+	{
+		
+		velocity = Velocity;
+		hvel = new Vector2(velocity.X, velocity.Z);
+		inputDir = Input.GetVector("A", "D", "W", "S");
+		direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+
+		acceleration /= (hvel.Length()* 2) + 1;
+		if (direction != Vector3.Zero)
+		{
+			Global.Singleton.SetAction("walk");
+			velocity.X = Mathf.Lerp(velocity.X, direction.X * speed, acceleration);
+			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
+		}
+		else velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
+	}
+
+	public void UpdateVelocity()
+	{
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+
+	private void OnBodyExited(Node3D body) { if (body is GridMap) nearWall = false; }
+	private void OnBodyEntered(Node3D body) { if (body is GridMap) nearWall = true; }
+
+	public Vector3 GetDropPosition()
+	{
+		Vector3 dir = -camera.GlobalTransform.Basis.Z;
+		return camera.GlobalPosition + dir;
+	}
+
+    public void PauseInput()
+	{
+		SetProcessInput(false);
+	}
+
+	public void ResumeInput()
+	{
+		SetProcessInput(true);
+	}
+
+	public async void wallJumpTimer()
+	{
+		canWallJump = false;
+		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
+		canWallJump = true;
+	}
+
 	private async void Recharge(float duration)
 	{
 		recharging = true;
@@ -253,37 +273,17 @@ public partial class Player : CharacterBody3D, IDamageable
         tween.TweenProperty(body, "position", pos, crouchAnimSpeed).SetTrans(Tween.TransitionType.Sine);
 	}
 
+	public void JumpAnim()
+    {
+        hands.Position = new Vector3(hands.Position.X, Mathf.Lerp(hands.Position.Y, hands.Position.Y -.1f, 5f), hands.Position.Z);
+
+    }
+
 	void IDamageable.Damage(Damage d)
 	{
 		Global.Singleton.IncrementPlayerHealth(-d.amount);
 		Global.Singleton.PlaySound2D(damageTakenSound);
 		EmitSignal(SignalName.damageTaken);
-	}
-
-    public void UpdateInput(float speed, float acceleration, float deceleration)
-	{
-		
-		velocity = Velocity;
-		hvel = new Vector2(velocity.X, velocity.Z);
-		inputDir = Input.GetVector("A", "D", "W", "S");
-		if (inputPaused) inputDir = new Vector2(0,0);
-		direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-
-		acceleration /= (hvel.Length()* 2) + 1;
-
-		if (direction != Vector3.Zero)
-		{
-			Global.Singleton.SetAction("walk");
-			velocity.X = Mathf.Lerp(velocity.X, direction.X * speed, acceleration);
-			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * speed, acceleration);
-		}
-		else velocity = velocity.MoveToward(new Vector3(0,velocity.Y, 0), deceleration);
-	}
-
-	public void UpdateVelocity()
-	{
-		Velocity = velocity;
-		MoveAndSlide();
 	}
 
 	private void Attack(int index)

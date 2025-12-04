@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cchf63h0s68cs"]
+[gd_scene load_steps=10 format=3 uid="uid://cchf63h0s68cs"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_7mfnc"]
 [ext_resource type="Script" uid="uid://boqvsis5crijl" path="res://inventory/Inv.cs" id="3_vqpb6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://lb1wgtvetsdn" path="res://inventory/inv_container.tscn" id="4_e03q1"]
 [ext_resource type="StyleBox" uid="uid://csv5k846a0g30" path="res://UI/panelTexture.tres" id="5_i7njh"]
 [ext_resource type="Script" uid="uid://dvauqjodsepfv" path="res://inventory/InvContainer.cs" id="5_m22gv"]
+[ext_resource type="Script" uid="uid://cgkuoak37yw3l" path="res://inventory/DoorInventory.cs" id="7_m22gv"]
 [ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="8_i7njh"]
 
 [node name="inventoryInterface" type="Control" node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "strLabel", "dexLabel", "intLabel")]
@@ -320,7 +321,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
 
-[node name="doorInventory" type="PanelContainer" parent="."]
+[node name="doorInventory" type="PanelContainer" parent="." node_paths=PackedStringArray("openLevelButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -336,6 +337,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7mfnc")
 theme_override_styles/panel = ExtResource("3_xc8mo")
+script = ExtResource("7_m22gv")
+openLevelButton = NodePath("MarginContainer/VBoxContainer/CenterContainer2/Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="doorInventory"]
 layout_mode = 2

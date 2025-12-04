@@ -2,46 +2,39 @@ using System;
 using Godot;
 public partial class Pause : Control
 {
-	[Export] public MenuButton resumeButton;
-	[Export] public MenuButton settingsButton;
-	[Export] public MenuButton menuButton;
-	[Export] public MenuButton controlButton;
-	[Export] public MenuButton quitButton;
-	[Export] public Settings settings;
-	[Export] public Controls controls;
+	[Export] public Button resumeButton;
+	[Export] public Button settingsButton;
+	[Export] public Button menuButton;
+	[Export] public Button controlButton;
+	[Export] public Button quitButton;
 	[Export] public VBoxContainer container;
-	public MenuButton defaultButton;
+	private PackedScene menu;
 	public override void _Ready()
 	{
-		defaultButton = resumeButton;
 		resumeButton.Pressed += OnResumePressed;
 		settingsButton.Pressed += OnSettingsPressed;
 		controlButton.Pressed += OnControlPressed;
 		menuButton.Pressed += OnMenuPressed;
 		quitButton.Pressed += OnQuitPressed;
+		menu = GD.Load<PackedScene>("res://UI/title.tscn");
 	}
 
     private void OnControlPressed()
     {
-        controls.Visible = true;
-		container.Visible = false;
-		controls.backButton.autoFocussed = true;
-		controls.backButton.GrabFocus();
+        // controls.Visible = true;
+		// container.Visible = false;
     }
 
     private void OnSettingsPressed()
     {
-		settings.Visible = true;
-		container.Visible = false;
-		settings.fullscreenButton.autoFocussed = true;
-		settings.fullscreenButton.GrabFocus();
+		// settings.Visible = true;
+		// container.Visible = false;
     }
 
-	private void OnResumePressed() => Global.Singleton.PauseMenu();
+	private void OnResumePressed() => Global.Singleton.TogglePause();
     private void OnMenuPressed()
     {
-		Global.Singleton.PauseMenu();
-		PackedScene menu = GD.Load<PackedScene>("res://UI/title.tscn");
+		Global.Singleton.TogglePause();
         Global.Singleton.GotoScene(menu);
     }
     private void OnQuitPressed() => GetTree().Quit();

@@ -33,7 +33,7 @@ public partial class Zone : Node3D
         objectiveComplete = true;
         objective = "Enter the next zone";
         EmitSignal(SignalName.ZoneObjectiveComplete, this);
-        door.Open();
+        //door.Open();
     }
 
     public virtual void CloseZone()

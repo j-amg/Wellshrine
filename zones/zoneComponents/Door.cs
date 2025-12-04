@@ -2,45 +2,44 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class Door : Area3D
+public partial class Door : Area3D, IHoverable
 {
-    [Export]
-    public PackedScene zoneOverride;
-    [Export]
-    public bool startOpen = false;
-    public string shrinePath = "res://zones/shrineZone.tscn";
-    private PackedScene zoneToLoad;
+    public PackedScene zoneToLoad;
     private bool open = false;
-    public Zone zone;
-    private bool active;
+    public Color ReticleModulate { get; set; }
+    public bool Active { get; set; }
+
     public override void _Ready()
     {
-        zone = GetOwner<Zone>();
         BodyEntered += OnBodyEntered;
-        PreloadZone();
-        if (startOpen) CallDeferred("Open");
     }
-
-    private void PreloadZone()
-    {
-        if (zoneOverride != null) {zoneToLoad = zoneOverride;} else{
-            if (Global.Singleton.currentLevel % 3 == 0) { zoneToLoad = GD.Load<PackedScene>(shrinePath);
-            } else zoneToLoad = GD.Load<PackedScene>("res://zones/" + Global.Singleton.killZones.PickRandom() + ".tscn");
-        }
-    }
-
     public void Open()
-    {   
+    {
         if (open) return;
-        open = true;   
+        open = true;
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(GetNode<StaticBody3D>("doorMesh"), "position", new Vector3(0,-2.5f, 0), 1.0f);
+        tween.TweenProperty(GetNode<StaticBody3D>("doorMesh"), "position", new Vector3(0, -2.5f, 0), 1.0f);
+    }
+
+    public void SetDestination(string path)
+    {
+        GD.Print("destination set to: " + path);
+        zoneToLoad = GD.Load<PackedScene>(path);
     }
 
     private void OnBodyEntered(Node3D body)
     {
-        if (body is not Player) return;
-        if (zone.increasesLevel) Global.Singleton.currentLevel += 1;
+        if (body is not Player || zoneToLoad is null) return;
         Global.Singleton.GotoScene(zoneToLoad);
+    }
+
+    public void StartHover()
+    {
+        GD.Print(zoneToLoad);
+    }
+
+    public void EndHover()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -10,8 +10,8 @@ public partial class WalkState : State
         owner.UpdateInput(owner.currentSpeed, owner.acceleration, owner.deceleration);
         owner.UpdateVelocity();
 		if (owner.Velocity.Length() == 0.0) EmitSignal(SignalName.transition, "idle");
-        if (Input.IsActionPressed("Shift") && !owner.inputPaused) EmitSignal(SignalName.transition, "slide");
-        if (Input.IsActionJustPressed("Space") && !owner.inputPaused) EmitSignal(SignalName.transition, "jump");
+        if (Input.IsActionJustPressed("Shift")) EmitSignal(SignalName.transition, "slide");
+        if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "jump");
         if(!owner.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
 	}
 }

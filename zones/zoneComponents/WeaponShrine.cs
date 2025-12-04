@@ -19,7 +19,6 @@ public partial class WeaponShrine : Shrine
     public override void OnInteract()
     {
         base.OnInteract();
-        Global.Singleton.EquipWeapon(weapon);
         foreach (Shrine shrine in GetTree().GetNodesInGroup("shrines").Cast<Shrine>()) shrine.Activate();
         Deactivate();
     }

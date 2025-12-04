@@ -657,6 +657,7 @@ frame_progress = 0.155568
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="body/head"]
+transform = Transform3D(0.999999, -0.00117631, 0.000612828, 0.00117667, 0.999999, -0.000582086, -0.000612127, 0.000582823, 1, 0, 0, 0)
 
 [node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
