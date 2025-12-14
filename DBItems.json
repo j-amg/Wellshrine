@@ -7,7 +7,7 @@
     },
     "sword": {
         "description": "A plain Iron Sword",
-        "rollWeight": 0.2,
+        "rollWeight": 0.8,
         "accWeight": 0.0,
         "type": "Spell"
     },

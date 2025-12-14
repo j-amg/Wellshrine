@@ -105,7 +105,7 @@ public partial class Global : Node
 		string baseItemType = DB.SelectFiltered(DBItems);
 
 		ItemAffix prefix = null;
-		if (GD.Randf() >= 0.75f)
+		if (GD.Randf() >= 0.25f)
 		{
 			Dictionary<string, Variant> conditions = new()
 			{
@@ -116,7 +116,7 @@ public partial class Global : Node
 		}
 
 		ItemAffix suffix = null;
-		if (GD.Randf() >= 0.75f)
+		if (GD.Randf() >= 0.25f)
 		{
 			
 			Dictionary<string, Variant> conditions = new()
@@ -134,6 +134,7 @@ public partial class Global : Node
 		item.affixes = [prefix, suffix];
 		item.description = (string)DBItems[baseItemType]["description"];
 		item.Type = ParseEnum<ItemType>((string)DBItems[baseItemType]["type"]);
+		item.texture = GD.Load<Texture2D>("res://textures/227.png");
 		return item;
 	}
 

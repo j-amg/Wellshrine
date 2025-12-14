@@ -14,8 +14,12 @@ public partial class ItemEquipmentData : ItemData
 		GD.Print("Equip");
 		foreach (ItemAffix affix in affixes)
 		{
-			affix.attributeModifier.Source = this;
-			player.attributeData.playerAttributes[affix.TargetType].AddModifier(affix.attributeModifier);
+			if (affix != null)
+			{
+				affix.attributeModifier.Source = this;
+				player.attributeData.playerAttributes[affix.TargetType].AddModifier(affix.attributeModifier);
+			}
+
 		}
 	}
 
@@ -23,7 +27,10 @@ public partial class ItemEquipmentData : ItemData
 	{
 		foreach (ItemAffix affix in affixes)
 		{
+			if (affix != null)
+			{
 			player.attributeData.playerAttributes[affix.TargetType].RemoveAllModifiersFromSource(this);
+			}
 		}
 	}
 }
