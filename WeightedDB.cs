@@ -23,32 +23,41 @@ public partial class DB : Resource
 		} 
 	}
 
-	public static Dictionary<string, Variant> SelectFiltered(Dictionary<string, Dictionary<string, Variant>> items, Dictionary<string, Variant> conditions)
+	public static string SelectFiltered(Dictionary<string, Dictionary<string, Variant>> items, Dictionary<string, Variant> conditions = null)
 	{
         float totalWeight = 0.0f;
         // create new dictionary where each item meets conditions
         Dictionary<string, Dictionary<string, Variant>> dict = [];
         foreach (string item in items.Keys)
         {
-            foreach (string key in conditions.Keys)
-            {
-                if (!items[item].TryGetValue(key, out Variant value)) break; // item does not meet condition
-                if (value.ToString() == conditions[key].ToString())
-                {
-                    totalWeight += (float)items[item]["rollWeight"];
-                    dict.Add(item, items[item]);
-                    dict[item]["accWeight"] = totalWeight;
-                }
-            }
-        }
+			bool canAdd = true;
+			if (conditions != null)
+			{
+				foreach (string key in conditions.Keys)
+				{
+					if (!items[item].TryGetValue(key, out Variant value)) canAdd = false; // item does not meet condition
+					if (!value.ToString().Equals(conditions[key].ToString())) canAdd = false; // item does not meet condition
+				}
+			}
+
+			if (canAdd)
+			{
+				totalWeight += (float)items[item]["rollWeight"];
+				dict.Add(item, items[item]);
+				dict[item]["accWeight"] = totalWeight;
+			}
+
+		}
+
         //Roll the number
 		double roll = GD.RandRange(0.0, totalWeight);
-        GD.Print("roll: " + roll);
+        // GD.Print("roll: " + roll);
+		// GD.Print("dictionary size: " + dict.Count);
         
 		//Now search for the first with acc_weight > roll
-		foreach (Dictionary<string, Variant> item in dict.Values)
+		foreach (string item in dict.Keys)
 		{
-			if ((float)item["accWeight"] > roll) return item;
+			if ((float)dict[item]["accWeight"] > roll) return item;
         }	
 		return null;
 	}

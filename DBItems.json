@@ -1,0 +1,21 @@
+{
+    "opal ring": {
+        "description": "A shimmering Ring",
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "Ring"
+    },
+    "sword": {
+        "description": "A plain Iron Sword",
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "Spell"
+    },
+    "axe": {
+        "description": "A plain Iron Axe",
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "Spell"
+    }
+
+}

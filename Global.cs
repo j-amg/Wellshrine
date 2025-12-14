@@ -60,21 +60,28 @@ public partial class Global : Node
 	public Weapon equippedWeapon;
 	public bool sfx = true;
 	public string CurrentDoorDestinationPath = "res://zones/killZone1.tscn";
-
-
+	Dictionary<string, Dictionary<string, Variant>> DBItems;
+	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	public PlayerZone playerZone;
 
 	public override void _Ready()
 	{
 		Gets();
 		PreloadObjects();
-		Dictionary<string, Dictionary<string, Variant>> DBAffixes = DB.JsonToDict("res://DBAffixes.json");
-		Dictionary<string, Variant> conditions = new()
+		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
+		DBItems = DB.JsonToDict("res://DBItems.json");
+        // Dictionary<string, Variant> conditions = new()
+        // {
+        // 	{ "type", "suffix" }
+        // };
+        // GD.Print(DB.SelectFiltered(DBAffixes, conditions));
+        SlotData randomItem = new()
         {
-			{ "type", "prefix" },
-		};
-		GD.Print(DB.SelectFiltered(DBAffixes, conditions));
+            itemData = GenerateItem(),
+			Quantity = 1
 		
+        };
+        inventory.inventoryDatas[0].PickUpSlotData(randomItem);
 	}
 	public override void _Process(double delta)
 	{
@@ -88,6 +95,68 @@ public partial class Global : Node
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
+	}
+
+	public ItemEquipmentData GenerateItem()
+	{
+		ItemEquipmentData item = new();
+
+		// Select random item from database
+		string baseItemType = DB.SelectFiltered(DBItems);
+
+		ItemAffix prefix = null;
+		if (GD.Randf() >= 0.75f)
+		{
+			Dictionary<string, Variant> conditions = new()
+			{
+				{ "type", "prefix" }
+			};
+			string prefixID = DB.SelectFiltered(DBAffixes, conditions);
+			prefix = GenerateAffix(prefixID);
+		}
+
+		ItemAffix suffix = null;
+		if (GD.Randf() >= 0.75f)
+		{
+			
+			Dictionary<string, Variant> conditions = new()
+			{
+				{ "type", "suffix" }
+			};
+			string suffixID = DB.SelectFiltered(DBAffixes, conditions);
+			suffix = GenerateAffix(suffixID);
+			
+		}
+		item.name = baseItemType;
+		if (prefix != null) item.name = prefix.Name + " " + baseItemType;
+		if (suffix != null) item.name += " " + suffix.Name;
+		
+		item.affixes = [prefix, suffix];
+		item.description = (string)DBItems[baseItemType]["description"];
+		item.Type = ParseEnum<ItemType>((string)DBItems[baseItemType]["type"]);
+		return item;
+	}
+
+	public ItemAffix GenerateAffix(string id)
+	{
+		ItemAffix affix = new();
+        AttributeModifier modifier = new()
+        {
+            Value = (int)GD.RandRange((double)DBAffixes[id]["valueMin"], (double)DBAffixes[id]["valueMax"]),
+			ModType = ParseEnum<AttributeModType>((string)DBAffixes[id]["modifier"])
+
+        };
+
+		GD.Print(modifier.Value);
+		affix.Name = (string)DBAffixes[id]["title"];
+		affix.TargetType = ParseEnum<AttributeType>((string)DBAffixes[id]["target"]);
+		affix.attributeModifier = modifier;
+        return affix;
+	}
+
+	public static T ParseEnum<T>(string value)
+	{
+		return (T) Enum.Parse(typeof(T), value, true);
 	}
 
 	private void Gets()

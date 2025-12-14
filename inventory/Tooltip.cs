@@ -84,11 +84,15 @@ public partial class Tooltip : PanelContainer
             itemLevelContainer.Show();
             foreach (ItemAffix affix in equipment.affixes.Cast<ItemAffix>())
             {
-                AffixToolTipLabel affixLabel = affixLabelScene.Instantiate<AffixToolTipLabel>();
-                affixLabel.typeLabel.Text = affix.TargetType.ToString();
-                affixLabel.valueLabel.Text = affix.attributeModifier.Value.ToString();
-                affixLabel.modTypeLabel.Text = affix.attributeModifier.ModType.ToString();
-                itemAffixContainer.AddChild(affixLabel);
+                if (affix != null)
+                {
+                    AffixToolTipLabel affixLabel = affixLabelScene.Instantiate<AffixToolTipLabel>();
+                    affixLabel.typeLabel.Text = affix.TargetType.ToString();
+                    affixLabel.valueLabel.Text = affix.attributeModifier.Value.ToString();
+                    affixLabel.modTypeLabel.Text = affix.attributeModifier.ModType.ToString();
+                    itemAffixContainer.AddChild(affixLabel);
+                }
+
             }
         }
         Size = new Vector2(0, 0);
