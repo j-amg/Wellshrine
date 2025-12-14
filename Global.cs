@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Runtime.InteropServices.JavaScript;
 
 public partial class Global : Node
 {
@@ -65,8 +68,14 @@ public partial class Global : Node
 	{
 		Gets();
 		PreloadObjects();
+		Dictionary<string, Dictionary<string, Variant>> DBAffixes = DB.JsonToDict("res://DBAffixes.json");
+		Dictionary<string, Variant> conditions = new()
+        {
+			{ "type", "prefix" },
+		};
+		GD.Print(DB.SelectFiltered(DBAffixes, conditions));
+		
 	}
-
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();

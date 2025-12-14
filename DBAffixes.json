@@ -1,0 +1,62 @@
+{
+    "%str": {
+        "title": "Kingly",
+        "target": "Strength",
+        "modifier": "PercentAdd",
+        "itemDescr": "Increased Strength",
+        "valueRange": [5,15],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "%dex": {
+        "title": "Agile",
+        "target": "Dexterity",
+        "modifier": "PercentAdd",
+        "itemDescr": "Increased Dexterity",
+        "valueRange": [5,15],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "%int": {
+        "title": "Scholars",
+        "target": "Intelligence",
+        "modifier": "PercentAdd",
+        "itemDescr": "Increased Intelligence",
+        "valueRange": [5,15],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "flatStr": {
+        "title": "of Brawn",
+        "target": "Strength",
+        "modifier": "Flat",
+        "itemDescr": "Strength",
+        "valueRange": [2,10],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "flatDex": {
+        "title": "of Guile",
+        "target": "Dexterity",
+        "modifier": "Flat",
+        "itemDescr": "Dexterity",
+        "valueRange": [2,10],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "flatInt": {
+        "title": "of Intellect",
+        "target": "Intelligence",
+        "modifier": "Flat",
+        "itemDescr": "Intelligence",
+        "valueRange": [2,10],
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    }
+}
