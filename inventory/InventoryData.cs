@@ -85,9 +85,9 @@ public partial class InventoryData : Resource
 	}
 
 	public void ConsumeSlotData(int index)
-    {
+	{
 		slotDatas[index] = null;
-    }
+	}
 
 	public bool PickUpSlotData(SlotData slotData)
 	{

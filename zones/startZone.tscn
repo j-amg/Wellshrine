@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://nymerq4u1m0o"]
+[gd_scene load_steps=27 format=4 uid="uid://nymerq4u1m0o"]
 
 [ext_resource type="Script" uid="uid://bt2kng7g012s4" path="res://zones/PlayerZone.cs" id="1_lr3ls"]
 [ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="2_6vmps"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="16_2lqes"]
 [ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="17_5b0lf"]
 [ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://inventory/ground_item.tscn" id="18_2lqes"]
+[ext_resource type="PackedScene" uid="uid://dx65hws7rswcp" path="res://container.tscn" id="18_5b0lf"]
 [ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://inventory/inventories/doorInventory.tres" id="19_5b0lf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2drdb"]
@@ -148,3 +149,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32082, 0, 8.49403)
 
 [node name="groundItem3" parent="." instance=ExtResource("18_2lqes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0797, 0, 7.04872)
+
+[node name="generateItems" parent="." instance=ExtResource("18_5b0lf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.38756, 0, 11.2784)

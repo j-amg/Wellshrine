@@ -3,19 +3,30 @@
         "description": "A shimmering Ring",
         "rollWeight": 0.2,
         "accWeight": 0.0,
+        "equipment": 1,
         "type": "Ring"
     },
     "sword": {
         "description": "A plain Iron Sword",
         "rollWeight": 0.8,
         "accWeight": 0.0,
+        "equipment": 1,
         "type": "Spell"
     },
     "axe": {
         "description": "A plain Iron Axe",
         "rollWeight": 0.2,
         "accWeight": 0.0,
+        "equipment": 1,
         "type": "Spell"
+    },
+    "key": {
+        "description": "It must lead somewhere",
+        "destination": "",
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "equipment": 0,
+        "type": "key"
     }
 
 }
