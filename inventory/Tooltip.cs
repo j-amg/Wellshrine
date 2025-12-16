@@ -86,11 +86,28 @@ public partial class Tooltip : PanelContainer
             {
                 if (affix != null)
                 {
-                    AffixToolTipLabel affixLabel = affixLabelScene.Instantiate<AffixToolTipLabel>();
-                    affixLabel.typeLabel.Text = affix.TargetType.ToString();
-                    affixLabel.valueLabel.Text = affix.attributeModifier.Value.ToString();
-                    affixLabel.modTypeLabel.Text = affix.attributeModifier.ModType.ToString();
-                    itemAffixContainer.AddChild(affixLabel);
+                    Label label = affixLabelScene.Instantiate<Label>();
+                    switch(affix.attributeModifier.ModType.ToString())
+                    {
+                        case "Flat":
+                            label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
+                            label.Text += affix.attributeModifier.Value.ToString() + " to ";
+                            label.Text += affix.TargetType.ToString();
+                            break;
+                        case "PercentAdd":
+                            label.Text = affix.attributeModifier.Value.ToString() + "% ";
+                            label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
+                            label.Text += affix.TargetType.ToString();
+                            break;
+                        case "PercentMult":
+                        label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
+                            label.Text = affix.attributeModifier.Value.ToString() + "% ";
+                            label.Text += "Total ";
+                            label.Text += affix.TargetType.ToString();
+                            break;
+                        
+                    }
+                    itemAffixContainer.AddChild(label);
                 }
 
             }

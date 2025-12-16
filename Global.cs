@@ -99,10 +99,10 @@ public partial class Global : Node
 
 	public ItemEquipmentData GenerateItem()
 	{
-		ItemEquipmentData item = new();
-
 		// Select random item from database
 		string baseItemType = DB.SelectFiltered(DBItems);
+
+		ItemEquipmentData item = new();
 
 		ItemAffix prefix = null;
 		if (GD.Randf() >= 0.25f)
@@ -127,8 +127,8 @@ public partial class Global : Node
 			suffix = GenerateAffix(suffixID);
 			
 		}
-		item.name = baseItemType;
-		if (prefix != null) item.name = prefix.Name + " " + baseItemType;
+		item.name = (string)DBItems[baseItemType]["name"];
+		if (prefix != null) item.name = prefix.Name + " " + (string)DBItems[baseItemType]["name"];
 		if (suffix != null) item.name += " " + suffix.Name;
 		
 		item.affixes = [prefix, suffix];

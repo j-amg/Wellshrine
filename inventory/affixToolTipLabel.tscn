@@ -1,33 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgxj5vd2cls7a"]
+[gd_scene format=3 uid="uid://dgxj5vd2cls7a"]
 
-[ext_resource type="Script" uid="uid://c158prveiu6gc" path="res://inventory/AffixToolTipLabel.cs" id="1_qeex3"]
-[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_r4ouk"]
-
-[node name="affix" type="HBoxContainer" node_paths=PackedStringArray("typeLabel", "valueLabel", "modTypeLabel")]
+[node name="affix" type="Label"]
 offset_right = 162.0
-offset_bottom = 22.0
+offset_bottom = 23.0
 size_flags_horizontal = 4
-script = ExtResource("1_qeex3")
-typeLabel = NodePath("affixType")
-valueLabel = NodePath("affixValue")
-modTypeLabel = NodePath("affixModType")
-
-[node name="affixValue" type="Label" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("2_r4ouk")
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-text = "20"
-
-[node name="affixModType" type="Label" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("2_r4ouk")
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-text = "Flat"
-
-[node name="affixType" type="Label" parent="."]
-layout_mode = 2
-theme = ExtResource("2_r4ouk")
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-text = "Strength"
+text = "+20 Strength"

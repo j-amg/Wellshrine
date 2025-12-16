@@ -1,5 +1,6 @@
 {
     "opal ring": {
+        "name": "Opal Ring",
         "description": "A shimmering Ring",
         "rollWeight": 0.2,
         "accWeight": 0.0,
@@ -7,13 +8,15 @@
         "type": "Ring"
     },
     "sword": {
+        "name": "Shortsword",
         "description": "A plain Iron Sword",
-        "rollWeight": 0.8,
+        "rollWeight": 0.2,
         "accWeight": 0.0,
         "equipment": 1,
         "type": "Spell"
     },
     "axe": {
+        "name": "Cleaver",
         "description": "A plain Iron Axe",
         "rollWeight": 0.2,
         "accWeight": 0.0,
@@ -21,12 +24,12 @@
         "type": "Spell"
     },
     "key": {
+        "name": "Key",
         "description": "It must lead somewhere",
-        "destination": "",
+        "destination": "KillZone2",
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "equipment": 0,
         "type": "key"
     }
-
 }

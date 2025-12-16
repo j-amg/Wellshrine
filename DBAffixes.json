@@ -2,7 +2,7 @@
     "%str": {
         "title": "Kingly",
         "target": "Strength",
-        "modifier": "PercentAdd",
+        "modifier": "percentAdd",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -12,8 +12,7 @@
     "%dex": {
         "title": "Agile",
         "target": "Dexterity",
-        "modifier": "PercentAdd",
-        "itemDescr": "Increased Dexterity",
+        "modifier": "percentAdd",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -23,7 +22,7 @@
     "%int": {
         "title": "Scholars",
         "target": "Intelligence",
-        "modifier": "PercentAdd",
+        "modifier": "percentAdd",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -33,7 +32,7 @@
     "flatStr": {
         "title": "of Brawn",
         "target": "Strength",
-        "modifier": "Flat",
+        "modifier": "flat",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -43,7 +42,7 @@
     "flatDex": {
         "title": "of Guile",
         "target": "Dexterity",
-        "modifier": "Flat",
+        "modifier": "flat",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -53,7 +52,7 @@
     "flatInt": {
         "title": "of Intellect",
         "target": "Intelligence",
-        "modifier": "Flat",
+        "modifier": "flat",
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
