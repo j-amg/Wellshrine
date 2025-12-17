@@ -128,23 +128,28 @@ public partial class Inv : Control
     private void OnInventorySlotHovered(InventoryData inventoryData, int index, InvSlot invSlot)
     {
         SlotData slot = inventoryData.slotDatas[index];
-
-        if (grabbedSlotData != null)
-        {
-            if (inventoryData.IsItemAllowed(grabbedSlotData.itemData))
-            {
-                invSlot.SelfModulate = new Color(0, 1, 0, 1);
-            } else invSlot.SelfModulate = new Color(1, 0, 0, 1);
-        }
         
         if (slot != null)
         {
-            GD.Print("hover");
             invSlot.SelfModulate = new Color(0, 1, 0, 1);
+            tooltip.headerContainer.Modulate = slot.itemData.rarity != 0 ? new Color(0.753f, 0.673f, 0.0f) : new Color(1, 1, 1);
             tooltip.SetItem(slot.itemData);
             tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X/2, invSlot.Size.Y/2) + new Vector2(-(tooltip.Size.X/2), -(tooltip.Size.Y + invSlot.Size.Y/2));
             tooltip.GlobalPosition = tooltip.FindSpawnPosition(invSlot);
             tooltip.Show();
+        }
+
+        if (grabbedSlotData != null)
+        {
+            //GD.Print("cant merge");
+            if (!inventoryData.IsItemAllowed(grabbedSlotData.itemData) || slot != null && !grabbedSlotData.CanMergeWith(slot))
+            {
+                invSlot.SelfModulate = new Color(1, 0, 0, 1);
+            }
+            else
+            {
+                invSlot.SelfModulate = new Color(0, 1, 0, 1);
+            } 
         }
     }
 
@@ -154,7 +159,6 @@ public partial class Inv : Control
         {
             invSlot.SelfModulate = new Color(1,1,1,1);
         }
-        
         tooltip.Hide();
     }
 

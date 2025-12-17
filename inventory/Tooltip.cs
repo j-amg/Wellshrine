@@ -10,6 +10,7 @@ public partial class Tooltip : PanelContainer
     [Export] public Label itemDescriptionLabel;
     [Export] public VBoxContainer itemAffixContainer;
     [Export] public HBoxContainer itemLevelContainer;
+    [Export] public PanelContainer headerContainer;
     private PackedScene affixLabelScene;
 
     public override void _Ready()
@@ -34,36 +35,25 @@ public partial class Tooltip : PanelContainer
         float offsetX = 0;
         float offsetY = 0;
 
-        //if (0 - 45 < 0) offsetY += Mathf.Abs(0 - 45);
-
         //top (dont need to calculate bottom since tooltip is always above item)
         // try to left of item, if that clips, move right
         if (loc.Y < 0)
         {
             offsetY += Size.Y;
-            if ((loc.X - Size.X/2 - slotSize.X / 2)! < 0)
-            {
-                offsetX += Size.X - slotSize.X / 2;
-            }
-            else
-            {
-                offsetX -= Size.X/2 + slotSize.X / 2;
-            }
+            if ((loc.X - Size.X/2 - slotSize.X / 2)! < 0) offsetX += Size.X - slotSize.X / 2;
+            else offsetX -= Size.X/2 + slotSize.X / 2;
         }
         else
         {
-            //right
             if (loc.X + Size.X > viewportSize.X) offsetX -= loc.X + Size.X - viewportSize.X;
-
-            // left
             if (loc.X < 0) offsetX -= loc.X;
-        } 
-
+        }
         return loc + new Vector2(offsetX, offsetY);
     }
 
     public void SetItem(ItemData itemData)
     {
+        headerContainer.Modulate = itemData.rarity != 0 ? new Color(0.753f, 0.673f, 0.0f) : new Color(1, 1, 1);
         itemNameLabel.Text = itemData.name;
         itemTypeLabel.Text = itemData.Type.ToString();
         itemDescriptionLabel.Text = itemData.description;
@@ -82,7 +72,7 @@ public partial class Tooltip : PanelContainer
             itemAffixContainer.Show();
             itemLevelLabel.Text = equipment.level.ToString();
             itemLevelContainer.Show();
-            foreach (ItemAffix affix in equipment.affixes.Cast<ItemAffix>())
+            foreach (ItemAffix affix in new ItemAffix[] { equipment.prefix, equipment.suffix })
             {
                 if (affix != null)
                 {
@@ -109,10 +99,8 @@ public partial class Tooltip : PanelContainer
                     }
                     itemAffixContainer.AddChild(label);
                 }
-
             }
         }
-        Size = new Vector2(0, 0);
+        Size = new Vector2(0, 0); // shrink tooltip
     }
-
 }

@@ -97,43 +97,37 @@ public partial class Global : Node
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
 	}
 
-	public ItemEquipmentData GenerateItem()
+	public ItemData GenerateItem()
 	{
 		// Select random item from database
 		string baseItemType = DB.SelectFiltered(DBItems);
+		string itemType = DBItems[baseItemType]["type"].ToString();
+		if (itemType == "equipment") return GenerateEquipment(baseItemType);
+		return null;
 
+	}
+
+	public ItemEquipmentData GenerateEquipment(string itemID)
+	{
 		ItemEquipmentData item = new();
 
-		ItemAffix prefix = null;
 		if (GD.Randf() >= 0.25f)
 		{
-			Dictionary<string, Variant> conditions = new()
-			{
-				{ "type", "prefix" }
-			};
-			string prefixID = DB.SelectFiltered(DBAffixes, conditions);
-			prefix = GenerateAffix(prefixID);
+			Dictionary<string, Variant> conditions = new() { { "type", "prefix" } };
+			item.prefix = GenerateAffix(DB.SelectFiltered(DBAffixes, conditions));
 		}
-
-		ItemAffix suffix = null;
-		if (GD.Randf() >= 0.25f)
-		{
-			
-			Dictionary<string, Variant> conditions = new()
-			{
-				{ "type", "suffix" }
-			};
-			string suffixID = DB.SelectFiltered(DBAffixes, conditions);
-			suffix = GenerateAffix(suffixID);
-			
-		}
-		item.name = (string)DBItems[baseItemType]["name"];
-		if (prefix != null) item.name = prefix.Name + " " + (string)DBItems[baseItemType]["name"];
-		if (suffix != null) item.name += " " + suffix.Name;
 		
-		item.affixes = [prefix, suffix];
-		item.description = (string)DBItems[baseItemType]["description"];
-		item.Type = ParseEnum<ItemType>((string)DBItems[baseItemType]["type"]);
+		if (GD.Randf() >= 0.25f)
+		{
+			Dictionary<string, Variant> conditions = new() { { "type", "suffix" } };
+			item.suffix = GenerateAffix(DB.SelectFiltered(DBAffixes, conditions));
+		}
+		item.name = (string)DBItems[itemID]["name"];
+		if (item.prefix != null) item.name = item.prefix.Name + " " + (string)DBItems[itemID]["name"];
+		if (item.suffix != null) item.name += " " + item.suffix.Name;
+		item.description = (string)DBItems[itemID]["description"];
+		item.rarity = item.prefix != null && item.suffix != null ? 1 : 0;
+		item.Type = ParseEnum<ItemType>((string)DBItems[itemID]["subType"]);
 		item.texture = GD.Load<Texture2D>("res://textures/227.png");
 		return item;
 	}
@@ -145,22 +139,15 @@ public partial class Global : Node
         {
             Value = (int)GD.RandRange((double)DBAffixes[id]["valueMin"], (double)DBAffixes[id]["valueMax"]),
 			ModType = ParseEnum<AttributeModType>((string)DBAffixes[id]["modifier"])
-
         };
-
-		GD.Print(modifier.Value);
 		affix.Name = (string)DBAffixes[id]["title"];
 		affix.TargetType = ParseEnum<AttributeType>((string)DBAffixes[id]["target"]);
 		affix.attributeModifier = modifier;
         return affix;
 	}
 
-	public static T ParseEnum<T>(string value)
-	{
-		return (T) Enum.Parse(typeof(T), value, true);
-	}
-
-	private void Gets()
+    public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
+    private void Gets()
 	{
 		Viewport root = GetTree().Root;
 		currentScene = root.GetChild(root.GetChildCount() - 1);

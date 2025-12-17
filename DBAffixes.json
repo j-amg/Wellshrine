@@ -2,7 +2,8 @@
     "%str": {
         "title": "Kingly",
         "target": "Strength",
-        "modifier": "percentAdd",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -12,7 +13,8 @@
     "%dex": {
         "title": "Agile",
         "target": "Dexterity",
-        "modifier": "percentAdd",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -22,7 +24,8 @@
     "%int": {
         "title": "Scholars",
         "target": "Intelligence",
-        "modifier": "percentAdd",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -32,7 +35,8 @@
     "flatStr": {
         "title": "of Brawn",
         "target": "Strength",
-        "modifier": "flat",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -42,7 +46,8 @@
     "flatDex": {
         "title": "of Guile",
         "target": "Dexterity",
-        "modifier": "flat",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,
@@ -52,7 +57,8 @@
     "flatInt": {
         "title": "of Intellect",
         "target": "Intelligence",
-        "modifier": "flat",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
         "valueMin": 2.0,
         "valueMax": 10.0,
         "rollWeight": 0.2,

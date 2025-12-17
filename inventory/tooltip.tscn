@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bklldjik8cjkn"]
+[gd_scene load_steps=9 format=3 uid="uid://bklldjik8cjkn"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_c2f6h"]
 [ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="2_gmlu0"]
@@ -13,7 +13,15 @@ content_margin_right = 0.0
 content_margin_bottom = 0.0
 bg_color = Color(0, 0, 0, 0.705882)
 
-[node name="tooltip" type="PanelContainer" node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "itemAffixContainer", "itemLevelContainer")]
+[sub_resource type="Gradient" id="Gradient_gmlu0"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jifm2"]
+gradient = SubResource("Gradient_gmlu0")
+
+[node name="tooltip" type="PanelContainer" node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "itemAffixContainer", "itemLevelContainer", "headerContainer")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -30,12 +38,13 @@ mouse_filter = 2
 theme = ExtResource("1_c2f6h")
 theme_override_styles/panel = SubResource("StyleBoxFlat_m22gv")
 script = ExtResource("2_gmlu0")
-itemNameLabel = NodePath("VBoxContainer/PanelContainer/MarginContainer2/name")
+itemNameLabel = NodePath("VBoxContainer/header/MarginContainer2/name")
 itemTypeLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/type")
 itemLevelLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer/levelLabel2")
 itemDescriptionLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/description")
 itemAffixContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/affixContainer")
 itemLevelContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer")
+headerContainer = NodePath("VBoxContainer/header")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -43,18 +52,18 @@ size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="header" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_jifm2")
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/header"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_bottom = 4
 
-[node name="name" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer2"]
+[node name="name" type="Label" parent="VBoxContainer/header/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -90,6 +99,12 @@ text = "Item Level:"
 [node name="levelLabel2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer"]
 layout_mode = 2
 text = "16"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_jifm2")
+expand_mode = 3
 
 [node name="affixContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

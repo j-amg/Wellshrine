@@ -1,4 +1,5 @@
 using System;
+using System.Net.NetworkInformation;
 using Godot;
 using Godot.Collections;
 
@@ -6,13 +7,13 @@ using Godot.Collections;
 public partial class ItemEquipmentData : ItemData
 {
 	[Export] public int level = 1;
-	[Export] public Array<ItemAffix> affixes = [];
-
-
+	
+	[Export] public ItemAffix _implicit;
+	[Export] public ItemAffix prefix;
+	[Export] public ItemAffix suffix;
 	public void Equip(Player player)
 	{
-		GD.Print("Equip");
-		foreach (ItemAffix affix in affixes)
+		foreach (ItemAffix affix in new ItemAffix[] { prefix, suffix })
 		{
 			if (affix != null)
 			{
@@ -25,7 +26,7 @@ public partial class ItemEquipmentData : ItemData
 
 	public void Unequip(Player player)
 	{
-		foreach (ItemAffix affix in affixes)
+		foreach (ItemAffix affix in new ItemAffix[] { prefix, suffix })
 		{
 			if (affix != null)
 			{

@@ -21,4 +21,6 @@ public partial class ItemData : Resource
     [Export] public bool stackable = false;
     [Export] public Texture2D texture;
     [Export] public ItemType Type;
+    [Export] public int rarity = 0; // 0 Common, 1 rare
+
 }

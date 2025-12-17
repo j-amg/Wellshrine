@@ -31,6 +31,7 @@ description = "Opens a portal to a target location"
 stackable = false
 texture = SubResource("GradientTexture1D_lvbne")
 Type = 1
+rarity = 0
 metadata/_custom_type_script = "uid://dvij04y0ol04i"
 
 [sub_resource type="Resource" id="Resource_kc4hb"]
@@ -55,6 +56,7 @@ description = "test fireball"
 stackable = false
 texture = SubResource("PlaceholderTexture2D_dfdhl")
 Type = 2
+rarity = 0
 metadata/_custom_type_script = "uid://cor31o64ycrn2"
 
 [sub_resource type="Resource" id="Resource_tjlrl"]

@@ -1,27 +1,28 @@
 {
     "opal ring": {
         "name": "Opal Ring",
+        "implicitID": "flatStr",
         "description": "A shimmering Ring",
         "rollWeight": 0.2,
         "accWeight": 0.0,
-        "equipment": 1,
-        "type": "Ring"
+        "type": "equipment",
+        "subType": "Ring"
     },
     "sword": {
         "name": "Shortsword",
         "description": "A plain Iron Sword",
         "rollWeight": 0.2,
         "accWeight": 0.0,
-        "equipment": 1,
-        "type": "Spell"
+        "type": "equipment",
+        "subType": "Spell"
     },
     "axe": {
         "name": "Cleaver",
         "description": "A plain Iron Axe",
         "rollWeight": 0.2,
         "accWeight": 0.0,
-        "equipment": 1,
-        "type": "Spell"
+        "type": "equipment",
+        "subType": "Spell"
     },
     "key": {
         "name": "Key",
@@ -29,7 +30,7 @@
         "destination": "KillZone2",
         "rollWeight": 0.2,
         "accWeight": 0.0,
-        "equipment": 0,
-        "type": "key"
+        "type": "key",
+        "subType": "key"
     }
 }
