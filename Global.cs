@@ -103,11 +103,24 @@ public partial class Global : Node
 		string baseItemType = DB.SelectFiltered(DBItems);
 		string itemType = DBItems[baseItemType]["type"].ToString();
 		if (itemType == "equipment") return GenerateEquipment(baseItemType);
+		if (itemType == "key") return GenerateKey(baseItemType);
 		return null;
-
 	}
 
-	public ItemEquipmentData GenerateEquipment(string itemID)
+    private ItemData GenerateKey(string itemID)
+    {
+        return new()
+        {
+            name = (string)DBItems[itemID]["name"],
+            description = (string)DBItems[itemID]["description"],
+            Type = ParseEnum<ItemType>((string)DBItems[itemID]["subType"]),
+            texture = GD.Load<Texture2D>("res://textures/227.png")
+        };
+
+
+    }
+
+    public ItemEquipmentData GenerateEquipment(string itemID)
 	{
 		ItemEquipmentData item = new();
 
