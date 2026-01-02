@@ -36,7 +36,7 @@ public partial class InvContainer : GridContainer
             foreach (InvSlot s in GetChildren().Cast<InvSlot>())
             {
                 s.highlighted = false;
-                s.SelfModulate = new Color(1, 1, 1, 1);
+                s.SelfModulate = s.defaultModulate;
             }
         } else if (slotData.itemData.Type == inventoryData.allowedType && inventoryData.allowedType != ItemType.Generic)
         {

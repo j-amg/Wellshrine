@@ -6,14 +6,14 @@
 [sub_resource type="Theme" id="Theme_yiowp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86mxd"]
-bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+bg_color = Color(0.2, 0.2, 0.2, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.306923, 0.306923, 0.306923, 1)
+border_color = Color(0.364706, 0.352941, 0.313726, 1)
 
-[node name="slot" type="PanelContainer" node_paths=PackedStringArray("container", "texture", "quantityLabel")]
+[node name="slot" type="PanelContainer" node_paths=PackedStringArray("container", "texture", "quantityLabel", "BG")]
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +28,12 @@ script = ExtResource("1_yiowp")
 container = NodePath("centercontainer")
 texture = NodePath("centercontainer/TextureRect")
 quantityLabel = NodePath("Label")
+BG = NodePath("BG")
+
+[node name="BG" type="ColorRect" parent="."]
+modulate = Color(0.396078, 0.396078, 0.396078, 0)
+layout_mode = 2
+mouse_filter = 1
 
 [node name="centercontainer" type="CenterContainer" parent="."]
 layout_mode = 2

@@ -131,8 +131,8 @@ public partial class Inv : Control
         
         if (slot != null)
         {
-            invSlot.SelfModulate = new Color(0, 1, 0, 1);
-            tooltip.headerContainer.Modulate = slot.itemData.rarity != 0 ? new Color(0.753f, 0.673f, 0.0f) : new Color(1, 1, 1);
+            invSlot.BG.Modulate = invSlot.defaultModulate;
+            
             tooltip.SetItem(slot.itemData);
             tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X/2, invSlot.Size.Y/2) + new Vector2(-(tooltip.Size.X/2), -(tooltip.Size.Y + invSlot.Size.Y/2));
             tooltip.GlobalPosition = tooltip.FindSpawnPosition(invSlot);
@@ -144,11 +144,11 @@ public partial class Inv : Control
             //GD.Print("cant merge");
             if (!inventoryData.IsItemAllowed(grabbedSlotData.itemData) || slot != null && !grabbedSlotData.CanMergeWith(slot))
             {
-                invSlot.SelfModulate = new Color(1, 0, 0, 1);
+                invSlot.BG.Modulate = new Color(1, 0, 0, .25f);
             }
             else
             {
-                invSlot.SelfModulate = new Color(0, 1, 0, 1);
+                invSlot.BG.Modulate = new Color(0, 1, 0, .25f);
             } 
         }
     }
@@ -157,7 +157,7 @@ public partial class Inv : Control
     {
         if (!invSlot.highlighted)
         {
-            invSlot.SelfModulate = new Color(1,1,1,1);
+            invSlot.BG.Modulate = invSlot.defaultModulate;
         }
         tooltip.Hide();
     }
@@ -191,9 +191,9 @@ public partial class Inv : Control
 
     private void UpdateGrabbedSlot()
     {
-        EmitSignal(SignalName.SlotGrabbed, grabbedSlotData);
         if (grabbedSlotData != null)
         {
+            EmitSignal(SignalName.SlotGrabbed, grabbedSlotData);
             grabbedSlot.Show();
             grabbedSlot.SetSlotData(grabbedSlotData);
         }

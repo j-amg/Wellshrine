@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cidgvw2j1hrwf" path="res://textures/panelBase.png" id="1_hfvq1"]
 
 [resource]
-content_margin_top = 8.0
 texture = ExtResource("1_hfvq1")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
+modulate_color = Color(0.686275, 0.623529, 0.407843, 1)

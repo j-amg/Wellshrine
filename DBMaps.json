@@ -1,0 +1,29 @@
+{
+    "tower": {
+        "name": "Tower",
+        "path": "killZone1",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    },
+    "courtyard": {
+        "name": "Courtyard",
+        "path": "killZone2",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    },
+    "dungeon": {
+        "name": "Dungeon",
+        "path": "killZone3",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+    },
+    "villa": {
+        "name": "Villa",
+        "path": "killZone4",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    }
+}

@@ -10,6 +10,10 @@ public partial class InvSlot : PanelContainer
 	[Export] public CenterContainer container;
 	[Export] TextureRect texture;
 	[Export] Label quantityLabel;
+	[Export] public bool transparentBackground = false;
+	[Export] public ColorRect BG;
+
+	public Color defaultModulate = new(1, 1, 1, 0);
 	public bool highlighted = false;
 
 	public override void _Ready()
@@ -39,6 +43,11 @@ public partial class InvSlot : PanelContainer
 	{
 		texture.Texture = slotdata.itemData.texture;
 		quantityLabel.Text = slotdata.Quantity.ToString();
+		if (!transparentBackground)
+		{
+			defaultModulate = slotdata.itemData.rarity == 1 ? new Color(0.794f, 0.673f, 0.0f, 0.1f) : new Color(1, 1, 1, 0.1f);
+			BG.Modulate = defaultModulate;
+		}
 
 		if (slotdata.Quantity > 1)
 		{

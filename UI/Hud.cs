@@ -41,13 +41,6 @@ public partial class Hud : Control
     {
         Global.Singleton.player.damageTaken += OnDamageTaken;
         Global.Singleton.HealthChanged += OnHealthChanged;
-        if (Global.Singleton.currentZone != null)
-        {
-            Global.Singleton.currentZone.ZoneEntered += OnZoneEntered;
-            Global.Singleton.currentZone.ZoneObjectiveComplete += OnZoneObjectiveComplete;
-        }
-        if (Global.Singleton.currentZone.hideZoneLabel) zoneLabel.Visible = false;
-        if (Global.Singleton.disableObjectives) zoneInformation.Visible = false;
     }
 
     private void OnZoneObjectiveComplete(Zone zone)
@@ -59,9 +52,7 @@ public partial class Hud : Control
 
     public void UpdateZoneInformation(Zone zone)
     {
-        zoneLabel.Text = zone.zoneValueOverride == null ?
-        "Zone: " + Global.Singleton.currentLevel.ToString() 
-        : "Zone: " + zone.zoneValueOverride.ToString();
+        zoneLabel.Text = "Zone: " + Global.Singleton.currentLevel.ToString();
         objectiveLabel.Text = zone.objective == null ? "" : "Objective: " + zone.objective.ToString();
         UpdateHealth();
     }

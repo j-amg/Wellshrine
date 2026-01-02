@@ -46,8 +46,8 @@ public partial class Global : Node
 	private AudioStream charSound;
 
 	public Array<PackedScene> enemyArray = [];
+	public Array<PackedScene> tileArray = [];
 	public PackedScene item;
-
 
 	private string currentAction;
 	public string awaitedAction;
@@ -62,26 +62,13 @@ public partial class Global : Node
 	public string CurrentDoorDestinationPath = "res://zones/killZone1.tscn";
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
+	Dictionary<string, Dictionary<string, Variant>> DBMaps;
 	public PlayerZone playerZone;
 
 	public override void _Ready()
 	{
 		Gets();
 		PreloadObjects();
-		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
-		DBItems = DB.JsonToDict("res://DBItems.json");
-        // Dictionary<string, Variant> conditions = new()
-        // {
-        // 	{ "type", "suffix" }
-        // };
-        // GD.Print(DB.SelectFiltered(DBAffixes, conditions));
-        SlotData randomItem = new()
-        {
-            itemData = GenerateItem(),
-			Quantity = 1
-		
-        };
-        inventory.inventoryDatas[0].PickUpSlotData(randomItem);
 	}
 	public override void _Process(double delta)
 	{
@@ -92,9 +79,44 @@ public partial class Global : Node
 		
 	public void PreloadObjects()
 	{
+		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
+		DBItems = DB.JsonToDict("res://DBItems.json");
+		DBMaps = DB.JsonToDict("res://DBMaps.json");
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
+
+		tileArray.Add(GD.Load<PackedScene>("res://zones/killZone1.tscn"));
+		tileArray.Add(GD.Load<PackedScene>("res://zones/killZone2.tscn"));
+
+
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
+	}
+
+	private void Gets()
+	{
+		Viewport root = GetTree().Root;
+		currentScene = root.GetChild(root.GetChildCount() - 1);
+		currentZone = currentScene is Zone zone ? zone : null;
+
+		if (currentScene is Zone)
+		{
+			player = currentScene.GetNodeOrNull<Player>("player");
+			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
+			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
+			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
+			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
+			
+			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
+			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
+			inventory.SetPlayerInventoryData(player.inventoryData);
+			inventory.SetAttributeLabels(player.attributeData);
+			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+			{
+				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
+			}
+
+			if (playerZone is null && currentScene is PlayerZone z) playerZone = z; // set player zone reference
+        }
 	}
 
 	public ItemData GenerateItem()
@@ -107,17 +129,17 @@ public partial class Global : Node
 		return null;
 	}
 
-    private ItemData GenerateKey(string itemID)
+    private ItemKeyData GenerateKey(string itemID)
     {
+		string mapID = DB.SelectFiltered(DBMaps);
         return new()
         {
-            name = (string)DBItems[itemID]["name"],
+            name = (string)DBMaps[mapID]["name"] + " Key",
             description = (string)DBItems[itemID]["description"],
+			zonePath = "res://zones/" + DBMaps[mapID]["path"] + ".tscn",
             Type = ParseEnum<ItemType>((string)DBItems[itemID]["subType"]),
             texture = GD.Load<Texture2D>("res://textures/227.png")
         };
-
-
     }
 
     public ItemEquipmentData GenerateEquipment(string itemID)
@@ -160,32 +182,6 @@ public partial class Global : Node
 	}
 
     public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
-    private void Gets()
-	{
-		Viewport root = GetTree().Root;
-		currentScene = root.GetChild(root.GetChildCount() - 1);
-		currentZone = currentScene is Zone zone ? zone : null;
-
-		if (currentScene is Zone)
-		{
-			player = currentScene.GetNodeOrNull<Player>("player");
-			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
-			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
-			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
-			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-			
-			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
-			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
-			inventory.SetPlayerInventoryData(player.inventoryData);
-			inventory.SetAttributeLabels(player.attributeData);
-			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
-			{
-				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
-			}
-
-			if (playerZone is null && currentScene is PlayerZone z) playerZone = z; // set player zone reference
-        }
-	}
 
     private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
 	
@@ -250,6 +246,20 @@ public partial class Global : Node
 		GetTree().CurrentScene = currentScene;
 		Gets();
 		GD.Print("zone loaded");
+	}
+
+	public void GotoZone(Zone zone) => CallDeferred(MethodName.DeferredGotoScene, zone);
+
+	public void DeferredGotoZone(Zone zone)
+	{
+		if (currentZone == zone || zone == null) return;
+		currentZone?.CloseZone();
+		currentScene.Free();
+		currentScene = zone;
+		currentZone = currentScene is Zone z ? z : null;
+		GetTree().Root.AddChild(currentScene);
+		GetTree().CurrentScene = currentScene;
+		Gets();
 	}
 
 

@@ -74,14 +74,8 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		ReticleModulate = new Color(1,0,0);
 		defaultModulate = sprite.Modulate;
 		FloorSnapLength = 1;
-		
-		SpawnDelay();
+		awake = true;
 	}
-	public async void SpawnDelay()
-    {
-		await ToSignal(GetTree().CreateTimer(1), "timeout");
-        awake = true;
-    }
 
 	private async void Stun()
 	{
@@ -94,11 +88,11 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		SetPhysicsProcess(true);
 	}
 
-	public static Enemy InitEnemy(PackedScene scene, int levelParam, Transform3D transformParam)
+	public static Enemy InitEnemy(PackedScene scene, int levelParam, Vector3 position)
 	{
 		Enemy enemy = scene.Instantiate<Enemy>();
 		enemy.level = levelParam;
-		enemy.GlobalTransform = transformParam;
+		enemy.Position = position;
 		return enemy;
 	}
 

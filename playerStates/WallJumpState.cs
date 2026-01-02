@@ -6,7 +6,7 @@ public partial class WallJumpState : State
 	public override void Enter()
 	{
 		owner.JumpAnim();
-		owner.wallJumpTimer();
+		owner.WallJumpTimer();
 		owner.currentJump = 1;
         owner.currentDash = 0;
 		owner.UpdateInput(owner.currentSpeed, 1, owner.deceleration);

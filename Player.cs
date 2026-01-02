@@ -180,6 +180,7 @@ public partial class Player : CharacterBody3D, IDamageable
 			if (Input.IsActionJustPressed("2")) { Attack(1);}
 			if (Input.IsActionJustPressed("3")) { Attack(2);}
 			if (Input.IsActionJustPressed("4")) { Attack(3);}
+			if (Input.IsActionJustPressed("p")) { Global.Singleton.GotoZone(Global.Singleton.playerZone);}
 
 			if (Input.IsActionJustPressed("interact"))
 			{
@@ -248,7 +249,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		SetProcessInput(true);
 	}
 
-	public async void wallJumpTimer()
+	public async void WallJumpTimer()
 	{
 		canWallJump = false;
 		await ToSignal(GetTree().CreateTimer(wallJumpCD), "timeout");
@@ -349,4 +350,9 @@ public partial class Player : CharacterBody3D, IDamageable
 		await ToSignal(GetTree().CreateTimer(MathF.Min(0.4f, .2f)), "timeout");
 		handSprite.Play(Global.Singleton.currentIdle);
 	}
+
+	// private async void OpenPortal()
+    // {
+        
+    // }
 }
