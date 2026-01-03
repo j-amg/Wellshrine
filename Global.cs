@@ -69,6 +69,7 @@ public partial class Global : Node
 	{
 		Gets();
 		PreloadObjects();
+		GenerateTileZone();
 	}
 	public override void _Process(double delta)
 	{
@@ -181,6 +182,31 @@ public partial class Global : Node
         return affix;
 	}
 
+	public void GenerateTileZone()
+	{
+		Zone baseZone = GD.Load<PackedScene>("res://zones/testCombinedLevel.tscn").Instantiate<Zone>();
+		Node3D startingTile = Singleton.tileArray[0].Instantiate<Node3D>();
+		startingTile = SpawnRooms(startingTile, 50);
+		baseZone.AddChild(startingTile);
+		GotoZone(baseZone);
+	}
+
+	public Node3D SpawnRooms(Node3D tile, int credits)
+	{
+		if (credits >= 0)
+		{
+			foreach (Node3D connector in tile.GetNode<Node>("connectionPoints").GetChildren())
+			{
+				Node3D childTile = Singleton.tileArray[GD.RandRange(0, Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
+				childTile = SpawnRooms(childTile, credits - 10);
+				tile.AddChild(childTile);
+				childTile.Transform = connector.Transform;
+				GD.Print("Spawned room at:" + connector.Position);
+			}
+		}
+		return tile;
+	}
+
     public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
 
     private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
@@ -248,11 +274,10 @@ public partial class Global : Node
 		GD.Print("zone loaded");
 	}
 
-	public void GotoZone(Zone zone) => CallDeferred(MethodName.DeferredGotoScene, zone);
+	public void GotoZone(Zone zone) => CallDeferred(MethodName.DeferredGotoZone, zone);
 
 	public void DeferredGotoZone(Zone zone)
 	{
-		if (currentZone == zone || zone == null) return;
 		currentZone?.CloseZone();
 		currentScene.Free();
 		currentScene = zone;

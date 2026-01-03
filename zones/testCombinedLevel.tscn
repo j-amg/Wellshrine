@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://q2lqf7s2pcfd"]
+
+[ext_resource type="Script" uid="uid://crl4fluuedusj" path="res://zones/Zone.cs" id="1_q56ba"]
+[ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_5yc4e"]
+[ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://UI/hud.tscn" id="3_oas6t"]
+[ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="4_kypip"]
+[ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="5_u1kud"]
+[ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="6_h4iod"]
+[ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://zones/zoneComponents/enemySpawner.tscn" id="8_x1o03"]
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("spawner")]
+script = ExtResource("1_q56ba")
+spawner = NodePath("enemySpawner")
+
+[node name="player" parent="." instance=ExtResource("2_5yc4e")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.27753, 11.2346)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="hud" parent="UI" instance=ExtResource("3_oas6t")]
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="inventory" parent="UI" instance=ExtResource("4_kypip")]
+visible = false
+
+[node name="pause" parent="UI" instance=ExtResource("5_u1kud")]
+visible = false
+mouse_filter = 2
+
+[node name="deathScreen" parent="UI" instance=ExtResource("6_h4iod")]
+visible = false
+mouse_filter = 2
+
+[node name="enemySpawner" parent="." instance=ExtResource("8_x1o03")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.984254, 0.0707763, -0.16197, 0.176758, -0.394108, 0.901907, 0, -0.916335, -0.400413, 0, 0, 0)

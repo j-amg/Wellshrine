@@ -27,7 +27,7 @@ public partial class Zone : Node3D
 	public async void SpawnDelay()
 	{
 		await ToSignal(GetTree().CreateTimer(1), "timeout");
-		spawner?.Spawn(50, Global.Singleton.enemyArray);
+		spawner?.Spawn(10, Global.Singleton.enemyArray);
 	}
 
 	public virtual void UpdateObjective() => CompleteObjective();

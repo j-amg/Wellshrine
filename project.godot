@@ -40,6 +40,7 @@ shrines=""
 chests=""
 tiles=""
 spawnAreas=""
+roomConnectors=""
 
 [input]
 
