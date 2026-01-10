@@ -70,7 +70,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float deceleration = .5f;
 	public float airAcceleration = .1f;
 	public float airDeceleration = 0.0f;
-	public float dashVelocity = 12f;
+	public float dashVelocity = 30f;
 	public float wallJumpVelocity = 2f;
 	public float fallSpeed = 2;
 	public float jumpVelocity = 7.5f;
