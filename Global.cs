@@ -87,8 +87,8 @@ public partial class Global : Node
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
 
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest2.tscn"));
-		//tileArray.Add(GD.Load<PackedScene>("res://zones/killZone2.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
+		//tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
 
 
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");

@@ -51,7 +51,7 @@ public partial class Zone : Node3D
 
 		Zone baseZone = GD.Load<PackedScene>("res://zones/testCombinedLevel.tscn").Instantiate<Zone>();
 		Node3D startingTile = Global.Singleton.tileArray[0].Instantiate<Node3D>();
-		Vector3 spawnPoint = new(500,30,500);
+		Vector3 spawnPoint = new(500,100,500);
 		float spawnRot = 0;
 		AddMapToArray(startingTile.GetNode<GridMap>("NavigationRegion3D/GridMap"), tileArray, spawnPoint, spawnRot);
 		SpawnRooms(startingTile, 40, tileArray, startingTile.Transform);
@@ -90,7 +90,11 @@ public partial class Zone : Node3D
 		foreach (Vector3 cell in map.GetUsedCells())
 		{
 			//GD.Print(cell);
-			Vector3 transformedCellPos = new Vector3(cell.X + 1, cell.Y, cell.Z).Rotated(Vector3.Up, rot) + pos;
+
+			//Vector3 cellOffset = new Vector3(1,0,0).Rotated(Vector3.Up, rot);
+
+
+			Vector3 transformedCellPos = new Vector3(cell.X + 1, cell.Y, cell.Z + 1).Rotated(Vector3.Up, rot) + pos;
 			// check if tile already exists in array
 			if (
 			transformedCellPos.X < 0 || transformedCellPos.X >= tileArray.GetLength(0)
@@ -105,13 +109,13 @@ public partial class Zone : Node3D
 			}
 			else if (tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] == 1)
 			{
-				//GD.Print("tile already exists: " + (transformedCellPos - new Vector3(500,30,500)));
+				GD.Print("tile already exists: " + (transformedCellPos - new Vector3(500,30,500)));
 				canPlaceRoom = false;
 				break;
 			}
 			else
 			{
-				//GD.Print("tile placed at: " + (transformedCellPos - new Vector3(500,30,500)));
+				GD.Print("tile placed at: " + (transformedCellPos - new Vector3(500,30,500)));
 				tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] = 1;
 			}
 		}
