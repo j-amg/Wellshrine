@@ -2,6 +2,14 @@ using System;
 using Godot;
 using Godot.Collections;
 
+public enum SpellType
+{
+    Projectile,
+    Buff,
+    Target,
+	Effect
+}
+
 [GlobalClass]
 public partial class ItemSpellData : ItemData
 {
@@ -11,12 +19,13 @@ public partial class ItemSpellData : ItemData
 
 	public void Equip(Player player, SpellInventoryData inventoryData)
 	{
-		GD.Print("Equip Spell");
-		player.equippedSpells.SetValue(spell, inventoryData.spellSlotIndex);
+		player.spellData.spells[inventoryData.spellSlotIndex] = spell;
+		spell.Equip(player);
 	}
 
 	public void Unequip(Player player, SpellInventoryData inventoryData)
 	{
-		player.equippedSpells.SetValue(null, inventoryData.spellSlotIndex);
+		player.spellData.spells[inventoryData.spellSlotIndex] = null;
+		spell.Unequip();
 	}
 }

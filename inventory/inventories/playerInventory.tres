@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=21 format=3 uid="uid://b1uqq1wreddj6"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=20 format=3 uid="uid://b1uqq1wreddj6"]
 
 [ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="1_snp5g"]
 [ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="2_6bjuc"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cor31o64ycrn2" path="res://inventory/ItemSpellData.cs" id="5_llrpn"]
 [ext_resource type="Resource" uid="uid://vlof74pcydiw" path="res://inventory/items/helmet.tres" id="5_tocfo"]
 [ext_resource type="Resource" uid="uid://c5vucythpgv4q" path="res://inventory/items/rui.tres" id="6_hc2kf"]
-[ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://Spell.cs" id="6_lvbne"]
+[ext_resource type="Resource" uid="uid://lk6qnl8kssvo" path="res://spells/IceSpike.tres" id="6_llrpn"]
 
 [sub_resource type="Resource" id="Resource_6bjuc"]
 script = ExtResource("2_6bjuc")
@@ -40,17 +40,12 @@ itemData = SubResource("Resource_lvbne")
 Quantity = 1
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 
-[sub_resource type="Resource" id="Resource_hbx4k"]
-script = ExtResource("6_lvbne")
-name = "fireball"
-metadata/_custom_type_script = "uid://cce02yl1a3ynp"
-
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dfdhl"]
 
 [sub_resource type="Resource" id="Resource_weyv1"]
 script = ExtResource("5_llrpn")
 level = 1
-spell = SubResource("Resource_hbx4k")
+spell = ExtResource("6_llrpn")
 name = "fireball"
 description = "test fireball"
 stackable = false

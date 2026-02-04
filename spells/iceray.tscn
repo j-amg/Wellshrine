@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://borqcrf6hrhwi"]
+[gd_scene load_steps=6 format=3 uid="uid://bjbjj3c06fye1"]
 
-[ext_resource type="Script" uid="uid://1kbty7llq555" path="res://IceRay.cs" id="1_ihnad"]
+[ext_resource type="Script" uid="uid://1kbty7llq555" path="res://spells/IceRay.cs" id="1_q73c1"]
 
 [sub_resource type="Gradient" id="Gradient_fmoj3"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.0783133)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pf2u6"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2568u"]
 gradient = SubResource("Gradient_fmoj3")
 width = 512
 
@@ -15,7 +15,7 @@ width = 512
 offsets = PackedFloat32Array(0.63253, 1)
 colors = PackedColorArray(1, 1, 1, 0.196078, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xnw7c"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c71n5"]
 gradient = SubResource("Gradient_recn3")
 width = 16
 height = 16
@@ -24,15 +24,15 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.880342, 0.132479)
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_ihnad")
+script = ExtResource("1_q73c1")
 
 [node name="ray" type="Sprite3D" parent="."]
 transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -5, 0, -4.37114e-08, 0, 0, -12.9454)
 texture_filter = 0
-texture = SubResource("GradientTexture1D_pf2u6")
+texture = SubResource("GradientTexture1D_2568u")
 
 [node name="frontRay" type="Sprite3D" parent="."]
 transform = Transform3D(0.065, 0, 0, 0, -0.06, 1.50996e-07, 0, -9.05975e-09, -1, 0, 0, -1.04594)
 billboard = 1
 texture_filter = 0
-texture = SubResource("GradientTexture2D_xnw7c")
+texture = SubResource("GradientTexture2D_c71n5")

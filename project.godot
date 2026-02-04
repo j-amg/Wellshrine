@@ -159,6 +159,10 @@ p={
 3d_physics/layer_5="items"
 3d_physics/layer_9="NPCs"
 
+[navigation]
+
+3d/default_edge_connection_margin=2.0
+
 [physics]
 
 common/physics_interpolation=true
@@ -166,7 +170,6 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-shading/overrides/force_vertex_shading=true
 textures/default_filters/use_nearest_mipmap_filter=true
 environment/ssao/quality=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false

@@ -13,7 +13,7 @@ public enum AttributeType
 [GlobalClass]
 public partial class AttributeData : Resource
 {
-    public Dictionary<AttributeType, PlayerAttribute> playerAttributes = new Dictionary<AttributeType, PlayerAttribute>
+    public Dictionary<AttributeType, PlayerAttribute> playerAttributes = new()
     {
         {AttributeType.Strength, new PlayerAttribute(50f)},
         {AttributeType.Dexterity, new PlayerAttribute(50f)},

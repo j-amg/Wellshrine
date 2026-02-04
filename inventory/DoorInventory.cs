@@ -16,7 +16,8 @@ public partial class DoorInventory : PanelContainer
         if (slotData.itemData is ItemKeyData key)
         {
             GD.Print("Open path: " + key.zonePath);
-            Global.Singleton.playerZone?.door.SetDestination(key.zonePath);
+            //Zone.GenerateTileZone();
+            //Global.Singleton.playerZone?.door.SetDestination(key.zonePath);
             inventoryData.ConsumeSlotData(0);
             Global.Singleton.ToggleInv();
             Global.Singleton.playerZone.door.Open();

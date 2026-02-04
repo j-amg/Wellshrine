@@ -11,6 +11,7 @@ public partial class Door : Area3D, IHoverable
 
     public override void _Ready()
     {
+        //Global.Singleton.inventory.door
         BodyEntered += OnBodyEntered;
     }
     public void Open()
@@ -24,13 +25,15 @@ public partial class Door : Area3D, IHoverable
     public void SetDestination(string path)
     {
         GD.Print("destination set to: " + path);
-        zoneToLoad = GD.Load<PackedScene>(path);
+        
+        //zoneToLoad = GD.Load<PackedScene>(path);
     }
 
     private void OnBodyEntered(Node3D body)
     {
-        if (body is not Player || zoneToLoad is null) return;
-        Global.Singleton.GotoScene(zoneToLoad);
+        if (body is not Player) return;
+        //Global.Singleton.GotoScene(zoneToLoad);
+        Zone.GenerateTileZone();
     }
 
     public void StartHover()

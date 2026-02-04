@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://lk6qnl8kssvo"]
+
+[ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_bq1eg"]
+[ext_resource type="PackedScene" uid="uid://cino8kdmx0n5m" path="res://spells/iceSpike.tscn" id="2_igpew"]
+
+[resource]
+script = ExtResource("1_bq1eg")
+castTime = 0.0
+spellScene = ExtResource("2_igpew")
+metadata/_custom_type_script = "uid://cce02yl1a3ynp"

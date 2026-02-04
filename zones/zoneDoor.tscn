@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmx1hsj2habt"]
+
+[ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="1_pf4mw"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_pf4mw")
+data = {
+"cells": PackedInt32Array(0, 0, 9, 65535, 0, 9)
+}

@@ -29,28 +29,18 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	public AnimatedSprite3D handSprite;
 	[Export]
+	public Node3D hands3D;
+	[Export]
 	public CollisionShape3D standCollision;
 	[Export]
 	public CollisionShape3D crouchCollision;
 	[Export]
 	public Area3D wallDetection;
-	[Export]
-	private Area3D iceCollision;
-	[Export]
-	private Area3D shockCollision;
-	[Export]
-	private PackedScene fireball;
-	[Export]
-	private PackedScene iceray;
-	[Export]
-	private AudioStream castFire;
-	[Export]
-	private AudioStream castIce;
-	[Export]
-	private AudioStream castShock;
+
 	[Export] public InventoryData[] inventoryData;
 	[Export] public AttributeData attributeData;
-	[Export] public Spell[] equippedSpells = [null, null, null, null];
+	[Export] public SpellData spellData;
+
 	private float mouseSensitivity = 0.005f;
 	private float aimMouseSensitivity = 0.025f;
 	private float handsMaxXRot = 30f;
@@ -106,8 +96,7 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	public Vector3 target_rotation;
 	public Vector3 smooth_rotation = new();
-    
-    float IDamageable.Health { get; set; }
+	float IDamageable.Health { get; set; }
 
 	public override void _Ready()
 	{
@@ -117,7 +106,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		wallDetection.BodyEntered += OnBodyEntered;
 		wallDetection.BodyExited += OnBodyExited;
 
-		handSprite.Play(Global.Singleton.currentIdle);
+		hands3D.GetNode<AnimationPlayer>("AnimationPlayer").Play("idle");
 		velocity = Vector3.Zero;
 		_sensitivity = mouseSensitivity;
 		currentSpeed = walkSpeed;
@@ -239,7 +228,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		return camera.GlobalPosition + dir;
 	}
 
-    public void PauseInput()
+	public void PauseInput()
 	{
 		SetProcessInput(false);
 	}
@@ -270,15 +259,15 @@ public partial class Player : CharacterBody3D, IDamageable
 		crouchCollision.Disabled = !val;
 		standCollision.Disabled = val;
 		Vector3 pos = val ? bodyCrouchPosition : bodyStandPosition;
-        Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(body, "position", pos, crouchAnimSpeed).SetTrans(Tween.TransitionType.Sine);
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(body, "position", pos, crouchAnimSpeed).SetTrans(Tween.TransitionType.Sine);
 	}
 
 	public void JumpAnim()
-    {
-        hands.Position = new Vector3(hands.Position.X, Mathf.Lerp(hands.Position.Y, hands.Position.Y -.1f, 5f), hands.Position.Z);
+	{
+		hands.Position = new Vector3(hands.Position.X, Mathf.Lerp(hands.Position.Y, hands.Position.Y -.1f, 5f), hands.Position.Z);
 
-    }
+	}
 
 	void IDamageable.Damage(Damage d)
 	{
@@ -289,13 +278,13 @@ public partial class Player : CharacterBody3D, IDamageable
 
 	private void Attack(int index)
 	{
-		if (equippedSpells[index] == null)
+		if (spellData.spells[index] == null)
 		{
 			GD.Print("No equipped spell in slot: " + index);
 			return;
 		}
 		AttackAnim();
-		equippedSpells[index].Cast(this);
+		spellData.spells[index].Cast(this);
 
 		// Damage d = Global.Singleton.GetPlayerDamage();
 		// d.damageExecuted += OnDamageExecuted;
@@ -311,17 +300,6 @@ public partial class Player : CharacterBody3D, IDamageable
 		// 	b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
 		// }
 
-		// if (Global.Singleton.equippedWeapon.name == "icespike")
-		// {
-		// 	Global.Singleton.PlaySound2D(castIce);
-		// 	foreach (IDamageable enemy in iceCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
-		// 	foreach (Area3D area in iceCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
-		// 	IceRay ray = iceray.Instantiate() as IceRay;
-		// 	var main = GetTree().CurrentScene;
-		// 	main.CallDeferred("add_child", ray);
-		// 	ray.Transform = head.GlobalTransform;
-		// }
-
 		// if (Global.Singleton.equippedWeapon.name == "shockburst")
 		// {
 		// 	Global.Singleton.PlaySound2D(castShock);
@@ -334,14 +312,14 @@ public partial class Player : CharacterBody3D, IDamageable
 		// }
 	}
 
-    private void OnDamageExecuted(Damage d)
-    {
+	private void OnDamageExecuted(Damage d)
+	{
 		if (d.crit) Global.Singleton.PlaySound2D(critDealtSound);
 		Global.Singleton.PlaySound2D(damageDealtSound);
 		Global.Singleton.hud.FlashCrossHair();
-    }
+	}
 
-    private async void AttackAnim()
+	private async void AttackAnim()
 	{
 		//Tween tween = GetTree().CreateTween();
 		//tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);
@@ -352,7 +330,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	}
 
 	// private async void OpenPortal()
-    // {
-        
-    // }
+	// {
+		
+	// }
 }

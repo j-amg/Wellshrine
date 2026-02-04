@@ -77,16 +77,16 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		awake = true;
 	}
 
-	private async void Stun()
-	{
-		if (dead) return;
-		if (sm.current_state.Name != "attack" && sprite.Animation != "spawn") sprite.Play("stun");
-		SetPhysicsProcess(false);
-		stunned = true;
-		await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
-		stunned = false;
-		SetPhysicsProcess(true);
-	}
+	// private async void Stun()
+	// {
+	// 	if (dead) return;
+	// 	if (sm.current_state.Name != "attack" && sprite.Animation != "spawn") sprite.Play("stun");
+	// 	SetPhysicsProcess(false);
+	// 	stunned = true;
+	// 	await ToSignal(GetTree().CreateTimer(Global.Singleton.equippedWeapon.stunDuration), "timeout");
+	// 	stunned = false;
+	// 	SetPhysicsProcess(true);
+	// }
 
 	public static Enemy InitEnemy(PackedScene scene, int levelParam, Vector3 position)
 	{
@@ -101,7 +101,7 @@ public partial class Enemy : CharacterBody3D, IDamageable, IHoverable
 		Health -= d.amount;
 		if (Health <= 0) BeginDie();
 		d.Hit();
-		Stun();
+		//Stun();
 		EmitSignal(SignalName.damageTaken, d);
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1,0,0,1));

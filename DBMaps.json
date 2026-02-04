@@ -1,27 +1,27 @@
 {
     "tower": {
         "name": "Tower",
-        "path": "killZone1",
+        "path": "testCombinedLevel",
         "rollWeight": 0.2,
         "accWeight": 0.0
 
     },
     "courtyard": {
         "name": "Courtyard",
-        "path": "killZone2",
+        "path": "testCombinedLevel",
         "rollWeight": 0.2,
         "accWeight": 0.0
 
     },
     "dungeon": {
         "name": "Dungeon",
-        "path": "killZone3",
+        "path": "testCombinedLevel",
         "rollWeight": 0.2,
         "accWeight": 0.0
     },
     "villa": {
         "name": "Villa",
-        "path": "killZone4",
+        "path": "testCombinedLevel",
         "rollWeight": 0.2,
         "accWeight": 0.0
 

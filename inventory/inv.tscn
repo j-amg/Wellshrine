@@ -1,45 +1,75 @@
-[gd_scene load_steps=17 format=3 uid="uid://cchf63h0s68cs"]
+[gd_scene load_steps=21 format=3 uid="uid://cchf63h0s68cs"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_7mfnc"]
+[ext_resource type="StyleBox" uid="uid://c6pfndsal3gl6" path="res://UI/UI_background.tres" id="3_m22gv"]
 [ext_resource type="Script" uid="uid://boqvsis5crijl" path="res://inventory/Inv.cs" id="3_vqpb6"]
-[ext_resource type="StyleBox" uid="uid://deqvf74px2tj4" path="res://UI/panelBaseTexture.tres" id="3_xc8mo"]
 [ext_resource type="PackedScene" uid="uid://bfew1xfi07xcp" path="res://inventory/inv_slot.tscn" id="4_bgm1y"]
 [ext_resource type="PackedScene" uid="uid://lb1wgtvetsdn" path="res://inventory/inv_container.tscn" id="4_e03q1"]
-[ext_resource type="StyleBox" uid="uid://csv5k846a0g30" path="res://UI/panelTexture.tres" id="5_i7njh"]
 [ext_resource type="Script" uid="uid://dvauqjodsepfv" path="res://inventory/InvContainer.cs" id="5_m22gv"]
 [ext_resource type="Script" uid="uid://cgkuoak37yw3l" path="res://inventory/DoorInventory.cs" id="7_m22gv"]
 [ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="8_i7njh"]
 
 [sub_resource type="Gradient" id="Gradient_m22gv"]
-colors = PackedColorArray(0.38, 0.334273, 0.2356, 1, 0.501961, 0.443137, 0.313726, 1)
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.189167)
+colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_so6ny"]
-frequency = 0.0031
-fractal_lacunarity = 2.105
-fractal_gain = 0.555
+frequency = 0.004
+fractal_lacunarity = 4.185
+fractal_gain = 0.88
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iy0jw"]
-seamless = true
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m22gv"]
+width = 48
+height = 48
 color_ramp = SubResource("Gradient_m22gv")
 noise = SubResource("FastNoiseLite_so6ny")
 
-[sub_resource type="Gradient" id="Gradient_so6ny"]
-colors = PackedColorArray(0.14, 0.12152, 0.0938, 1, 0.180392, 0.156863, 0.121569, 1)
+[sub_resource type="Gradient" id="Gradient_i7njh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2675)
+colors = PackedColorArray(0, 0, 0, 1, 0.603922, 0.0235294, 0.0196078, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_iy0jw"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m22gv"]
+frequency = 0.0248
+fractal_lacunarity = 2.66
+fractal_gain = 0.83
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8arb2"]
-seamless = true
-color_ramp = SubResource("Gradient_so6ny")
-noise = SubResource("FastNoiseLite_iy0jw")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_so6ny"]
+width = 48
+height = 48
+color_ramp = SubResource("Gradient_i7njh")
+noise = SubResource("FastNoiseLite_m22gv")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m22gv"]
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.0646965, 0.0646965, 0.0646964, 1)
+[sub_resource type="Gradient" id="Gradient_iy0jw"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.285833)
+colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8arb2"]
+fractal_lacunarity = 2.625
+fractal_gain = 0.845
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbt6p"]
+width = 48
+height = 48
+color_ramp = SubResource("Gradient_iy0jw")
+noise = SubResource("FastNoiseLite_8arb2")
+
+[sub_resource type="Gradient" id="Gradient_xw787"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.275833)
+colors = PackedColorArray(0, 0, 0, 1, 0.890196, 0.721569, 0.0313726, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_exr8x"]
+fractal_lacunarity = 2.775
+fractal_gain = 1.065
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_54qju"]
+width = 48
+height = 48
+color_ramp = SubResource("Gradient_xw787")
+noise = SubResource("FastNoiseLite_exr8x")
 
 [node name="inventoryInterface" type="Control" node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "strLabel", "dexLabel", "intLabel")]
 layout_mode = 3
@@ -50,385 +80,445 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_vqpb6")
 playerInventory = NodePath("playerInventory")
-invContainer = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/CenterContainer/inventorySlotPanel/GridContainer")
+invContainer = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel/GridContainer")
 grabbedSlot = NodePath("grabbedSlot")
 chestInv = NodePath("externalInventory")
-chestInvContainer = NodePath("externalInventory/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
+chestInvContainer = NodePath("externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
 doorChestInv = NodePath("doorInventory")
-doorChestInvContainer = NodePath("doorInventory/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
+doorChestInvContainer = NodePath("doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
 tooltip = NodePath("tooltip")
-EquipmentInvContainer1 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer/equipmentSlot1")
-EquipmentInvContainer2 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3/equipmentSlot2")
-EquipmentInvContainer3 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2/equipmentSlot3")
-EquipmentInvContainer4 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3/equipmentSlot4")
-EquipmentInvContainer5 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4/equipmentSlot5")
-EquipmentInvContainer6 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4/equipmentSlot6")
-EquipmentInvContainer7 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer2/equipmentSlot7")
-EquipmentInvContainer8 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer5/equipmentSlot8")
-EquipmentInvContainer9 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer6/equipmentSlot9")
-EquipmentInvContainer10 = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer3/equipmentSlot10")
-strLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/strLabel")
-dexLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/dexLabel")
-intLabel = NodePath("playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3/intLabel")
+EquipmentInvContainer1 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer/equipmentSlot1")
+EquipmentInvContainer2 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3/equipmentSlot2")
+EquipmentInvContainer3 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2/equipmentSlot3")
+EquipmentInvContainer4 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3/equipmentSlot4")
+EquipmentInvContainer5 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4/equipmentSlot5")
+EquipmentInvContainer6 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4/equipmentSlot6")
+EquipmentInvContainer7 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2/equipmentSlot7")
+EquipmentInvContainer8 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4/equipmentSlot8")
+EquipmentInvContainer9 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5/equipmentSlot9")
+EquipmentInvContainer10 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6/equipmentSlot10")
+strLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer/strLabel")
+dexLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2/dexLabel")
+intLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3/intLabel")
 
 [node name="playerInventory" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(600, 1080)
 layout_mode = 1
-anchors_preset = 11
+anchors_preset = 6
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -600.0
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = -400.0
+offset_bottom = 400.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_7mfnc")
-theme_override_styles/panel = ExtResource("3_xc8mo")
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_iy0jw")
-stretch_mode = 1
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="MarginContainer" type="MarginContainer" parent="playerInventory"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 16
+size_flags_vertical = 4
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("1_7mfnc")
 
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Inventory"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="equipmentContainer" type="CenterContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="equipmentContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot1" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot2" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer" instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="ringsContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
+[node name="equipmentSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot3" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot4" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot5" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="ringsContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
 
-[node name="equipmentSlot6" type="GridContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4"]
+[node name="equipmentSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
+layout_mode = 2
+
+[node name="equipmentSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
+layout_mode = 2
+
+[node name="equipmentSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="equipmentSlot6" type="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("5_m22gv")
 
-[node name="spellsContainer2" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2"]
+[node name="spellsContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer2"]
+[node name="HBoxContainer9" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
+theme_override_constants/separation = 0
 
-[node name="equipmentSlot7" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer2" instance=ExtResource("4_e03q1")]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9"]
 layout_mode = 2
 
-[node name="PanelContainer5" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2"]
+[node name="equipmentSlot7" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer5"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
+size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MB1"
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="equipmentSlot8" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer5" instance=ExtResource("4_e03q1")]
+[node name="HBoxContainer8" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="PanelContainer6" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer6"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="equipmentSlot9" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer6" instance=ExtResource("4_e03q1")]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8"]
 layout_mode = 2
 
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2"]
+[node name="equipmentSlot10" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer3"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
+size_flags_vertical = 1
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="equipmentSlot10" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/spellsContainer2/PanelContainer3" instance=ExtResource("4_e03q1")]
+[node name="HBoxContainer7" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7"]
 layout_mode = 2
 
-[node name="statPanel" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="equipmentSlot8" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "2"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer6" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer5" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6"]
+layout_mode = 2
+
+[node name="equipmentSlot9" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "3"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer5" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer6" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5"]
+layout_mode = 2
+
+[node name="equipmentSlot10" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "4"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="statPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel"]
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel"]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 1
-stretch_mode = 1
+color = Color(0.778537, 0.772316, 0.634303, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Attributes"
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_so6ny")
+
+[node name="strLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="HBoxContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Strength:"
 
-[node name="strLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2"]
 layout_mode = 2
+texture = SubResource("NoiseTexture2D_rbt6p")
+
+[node name="dexLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(100, 0)
+[node name="HBoxContainer3" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Dexterity:"
 
-[node name="dexLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3"]
 layout_mode = 2
+texture = SubResource("NoiseTexture2D_54qju")
+
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
+horizontal_alignment = 1
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Intelligence:"
-
-[node name="intLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3"]
-layout_mode = 2
-text = "30"
-
-[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Defense"
-horizontal_alignment = 1
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
+[node name="Label3" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Armour:"
 
-[node name="intLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 
-[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Attack"
-horizontal_alignment = 1
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
 layout_mode = 2
 
-[node name="Damage" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
+[node name="Damage" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Damage?:"
 
-[node name="intLabel" type="Label" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 
-[node name="CenterContainer" type="CenterContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/CenterContainer"]
+[node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("5_i7njh")
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/CenterContainer/inventorySlotPanel"]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_8arb2")
-expand_mode = 2
-stretch_mode = 1
-
-[node name="GridContainer" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/CenterContainer/inventorySlotPanel" instance=ExtResource("4_e03q1")]
+[node name="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel" instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(640, 320)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
 
-[node name="Panel" type="Panel" parent="playerInventory/MarginContainer/VBoxContainer/VBoxContainer/CenterContainer/inventorySlotPanel"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m22gv")
-
 [node name="externalInventory" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -200.0
-offset_right = 400.0
-offset_bottom = 200.0
+offset_left = -164.0
+offset_top = -68.0
+offset_right = 164.0
+offset_bottom = 68.0
+grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7mfnc")
-theme_override_styles/panel = ExtResource("3_xc8mo")
 
-[node name="MarginContainer" type="MarginContainer" parent="externalInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="externalInventory/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="externalInventory/PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="externalInventory/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 48
+theme = ExtResource("1_7mfnc")
+
+[node name="ColorRect" type="ColorRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Chest"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="externalInventory/MarginContainer/VBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="externalInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="externalInventory/MarginContainer/VBoxContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="GridContainer2" parent="externalInventory/MarginContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
+[node name="GridContainer2" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
@@ -449,42 +539,71 @@ offset_bottom = 57.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7mfnc")
-theme_override_styles/panel = ExtResource("3_xc8mo")
 script = ExtResource("7_m22gv")
-openLevelButton = NodePath("MarginContainer/VBoxContainer/CenterContainer2/Button")
+openLevelButton = NodePath("PanelContainer/VBoxContainer/CenterContainer2/MarginContainer/Button")
 
-[node name="MarginContainer" type="MarginContainer" parent="doorInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="doorInventory/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Keyhole"
+theme = ExtResource("1_7mfnc")
+
+[node name="ColorRect" type="ColorRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Door"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="doorInventory/MarginContainer/VBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="doorInventory/MarginContainer/VBoxContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="GridContainer2" parent="doorInventory/MarginContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
+[node name="GridContainer2" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
+columns = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/MarginContainer/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="doorInventory/MarginContainer/VBoxContainer/CenterContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 text = "Open"

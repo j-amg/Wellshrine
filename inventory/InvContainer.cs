@@ -42,8 +42,8 @@ public partial class InvContainer : GridContainer
         {
             foreach (InvSlot s in GetChildren().Cast<InvSlot>())
             {
-                s.highlighted = true;
-                s.SelfModulate = new Color(0, 1, 0, 1);
+                //s.highlighted = true;
+                //s.SelfModulate = new Color(0, 1, 0, 1);
             }
         }
     }

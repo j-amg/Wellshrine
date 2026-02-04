@@ -15,7 +15,6 @@ public partial class Global : Node
 	public delegate void PopUpClosedEventHandler(string action);
 	[Signal]
 	public delegate void DialogueFinishedEventHandler();
-	[Signal] public delegate void EquippedWeaponEventHandler();
 
 	public AudioStreamPlayer musicPlayer;
 	public bool paused = false;
@@ -32,8 +31,6 @@ public partial class Global : Node
 	public Inv inventory;
 	public bool dead = false;
 	private DeathScreen deathScreen;
-	public Array<string> killZones = ["killZone1","killZone2","killZone3", "killZone4", "killZone5"];
-	public Dictionary<string, Weapon> weapons = [];
 
 
 	public bool inDialogue = false;
@@ -57,9 +54,7 @@ public partial class Global : Node
 	private string [] currentDialogue;
 	private int currentDialogueStep;
 	public string currentIdle = "idle";
-	public Weapon equippedWeapon;
 	public bool sfx = true;
-	public string CurrentDoorDestinationPath = "res://zones/killZone1.tscn";
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
@@ -69,13 +64,13 @@ public partial class Global : Node
 	{
 		Gets();
 		PreloadObjects();
-		Zone.GenerateTileZone();
 	}
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();
 		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
+		if (Input.IsActionJustPressed("p")) GotoScene(GD.Load<PackedScene>("res://zones/startZone.tscn"));
 	}
 		
 	public void PreloadObjects()
@@ -86,10 +81,10 @@ public partial class Global : Node
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
 
+		tileArray.Add(GD.Load<PackedScene>("res://zones/zoneDoor.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest2.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
-		//tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
-
+		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
 
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
 	}
@@ -117,7 +112,8 @@ public partial class Global : Node
 				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
 			}
 
-			if (playerZone is null && currentScene is PlayerZone z) playerZone = z; // set player zone reference
+			 // set player zone reference
+			 playerZone = currentScene is PlayerZone z ? z : null;
         }
 	}
 
@@ -199,12 +195,14 @@ public partial class Global : Node
 	{
 		if (invOpen)
 		{
+			hud.Show();
 			inventory.Hide();
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			invOpen = false;
 		}
 		else
 		{
+			hud.Hide();
 			inventory.Show();
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 			invOpen = true;
@@ -377,19 +375,19 @@ public partial class Global : Node
 		EmitSignal(SignalName.HealthChanged);
 		if (currentPlayerHealth <= 0) Die();
 	}
-	public Damage GetPlayerDamage()
-	{
-		//base damage
-		float damage = (float)GD.RandRange(equippedWeapon.damageMin, equippedWeapon.damageMax);
-		//crit
-		float critValue = equippedWeapon.critChance;
-		float critBase = Mathf.Ceil(critValue);
-		float critRoll = GD.Randf();
-		bool crit = critRoll <= critValue;
-		bool critExcess = critRoll <= (critValue - MathF.Truncate(critValue));
-		damage *= critExcess ? critBase : 1;
-		return Damage.InitDamage(damage, crit, player);
-	}
+	// public Damage GetPlayerDamage()
+	// {
+	// 	//base damage
+	// 	float damage = (float)GD.RandRange(equippedWeapon.damageMin, equippedWeapon.damageMax);
+	// 	//crit
+	// 	float critValue = equippedWeapon.critChance;
+	// 	float critBase = Mathf.Ceil(critValue);
+	// 	float critRoll = GD.Randf();
+	// 	bool crit = critRoll <= critValue;
+	// 	bool critExcess = critRoll <= (critValue - MathF.Truncate(critValue));
+	// 	damage *= critExcess ? critBase : 1;
+	// 	return Damage.InitDamage(damage, crit, player);
+	// }
 
 	public void Die()
 	{

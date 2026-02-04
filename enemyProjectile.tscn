@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c0v0gpavdh5tb"]
 
 [ext_resource type="Script" uid="uid://dkqxc5757msrx" path="res://Projectile.cs" id="1_50k63"]
-[ext_resource type="PackedScene" uid="uid://d10st40p8i6ya" path="res://explosion.tscn" id="2_0pclk"]
+[ext_resource type="PackedScene" uid="uid://d10st40p8i6ya" path="res://spells/explosion.tscn" id="2_0pclk"]
 [ext_resource type="Texture2D" uid="uid://bccnw05nngb4g" path="res://textures/fireThrown.png" id="3_1vtd5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hx064"]
