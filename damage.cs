@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Damage : Node
+public partial class Damage : Resource
 {
     [Signal]
 	public delegate void damageExecutedEventHandler(Damage damage);

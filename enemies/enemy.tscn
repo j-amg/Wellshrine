@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=44 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" uid="uid://dg5g67kfh35se" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="AudioStream" uid="uid://6ddic02qoid2" path="res://audio/walk.wav" id="2_a4emi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c718s8ymvslfl" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
+height = 1.75
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_518ow"]
 atlas = ExtResource("3_xwbua")
@@ -281,6 +282,9 @@ animations = [{
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tx16"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1x0"]
+height = 1.75
+
 [node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav", "sm", "sprite", "labelSprite", "label", "rc", "audioPlayer")]
 collision_layer = 4
 collision_mask = 15
@@ -301,7 +305,7 @@ path_desired_distance = 0.5
 target_desired_distance = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_f8hv5")
 
 [node name="sprite" type="AnimatedSprite3D" parent="."]
@@ -334,3 +338,11 @@ collision_mask = 3
 
 [node name="audio" type="AudioStreamPlayer3D" parent="."]
 volume_db = -20.0
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_3t1x0")

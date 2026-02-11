@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=20 format=3 uid="uid://b1uqq1wreddj6"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=18 format=3 uid="uid://b1uqq1wreddj6"]
 
 [ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="1_snp5g"]
 [ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="2_6bjuc"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dvij04y0ol04i" path="res://inventory/ItemKeyData.cs" id="4_llrpn"]
 [ext_resource type="Script" uid="uid://cor31o64ycrn2" path="res://inventory/ItemSpellData.cs" id="5_llrpn"]
 [ext_resource type="Resource" uid="uid://vlof74pcydiw" path="res://inventory/items/helmet.tres" id="5_tocfo"]
-[ext_resource type="Resource" uid="uid://c5vucythpgv4q" path="res://inventory/items/rui.tres" id="6_hc2kf"]
 [ext_resource type="Resource" uid="uid://lk6qnl8kssvo" path="res://spells/IceSpike.tres" id="6_llrpn"]
 
 [sub_resource type="Resource" id="Resource_6bjuc"]
@@ -46,8 +45,8 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 script = ExtResource("5_llrpn")
 level = 1
 spell = ExtResource("6_llrpn")
-name = "fireball"
-description = "test fireball"
+name = "Ice Spike"
+description = "Shoot a beam of Ice"
 stackable = false
 texture = SubResource("PlaceholderTexture2D_dfdhl")
 Type = 2
@@ -66,12 +65,6 @@ itemData = ExtResource("5_tocfo")
 Quantity = 1
 metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 
-[sub_resource type="Resource" id="Resource_70adx"]
-script = ExtResource("2_6bjuc")
-itemData = ExtResource("6_hc2kf")
-Quantity = 1
-metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
-
 [sub_resource type="Resource" id="Resource_bwq5j"]
 script = ExtResource("2_6bjuc")
 itemData = ExtResource("3_6bjuc")
@@ -80,6 +73,6 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 
 [resource]
 script = ExtResource("1_snp5g")
-slotDatas = Array[ExtResource("2_6bjuc")]([SubResource("Resource_6bjuc"), SubResource("Resource_kc4hb"), SubResource("Resource_tjlrl"), SubResource("Resource_hc2kf"), null, SubResource("Resource_70adx"), null, SubResource("Resource_bwq5j"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slotDatas = Array[ExtResource("2_6bjuc")]([SubResource("Resource_6bjuc"), SubResource("Resource_kc4hb"), SubResource("Resource_tjlrl"), SubResource("Resource_hc2kf"), null, null, null, SubResource("Resource_bwq5j"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"

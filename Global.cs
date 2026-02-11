@@ -117,6 +117,13 @@ public partial class Global : Node
         }
 	}
 
+	public void AddToScene(Node3D node, Transform3D transform)
+	{
+		var main = GetTree().CurrentScene;
+		main.CallDeferred("add_child", node);
+		node.Transform = transform;
+	}
+
 	public ItemData GenerateItem()
 	{
 		// Select random item from database
