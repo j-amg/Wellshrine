@@ -77,7 +77,7 @@ public partial class Zone : Node3D
 
 			float connectorRotation = Mathf.Atan2(newtrans.Basis.Z.X, newtrans.Basis.Z.Z);
 
-			Vector3 newArrayPosition = new Vector3(500,30,500) + newtrans.Origin/2;
+			Vector3 newArrayPosition = new Vector3(500,100,500) + newtrans.Origin/2;
 
 			Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
 
