@@ -30,8 +30,6 @@ fill_to = Vector2(0.880342, 0.132479)
 
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("sprites", "hurtBox")]
 script = ExtResource("1_6elnn")
-muzzleVelocity = 25.0
-gravity = 5.0
 sprites = NodePath("sprites")
 hurtBox = NodePath("collision")
 

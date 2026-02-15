@@ -53,17 +53,25 @@ public partial class Zone : Node3D
 		Node3D startingTile = Global.Singleton.tileArray[1].Instantiate<Node3D>();
 		Vector3 spawnPoint = new(500,100,500);
 		float spawnRot = 0;
-		AddMapToArray(startingTile, tileArray, spawnPoint, spawnRot);
-		SpawnRooms(startingTile, 20, tileArray, startingTile.Transform);
+		AddMapToArray(startingTile, ref tileArray, spawnPoint, spawnRot);
+		SpawnRooms(startingTile, 200, ref tileArray, startingTile.Transform);
 		baseZone.AddChild(startingTile);
 		Global.Singleton.GotoZone(baseZone);
 	}
 
-	public static void SpawnRooms(Node3D tile, int credits, int[,,] tileArray, Transform3D currentTransform)
+	public static void SpawnRooms(Node3D tile, int credits, ref int[,,] tileArray, Transform3D currentTransform)
 	{
 
 		foreach (Node3D connector in tile.GetNode<Node>("connectionPoints").GetChildren())
 			{
+
+				// Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
+				// Area3D bounds = childTile.GetNode<Area3D>("Area3D");
+				// tile.AddChild(bounds);
+
+				
+
+			
 			//find the transform of the connector in global space
 			Transform3D newtrans = (currentTransform * connector.Transform).Orthonormalized();
 
@@ -74,10 +82,11 @@ public partial class Zone : Node3D
 			Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
 
 			
-			if (AddMapToArray(childTile, tileArray, newArrayPosition, connectorRotation) && credits > 0)
+			if (AddMapToArray(childTile, ref tileArray, newArrayPosition, connectorRotation) && credits > 0)
 			{
 				GD.Print("spawned room");
-				SpawnRooms(childTile, credits - 10, tileArray, newtrans);
+				
+				SpawnRooms(childTile, credits - 10, ref tileArray, newtrans);
 				tile.AddChild(childTile);
 				childTile.Transform = connector.Transform;
 			} else
@@ -89,44 +98,9 @@ public partial class Zone : Node3D
 		}
 	}
 
-	public static bool AddMapToArray(Node map, int[,,] tileArray, Vector3 pos, float rot)
+	public static bool AddMapToArray(Node map, ref int[,,] tileArray, Vector3 pos, float rot)
 	{
 		bool canPlaceRoom = true;
-
-		// BoxShape3D roomShape = (BoxShape3D)map.GetNode<CollisionShape3D>("Area3D/CollisionShape3D").Shape;
-
-		// for (int x = 0; x < roomShape.Size.X/2; x++)
-		// {
-		// 	for (int y = 0; y < roomShape.Size.Y/2; x++)
-		// 	{
-		// 		for (int z = 0; z < roomShape.Size.Z/2; x++)
-		// 		{
-		// 			Vector3 transformedCellPos = new Vector3(x + 1, y, z + 1).Rotated(Vector3.Up, rot) + pos;
-		// 			if (
-		// 			transformedCellPos.X < 0 || transformedCellPos.X >= tileArray.GetLength(0)
-		// 			|| transformedCellPos.Y < 0 || transformedCellPos.Y >= tileArray.GetLength(1)
-		// 			|| transformedCellPos.Z < 0 || transformedCellPos.Z >= tileArray.GetLength(2)
-		// 			)
-		// 			{
-		// 				// if it does, then break out of this loop as the selected room would cause an overlap
-		// 				GD.Print("room out of bounds. Tile: " + transformedCellPos);
-		// 				canPlaceRoom = false;
-		// 				break;
-		// 			}
-		// 			else if (tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] == 1)
-		// 			{
-		// 				GD.Print("tile already exists: " + (transformedCellPos - new Vector3(500,30,500)));
-		// 				canPlaceRoom = false;
-		// 				break;
-		// 			}
-		// 			else
-		// 			{
-		// 				GD.Print("tile placed at: " + (transformedCellPos - new Vector3(500,30,500)));
-		// 				tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] = 1;
-		// 			}
-		// 		}
-		// 	}
-		// }
 
 		foreach (Vector3 cell in map.GetNode<GridMap>("GridMap").GetUsedCells())
 		{

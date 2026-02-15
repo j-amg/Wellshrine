@@ -25,7 +25,6 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="connectionPoints" type="Node3D" parent="."]
-visible = false
 
 [node name="connectionPoint2" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, -8, -2)

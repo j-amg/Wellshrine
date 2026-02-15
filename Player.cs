@@ -41,8 +41,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export] public AttributeData attributeData;
 	[Export] public SpellData spellData;
 
-	private float mouseSensitivity = 0.005f;
-	private float aimMouseSensitivity = 0.025f;
+	private float mouseSensitivity = 0.0025f;
+	private float aimMouseSensitivity = 0.00125f;
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
