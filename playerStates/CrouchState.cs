@@ -16,7 +16,7 @@ public partial class CrouchState : State
 	{
         if (Input.IsActionPressed("Shift"))
         {
-            owner.UpdateInput(owner.crouchSpeed, .3f, owner.deceleration);
+            owner.UpdateInput(owner.crouchSpeed, 1f, 1);
         } else owner.UpdateInput(owner.crouchSpeed, owner.acceleration, owner.deceleration);
         
         owner.UpdateVelocity();

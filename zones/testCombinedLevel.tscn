@@ -8,8 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="6_h4iod"]
 [ext_resource type="PackedScene" uid="uid://t0ab31k3xa4u" path="res://zones/zoneComponents/enemySpawner.tscn" id="8_x1o03"]
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("spawner")]
+[node name="generated_level" type="Node3D" node_paths=PackedStringArray("player", "spawner")]
 script = ExtResource("1_q56ba")
+player = NodePath("player")
 spawner = NodePath("enemySpawner")
 
 [node name="player" parent="." instance=ExtResource("2_5yc4e")]

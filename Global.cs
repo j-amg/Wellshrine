@@ -59,6 +59,7 @@ public partial class Global : Node
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
 	public PlayerZone playerZone;
+	public Zone doorZone;
 
 	public override void _Ready()
 	{
@@ -70,8 +71,73 @@ public partial class Global : Node
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();
 		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
-		if (Input.IsActionJustPressed("p")) GotoScene(GD.Load<PackedScene>("res://zones/startZone.tscn"));
+
+		if (Input.IsActionJustPressed("p"))
+		{
+			GD.Print("p pressed");
+			if (playerZone != null)
+			{
+				//player.GlobalTransform.Origin = new(0,0,0);
+				GotoZone(playerZone);
+				
+				//GD.Print("found play zone");
+			}  
+			else
+			{
+				GotoScene(GD.Load<PackedScene>("res://zones/startZone.tscn"));
+				//GD.Print("loaded new player zone");
+			} 
+		} 
 	}
+
+	public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
+
+	public void testFunction()
+	{
+		GD.Print("test function");
+	}
+	public void DeferredGotoScene(PackedScene nextScene)
+	{
+		currentZone?.CloseZone();
+		currentScene.Free();
+		currentScene = nextScene.Instantiate();
+		currentZone = currentScene is Zone zone ? zone : null;
+		GetTree().Root.AddChild(currentScene);
+		GetTree().CurrentScene = currentScene;
+		Gets();
+		//GD.Print("zone loaded");
+	}
+
+	public void GotoZone(Zone zone)
+	{
+		GD.Print("travelling to: " + zone.Name);
+		//GD.Print(zone.GetNodeOrNull<Player>("player").Position);
+		
+		
+		CallDeferred(MethodName.DeferredGotoZone, zone);
+	}
+
+	public void DeferredGotoZone(Zone zone)
+	{
+
+		if (zone is null) return;
+		if (currentZone is not PlayerZone && currentZone != doorZone)
+		{
+			//currentZone?.CloseZone();
+			currentScene.Free();
+		} else
+		{
+			GetTree().Root.RemoveChild(currentScene);
+			currentZone.ResetPlayer();
+		}
+		currentScene = zone;
+		currentZone = currentScene is Zone z ? z : null;
+		GetTree().Root.AddChild(currentScene);
+		GetTree().CurrentScene = currentScene;
+		Gets();
+
+	}
+
 		
 	public void PreloadObjects()
 	{
@@ -95,11 +161,13 @@ public partial class Global : Node
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
 
-		if (currentScene is Zone)
+		if (currentScene is Zone z1)
 		{
-			player = currentScene.GetNodeOrNull<Player>("player");
+			player = z1.player;
+			if (player is null) GD.Print("player is null");
 			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
 			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
+			if (inventory is null) GD.Print("inventory is null");
 			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
 			
@@ -113,25 +181,28 @@ public partial class Global : Node
 			}
 
 			 // set player zone reference
-			 playerZone = currentScene is PlayerZone z ? z : null;
-        }
+			if (currentScene is PlayerZone z)
+			{
+				playerZone = z;
+			}
+		}
 	}
 
 	// def bounding_box(points):
-    // """returns a list containing the bottom left and the top right 
-    // points in the sequence
-    // Here, we traverse the collection of points only once, 
-    // to find the min and max for x and y
-    // """
-    // bot_left_x, bot_left_y = float('inf'), float('inf')
-    // top_right_x, top_right_y = float('-inf'), float('-inf')
-    // for x, y in points:
-    //     bot_left_x = min(bot_left_x, x)
-    //     bot_left_y = min(bot_left_y, y)
-    //     top_right_x = max(top_right_x, x)
-    //     top_right_y = max(top_right_y, y)
+	// """returns a list containing the bottom left and the top right 
+	// points in the sequence
+	// Here, we traverse the collection of points only once, 
+	// to find the min and max for x and y
+	// """
+	// bot_left_x, bot_left_y = float('inf'), float('inf')
+	// top_right_x, top_right_y = float('-inf'), float('-inf')
+	// for x, y in points:
+	//     bot_left_x = min(bot_left_x, x)
+	//     bot_left_y = min(bot_left_y, y)
+	//     top_right_x = max(top_right_x, x)
+	//     top_right_y = max(top_right_y, y)
 
-    // return [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
+	// return [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
 
 	// public Vector3 BoundingBox(Vector3[] points)
 	// {
@@ -164,20 +235,20 @@ public partial class Global : Node
 		return null;
 	}
 
-    private ItemKeyData GenerateKey(string itemID)
-    {
+	private ItemKeyData GenerateKey(string itemID)
+	{
 		string mapID = DB.SelectFiltered(DBMaps);
-        return new()
-        {
-            name = (string)DBMaps[mapID]["name"] + " Key",
-            description = (string)DBItems[itemID]["description"],
+		return new()
+		{
+			name = (string)DBMaps[mapID]["name"] + " Key",
+			description = (string)DBItems[itemID]["description"],
 			zonePath = "res://zones/" + DBMaps[mapID]["path"] + ".tscn",
-            Type = ParseEnum<ItemType>((string)DBItems[itemID]["subType"]),
-            texture = GD.Load<Texture2D>("res://textures/227.png")
-        };
-    }
+			Type = ParseEnum<ItemType>((string)DBItems[itemID]["subType"]),
+			texture = GD.Load<Texture2D>("res://textures/227.png")
+		};
+	}
 
-    public ItemEquipmentData GenerateEquipment(string itemID)
+	public ItemEquipmentData GenerateEquipment(string itemID)
 	{
 		ItemEquipmentData item = new();
 
@@ -205,20 +276,20 @@ public partial class Global : Node
 	public ItemAffix GenerateAffix(string id)
 	{
 		ItemAffix affix = new();
-        AttributeModifier modifier = new()
-        {
-            Value = (int)GD.RandRange((double)DBAffixes[id]["valueMin"], (double)DBAffixes[id]["valueMax"]),
+		AttributeModifier modifier = new()
+		{
+			Value = (int)GD.RandRange((double)DBAffixes[id]["valueMin"], (double)DBAffixes[id]["valueMax"]),
 			ModType = ParseEnum<AttributeModType>((string)DBAffixes[id]["modifier"])
-        };
+		};
 		affix.Name = (string)DBAffixes[id]["title"];
 		affix.TargetType = ParseEnum<AttributeType>((string)DBAffixes[id]["target"]);
 		affix.attributeModifier = modifier;
-        return affix;
+		return affix;
 	}
 
-    public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
+	public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
 
-    private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
+	private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
 	
 	private void OnDropSlotDataFromInventory(SlotData slotData)
 	{
@@ -226,7 +297,7 @@ public partial class Global : Node
 		groundItem.slotData = slotData;
 		groundItem.Position = player.GetDropPosition();
 		GetTree().CurrentScene.CallDeferred("add_child", groundItem);
-    }
+	}
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
 	{
@@ -272,34 +343,6 @@ public partial class Global : Node
 		paused = !paused;
 	}
 
-    public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
-	public void DeferredGotoScene(PackedScene nextScene)
-	{
-		currentZone?.CloseZone();
-		currentScene.Free();
-		currentScene = nextScene.Instantiate();
-		currentZone = currentScene is Zone zone ? zone : null;
-		GetTree().Root.AddChild(currentScene);
-		GetTree().CurrentScene = currentScene;
-		Gets();
-		GD.Print("zone loaded");
-	}
-
-	public void GotoZone(Zone zone) => CallDeferred(MethodName.DeferredGotoZone, zone);
-
-	public void DeferredGotoZone(Zone zone)
-	{
-		//if (zone is null) return;
-		currentZone?.CloseZone();
-		currentScene.Free();
-		currentScene = zone;
-		currentZone = currentScene is Zone z ? z : null;
-		GetTree().Root.AddChild(currentScene);
-		GetTree().CurrentScene = currentScene;
-		Gets();
-	}
-
-
 	public void SendPopUp(string text, string action)
 	{
 		hud.popupText.Modulate = new Color(1, 1, 0);
@@ -329,9 +372,9 @@ public partial class Global : Node
 	{
 		hud.itemTooltip.SetItem(item);
 		hud.itemTooltip.Show();
-    }
+	}
 
-    public void CloseTooltip() => hud.itemTooltip.Hide();
+	public void CloseTooltip() => hud.itemTooltip.Hide();
 
 	public void EnterDialogue(string[] dialogueText, string name, bool freeze)
 	{
@@ -466,7 +509,7 @@ public partial class Global : Node
 		musicPlayer.Play();
 	}
 
-    public void PauseMusic() => musicPlayer.StreamPaused = true;
-    public void ResumeMusic() => musicPlayer.StreamPaused = false;
+	public void PauseMusic() => musicPlayer.StreamPaused = true;
+	public void ResumeMusic() => musicPlayer.StreamPaused = false;
 
 }

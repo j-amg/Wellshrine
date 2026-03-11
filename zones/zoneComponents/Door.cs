@@ -4,7 +4,7 @@ using Godot.Collections;
 
 public partial class Door : Area3D, IHoverable
 {
-    public PackedScene zoneToLoad;
+    public Zone zoneToLoad;
     private bool open = false;
     public Color ReticleModulate { get; set; }
     public bool Active { get; set; }
@@ -25,15 +25,15 @@ public partial class Door : Area3D, IHoverable
     public void SetDestination(string path)
     {
         GD.Print("destination set to: " + path);
-        
-        //zoneToLoad = GD.Load<PackedScene>(path);
+        zoneToLoad = Zone.GenerateTileZone();
+        Global.Singleton.doorZone = zoneToLoad;
     }
 
     private void OnBodyEntered(Node3D body)
     {
         if (body is not Player) return;
-        //Global.Singleton.GotoScene(zoneToLoad);
-        Zone.GenerateTileZone();
+        GD.Print("body entered");
+        Global.Singleton.GotoZone(zoneToLoad);
     }
 
     public void StartHover()

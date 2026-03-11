@@ -44,10 +44,11 @@ slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"),
 allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
-[node name="level2" type="Node3D" node_paths=PackedStringArray("doorChest", "door")]
+[node name="playerZone" type="Node3D" node_paths=PackedStringArray("doorChest", "door", "player")]
 script = ExtResource("1_lr3ls")
 doorChest = NodePath("doorChest")
 door = NodePath("door")
+player = NodePath("player")
 
 [node name="player" parent="." instance=ExtResource("3_ei8sx")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -0.5)

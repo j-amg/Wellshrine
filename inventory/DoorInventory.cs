@@ -21,6 +21,7 @@ public partial class DoorInventory : PanelContainer
             inventoryData.ConsumeSlotData(0);
             Global.Singleton.ToggleInv();
             Global.Singleton.playerZone.door.Open();
+            Global.Singleton.playerZone.door.SetDestination(key.zonePath);
             
         } else throw new Exception("incorrect item type in key slot");
     }

@@ -61,7 +61,7 @@ public partial class SpellScene : Node3D
 		{
 			//if (velocity.Length() == 0) return;
 			velocity += Vector3.Down * gravity * (float)delta;
-			LookAt(Transform.Origin + velocity.Normalized(), Vector3.Up);
+			//LookAt(Transform.Origin + velocity.Normalized(), Vector3.Up);
 			var transform = Transform;
 			transform.Origin = Transform.Origin + velocity * (float)delta;
 			Transform = transform;

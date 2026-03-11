@@ -169,7 +169,6 @@ public partial class Player : CharacterBody3D, IDamageable
 			if (Input.IsActionJustPressed("2")) { Attack(1);}
 			if (Input.IsActionJustPressed("3")) { Attack(2);}
 			if (Input.IsActionJustPressed("4")) { Attack(3);}
-			if (Input.IsActionJustPressed("p")) { Global.Singleton.GotoZone(Global.Singleton.playerZone);}
 
 			if (Input.IsActionJustPressed("interact"))
 			{

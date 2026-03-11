@@ -41,6 +41,7 @@ chests=""
 tiles=""
 spawnAreas=""
 roomConnectors=""
+player=""
 
 [input]
 
