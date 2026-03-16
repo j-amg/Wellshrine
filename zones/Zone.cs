@@ -38,6 +38,8 @@ public partial class Zone : Node3D
 		player.QueueFree();	
 		AddChild(p);
 		player = p;
+		//Global.Singleton.Gets();
+		//player.Position = new(0,0,0);
 	}
 
 	public virtual void UpdateObjective() => CompleteObjective();

@@ -20,6 +20,7 @@ public partial class Chest : StaticBody3D, IInteractable, IHoverable
 
     public virtual void OnInteract()
     {
+        GD.Print("test");
         EmitSignal(SignalName.ToggleInventory, this);
     }
 

@@ -64,6 +64,7 @@ public partial class Global : Node
 	public override void _Ready()
 	{
 		Gets();
+		ConnectSignals();
 		PreloadObjects();
 	}
 	public override void _Process(double delta)
@@ -119,7 +120,7 @@ public partial class Global : Node
 
 	public void DeferredGotoZone(Zone zone)
 	{
-
+		bool isInstance = false;
 		if (zone is null) return;
 		if (currentZone is not PlayerZone && currentZone != doorZone)
 		{
@@ -127,6 +128,7 @@ public partial class Global : Node
 			currentScene.Free();
 		} else
 		{
+			isInstance = true;
 			GetTree().Root.RemoveChild(currentScene);
 			currentZone.ResetPlayer();
 		}
@@ -135,6 +137,7 @@ public partial class Global : Node
 		GetTree().Root.AddChild(currentScene);
 		GetTree().CurrentScene = currentScene;
 		Gets();
+		if (!isInstance) ConnectSignals(); // prevents connecting to same thing twice
 
 	}
 
@@ -155,35 +158,47 @@ public partial class Global : Node
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
 	}
 
-	private void Gets()
+	public void Gets()
 	{
 		Viewport root = GetTree().Root;
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
+
 
 		if (currentScene is Zone z1)
 		{
 			player = z1.player;
 			if (player is null) GD.Print("player is null");
 			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
+			//GD.Print(hud);
 			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
 			if (inventory is null) GD.Print("inventory is null");
 			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-			
-			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) { n.ToggleInventory += OnChestInventoryToggle; }
-			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			inventory.SetPlayerInventoryData(player.inventoryData);
 			inventory.SetAttributeLabels(player.attributeData);
-			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
-			{
-				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
-			}
 
 			 // set player zone reference
 			if (currentScene is PlayerZone z)
 			{
 				playerZone = z;
+			}
+		}
+	}
+
+	public void ConnectSignals()
+	{
+		if (currentScene is Zone z1)
+		{
+			GD.Print("connected");
+			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) 
+			{
+				n.ToggleInventory += OnChestInventoryToggle;
+			}
+			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
+			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+			{
+				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
 			}
 		}
 	}
@@ -301,6 +316,8 @@ public partial class Global : Node
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
 	{
+
+		GD.Print(externalInventoryOwner);
 		if (invOpen)
 		{
 			hud.Show();
