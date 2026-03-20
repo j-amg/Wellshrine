@@ -5,6 +5,7 @@ using Godot.Collections;
 public partial class Door : Area3D, IHoverable
 {
     public Zone zoneToLoad;
+    [Export] Node3D respawnPoint;
     private bool open = false;
     public Color ReticleModulate { get; set; }
     public bool Active { get; set; }
@@ -33,7 +34,7 @@ public partial class Door : Area3D, IHoverable
     {
         if (body is not Player) return;
         GD.Print("body entered");
-        Global.Singleton.GotoZone(zoneToLoad);
+        Global.Singleton.GotoZone(zoneToLoad, respawnPoint.Transform);
     }
 
     public void StartHover()

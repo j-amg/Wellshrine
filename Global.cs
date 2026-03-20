@@ -79,7 +79,7 @@ public partial class Global : Node
 			if (playerZone != null)
 			{
 				//player.GlobalTransform.Origin = new(0,0,0);
-				GotoZone(playerZone);
+				GotoZone(playerZone, player.Transform);
 				
 				//GD.Print("found play zone");
 			}  
@@ -109,16 +109,16 @@ public partial class Global : Node
 		//GD.Print("zone loaded");
 	}
 
-	public void GotoZone(Zone zone)
+	public void GotoZone(Zone zone, Transform3D respawnTransform)
 	{
 		GD.Print("travelling to: " + zone.Name);
 		//GD.Print(zone.GetNodeOrNull<Player>("player").Position);
 		
 		
-		CallDeferred(MethodName.DeferredGotoZone, zone);
+		CallDeferred(MethodName.DeferredGotoZone, zone, respawnTransform);
 	}
 
-	public void DeferredGotoZone(Zone zone)
+	public void DeferredGotoZone(Zone zone, Transform3D respawnTransform)
 	{
 		bool isInstance = false;
 		if (zone is null) return;
@@ -130,7 +130,7 @@ public partial class Global : Node
 		{
 			isInstance = true;
 			GetTree().Root.RemoveChild(currentScene);
-			currentZone.ResetPlayer();
+			currentZone.ResetPlayer(respawnTransform);
 		}
 		currentScene = zone;
 		currentZone = currentScene is Zone z ? z : null;

@@ -70,8 +70,9 @@ mouse_filter = 2
 visible = false
 mouse_filter = 2
 
-[node name="door" parent="." instance=ExtResource("5_m42jd")]
+[node name="door" parent="." node_paths=PackedStringArray("respawnPoint") instance=ExtResource("5_m42jd")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
+respawnPoint = NodePath("../respawnPoint")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_osk5y")
@@ -109,3 +110,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0797, 0, 7.04872)
 
 [node name="generateItems" parent="." instance=ExtResource("18_5b0lf")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.38756, 0, 11.2784)
+
+[node name="respawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 3.65759, 0, 4.49532)

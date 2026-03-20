@@ -32,12 +32,13 @@ public partial class Zone : Node3D
 		spawner?.Spawn(10, Global.Singleton.enemyArray);
 	}
 
-	public void ResetPlayer()
+	public void ResetPlayer(Transform3D trans)
 	{
 		Player p = GD.Load<PackedScene>("res://player.tscn").Instantiate<Player>();
 		player.QueueFree();	
 		AddChild(p);
 		player = p;
+		p.Transform = trans;
 		//Global.Singleton.Gets();
 		//player.Position = new(0,0,0);
 	}
@@ -66,7 +67,7 @@ public partial class Zone : Node3D
 		Vector3 spawnPoint = new(500,100,500);
 		float spawnRot = 0;
 		AddMapToArray(startingTile, tileArray, spawnPoint, spawnRot);
-		SpawnRooms(startingTile, 200, tileArray, startingTile.Transform);
+		SpawnRooms(startingTile, 50, tileArray, startingTile.Transform);
 		baseZone.AddChild(startingTile);
 		return baseZone;
 		
