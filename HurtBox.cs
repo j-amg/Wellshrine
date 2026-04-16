@@ -10,7 +10,6 @@ public partial class HurtBox : Area3D
 
 	private void OnAreaEntered(Area3D area)
 	{
-        GD.Print("entered area");
 		if (area != null && area.Owner is IDamageable damageable)
         {
             GD.Print("can hit");

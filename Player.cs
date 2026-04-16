@@ -60,7 +60,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	public float deceleration = .5f;
 	public float airAcceleration = .1f;
 	public float airDeceleration = 0.0f;
-	public float dashVelocity = 30f;
+	public float dashVelocity = 10f;
 	public float wallJumpVelocity = 2f;
 	public float fallSpeed = 2;
 	public float jumpVelocity = 7.5f;
@@ -161,6 +161,7 @@ public partial class Player : CharacterBody3D, IDamageable
 			if (Input.IsActionJustPressed("LeftMouse"))
 			{
 					//if (Global.Singleton.equippedWeapon == null) return;
+
 					Attack(0);
 					//Recharge(Global.Singleton.equippedWeapon.recharge);
 			}
@@ -282,6 +283,8 @@ public partial class Player : CharacterBody3D, IDamageable
 			GD.Print("No equipped spell in slot: " + index);
 			return;
 		}
+
+
 		AttackAnim();
 		spellData.spells[index].Cast(this);
 

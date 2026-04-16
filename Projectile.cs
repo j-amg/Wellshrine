@@ -15,8 +15,6 @@ public partial class Projectile : Area3D
 	public float explosionDelay = 0;
 	[Export]
 	public float gravity = 0;
-	[Export]
-	public Explosion explosion;
 	private AnimatedSprite3D sprite;
 	public Vector3 velocity = Vector3.Zero;
 	public Damage damage;
@@ -26,7 +24,7 @@ public partial class Projectile : Area3D
 	public override void _Ready()
 	{
 		BodyEntered += OnBodyEntered;
-		explosion.explosionFinished += OnExplosionFinished;
+		//explosion.explosionFinished += OnExplosionFinished;
 		AreaEntered += OnAreaEntered;
 		sprite = GetNode<AnimatedSprite3D>("projectile");
 		sprite.Play("throw");
@@ -60,8 +58,8 @@ public partial class Projectile : Area3D
 
 		if (explode)
 		{
-			explosion.SetRadius(explosionRadius);
-			explosion.Explode(damage, explosionDelay);
+			//explosion.SetRadius(explosionRadius);
+			//explosion.Explode(damage, explosionDelay);
 		} else CallDeferred("queue_free");
 	}
 

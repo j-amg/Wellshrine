@@ -17,10 +17,13 @@ public partial class SpellScene : Node3D
 	[Export] private Area3D hurtBox;
 	[Export] public float spriteLifeTime = .5f;
 
-	[Export] public bool spawnOnEntityImpact = false;
-	[Export] public bool spawnOnSceneImpact = false;
-	[Export] public float spawnOnImpactDelay = 0;
-	[Export] public PackedScene spawnOnImpactScene;
+	[Export] public bool destroyOnEntityHit = false;
+	[Export] public bool destroyOnSceneHit = false;
+
+	[Export] public bool spawnOnEntityHit = false;
+	[Export] public bool spawnOnSceneHit = false;
+	[Export] public float spawnOnHitDelay = 0;
+	[Export] public PackedScene spawnOnHitScene;
 
 	[Export] public bool appliesCondition = false;
 
@@ -29,6 +32,12 @@ public partial class SpellScene : Node3D
 	//[Export] public Condition[];
 	public override void _Ready()
 	{
+		if (hurtBox != null)
+		{
+			hurtBox.AreaEntered += OnAreaEntered;
+			hurtBox.BodyEntered += OnBodyEntered;
+		}
+		
 		if (spellType is SpellType.Projectile)
 		{
 			velocity = -Transform.Basis.Z * muzzleVelocity;
@@ -37,23 +46,40 @@ public partial class SpellScene : Node3D
 		Fade();
 	}
 
-	// public void InitSpellScene(SpellScene scene, Transform3D transform, Node owner)
-	// {
-	// 	//SpellScene spellScene = new();
-	// 	// if (spellType is SpellType.Projectile)
-	// 	// {
-	// 	// 	for (int i = 0; i < projectileCount; i++)
-	// 	// 	{
-	// 	// 		float rotationOffset = (i * projectileSpread) - (projectileCount - 1 * projectileSpread)/2; 
-				
-	// 	// 		{
-	// 	// 			spellScene.Transform = transform.Rotated(Vector3.Up, Mathf.DegToRad(rotationOffset))
-	//    	// 		};
-				
-	// 	// 	}
-	// 	// }
+	private void OnBodyEntered(Node3D body)
+	{
+		//if (body is Player) return;
+		if (spawnOnSceneHit)
+		{
+			SpawnScene();
+		}
+		if (destroyOnSceneHit)
+		{
+			CallDeferred("queue_free");
+		}
+		//Hit()
+	}
 
-	// }
+	private void OnAreaEntered(Area3D area)
+	{
+		if (area is HurtBox)
+		{
+			if (spawnOnEntityHit)
+			{
+				SpawnScene();
+			}
+			if (destroyOnEntityHit)
+			{
+				//CallDeferred("queue_free");
+			}
+		}
+	}
+
+	public async void SpawnScene()
+	{
+		await ToSignal(GetTree().CreateTimer(spawnOnHitDelay), "timeout");
+		Global.Singleton.AddToScene(spawnOnHitScene.Instantiate<SpellScene>(), Transform);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

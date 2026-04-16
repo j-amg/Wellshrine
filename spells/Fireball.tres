@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://rbtqidd1mgfa"]
+
+[ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_5ip05"]
+[ext_resource type="PackedScene" uid="uid://i5bxfmpogxd3" path="res://spells/fireball.tscn" id="2_5ip05"]
+
+[resource]
+script = ExtResource("1_5ip05")
+spellScene = ExtResource("2_5ip05")
+metadata/_custom_type_script = "uid://cce02yl1a3ynp"

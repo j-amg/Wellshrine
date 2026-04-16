@@ -64,5 +64,16 @@
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "suffix"
+    },
+        "projCount": {
+        "title": "of Many",
+        "target": "ProjCount",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 1.0,
+        "valueMax": 3.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
     }
 }

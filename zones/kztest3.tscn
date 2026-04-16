@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce873amapvq4t"]
+[gd_scene format=3 uid="uid://ce873amapvq4t"]
 
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="1_0u8sy"]
 [ext_resource type="MeshLibrary" uid="uid://bmr3mmia4sh4u" path="res://tileset/collisionTile.tres" id="2_8cgdu"]
@@ -13,12 +13,12 @@ agent_max_slope = 60.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_0u8sy"]
 size = Vector3(8, 4, 8)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=95459796]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1326492756]
 navigation_mesh = SubResource("NavigationMesh_8cgdu")
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D" unique_id=1526750525]
 mesh_library = ExtResource("1_0u8sy")
 collision_layer = 2
 collision_mask = 15
@@ -27,30 +27,30 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
-[node name="connectionPoints" type="Node3D" parent="."]
+[node name="connectionPoints" type="Node3D" parent="." unique_id=1905166739]
 
-[node name="connectionPoint5" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
+[node name="connectionPoint5" type="MeshInstance3D" parent="connectionPoints" unique_id=554492103 groups=["roomConnectors"]]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -4, 0, 4)
 mesh = SubResource("PrismMesh_msttt")
 skeleton = NodePath("../..")
 
-[node name="connectionPoint6" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
+[node name="connectionPoint6" type="MeshInstance3D" parent="connectionPoints" unique_id=486524842 groups=["roomConnectors"]]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 8)
 mesh = SubResource("PrismMesh_msttt")
 skeleton = NodePath("../..")
 
-[node name="connectionPoint7" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
+[node name="connectionPoint7" type="MeshInstance3D" parent="connectionPoints" unique_id=817536557 groups=["roomConnectors"]]
 transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, 4, 0, 4)
 mesh = SubResource("PrismMesh_msttt")
 skeleton = NodePath("../..")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=1309612006]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1834487566]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
 shape = SubResource("BoxShape3D_0u8sy")
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="." unique_id=1197291935]
 visible = false
 mesh_library = ExtResource("2_8cgdu")
 data = {

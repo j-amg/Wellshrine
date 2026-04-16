@@ -1,4 +1,4 @@
-[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://bqmsikbsl0jg8"]
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://bqmsikbsl0jg8"]
 
 [sub_resource type="Gradient" id="Gradient_ae5vl"]
 
@@ -8,6 +8,6 @@ frequency = 0.0373
 [resource]
 width = 64
 height = 64
-seamless = true
-color_ramp = SubResource("Gradient_ae5vl")
 noise = SubResource("FastNoiseLite_7ksco")
+color_ramp = SubResource("Gradient_ae5vl")
+seamless = true

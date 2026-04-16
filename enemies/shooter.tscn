@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgis5agan11j5"]
+[gd_scene format=3 uid="uid://cgis5agan11j5"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_y66yp"]
 [ext_resource type="Script" uid="uid://cy247l4u7b5ho" path="res://enemies/Shooter.cs" id="2_okrev"]
@@ -8,10 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://c0v0gpavdh5tb" path="res://enemyProjectile.tscn" id="7_6gbqh"]
 [ext_resource type="Script" uid="uid://bvs3plagd8bj7" path="res://enemyStates/EnemyDie.cs" id="7_k5dwn"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_h440o"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hhdeg"]
 viewport_path = NodePath("SubViewport")
 
-[node name="enemy" instance=ExtResource("1_y66yp")]
+[node name="enemy" unique_id=2144720872 instance=ExtResource("1_y66yp")]
 script = ExtResource("2_okrev")
 baseMovementSpeed = 3.0
 name = "Skeleton Mage"
@@ -20,24 +20,24 @@ detectionRange = 17.5
 attackRange = 10.0
 attackWindup = 0.75
 
-[node name="sprite" parent="." index="2"]
+[node name="sprite" parent="." index="2" unique_id=1224545050]
 modulate = Color(0.627451, 0.596078, 0.984314, 1)
 
-[node name="labelSprite" parent="." index="4"]
-texture = SubResource("ViewportTexture_h440o")
+[node name="labelSprite" parent="." index="4" unique_id=1601037161]
+texture = SubResource("ViewportTexture_hhdeg")
 
-[node name="statemachine" parent="." index="5" node_paths=PackedStringArray("current_state")]
+[node name="statemachine" parent="." index="5" unique_id=1426956756 node_paths=PackedStringArray("current_state")]
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="statemachine" index="0"]
+[node name="idle" type="Node" parent="statemachine" index="0" unique_id=2008736994]
 script = ExtResource("3_yi21b")
 
-[node name="chase" type="Node" parent="statemachine" index="1"]
+[node name="chase" type="Node" parent="statemachine" index="1" unique_id=1881703496]
 script = ExtResource("4_nduyg")
 
-[node name="attack" type="Node" parent="statemachine" index="2"]
+[node name="attack" type="Node" parent="statemachine" index="2" unique_id=572011330]
 script = ExtResource("5_gnwtc")
 projectile = ExtResource("7_6gbqh")
 
-[node name="die" type="Node" parent="statemachine" index="3"]
+[node name="die" type="Node" parent="statemachine" index="3" unique_id=1989587987]
 script = ExtResource("7_k5dwn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://csteklro6et5n"]
+[gd_scene format=3 uid="uid://csteklro6et5n"]
 
 [ext_resource type="Script" uid="uid://ce0iewpnmvmjr" path="res://UI/Hud.cs" id="1_afaig"]
 [ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="2_b1lf8"]
@@ -67,7 +67,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
 gradient = SubResource("Gradient_6i0hs")
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation")]
+[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,7 +94,7 @@ screen = NodePath("screen")
 itemTooltip = NodePath("itemTooltip")
 zoneInformation = NodePath("zoneInformation")
 
-[node name="itemTooltip" parent="." instance=ExtResource("2_b1lf8")]
+[node name="itemTooltip" parent="." unique_id=1167449840 instance=ExtResource("2_b1lf8")]
 layout_mode = 1
 anchors_preset = 4
 anchor_left = 0.0
@@ -105,7 +105,7 @@ offset_right = 232.0
 offset_bottom = 94.5
 grow_horizontal = 1
 
-[node name="overlay" type="TextureRect" parent="."]
+[node name="overlay" type="TextureRect" parent="." unique_id=351410838]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -116,24 +116,24 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_a63qm")
 
-[node name="zoneInformation" type="VBoxContainer" parent="."]
+[node name="zoneInformation" type="VBoxContainer" parent="." unique_id=1239754270]
 layout_mode = 1
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 97.0
 offset_bottom = 74.0
 
-[node name="zone" type="Label" parent="zoneInformation"]
+[node name="zone" type="Label" parent="zoneInformation" unique_id=1453202561]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 text = "Zone: "
 
-[node name="objective" type="Label" parent="zoneInformation"]
+[node name="objective" type="Label" parent="zoneInformation" unique_id=542613161]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 text = "Objective"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=552535198]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -146,7 +146,7 @@ offset_right = 120.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="healthLabel" type="Label" parent="VBoxContainer"]
+[node name="healthLabel" type="Label" parent="VBoxContainer" unique_id=411344174]
 texture_filter = 1
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
@@ -155,7 +155,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[PH]"
 vertical_alignment = 1
 
-[node name="health" type="ProgressBar" parent="VBoxContainer"]
+[node name="health" type="ProgressBar" parent="VBoxContainer" unique_id=271602118]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
@@ -164,7 +164,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_f2fuu")
 value = 50.0
 show_percentage = false
 
-[node name="interactLabel" type="Label" parent="."]
+[node name="interactLabel" type="Label" parent="." unique_id=1243264043]
 visible = false
 texture_filter = 1
 layout_mode = 1
@@ -183,7 +183,7 @@ theme = ExtResource("2_q7u4o")
 text = "[X] to interact"
 vertical_alignment = 1
 
-[node name="recharge" type="ProgressBar" parent="."]
+[node name="recharge" type="ProgressBar" parent="." unique_id=719029371]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -200,7 +200,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_ydjn8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b5574")
 show_percentage = false
 
-[node name="reticle" type="TextureRect" parent="."]
+[node name="reticle" type="TextureRect" parent="." unique_id=882747513]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -216,7 +216,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_qht3n")
 
-[node name="crossHair" type="Control" parent="reticle"]
+[node name="crossHair" type="Control" parent="reticle" unique_id=237489142]
 modulate = Color(1, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -233,7 +233,7 @@ grow_vertical = 2
 rotation = 0.785398
 pivot_offset = Vector2(20, 20)
 
-[node name="TextureRect" type="TextureRect" parent="reticle/crossHair"]
+[node name="TextureRect" type="TextureRect" parent="reticle/crossHair" unique_id=1383179550]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -249,7 +249,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_6wme6")
 
-[node name="TextureRect2" type="TextureRect" parent="reticle/crossHair"]
+[node name="TextureRect2" type="TextureRect" parent="reticle/crossHair" unique_id=2066197424]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -266,7 +266,7 @@ rotation = 1.5708
 pivot_offset = Vector2(8, 0)
 texture = SubResource("GradientTexture1D_6wme6")
 
-[node name="dialogue" type="PanelContainer" parent="."]
+[node name="dialogue" type="PanelContainer" parent="." unique_id=1577589226]
 visible = false
 texture_filter = 1
 clip_contents = true
@@ -282,20 +282,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="MarginContainer" type="MarginContainer" parent="dialogue"]
+[node name="MarginContainer" type="MarginContainer" parent="dialogue" unique_id=1518544677]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="vbox" type="VBoxContainer" parent="dialogue/MarginContainer"]
+[node name="vbox" type="VBoxContainer" parent="dialogue/MarginContainer" unique_id=237324566]
 layout_mode = 2
 
-[node name="name" type="Label" parent="dialogue/MarginContainer/vbox"]
+[node name="name" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=569526335]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 text = "Example name"
 uppercase = true
 
-[node name="text" type="Label" parent="dialogue/MarginContainer/vbox"]
+[node name="text" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=111084525]
 texture_filter = 1
 custom_minimum_size = Vector2(400, 47)
 layout_mode = 2
@@ -306,7 +306,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 clip_text = true
 
-[node name="hint" type="Label" parent="dialogue/MarginContainer/vbox"]
+[node name="hint" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=1360868022]
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
@@ -315,7 +315,7 @@ theme = ExtResource("2_q7u4o")
 text = "[SpaceBar] to progress dialogue"
 horizontal_alignment = 1
 
-[node name="popUp" type="PanelContainer" parent="."]
+[node name="popUp" type="PanelContainer" parent="." unique_id=863006083]
 visible = false
 custom_minimum_size = Vector2(160, 64)
 layout_mode = 1
@@ -332,11 +332,11 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="MarginContainer" type="MarginContainer" parent="popUp"]
+[node name="MarginContainer" type="MarginContainer" parent="popUp" unique_id=1882661604]
 layout_mode = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="popup" type="Label" parent="popUp/MarginContainer"]
+[node name="popup" type="Label" parent="popUp/MarginContainer" unique_id=1000747356]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 24)
 layout_mode = 2
@@ -346,7 +346,7 @@ text = "[PH] hello this i"
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="screen" type="TextureRect" parent="."]
+[node name="screen" type="TextureRect" parent="." unique_id=928892163]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -356,7 +356,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_ggvx8")
 
-[node name="ItemInHand" type="Control" parent="."]
+[node name="ItemInHand" type="Control" parent="." unique_id=1544122410]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

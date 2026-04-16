@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3fxrii5kljgp"]
+[gd_scene format=3 uid="uid://d3fxrii5kljgp"]
 
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="1_f0jax"]
 [ext_resource type="MeshLibrary" uid="uid://bmr3mmia4sh4u" path="res://tileset/collisionTile.tres" id="2_uajbr"]
@@ -7,15 +7,16 @@
 vertices = PackedVector3Array(1.5, 0.5, 0.5, -1.5, 0.5, 0.5, -1.5, 0.5, 2.5, -3.25, 0.5, 2.75, -3.5, 0.5, 6.25, -7.5, 0.5, 6.75, -7.5, 0.5, 9.5, -3.75, 0.5, 9.5, -3.25, 0.5, 13.5, 1.5, 0.5, 12, 0, 0.5, 13.5, 1.75, 0.5, 12.5, 0.5, 0.5, 13.75, 0.75, 0.5, 15.75, 0.75, 4.5, 21.5, 3.5, 4.5, 21.5, 3.5, 0.5, 15.75, 0.75, 4.5, 20.0625, 3.5, 4.5, 20.0625, 5.5, 0.5, 15.5, 5.5, 0.5, 12.75)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 2), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 4, 9), PackedInt32Array(9, 4, 2), PackedInt32Array(9, 2, 0), PackedInt32Array(9, 10, 8), PackedInt32Array(12, 10, 11), PackedInt32Array(11, 10, 9), PackedInt32Array(14, 17, 15), PackedInt32Array(15, 17, 18), PackedInt32Array(18, 17, 13), PackedInt32Array(18, 13, 16), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 16), PackedInt32Array(16, 11, 19), PackedInt32Array(19, 11, 20)]
 agent_max_slope = 60.0
+region_min_size = 0.0
 
 [sub_resource type="PrismMesh" id="PrismMesh_v0yv3"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=654085282]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1507242749]
 navigation_mesh = SubResource("NavigationMesh_umw2x")
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D" unique_id=906299337]
 mesh_library = ExtResource("1_f0jax")
 collision_layer = 2
 collision_mask = 15
@@ -24,20 +25,20 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
-[node name="connectionPoints" type="Node3D" parent="."]
+[node name="connectionPoints" type="Node3D" parent="." unique_id=513519357]
 visible = false
 
-[node name="connectionPoint2" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
+[node name="connectionPoint2" type="MeshInstance3D" parent="connectionPoints" unique_id=1976338922 groups=["roomConnectors"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 8)
 mesh = SubResource("PrismMesh_v0yv3")
 skeleton = NodePath("../..")
 
-[node name="connectionPoint3" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
+[node name="connectionPoint3" type="MeshInstance3D" parent="connectionPoints" unique_id=175574252 groups=["roomConnectors"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, 14)
 mesh = SubResource("PrismMesh_v0yv3")
 skeleton = NodePath("../..")
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="." unique_id=1659428409]
 visible = false
 mesh_library = ExtResource("2_uajbr")
 data = {

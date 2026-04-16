@@ -92,11 +92,6 @@ public partial class Global : Node
 	}
 
 	public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
-
-	public void testFunction()
-	{
-		GD.Print("test function");
-	}
 	public void DeferredGotoScene(PackedScene nextScene)
 	{
 		currentZone?.CloseZone();
@@ -152,7 +147,7 @@ public partial class Global : Node
 
 		tileArray.Add(GD.Load<PackedScene>("res://zones/zoneDoor.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest2.tscn"));
-		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
+		//tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
 
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
@@ -202,36 +197,6 @@ public partial class Global : Node
 			}
 		}
 	}
-
-	// def bounding_box(points):
-	// """returns a list containing the bottom left and the top right 
-	// points in the sequence
-	// Here, we traverse the collection of points only once, 
-	// to find the min and max for x and y
-	// """
-	// bot_left_x, bot_left_y = float('inf'), float('inf')
-	// top_right_x, top_right_y = float('-inf'), float('-inf')
-	// for x, y in points:
-	//     bot_left_x = min(bot_left_x, x)
-	//     bot_left_y = min(bot_left_y, y)
-	//     top_right_x = max(top_right_x, x)
-	//     top_right_y = max(top_right_y, y)
-
-	// return [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
-
-	// public Vector3 BoundingBox(Vector3[] points)
-	// {
-
-	// 	float bot_left_x = (float)Mathf.Inf;
-	// 	float bot_left_y = (float)Mathf.Inf;
-	// 	float top_right_x = (float)Mathf.Inf;
-	// 	float top_right_y = (float)Mathf.Inf;
-
-	// 	for 
-
-
-	// 	return new Vector3;
-	// }
 
 	public void AddToScene(Node3D node, Transform3D transform)
 	{

@@ -7,22 +7,6 @@
         "type": "equipment",
         "subType": "Ring"
     },
-    "sword": {
-        "name": "Shortsword",
-        "description": "A plain Iron Sword",
-        "rollWeight": 0.2,
-        "accWeight": 0.0,
-        "type": "equipment",
-        "subType": "Spell"
-    },
-    "axe": {
-        "name": "Cleaver",
-        "description": "A plain Iron Axe",
-        "rollWeight": 0.2,
-        "accWeight": 0.0,
-        "type": "equipment",
-        "subType": "Spell"
-    },
     "key": {
         "name": "Key",
         "description": "It must lead somewhere",

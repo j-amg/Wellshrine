@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://cia7abkugycie" path="res://inventory/inventories/equipmentInventory7.tres" id="17_hiqhm"]
 [ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="17_iruf7"]
 [ext_resource type="Script" uid="uid://rb1ho8gvc7cc" path="res://inventory/SpellData.cs" id="17_j5n4i"]
+[ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="18_j5n4i"]
 [ext_resource type="Resource" uid="uid://dna06uq7wexm5" path="res://inventory/inventories/equipmentInventory8.tres" id="18_tkwlq"]
 [ext_resource type="Resource" uid="uid://cfu0olcal4q1b" path="res://inventory/inventories/equipmentInventory9.tres" id="19_hl5qd"]
 [ext_resource type="Resource" uid="uid://d4ga47kkhgwi2" path="res://inventory/inventories/equipmentInventory10.tres" id="20_ek41f"]
@@ -36,7 +37,6 @@ metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="Resource" id="Resource_efrwb"]
 script = ExtResource("17_j5n4i")
-spells = [null, null, null, null, null]
 metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
@@ -584,7 +584,7 @@ radius = 1.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
+[node name="player" type="CharacterBody3D" unique_id=1288052047 node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
 damageTakenSound = ExtResource("2_1f480")
@@ -605,12 +605,12 @@ inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"),
 attributeData = SubResource("Resource_hiqhm")
 spellData = SubResource("Resource_efrwb")
 
-[node name="body" type="Node3D" parent="."]
+[node name="body" type="Node3D" parent="." unique_id=1536032856]
 
-[node name="hands" type="Node3D" parent="body"]
+[node name="hands" type="Node3D" parent="body" unique_id=555383104]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="handSprite" type="AnimatedSprite3D" parent="body/hands"]
+[node name="handSprite" type="AnimatedSprite3D" parent="body/hands" unique_id=1296183880]
 transform = Transform3D(-0.49, 0, 1.74846e-08, 0, 0.49, 0, -4.28372e-08, 0, -0.2, 0, -0.376, -0.39)
 visible = false
 flip_h = true
@@ -621,67 +621,67 @@ sprite_frames = SubResource("SpriteFrames_p25tb")
 animation = &"idle"
 frame_progress = 0.155568
 
-[node name="handAnims" parent="body/hands" instance=ExtResource("23_hiqhm")]
+[node name="handAnims" parent="body/hands" unique_id=541823836 instance=ExtResource("23_hiqhm")]
 transform = Transform3D(-0.1, 0, 8.74228e-09, 0, 0.1, 0, -8.74228e-09, 0, -0.1, 0, -1.2259, 0.0709478)
 
-[node name="head" type="Node3D" parent="body"]
+[node name="head" type="Node3D" parent="body" unique_id=1428688288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989172, 0)
 
-[node name="Camera3D" type="Camera3D" parent="body/head"]
+[node name="Camera3D" type="Camera3D" parent="body/head" unique_id=794476657]
 transform = Transform3D(0.999999, -0.00117631, 0.000612828, 0.00117667, 0.999999, -0.000582086, -0.000612127, 0.000582823, 1, 0, 0, 0)
 
-[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
+[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D" unique_id=758984145]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
 collision_mask = 278
 collide_with_areas = true
 
-[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D" unique_id=1414678939]
 spot_range = 15.0
 
-[node name="wallDetection" type="Area3D" parent="."]
+[node name="wallDetection" type="Area3D" parent="." unique_id=178992433]
 collision_mask = 2
 
-[node name="wallDetectionCollision" type="CollisionShape3D" parent="wallDetection"]
+[node name="wallDetectionCollision" type="CollisionShape3D" parent="wallDetection" unique_id=83229878]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_dx0e4")
 
-[node name="standCollision" type="CollisionShape3D" parent="."]
+[node name="standCollision" type="CollisionShape3D" parent="." unique_id=702493095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b1bg2")
 
-[node name="crouchCollision" type="CollisionShape3D" parent="."]
+[node name="crouchCollision" type="CollisionShape3D" parent="." unique_id=1016845971]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_xybr4")
 disabled = true
 
-[node name="statemachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="statemachine" type="Node" parent="." unique_id=697864869 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_ledpc")
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="statemachine"]
+[node name="idle" type="Node" parent="statemachine" unique_id=639443700]
 script = ExtResource("4_fm7o7")
 
-[node name="walk" type="Node" parent="statemachine"]
+[node name="walk" type="Node" parent="statemachine" unique_id=322940596]
 script = ExtResource("5_iewqs")
 
-[node name="fall" type="Node" parent="statemachine"]
+[node name="fall" type="Node" parent="statemachine" unique_id=1635991594]
 script = ExtResource("7_l7400")
 
-[node name="jump" type="Node" parent="statemachine"]
+[node name="jump" type="Node" parent="statemachine" unique_id=1929342905]
 script = ExtResource("8_883gc")
 
-[node name="glide" type="Node" parent="statemachine"]
+[node name="glide" type="Node" parent="statemachine" unique_id=114895679]
 script = ExtResource("9_5x1gy")
 
-[node name="dash" type="Node" parent="statemachine"]
+[node name="dash" type="Node" parent="statemachine" unique_id=446839886]
 script = ExtResource("10_23kto")
 
-[node name="crouch" type="Node" parent="statemachine"]
+[node name="crouch" type="Node" parent="statemachine" unique_id=712868934]
 script = ExtResource("11_ptp12")
 
-[node name="slide" type="Node" parent="statemachine"]
+[node name="slide" type="Node" parent="statemachine" unique_id=666668824]
 script = ExtResource("12_2347s")
 
-[node name="walljump" type="Node" parent="statemachine"]
+[node name="walljump" type="Node" parent="statemachine" unique_id=1502539110]
 script = ExtResource("24_dx0e4")

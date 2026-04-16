@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://i5bxfmpogxd3"]
+
+[ext_resource type="Script" uid="uid://bnh6127ush7qs" path="res://spells/SpellScene.cs" id="1_hj3xb"]
+[ext_resource type="Script" uid="uid://cvco10nxk47pr" path="res://HurtBox.cs" id="2_ffg60"]
+[ext_resource type="PackedScene" uid="uid://d10st40p8i6ya" path="res://spells/explosion.tscn" id="2_s5f6s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_olwj8"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wdani"]
+size = Vector2(64, 64)
+
+[node name="fireball" type="Node3D" unique_id=679738575 node_paths=PackedStringArray("sprites", "hurtBox")]
+script = ExtResource("1_hj3xb")
+muzzleVelocity = 10.0
+gravity = 5.0
+projectileCount = 3
+projectileSpread = 5.0
+sprites = NodePath("Sprite3D")
+hurtBox = NodePath("collision")
+spriteLifeTime = 0.0
+destroyOnSceneHit = true
+spawnOnHitScene = ExtResource("2_s5f6s")
+
+[node name="collision" type="Area3D" parent="." unique_id=367688849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
+collision_layer = 8
+collision_mask = 14
+script = ExtResource("2_ffg60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collision" unique_id=202262747]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_olwj8")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1451013311]
+billboard = 1
+texture = SubResource("PlaceholderTexture2D_wdani")

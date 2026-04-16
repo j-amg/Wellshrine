@@ -7,7 +7,8 @@ public enum AttributeType
     Strength,
     Dexterity,
     Intelligence,
-    Armour
+    Armour,
+    ProjCount
 }
 
 [GlobalClass]
@@ -18,6 +19,7 @@ public partial class AttributeData : Resource
         {AttributeType.Strength, new PlayerAttribute(50f)},
         {AttributeType.Dexterity, new PlayerAttribute(50f)},
         {AttributeType.Intelligence, new PlayerAttribute(50f)},
-        {AttributeType.Armour, new PlayerAttribute(0f)}
+        {AttributeType.Armour, new PlayerAttribute(0f)},
+        {AttributeType.ProjCount, new PlayerAttribute(0f)}
     };
 }
