@@ -6,19 +6,19 @@ public partial class SlideState : State
     private float finalSlideDelta;
     public override void Enter()
     {
-        owner.UpdateInput(owner.hvel.Length(), .75f, 0);
+        owningEntity.UpdateInput(owningEntity.hvel.Length(), .75f, 0);
 
         // move in input direction, otherwise move in velocity direction
-        Vector3 slideDir = owner.inputDir.Length() != 0 ? new Vector3(owner.direction.X, 0, owner.direction.Z) : new Vector3(owner.velocity.Normalized().X, 0, owner.velocity.Normalized().Z);
+        Vector3 slideDir = owningEntity.inputDir.Length() != 0 ? new Vector3(owningEntity.direction.X, 0, owningEntity.direction.Z) : new Vector3(owningEntity.velocity.Normalized().X, 0, owningEntity.velocity.Normalized().Z);
 
         // if the current speed is greater than the slidespeed then use the current speed instead
-        float finalSlideSpeed = owner.hvel.Length() > owner.slideSpeed ? owner.hvel.Length() : owner.slideSpeed;
+        float finalSlideSpeed = owningEntity.hvel.Length() > owningEntity.slideSpeed ? owningEntity.hvel.Length() : owningEntity.slideSpeed;
 
-        owner.velocity = owner.velocity.MoveToward(slideDir * finalSlideSpeed, owner.slideDelta);
-        owner.UpdateVelocity();
+        owningEntity.velocity = owningEntity.velocity.MoveToward(slideDir * finalSlideSpeed, owningEntity.slideDelta);
+        owningEntity.UpdateVelocity();
     }
     public override void Update(double delta)
 	{
-        if (!owner.IsOnFloor()) EmitSignal(SignalName.transition, "fall"); else EmitSignal(SignalName.transition, "crouch");
+        if (!owningEntity.IsOnFloor()) EmitSignal(SignalName.transition, "fall"); else EmitSignal(SignalName.transition, "crouch");
 	}
 }

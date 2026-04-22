@@ -1,33 +1,30 @@
 using Godot;
 using System;
 
-public partial class EnemyChase : State
+public partial class owningEntityChase : State
 {
     public override void Enter()
     {
-        base.Enter();
-        owner.audioPlayer.Stream = owner.walkSound;
-        owner.audioPlayer.Play();
+        owningEntity.audioPlayer.Stream = owningEntity.walkSound;
+        owningEntity.audioPlayer.Play();
     }
 
     public override void Exit()
     {
-        base.Enter();
-        owner.audioPlayer.Stop();
+        owningEntity.audioPlayer.Stop();
     }
     public override void Update(double delta)
     {
-        Enemy enemy = Owner as Enemy;
         Vector3 direction;
-		Vector3 velocity = enemy.Velocity;
-		enemy.nav.TargetPosition = Global.Singleton.player.GlobalPosition;
-		direction = (enemy.nav.GetNextPathPosition() - enemy.GlobalPosition).Normalized();
-		velocity = velocity.Lerp(direction * enemy.baseMovementSpeed, (float)(enemy.acceleration * delta));
-		enemy.Velocity = velocity;
-        enemy.sprite.Play("run");
-        if (enemy.stunned) enemy.sprite.Play("stun");
-        if (enemy.dead) EmitSignal(SignalName.transition, "die");
+		Vector3 velocity = owningEntity.Velocity;
+		owningEntity.nav.TargetPosition = Global.Singleton.player.GlobalPosition;
+		direction = (owningEntity.nav.GetNextPathPosition() - owningEntity.GlobalPosition).Normalized();
+		velocity = velocity.Lerp(direction * owningEntity.baseMovementSpeed, (float)(owningEntity.acceleration * delta));
+		owningEntity.Velocity = velocity;
+        owningEntity.sprite.Play("run");
+        if (owningEntity.stunned) owningEntity.sprite.Play("stun");
+        if (owningEntity.dead) EmitSignal(SignalName.transition, "die");
         if (Global.Singleton.dead) EmitSignal(SignalName.transition, "idle");
-        if ((Global.Singleton.player.GlobalPosition - enemy.GlobalPosition).Length() <= enemy.attackRange && !Global.Singleton.dead) EmitSignal(SignalName.transition, "attack");
+        if ((Global.Singleton.player.GlobalPosition - owningEntity.GlobalPosition).Length() <= owningEntity.attackRange && !Global.Singleton.dead) EmitSignal(SignalName.transition, "attack");
     }
 }

@@ -7,23 +7,23 @@ public partial class FallState : State
 
     public override void Enter()
     {
-		s = owner.hvel.Length() > owner.fallSpeed ? owner.hvel.Length() : owner.fallSpeed;
+		s = owningEntity.hvel.Length() > owningEntity.fallSpeed ? owningEntity.hvel.Length() : owningEntity.fallSpeed;
     }
     public override void Update(double delta)
 	{
-        owner.UpdateInput(s, .2f, owner.airDeceleration);
-		Vector3 vel = owner.velocity;
-		vel.Y -= owner.gravity * (float)delta;
-		owner.velocity = vel;
-        owner.UpdateVelocity();
+        owningEntity.UpdateInput(s, .2f, owningEntity.airDeceleration);
+		Vector3 vel = owningEntity.velocity;
+		vel.Y -= owningEntity.gravity * (float)delta;
+		owningEntity.velocity = vel;
+        owningEntity.UpdateVelocity();
 		if (Input.IsActionJustPressed("RightMouse")) EmitSignal(SignalName.transition, "glide");
 		if (Input.IsActionJustPressed("Shift")) EmitSignal(SignalName.transition, "slide");
-		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owner.currentJump < owner.maxJumpCount) EmitSignal(SignalName.transition, "jump");
-		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owner.nearWall && owner.canWallJump) EmitSignal(SignalName.transition, "walljump");
-		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && owner.currentJump < owner.maxJumpCount && owner.currentDash < owner.maxDashCount) EmitSignal(SignalName.transition, "dash");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owningEntity.currentJump < owningEntity.maxJumpCount) EmitSignal(SignalName.transition, "jump");
+		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owningEntity.nearWall && owningEntity.canWallJump) EmitSignal(SignalName.transition, "walljump");
+		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && owningEntity.currentJump < owningEntity.maxJumpCount && owningEntity.currentDash < owningEntity.maxDashCount) EmitSignal(SignalName.transition, "dash");
 		
 
-		if (owner.IsOnFloor())
+		if (owningEntity.IsOnFloor())
 		{
 			if (Input.IsActionPressed("Shift"))
 			{

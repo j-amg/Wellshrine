@@ -6,8 +6,9 @@ public partial class State : Node
 {
 	[Signal]
 	public delegate void transitionEventHandler(StringName stateName);
-    public dynamic owner;
-    public override void _Ready() => owner = Owner;
+
+	public dynamic owningEntity;
+
     public virtual void Enter()
 	{
 		return;

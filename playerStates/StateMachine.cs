@@ -6,7 +6,7 @@ public partial class StateMachine : Node
 {
 	[Export]
 	public State current_state;
-	private Dictionary<StringName, State> states = new();
+	private Dictionary<StringName, State> states = [];
 	public override void _Ready()
 	{
 		foreach (Node child in GetChildren())
