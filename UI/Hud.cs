@@ -37,10 +37,21 @@ public partial class Hud : Control
     public Tooltip itemTooltip;
     [Export]
     BoxContainer zoneInformation;
+    [Export]
+    public TextureProgressBar attackChargeIndicator;
+
     public override void _Ready()
     {
         Global.Singleton.player.damageTaken += OnDamageTaken;
         Global.Singleton.HealthChanged += OnHealthChanged;
+        UpdateHealth();
+
+        SignalManager.Singleton.attackChargeUpdated += OnAttackChargeUpdated;
+    }
+
+    public void OnAttackChargeUpdated(float value)
+    {
+        attackChargeIndicator.Value = value;
     }
 
     private void OnZoneObjectiveComplete(Zone zone)

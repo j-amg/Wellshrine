@@ -42,14 +42,14 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_byoy3"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.0336391, 0.281346, 0.284404)
+offsets = PackedFloat32Array(0, 0.07258064, 0.281346, 0.284404)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qht3n"]
 gradient = SubResource("Gradient_byoy3")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.790598, 0.196581)
+fill_to = Vector2(0.7724359, 0.19123931)
 
 [sub_resource type="Gradient" id="Gradient_ua45o"]
 interpolation_mode = 1
@@ -67,7 +67,17 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
 gradient = SubResource("Gradient_6i0hs")
 
-[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation")]
+[sub_resource type="Gradient" id="Gradient_b1lf8"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.4343267, 0.45640177)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rnl6m"]
+gradient = SubResource("Gradient_b1lf8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "popup", "popupText", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation", "attackChargeIndicator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,8 +93,8 @@ objectiveLabel = NodePath("zoneInformation/objective")
 dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
 dialogueName = NodePath("dialogue/MarginContainer/vbox/name")
 dialogue = NodePath("dialogue")
-popup = NodePath("popUp")
-popupText = NodePath("popUp/MarginContainer/popup")
+popup = NodePath("")
+popupText = NodePath("")
 reticle = NodePath("reticle")
 crossHair = NodePath("reticle/crossHair")
 interactLabel = NodePath("interactLabel")
@@ -93,6 +103,7 @@ rechargeBar = NodePath("recharge")
 screen = NodePath("screen")
 itemTooltip = NodePath("itemTooltip")
 zoneInformation = NodePath("zoneInformation")
+attackChargeIndicator = NodePath("TextureProgressBar")
 
 [node name="itemTooltip" parent="." unique_id=1167449840 instance=ExtResource("2_b1lf8")]
 layout_mode = 1
@@ -315,37 +326,6 @@ theme = ExtResource("2_q7u4o")
 text = "[SpaceBar] to progress dialogue"
 horizontal_alignment = 1
 
-[node name="popUp" type="PanelContainer" parent="." unique_id=863006083]
-visible = false
-custom_minimum_size = Vector2(160, 64)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -172.0
-offset_top = -24.0
-offset_right = -12.0
-offset_bottom = 24.0
-grow_horizontal = 0
-grow_vertical = 2
-theme = ExtResource("2_q7u4o")
-
-[node name="MarginContainer" type="MarginContainer" parent="popUp" unique_id=1882661604]
-layout_mode = 2
-theme = ExtResource("2_q7u4o")
-
-[node name="popup" type="Label" parent="popUp/MarginContainer" unique_id=1000747356]
-texture_filter = 1
-custom_minimum_size = Vector2(120, 24)
-layout_mode = 2
-theme = ExtResource("2_q7u4o")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "[PH] hello this i"
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="screen" type="TextureRect" parent="." unique_id=928892163]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 1
@@ -361,3 +341,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_640wx")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=551093643]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415882
+pivot_offset = Vector2(32, 32)
+fill_mode = 8
+texture_progress = SubResource("GradientTexture2D_rnl6m")

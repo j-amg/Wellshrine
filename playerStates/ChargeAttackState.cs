@@ -27,7 +27,14 @@ public partial class ChargeAttackState : AttackState
 		{
             EmitSignal(SignalName.attacktransition, "idle", 0);
             GD.Print("spell is null");
+            return;
 		}
+
+        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.castTime * 10);
+
+        GD.Print(chargeAmmount);
+
+        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, chargeAmmount);
         
         if (Input.IsActionJustReleased(Enum.GetValues<AttackKeybinds>()[spellIndex].ToString()))
         {
@@ -43,4 +50,9 @@ public partial class ChargeAttackState : AttackState
             }
         }
 	}
+
+    public override void Exit()
+    {
+        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, 0);
+    }
 }
