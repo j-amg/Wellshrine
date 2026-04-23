@@ -10,8 +10,6 @@ using System.Runtime.InteropServices.JavaScript;
 public partial class Global : Node
 {
 	[Signal]
-	public delegate void HealthChangedEventHandler();
-	[Signal]
 	public delegate void PopUpClosedEventHandler(string action);
 	[Signal]
 	public delegate void DialogueFinishedEventHandler();
@@ -428,14 +426,14 @@ public partial class Global : Node
 	{
 		if (dead) return;
 		currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, playerHealth);
-		EmitSignal(SignalName.HealthChanged);
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
 		if (currentPlayerHealth <= 0) Die();
 	}
 
 	public void SetPlayerHealth(float value)
 	{
 		currentPlayerHealth = Mathf.Clamp(value, 0, playerHealth);
-		EmitSignal(SignalName.HealthChanged);
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
 		if (currentPlayerHealth <= 0) Die();
 	}
 	// public Damage GetPlayerDamage()

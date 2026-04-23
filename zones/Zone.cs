@@ -4,10 +4,6 @@ using Godot.Collections;
 
 public partial class Zone : Node3D
 {
-	[Signal]
-	public delegate void ZoneEnteredEventHandler(Zone zone);
-	[Signal]
-	public delegate void ZoneObjectiveCompleteEventHandler(Zone zone);
 	[Export]
 	public string objective;
 	[Export]
@@ -21,14 +17,14 @@ public partial class Zone : Node3D
 
 	public override void _Ready()
 	{
-		CallDeferred("emit_signal", SignalName.ZoneEntered, this);
-		SpawnDelay();
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.ZoneEntered);
+		SpawnDelay()
 	
 	}
 
 	public async void SpawnDelay()
 	{
-		await ToSignal(GetTree().CreateTimer(1), "timeout");
+		await ToSignal(spawner, "ready");
 		spawner?.Spawn(10, Global.Singleton.enemyArray);
 	}
 

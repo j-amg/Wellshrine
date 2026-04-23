@@ -6,8 +6,6 @@ using Godot;
 
 public partial class Player : CharacterBody3D, IDamageable
 {
-	[Signal]
-	public delegate void damageTakenEventHandler();
 	[Export]
 	public AudioStream damageTakenSound;
 	[Export]
@@ -261,7 +259,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	{
 		Global.Singleton.IncrementPlayerHealth(-d.amount);
 		Global.Singleton.PlaySound2D(damageTakenSound);
-		EmitSignal(SignalName.damageTaken);
+		EmitSignal(SignalManager.SignalName.playerDamageTaken);
 	}
 
 	// private void Attack(int index)

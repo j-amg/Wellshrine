@@ -30,9 +30,7 @@ public partial class ChargeAttackState : AttackState
             return;
 		}
 
-        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.castTime * 10);
-
-        GD.Print(chargeAmmount);
+        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.castTime * 10); // *10 to translate between to ms to 0.0 - 1.0 range
 
         SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, chargeAmmount);
         
@@ -40,16 +38,26 @@ public partial class ChargeAttackState : AttackState
         {
             if (Time.GetTicksMsec() >= startChargeTime + spell.castTime * 1000)
             {
-                owningEntity.AttackAnim();
-                spell.Cast(owningEntity);
-                EmitSignal(SignalName.attacktransition, "idle", 0);
+                Attack(1.0f);
             }
             else
             {
+                if (spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease)
+                {
+                    Attack(chargeAmmount);
+                }
                 EmitSignal(SignalName.attacktransition, "idle", 0);
             }
         }
 	}
+
+    public async void Attack(float chargeAmmount)
+    {
+        await ToSignal(GetTree().CreateTimer(spell.castTime), "timeout");
+        owningEntity.AttackAnim();
+        spell.Cast(owningEntity, chargeAmmount);
+        EmitSignal(SignalName.attacktransition, "idle", 0);
+    }
 
     public override void Exit()
     {

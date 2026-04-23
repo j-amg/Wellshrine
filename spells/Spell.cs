@@ -5,11 +5,21 @@ using Godot;
 [GlobalClass]
 public partial class Spell : Resource
 { 
-	[Export] public float castTime;
+
+	public enum SpellTriggerType
+	{
+		Held,
+		HeldQuickRelease,
+		Instant
+	}
+
+	[Export] public SpellTriggerType triggerType;
+	[Export] public float chargeTime; // duration to charge spell
+	[Export] public float castTime; // delay before spell is actually cast
 	[Export] private AudioStream sound;
 	[Export] public PackedScene spellScene;
-	public Node3D spell;
-	public void Cast(Player player)
+	//public Node3D spell;
+	public void Cast(Player player, float spellScale = 1.0f)
 	{
 		
 		if (spellScene == null) return;
@@ -30,15 +40,5 @@ public partial class Spell : Resource
 		{
 			Global.Singleton.AddToScene(spell, player.head.GlobalTransform);
 		}	
-	}
-
-	internal void Equip(Player player)
-	{
-		
-	}
-
-	internal void Unequip()
-	{
-		//spell.CallDeferred("queue_free");
 	}
 }
