@@ -2,19 +2,18 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class StateMachine : Node
+public partial class AttackStateMachine : StateMachine
 {
-	[Export]
-	public State current_state;
-	public Dictionary<StringName, State> states = [];
+
+	public Dictionary<StringName, AttackState> attackStates = [];
 	public override void _Ready()
 	{
 		foreach (Node child in GetChildren())
 		{
-			if (child is State state)
+			if (child is AttackState state)
 			{
-				states.Add(state.Name, state);
-				state.transition += OnChildTransition;
+				attackStates.Add(state.Name, state);
+				state.attacktransition += OnChildTransition;
 			}
 			else GD.PrintErr("State Machine contains incompatible child node");
 		}
@@ -24,15 +23,15 @@ public partial class StateMachine : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta) => current_state.Update(delta);
 
-	private void OnChildTransition(StringName state)
+	private void OnChildTransition(StringName state, int spellIndex)
 	{
-		if (Owner is Player) Global.Singleton.SetAction(state);
-		State new_state = states[state];
+		AttackState new_state = attackStates[state];
 		if (new_state != null)
 		{
 			if (new_state != current_state)
 			{
 				current_state.Exit();
+				new_state.spellIndex = spellIndex;
 				new_state.Enter();
 				current_state = new_state;
 			}

@@ -9,6 +9,8 @@ public partial class State : Node
 
 	public dynamic owningEntity;
 
+	public override void _Ready() => owningEntity = Owner;
+
     public virtual void Enter()
 	{
 		return;

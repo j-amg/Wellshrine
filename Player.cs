@@ -158,18 +158,6 @@ public partial class Player : CharacterBody3D, IDamageable
 				GetViewport().SetInputAsHandled();
 			}
 			
-			if (Input.IsActionJustPressed("LeftMouse"))
-			{
-					//if (Global.Singleton.equippedWeapon == null) return;
-
-					Attack(0);
-					//Recharge(Global.Singleton.equippedWeapon.recharge);
-			}
-
-			if (Input.IsActionJustPressed("1")) { Attack(0);}
-			if (Input.IsActionJustPressed("2")) { Attack(1);}
-			if (Input.IsActionJustPressed("3")) { Attack(2);}
-			if (Input.IsActionJustPressed("4")) { Attack(3);}
 
 			if (Input.IsActionJustPressed("interact"))
 			{
@@ -276,43 +264,38 @@ public partial class Player : CharacterBody3D, IDamageable
 		EmitSignal(SignalName.damageTaken);
 	}
 
-	private void Attack(int index)
-	{
-		if (spellData.spells[index] == null)
-		{
-			GD.Print("No equipped spell in slot: " + index);
-			return;
-		}
+	// private void Attack(int index)
+	// {
 
 
-		AttackAnim();
-		spellData.spells[index].Cast(this);
+	// 	AttackAnim();
+	// 	spellData.spells[index].Cast(this);
 
-		// Damage d = Global.Singleton.GetPlayerDamage();
-		// d.damageExecuted += OnDamageExecuted;
-		// Global.Singleton.SetAction("attack");
-		// if (Global.Singleton.equippedWeapon.name == "fireball")
-		// {
-		// 	Global.Singleton.PlaySound2D(castFire);
-		// 	Projectile b = fireball.Instantiate() as Projectile;
-		// 	var main = GetTree().CurrentScene;
-		// 	main.CallDeferred("add_child", b);
-		// 	b.damage = d;
-		// 	b.Transform = head.GlobalTransform;
-		// 	b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
-		// }
+	// 	// Damage d = Global.Singleton.GetPlayerDamage();
+	// 	// d.damageExecuted += OnDamageExecuted;
+	// 	// Global.Singleton.SetAction("attack");
+	// 	// if (Global.Singleton.equippedWeapon.name == "fireball")
+	// 	// {
+	// 	// 	Global.Singleton.PlaySound2D(castFire);
+	// 	// 	Projectile b = fireball.Instantiate() as Projectile;
+	// 	// 	var main = GetTree().CurrentScene;
+	// 	// 	main.CallDeferred("add_child", b);
+	// 	// 	b.damage = d;
+	// 	// 	b.Transform = head.GlobalTransform;
+	// 	// 	b.velocity = -b.Transform.Basis.Z * b.muzzleVelocity;
+	// 	// }
 
-		// if (Global.Singleton.equippedWeapon.name == "shockburst")
-		// {
-		// 	Global.Singleton.PlaySound2D(castShock);
-		// 	foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
-		// 	foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
-		// 	camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
-		// 	Tween tween = GetTree().CreateTween();
-		// 	tween.TweenProperty(camera.GetNode<AnimatedSprite3D>("shock"), "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,.75f));
+	// 	// if (Global.Singleton.equippedWeapon.name == "shockburst")
+	// 	// {
+	// 	// 	Global.Singleton.PlaySound2D(castShock);
+	// 	// 	foreach (IDamageable enemy in shockCollision.GetOverlappingBodies().Cast<IDamageable>()) enemy.Damage(d);
+	// 	// 	foreach (Area3D area in shockCollision.GetOverlappingAreas()) if (area is Projectile p) p.Destroy();
+	// 	// 	camera.GetNode<AnimatedSprite3D>("shock").Play("cycle");
+	// 	// 	Tween tween = GetTree().CreateTween();
+	// 	// 	tween.TweenProperty(camera.GetNode<AnimatedSprite3D>("shock"), "modulate", new Color(0,0,0,0), .25).From(new Color(1,1,1,.75f));
 
-		// }
-	}
+	// 	// }
+	// }
 
 	private void OnDamageExecuted(Damage d)
 	{
@@ -321,7 +304,7 @@ public partial class Player : CharacterBody3D, IDamageable
 		Global.Singleton.hud.FlashCrossHair();
 	}
 
-	private async void AttackAnim()
+	public async void AttackAnim()
 	{
 		//Tween tween = GetTree().CreateTween();
 		//tween.TweenProperty(camera, "rotation_degrees", new Vector3(Global.Singleton.equippedWeapon.recoil, camera.RotationDegrees.Y, camera.RotationDegrees.Z), .05);

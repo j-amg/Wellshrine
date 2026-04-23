@@ -27,6 +27,7 @@ public partial class Inv : Control
     [Export] public InvContainer EquipmentInvContainer8;
     [Export] public InvContainer EquipmentInvContainer9;
     [Export] public InvContainer EquipmentInvContainer10;
+    [Export] public InvContainer EquipmentInvContainer11;
 
     [Export] public Label strLabel;
     [Export] public Label dexLabel;

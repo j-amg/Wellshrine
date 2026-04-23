@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cchf63h0s68cs"]
+[gd_scene format=3 uid="uid://cchf63h0s68cs"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_7mfnc"]
 [ext_resource type="StyleBox" uid="uid://c6pfndsal3gl6" path="res://UI/UI_background.tres" id="3_m22gv"]
@@ -22,8 +22,8 @@ fractal_gain = 0.88
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m22gv"]
 width = 48
 height = 48
-color_ramp = SubResource("Gradient_m22gv")
 noise = SubResource("FastNoiseLite_so6ny")
+color_ramp = SubResource("Gradient_m22gv")
 
 [sub_resource type="Gradient" id="Gradient_i7njh"]
 interpolation_mode = 1
@@ -38,8 +38,8 @@ fractal_gain = 0.83
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_so6ny"]
 width = 48
 height = 48
-color_ramp = SubResource("Gradient_i7njh")
 noise = SubResource("FastNoiseLite_m22gv")
+color_ramp = SubResource("Gradient_i7njh")
 
 [sub_resource type="Gradient" id="Gradient_iy0jw"]
 interpolation_mode = 1
@@ -53,8 +53,8 @@ fractal_gain = 0.845
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbt6p"]
 width = 48
 height = 48
-color_ramp = SubResource("Gradient_iy0jw")
 noise = SubResource("FastNoiseLite_8arb2")
+color_ramp = SubResource("Gradient_iy0jw")
 
 [sub_resource type="Gradient" id="Gradient_xw787"]
 interpolation_mode = 1
@@ -68,10 +68,10 @@ fractal_gain = 1.065
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_54qju"]
 width = 48
 height = 48
-color_ramp = SubResource("Gradient_xw787")
 noise = SubResource("FastNoiseLite_exr8x")
+color_ramp = SubResource("Gradient_xw787")
 
-[node name="inventoryInterface" type="Control" node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "strLabel", "dexLabel", "intLabel")]
+[node name="inventoryInterface" type="Control" unique_id=913009699 node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "EquipmentInvContainer11", "strLabel", "dexLabel", "intLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,15 +93,16 @@ EquipmentInvContainer3 = NodePath("playerInventory/PanelContainer/VBoxContainer/
 EquipmentInvContainer4 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3/equipmentSlot4")
 EquipmentInvContainer5 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4/equipmentSlot5")
 EquipmentInvContainer6 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4/equipmentSlot6")
-EquipmentInvContainer7 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2/equipmentSlot7")
-EquipmentInvContainer8 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4/equipmentSlot8")
-EquipmentInvContainer9 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5/equipmentSlot9")
-EquipmentInvContainer10 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6/equipmentSlot10")
+EquipmentInvContainer7 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2/spellSlot1")
+EquipmentInvContainer8 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3/spellSlot2")
+EquipmentInvContainer9 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4/spellSlot3")
+EquipmentInvContainer10 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5/spellSlot4")
+EquipmentInvContainer11 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6/spellSlot5")
 strLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer/strLabel")
 dexLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2/dexLabel")
 intLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3/intLabel")
 
-[node name="playerInventory" type="PanelContainer" parent="."]
+[node name="playerInventory" type="PanelContainer" parent="." unique_id=31228775]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -116,34 +117,34 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_7mfnc")
 
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory" unique_id=1851282419]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer" unique_id=1587462726]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=1060240900]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=715640668]
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=2094298698]
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1482210272]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1601233160]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -154,92 +155,92 @@ text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=514910787]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=2043114144]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2" unique_id=1331285330]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=2094846281]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="equipmentContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
+[node name="equipmentContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5" unique_id=1612144202]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer" unique_id=1005997358]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="equipmentSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=1100651824]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="equipmentSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
+[node name="equipmentSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer" unique_id=1746846256 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="ringsContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
-layout_mode = 2
-
-[node name="equipmentSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
-layout_mode = 2
-
-[node name="equipmentSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer"]
-layout_mode = 2
-
-[node name="equipmentSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4" instance=ExtResource("4_e03q1")]
-layout_mode = 2
-
-[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=1310108930]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="equipmentSlot6" type="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4"]
+[node name="equipmentSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3" unique_id=880925125 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="ringsContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=832297778]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=664986452]
+layout_mode = 2
+
+[node name="equipmentSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2" unique_id=1594792403 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=1666171445]
+layout_mode = 2
+
+[node name="equipmentSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3" unique_id=1260782781 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=1445936577]
+layout_mode = 2
+
+[node name="equipmentSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4" unique_id=1665509326 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=248997288]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="equipmentSlot6" type="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4" unique_id=162991673]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("5_m22gv")
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=1125303310]
 layout_mode = 2
 
-[node name="spellsContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2"]
+[node name="spellsContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2" unique_id=653168322]
 layout_mode = 2
 
-[node name="HBoxContainer9" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+[node name="HBoxContainer9" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=456852844]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9" unique_id=962952383]
 layout_mode = 2
 
-[node name="equipmentSlot7" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" instance=ExtResource("4_e03q1")]
+[node name="spellSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" unique_id=2104474502 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" unique_id=1354248193]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -247,211 +248,211 @@ text = "MB1"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="HBoxContainer8" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+[node name="HBoxContainer8" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=974250876]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8"]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8" unique_id=333048758]
 layout_mode = 2
 
-[node name="equipmentSlot10" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" instance=ExtResource("4_e03q1")]
+[node name="spellSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" unique_id=1820688586 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" unique_id=1588520041]
 layout_mode = 2
 size_flags_vertical = 1
 text = "1"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="HBoxContainer7" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+[node name="HBoxContainer7" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=1002286740]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7"]
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7" unique_id=1547389416]
 layout_mode = 2
 
-[node name="equipmentSlot8" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" instance=ExtResource("4_e03q1")]
+[node name="spellSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" unique_id=372428474 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" unique_id=1779515994]
 layout_mode = 2
 size_flags_vertical = 1
 text = "2"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="HBoxContainer6" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+[node name="HBoxContainer6" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=58864499]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer5" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6"]
+[node name="PanelContainer5" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6" unique_id=753956119]
 layout_mode = 2
 
-[node name="equipmentSlot9" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" instance=ExtResource("4_e03q1")]
+[node name="spellSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" unique_id=1950125215 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" unique_id=796042984]
 layout_mode = 2
 size_flags_vertical = 1
 text = "3"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="HBoxContainer5" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2"]
+[node name="HBoxContainer5" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=1462785093]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer6" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5"]
+[node name="PanelContainer6" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5" unique_id=1588443190]
 layout_mode = 2
 
-[node name="equipmentSlot10" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" instance=ExtResource("4_e03q1")]
+[node name="spellSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" unique_id=818286695 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" unique_id=102557623]
 layout_mode = 2
 size_flags_vertical = 1
 text = "4"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="statPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
+[node name="statPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5" unique_id=1088185219]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel"]
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel" unique_id=2043380371]
 layout_mode = 2
 color = Color(0.778537, 0.772316, 0.634303, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel" unique_id=1971330197]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer" unique_id=568020683]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=1409807961]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Attributes"
 
-[node name="VBoxContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=102340814]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1499798913]
 layout_mode = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer" unique_id=1487642075]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1555998671]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_so6ny")
 
-[node name="strLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer"]
+[node name="strLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1157776781]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 horizontal_alignment = 1
 
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1686745360]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3" unique_id=2071040472]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=1901607129]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_rbt6p")
 
-[node name="dexLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2"]
+[node name="dexLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=273570863]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=183401579]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2"]
+[node name="HBoxContainer3" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2" unique_id=267749165]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=1367258735]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_54qju")
 
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3"]
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=1287356556]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 horizontal_alignment = 1
 
-[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=416653973]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=238324345]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Defense"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=1749131907]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
+[node name="Label3" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=852259240]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Armour:"
 
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4"]
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=1556505932]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 
-[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer"]
+[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=342259292]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=597276442]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Attack"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=1564890654]
 layout_mode = 2
 
-[node name="Damage" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
+[node name="Damage" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=302959226]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Damage?:"
 
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4"]
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=1009001181]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30"
 
-[node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=1379446796]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer"]
+[node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer" unique_id=1630037369]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel" instance=ExtResource("4_e03q1")]
+[node name="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel" unique_id=23676699 instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(640, 320)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
 
-[node name="externalInventory" type="PanelContainer" parent="."]
+[node name="externalInventory" type="PanelContainer" parent="." unique_id=474949183]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -467,33 +468,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="PanelContainer" type="PanelContainer" parent="externalInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory" unique_id=2139335750]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="externalInventory/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="externalInventory/PanelContainer" unique_id=863260020]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer" unique_id=513737111]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="ColorRect" type="ColorRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="ColorRect" type="ColorRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=2006583975]
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=341701817]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=275898108]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=389234642]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -504,27 +505,27 @@ text = "Chest"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=7920929]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="externalInventory/PanelContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="externalInventory/PanelContainer/VBoxContainer" unique_id=708483770]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer" unique_id=1846393252]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="GridContainer2" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
+[node name="GridContainer2" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" unique_id=1156367891 instance=ExtResource("4_e03q1")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
 
-[node name="doorInventory" type="PanelContainer" parent="." node_paths=PackedStringArray("openLevelButton")]
+[node name="doorInventory" type="PanelContainer" parent="." unique_id=1691157797 node_paths=PackedStringArray("openLevelButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -542,32 +543,32 @@ theme = ExtResource("1_7mfnc")
 script = ExtResource("7_m22gv")
 openLevelButton = NodePath("PanelContainer/VBoxContainer/CenterContainer2/MarginContainer/Button")
 
-[node name="PanelContainer" type="PanelContainer" parent="doorInventory"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory" unique_id=1071674579]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_m22gv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/PanelContainer" unique_id=508138085]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=9171580]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 
-[node name="ColorRect" type="ColorRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="ColorRect" type="ColorRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=686836125]
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=183802431]
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=668670146]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=602588955]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -578,40 +579,40 @@ text = "Door"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=393493726]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_m22gv")
 stretch_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=2112291093]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer" unique_id=689717839]
 layout_mode = 2
 
-[node name="GridContainer2" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" instance=ExtResource("4_e03q1")]
+[node name="GridContainer2" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" unique_id=1786059775 instance=ExtResource("4_e03q1")]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=377154299]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2" unique_id=701088638]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2/MarginContainer"]
+[node name="Button" type="Button" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2/MarginContainer" unique_id=568675159]
 layout_mode = 2
 theme = ExtResource("1_7mfnc")
 text = "Open"
 
-[node name="grabbedSlot" parent="." instance=ExtResource("4_bgm1y")]
+[node name="grabbedSlot" parent="." unique_id=327557502 instance=ExtResource("4_bgm1y")]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
+layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -619,7 +620,7 @@ offset_right = 32.0
 offset_bottom = 32.0
 transparentBackground = true
 
-[node name="tooltip" parent="." instance=ExtResource("8_i7njh")]
+[node name="tooltip" parent="." unique_id=1863285821 instance=ExtResource("8_i7njh")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0

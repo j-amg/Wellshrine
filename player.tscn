@@ -30,6 +30,9 @@
 [ext_resource type="Resource" uid="uid://d4ga47kkhgwi2" path="res://inventory/inventories/equipmentInventory10.tres" id="20_ek41f"]
 [ext_resource type="PackedScene" uid="uid://cgfvb4oan3q57" path="res://hand_anims.tscn" id="23_hiqhm"]
 [ext_resource type="Script" uid="uid://bqksdka4eova" path="res://playerStates/WallJumpState.cs" id="24_dx0e4"]
+[ext_resource type="Script" uid="uid://cfst81pl80tll" path="res://playerStates/AttackStateMachine.cs" id="31_efrwb"]
+[ext_resource type="Script" uid="uid://chchj2cpobv6t" path="res://playerStates/ChargeAttackState.cs" id="32_hiqhm"]
+[ext_resource type="Script" uid="uid://inx1r7u58olb" path="res://playerStates/IdleAttackState.cs" id="33_tkwlq"]
 
 [sub_resource type="Resource" id="Resource_hiqhm"]
 script = ExtResource("17_iruf7")
@@ -685,3 +688,13 @@ script = ExtResource("12_2347s")
 
 [node name="walljump" type="Node" parent="statemachine" unique_id=1502539110]
 script = ExtResource("24_dx0e4")
+
+[node name="attackstatemachine" type="Node" parent="." unique_id=1730267906 node_paths=PackedStringArray("current_state")]
+script = ExtResource("31_efrwb")
+current_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="attackstatemachine" unique_id=1851650913]
+script = ExtResource("33_tkwlq")
+
+[node name="charge" type="Node" parent="attackstatemachine" unique_id=225490965]
+script = ExtResource("32_hiqhm")
