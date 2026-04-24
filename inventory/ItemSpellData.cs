@@ -20,12 +20,12 @@ public partial class ItemSpellData : ItemData
 	public void Equip(Player player, SpellInventoryData inventoryData)
 	{
 		player.spellData.spells[inventoryData.spellSlotIndex] = spell;
-		spell.Equip(player);
+		//spell.Equip(player);
 	}
 
 	public void Unequip(Player player, SpellInventoryData inventoryData)
 	{
 		player.spellData.spells[inventoryData.spellSlotIndex] = null;
-		spell.Unequip();
+		//spell.Unequip();
 	}
 }

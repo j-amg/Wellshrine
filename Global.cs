@@ -283,6 +283,7 @@ public partial class Global : Node
 		GD.Print(externalInventoryOwner);
 		if (invOpen)
 		{
+			SignalManager.Singleton.EmitSignal(SignalManager.SignalName.ClosedInventory);
 			hud.Show();
 			inventory.Hide();
 			Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -290,6 +291,7 @@ public partial class Global : Node
 		}
 		else
 		{
+			SignalManager.Singleton.EmitSignal(SignalManager.SignalName.OpenedInventory);
 			hud.Hide();
 			inventory.Show();
 			Input.MouseMode = Input.MouseModeEnum.Visible;

@@ -23,7 +23,7 @@ public partial class Zone : Node3D
 
 	public async void SpawnDelay()
 	{
-		await ToSignal(spawner, "ready");
+		//await ToSignal(spawner, "ready");
 		spawner?.Spawn(10, Global.Singleton.enemyArray);
 	}
 

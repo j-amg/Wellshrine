@@ -15,4 +15,8 @@ public partial class SignalManager : Node
 	public delegate void ZoneEnteredEventHandler(Zone zone);
 	[Signal]
 	public delegate void ZoneObjectiveCompleteEventHandler(Zone zone);
+	[Signal]
+	public delegate void OpenedInventoryEventHandler();
+	[Signal]
+	public delegate void ClosedInventoryEventHandler();
 }

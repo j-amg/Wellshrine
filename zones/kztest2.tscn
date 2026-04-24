@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d3fxrii5kljgp"]
+[gd_scene load_steps=5 format=3 uid="uid://d3fxrii5kljgp"]
 
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="1_f0jax"]
 [ext_resource type="MeshLibrary" uid="uid://bmr3mmia4sh4u" path="res://tileset/collisionTile.tres" id="2_uajbr"]
@@ -11,12 +11,12 @@ region_min_size = 0.0
 
 [sub_resource type="PrismMesh" id="PrismMesh_v0yv3"]
 
-[node name="Node3D" type="Node3D" unique_id=654085282]
+[node name="Node3D" type="Node3D"]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1507242749]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_umw2x")
 
-[node name="GridMap" type="GridMap" parent="NavigationRegion3D" unique_id=906299337]
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D"]
 mesh_library = ExtResource("1_f0jax")
 collision_layer = 2
 collision_mask = 15
@@ -25,20 +25,20 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 1, 0)
 
-[node name="connectionPoints" type="Node3D" parent="." unique_id=513519357]
+[node name="connectionPoints" type="Node3D" parent="."]
 visible = false
 
-[node name="connectionPoint2" type="MeshInstance3D" parent="connectionPoints" unique_id=1976338922 groups=["roomConnectors"]]
+[node name="connectionPoint2" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 8)
 mesh = SubResource("PrismMesh_v0yv3")
 skeleton = NodePath("../..")
 
-[node name="connectionPoint3" type="MeshInstance3D" parent="connectionPoints" unique_id=175574252 groups=["roomConnectors"]]
+[node name="connectionPoint3" type="MeshInstance3D" parent="connectionPoints" groups=["roomConnectors"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, 14)
 mesh = SubResource("PrismMesh_v0yv3")
 skeleton = NodePath("../..")
 
-[node name="GridMap" type="GridMap" parent="." unique_id=1659428409]
+[node name="GridMap" type="GridMap" parent="."]
 visible = false
 mesh_library = ExtResource("2_uajbr")
 data = {

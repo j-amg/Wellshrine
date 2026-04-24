@@ -15,6 +15,8 @@ public partial class Player : CharacterBody3D, IDamageable
 	[Export]
 	public StateMachine stateMachine;
 	[Export]
+	public AttackStateMachine attackStateMachine;
+	[Export]
 	private RayCast3D lookRay;
 	[Export]
 	public Node3D body;

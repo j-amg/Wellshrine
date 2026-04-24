@@ -42,11 +42,10 @@ public partial class Hud : Control
 
     public override void _Ready()
     {
-        Global.Singleton.player.damageTaken += OnDamageTaken;
-        Global.Singleton.HealthChanged += OnHealthChanged;
-        UpdateHealth();
-
+        SignalManager.Singleton.playerDamageTaken += OnDamageTaken;
+        SignalManager.Singleton.HealthChanged += OnHealthChanged;
         SignalManager.Singleton.attackChargeUpdated += OnAttackChargeUpdated;
+        UpdateHealth();
     }
 
     public void OnAttackChargeUpdated(float value)
@@ -98,9 +97,9 @@ public partial class Hud : Control
 
     public override void _ExitTree() 
     {
-        Global.Singleton.HealthChanged -= OnHealthChanged;
-        Global.Singleton.currentZone.ZoneEntered -= OnZoneEntered;
-        Global.Singleton.currentZone.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
+        SignalManager.Singleton.HealthChanged -= OnHealthChanged;
+        SignalManager.Singleton.ZoneEntered -= OnZoneEntered;
+        SignalManager.Singleton.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
     }
 
     public void SetScreen(Color col) => screen.Modulate = col;

@@ -8,6 +8,9 @@ public partial class AttackStateMachine : StateMachine
 	public Dictionary<StringName, AttackState> attackStates = [];
 	public override void _Ready()
 	{
+
+		SignalManager.Singleton.OpenedInventory += OnInventoryOpened;
+		SignalManager.Singleton.ClosedInventory += OnInventoryClosed;
 		foreach (Node child in GetChildren())
 		{
 			if (child is AttackState state)
@@ -20,8 +23,12 @@ public partial class AttackStateMachine : StateMachine
 		current_state.Enter();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _PhysicsProcess(double delta) => current_state.Update(delta);
+    private void OnInventoryClosed() => SetPhysicsProcess(true);
+
+    private void OnInventoryOpened() => SetPhysicsProcess(false);
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _PhysicsProcess(double delta) => current_state.Update(delta);
 
 	private void OnChildTransition(StringName state, int spellIndex)
 	{

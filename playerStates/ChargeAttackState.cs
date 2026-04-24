@@ -30,13 +30,13 @@ public partial class ChargeAttackState : AttackState
             return;
 		}
 
-        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.castTime * 10); // *10 to translate between to ms to 0.0 - 1.0 range
+        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.chargeTime * 10); // *10 to translate between to ms to 0.0 - 1.0 range
 
         SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, chargeAmmount);
         
-        if (Input.IsActionJustReleased(Enum.GetValues<AttackKeybinds>()[spellIndex].ToString()))
+        if (!Input.IsActionPressed(Enum.GetValues<AttackKeybinds>()[spellIndex].ToString()))
         {
-            if (Time.GetTicksMsec() >= startChargeTime + spell.castTime * 1000)
+            if (Time.GetTicksMsec() >= startChargeTime + spell.chargeTime * 1000)
             {
                 Attack(1.0f);
             }
@@ -44,10 +44,12 @@ public partial class ChargeAttackState : AttackState
             {
                 if (spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease)
                 {
-                    Attack(chargeAmmount);
+                    GD.Print(chargeAmmount);
+                    Attack(Mathf.Max(0.25f, chargeAmmount / 100));  
                 }
                 EmitSignal(SignalName.attacktransition, "idle", 0);
             }
+            EmitSignal(SignalName.attacktransition, "idle", 0);
         }
 	}
 
