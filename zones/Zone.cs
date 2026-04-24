@@ -18,8 +18,7 @@ public partial class Zone : Node3D
 	public override void _Ready()
 	{
 		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.ZoneEntered);
-		SpawnDelay()
-	
+		SpawnDelay();
 	}
 
 	public async void SpawnDelay()
@@ -44,7 +43,7 @@ public partial class Zone : Node3D
 	{
 		objectiveComplete = true;
 		objective = "Enter the next zone";
-		EmitSignal(SignalName.ZoneObjectiveComplete, this);
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.ZoneObjectiveComplete, this);
 		//door.Open();
 	}
 

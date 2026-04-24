@@ -31,6 +31,7 @@ public partial class Spell : Resource
 			for (int i = 0; i < proj; i++)
 			{
 				SpellScene spellInst = spellScene.Instantiate<SpellScene>();
+				spellInst.muzzleVelocity *= spellScale;
 				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread/2; 
 				Transform3D t = player.head.GlobalTransform.RotatedLocal(Vector3.Up, Mathf.DegToRad(rotationOffset));
 				Global.Singleton.AddToScene(spellInst, t);

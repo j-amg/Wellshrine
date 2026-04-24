@@ -259,7 +259,7 @@ public partial class Player : CharacterBody3D, IDamageable
 	{
 		Global.Singleton.IncrementPlayerHealth(-d.amount);
 		Global.Singleton.PlaySound2D(damageTakenSound);
-		EmitSignal(SignalManager.SignalName.playerDamageTaken);
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.playerDamageTaken);
 	}
 
 	// private void Attack(int index)
