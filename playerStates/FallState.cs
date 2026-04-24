@@ -6,7 +6,7 @@ public partial class FallState : State
 	private float s;
 
     public override void Enter()
-    {
+    {	//GD.Print("entered fall state");
 		s = owningEntity.hvel.Length() > owningEntity.fallSpeed ? owningEntity.hvel.Length() : owningEntity.fallSpeed;
     }
     public override void Update(double delta)
@@ -21,6 +21,11 @@ public partial class FallState : State
 		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owningEntity.currentJump < owningEntity.maxJumpCount) EmitSignal(SignalName.transition, "jump");
 		if (Input.IsActionJustPressed("Space") && !Input.IsActionPressed("Shift") && owningEntity.nearWall && owningEntity.canWallJump) EmitSignal(SignalName.transition, "walljump");
 		if (Input.IsActionJustPressed("Space") && Input.IsActionPressed("Shift") && owningEntity.currentJump < owningEntity.maxJumpCount && owningEntity.currentDash < owningEntity.maxDashCount) EmitSignal(SignalName.transition, "dash");
+		if (owningEntity.attackStateMachine.current_state.Name == "charge")
+		{
+			GD.Print("Entered charge midarir");
+			EmitSignal(SignalName.transition, "glide");
+		} 
 		
 
 		if (owningEntity.IsOnFloor())

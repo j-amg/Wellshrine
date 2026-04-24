@@ -588,13 +588,14 @@ radius = 1.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "attackStateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
 damageTakenSound = ExtResource("2_1f480")
 damageDealtSound = ExtResource("3_5t7b0")
 critDealtSound = ExtResource("2_24bn3")
 stateMachine = NodePath("statemachine")
+attackStateMachine = NodePath("attackstatemachine")
 lookRay = NodePath("body/head/Camera3D/lookRay")
 body = NodePath("body")
 head = NodePath("body/head")
