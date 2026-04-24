@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene load_steps=44 format=3 uid="uid://dd8wa6hb2kxrf"]
 
 [ext_resource type="Script" uid="uid://dg5g67kfh35se" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="AudioStream" uid="uid://6ddic02qoid2" path="res://audio/walk.wav" id="2_a4emi"]
@@ -285,7 +285,7 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1x0"]
 height = 1.75
 
-[node name="enemy" type="CharacterBody3D" unique_id=1247483067 node_paths=PackedStringArray("nav", "sm", "sprite", "labelSprite", "label", "rc", "audioPlayer")]
+[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav", "sm", "sprite", "labelSprite", "label", "rc", "audioPlayer")]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
@@ -300,49 +300,49 @@ audioPlayer = NodePath("audio")
 detectionRange = 10.0
 attackSound = ExtResource("3_qy31j")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=367847129]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=519814368]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_f8hv5")
 
-[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1224545050]
+[node name="sprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
 animation = &"die"
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1620766286]
+[node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
 transparent_bg = true
 
-[node name="label" parent="SubViewport" unique_id=1219073541 instance=ExtResource("3_dee20")]
+[node name="label" parent="SubViewport" instance=ExtResource("3_dee20")]
 
-[node name="labelSprite" type="Sprite3D" parent="." unique_id=1601037161]
+[node name="labelSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
 visible = false
 billboard = 1
 texture_filter = 0
 texture = SubResource("ViewportTexture_8tx16")
 
-[node name="statemachine" type="Node" parent="." unique_id=1426956756]
+[node name="statemachine" type="Node" parent="."]
 script = ExtResource("4_aab5i")
 
-[node name="rc" type="RayCast3D" parent="." unique_id=1885691579]
+[node name="rc" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.59408, 0)
 target_position = Vector3(0, 50, 0)
 collision_mask = 3
 
-[node name="audio" type="AudioStreamPlayer3D" parent="." unique_id=864839733]
+[node name="audio" type="AudioStreamPlayer3D" parent="."]
 volume_db = -20.0
 
-[node name="Hitbox" type="Area3D" parent="." unique_id=320090727]
+[node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1080434895]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_3t1x0")

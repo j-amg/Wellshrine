@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class owningEntityChase : State
+public partial class EnemyChase : State
 {
     public override void Enter()
     {

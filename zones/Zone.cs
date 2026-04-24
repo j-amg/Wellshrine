@@ -1,3 +1,4 @@
+using System.Dynamic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
@@ -23,8 +24,10 @@ public partial class Zone : Node3D
 
 	public async void SpawnDelay()
 	{
-		//await ToSignal(spawner, "ready");
-		spawner?.Spawn(10, Global.Singleton.enemyArray);
+
+		// wait map changed so that the navigation server is up
+		await ToSignal(NavigationServer3D.Singleton, "map_changed");
+		spawner?.Spawn(1, Global.Singleton.enemyArray);
 	}
 
 	public void ResetPlayer(Transform3D trans)
@@ -62,7 +65,7 @@ public partial class Zone : Node3D
 		Vector3 spawnPoint = new(500,100,500);
 		float spawnRot = 0;
 		AddMapToArray(startingTile, tileArray, spawnPoint, spawnRot);
-		SpawnRooms(startingTile, 50, tileArray, startingTile.Transform);
+		SpawnRooms(startingTile, 500, tileArray, startingTile.Transform);
 		baseZone.AddChild(startingTile);
 		return baseZone;
 		

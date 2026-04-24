@@ -16,7 +16,7 @@ public partial class StateMachine : Node
 				states.Add(state.Name, state);
 				state.transition += OnChildTransition;
 			}
-			else GD.PrintErr("State Machine contains incompatible child node");
+			else GD.PrintErr("State Machine contains incompatible child node: " + child.Name);
 		}
 		current_state.Enter();
 	}

@@ -49,7 +49,7 @@ public partial class Global : Node
 	public Node currentScene;
 	public Zone currentZone;
 	public int currentLevel;
-	private string [] currentDialogue;
+	private string[] currentDialogue;
 	private int currentDialogueStep;
 	public string currentIdle = "idle";
 	public bool sfx = true;

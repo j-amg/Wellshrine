@@ -45,4 +45,10 @@ public partial class AttackStateMachine : StateMachine
 		}
 		else GD.PrintErr("State does not exist");
 	}
+
+	public override void _ExitTree()
+	{
+		SignalManager.Singleton.OpenedInventory -= OnInventoryOpened;
+		SignalManager.Singleton.ClosedInventory -= OnInventoryClosed;
+	}
 }

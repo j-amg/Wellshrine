@@ -1,8 +1,9 @@
 {
     "opal ring": {
         "name": "Opal Ring",
+        "implicitID": "flatStr",
         "description": "A shimmering Ring",
-        "rollWeight": 0.2,
+        "rollWeight": 0.02,
         "accWeight": 0.0,
         "type": "equipment",
         "subType": "Ring"
@@ -14,6 +15,6 @@
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "key",
-        "subType": "Key"
+        "subType": "key"
     }
 }

@@ -8,21 +8,50 @@ public partial class DoorInventory : PanelContainer
     private void OpenLevelButtonPressed()
     {
         InventoryData inventoryData = Global.Singleton.playerZone.doorChest.inventoryData;
-        SlotData slotData = inventoryData.slotDatas[0];
-        if (slotData == null)
+
+        bool foundKeyInSlot = false;
+        bool isValidCombination = true;
+        ItemKeyData key = null;
+
+        foreach (SlotData slotData in inventoryData.slotDatas)
         {
-            throw new Exception("No key in key slot");
-        } 
-        if (slotData.itemData is ItemKeyData key)
+            if (slotData == null) continue;
+            if (slotData.itemData is ItemKeyData k)
+            {
+                if (foundKeyInSlot)
+                {
+                    isValidCombination = false;
+                    GD.Print("multiple keys found");
+                    break; 
+                }
+                else
+                {
+                    key = k;
+                    foundKeyInSlot = true;
+                }
+
+            }
+        }
+
+        if (isValidCombination)
         {
+            GD.Print("valid combination");
+            foreach (SlotData slotData2 in inventoryData.slotDatas)
+            {
+                if (slotData2 != null)
+                {
+                    inventoryData.ConsumeSlotData(0);
+                }
+            }
+            if (key == null)
+            {
+                GD.Print("invalid key");
+                return;
+            }
             GD.Print("Open path: " + key.zonePath);
-            //Zone.GenerateTileZone();
-            //Global.Singleton.playerZone?.door.SetDestination(key.zonePath);
-            inventoryData.ConsumeSlotData(0);
             Global.Singleton.ToggleInv();
             Global.Singleton.playerZone.door.Open();
             Global.Singleton.playerZone.door.SetDestination(key.zonePath);
-            
-        } else throw new Exception("incorrect item type in key slot");
+        }
     }
 }
