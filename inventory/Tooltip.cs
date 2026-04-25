@@ -8,6 +8,10 @@ public partial class Tooltip : PanelContainer
     [Export] public Label itemTypeLabel;
     [Export] public Label itemLevelLabel;
     [Export] public Label itemDescriptionLabel;
+    [Export] public Label spellTrigger;
+    [Export] public Label spellCastTime;
+    [Export] public Label spellChargeTime;
+
     [Export] public VBoxContainer itemAffixContainer;
     [Export] public HBoxContainer itemLevelContainer;
     [Export] public PanelContainer headerContainer;
@@ -58,6 +62,10 @@ public partial class Tooltip : PanelContainer
         itemTypeLabel.Text = itemData.Type.ToString();
         itemDescriptionLabel.Text = itemData.description;
 
+        spellTrigger.Hide();
+        spellCastTime.Hide();
+        spellChargeTime.Hide();
+
         // clear container
         foreach (Node c in itemAffixContainer.GetChildren())
         {
@@ -66,9 +74,25 @@ public partial class Tooltip : PanelContainer
         itemLevelContainer.Hide();
         itemAffixContainer.Hide();
 
+        if (itemData is ItemSpellData spell)
+        {
+            itemAffixContainer.Show();
+            itemLevelLabel.Text = spell.level.ToString();
+            itemLevelContainer.Show();
+
+            spellTrigger.Show();
+            spellCastTime.Show();
+            spellChargeTime.Show();
+            spellTrigger.Text = "Trigger: " + spell.spell.triggerType.ToString();
+            spellCastTime.Text = "Cast Time: " +spell.spell.castTime.ToString();
+            if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString();
+
+        }
+
         //populate if affixes exist
         if (itemData is ItemEquipmentData equipment)
         {
+            
             itemAffixContainer.Show();
             itemLevelLabel.Text = equipment.level.ToString();
             itemLevelContainer.Show();
