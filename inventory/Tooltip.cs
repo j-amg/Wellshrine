@@ -109,6 +109,7 @@ public partial class Tooltip : PanelContainer
                             label.Text += affix.TargetType.ToString();
                             break;
                         case "PercentAdd":
+                        GD.Print(affix.attributeModifier.Value );
                             label.Text = affix.attributeModifier.Value.ToString() + "% ";
                             label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
                             label.Text += affix.TargetType.ToString();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
 [ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
@@ -40,7 +40,6 @@ metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="Resource" id="Resource_efrwb"]
 script = ExtResource("17_j5n4i")
-spells = Array[ExtResource("18_hiqhm")]([null, null, null, null, null])
 metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
@@ -588,7 +587,7 @@ radius = 1.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "attackStateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
+[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("stateMachine", "attackStateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
 damageTakenSound = ExtResource("2_1f480")
@@ -610,12 +609,12 @@ inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"),
 attributeData = SubResource("Resource_hiqhm")
 spellData = SubResource("Resource_efrwb")
 
-[node name="body" type="Node3D" parent="."]
+[node name="body" type="Node3D" parent="." unique_id=1837535204]
 
-[node name="hands" type="Node3D" parent="body"]
+[node name="hands" type="Node3D" parent="body" unique_id=1040720314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="handSprite" type="AnimatedSprite3D" parent="body/hands"]
+[node name="handSprite" type="AnimatedSprite3D" parent="body/hands" unique_id=2122552752]
 transform = Transform3D(-0.49, 0, 1.74846e-08, 0, 0.49, 0, -4.28372e-08, 0, -0.2, 0, -0.376, -0.39)
 visible = false
 flip_h = true
@@ -626,77 +625,77 @@ sprite_frames = SubResource("SpriteFrames_p25tb")
 animation = &"idle"
 frame_progress = 0.155568
 
-[node name="handAnims" parent="body/hands" instance=ExtResource("23_hiqhm")]
+[node name="handAnims" parent="body/hands" unique_id=1277898777 instance=ExtResource("23_hiqhm")]
 transform = Transform3D(-0.1, 0, 8.74228e-09, 0, 0.1, 0, -8.74228e-09, 0, -0.1, 0, -1.2259, 0.0709478)
 
-[node name="head" type="Node3D" parent="body"]
+[node name="head" type="Node3D" parent="body" unique_id=823234222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989172, 0)
 
-[node name="Camera3D" type="Camera3D" parent="body/head"]
+[node name="Camera3D" type="Camera3D" parent="body/head" unique_id=1638490454]
 transform = Transform3D(0.999999, -0.00117631, 0.000612828, 0.00117667, 0.999999, -0.000582086, -0.000612127, 0.000582823, 1, 0, 0, 0)
 
-[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
+[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D" unique_id=1297873626]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
 collision_mask = 278
 collide_with_areas = true
 
-[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D" unique_id=1645671058]
 spot_range = 15.0
 
-[node name="wallDetection" type="Area3D" parent="."]
+[node name="wallDetection" type="Area3D" parent="." unique_id=461377942]
 collision_mask = 2
 
-[node name="wallDetectionCollision" type="CollisionShape3D" parent="wallDetection"]
+[node name="wallDetectionCollision" type="CollisionShape3D" parent="wallDetection" unique_id=652072256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_dx0e4")
 
-[node name="standCollision" type="CollisionShape3D" parent="."]
+[node name="standCollision" type="CollisionShape3D" parent="." unique_id=760973979]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b1bg2")
 
-[node name="crouchCollision" type="CollisionShape3D" parent="."]
+[node name="crouchCollision" type="CollisionShape3D" parent="." unique_id=456915986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_xybr4")
 disabled = true
 
-[node name="statemachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="statemachine" type="Node" parent="." unique_id=693906899 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_ledpc")
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="statemachine"]
+[node name="idle" type="Node" parent="statemachine" unique_id=112249201]
 script = ExtResource("4_fm7o7")
 
-[node name="walk" type="Node" parent="statemachine"]
+[node name="walk" type="Node" parent="statemachine" unique_id=1340247907]
 script = ExtResource("5_iewqs")
 
-[node name="fall" type="Node" parent="statemachine"]
+[node name="fall" type="Node" parent="statemachine" unique_id=1039644736]
 script = ExtResource("7_l7400")
 
-[node name="jump" type="Node" parent="statemachine"]
+[node name="jump" type="Node" parent="statemachine" unique_id=96273315]
 script = ExtResource("8_883gc")
 
-[node name="glide" type="Node" parent="statemachine"]
+[node name="glide" type="Node" parent="statemachine" unique_id=202929770]
 script = ExtResource("9_5x1gy")
 
-[node name="dash" type="Node" parent="statemachine"]
+[node name="dash" type="Node" parent="statemachine" unique_id=1316703999]
 script = ExtResource("10_23kto")
 
-[node name="crouch" type="Node" parent="statemachine"]
+[node name="crouch" type="Node" parent="statemachine" unique_id=1778742672]
 script = ExtResource("11_ptp12")
 
-[node name="slide" type="Node" parent="statemachine"]
+[node name="slide" type="Node" parent="statemachine" unique_id=149591266]
 script = ExtResource("12_2347s")
 
-[node name="walljump" type="Node" parent="statemachine"]
+[node name="walljump" type="Node" parent="statemachine" unique_id=193547728]
 script = ExtResource("24_dx0e4")
 
-[node name="attackstatemachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="attackstatemachine" type="Node" parent="." unique_id=137141887 node_paths=PackedStringArray("current_state")]
 script = ExtResource("31_efrwb")
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="attackstatemachine"]
+[node name="idle" type="Node" parent="attackstatemachine" unique_id=262621731]
 script = ExtResource("33_tkwlq")
 
-[node name="charge" type="Node" parent="attackstatemachine"]
+[node name="charge" type="Node" parent="attackstatemachine" unique_id=1118703874]
 script = ExtResource("32_hiqhm")

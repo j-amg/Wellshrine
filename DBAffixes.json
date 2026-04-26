@@ -4,8 +4,8 @@
         "target": "Strength",
         "modifier": "PercentAdd",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5,
+        "valueMax": 10,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "prefix"
@@ -15,8 +15,8 @@
         "target": "Dexterity",
         "modifier": "PercentAdd",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5,
+        "valueMax": 10,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "prefix"
@@ -26,8 +26,8 @@
         "target": "Intelligence",
         "modifier": "PercentAdd",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5,
+        "valueMax": 10,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "prefix"
@@ -37,8 +37,8 @@
         "target": "Strength",
         "modifier": "Flat",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5.0,
+        "valueMax": 15,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "suffix"
@@ -48,8 +48,8 @@
         "target": "Dexterity",
         "modifier": "Flat",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5.0,
+        "valueMax": 15,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "suffix"
@@ -59,8 +59,8 @@
         "target": "Intelligence",
         "modifier": "Flat",
         "spawn": ["Ring"],
-        "valueMin": 2.0,
-        "valueMax": 10.0,
+        "valueMin": 5.0,
+        "valueMax": 15,
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "suffix"
@@ -75,5 +75,17 @@
         "rollWeight": 0.2,
         "accWeight": 0.0,
         "type": "suffix"
+    }
+    ,
+        "incCastSpeed": {
+        "title": "Swift",
+        "target": "CastSpeed",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 5.0,
+        "valueMax": 100.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
     }
 }

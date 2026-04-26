@@ -8,7 +8,8 @@ public enum AttributeType
     Dexterity,
     Intelligence,
     Armour,
-    ProjCount
+    ProjCount,
+    CastSpeed
 }
 
 [GlobalClass]
@@ -20,6 +21,7 @@ public partial class AttributeData : Resource
         {AttributeType.Dexterity, new PlayerAttribute(50f)},
         {AttributeType.Intelligence, new PlayerAttribute(50f)},
         {AttributeType.Armour, new PlayerAttribute(0f)},
-        {AttributeType.ProjCount, new PlayerAttribute(0f)}
+        {AttributeType.ProjCount, new PlayerAttribute(0f)},
+        {AttributeType.CastSpeed, new PlayerAttribute(100f)}
     };
 }

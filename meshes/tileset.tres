@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=107 format=4 uid="uid://chbsjhkh6uwx1"]
+[gd_resource type="MeshLibrary" format=4 uid="uid://chbsjhkh6uwx1"]
 
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="1_1clmu"]
 

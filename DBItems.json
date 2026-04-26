@@ -3,7 +3,7 @@
         "name": "Opal Ring",
         "implicitID": "flatStr",
         "description": "A shimmering Ring",
-        "rollWeight": 0.02,
+        "rollWeight": 0.5,
         "accWeight": 0.0,
         "type": "equipment",
         "subType": "Ring"

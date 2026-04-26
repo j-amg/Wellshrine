@@ -14,11 +14,16 @@ public partial class ChargeAttackState : AttackState
     }
 
     ulong startChargeTime;
+    float chargeTime;
+    float castTime;
 
     Spell spell;
     public override void Enter()
     {
         spell = owningEntity.spellData.spells[spellIndex];
+        if (spell == null) return;
+        chargeTime = spell.chargeTime / ((owningEntity.attributeData.playerAttributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
+        castTime = spell.castTime / ((owningEntity.attributeData.playerAttributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
         startChargeTime = Time.GetTicksMsec();
     }
     public override void Update(double delta)
@@ -30,13 +35,13 @@ public partial class ChargeAttackState : AttackState
             return;
 		}
 
-        float chargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (spell.chargeTime * 10); // *10 to translate between to ms to 0.0 - 1.0 range
+        float currentChargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (chargeTime * 10); // *10 to translate between to ms to 0 - 100 range
 
-        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, chargeAmmount);
+        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, currentChargeAmmount);
         
         if (!Input.IsActionPressed(Enum.GetValues<AttackKeybinds>()[spellIndex].ToString()))
         {
-            if (Time.GetTicksMsec() >= startChargeTime + spell.chargeTime * 1000)
+            if (Time.GetTicksMsec() >= startChargeTime + chargeTime * 1000)
             {
                 Attack(1.0f);
             }
@@ -44,8 +49,7 @@ public partial class ChargeAttackState : AttackState
             {
                 if (spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease)
                 {
-                    GD.Print(chargeAmmount);
-                    Attack(Mathf.Max(0.25f, chargeAmmount / 100));  
+                    Attack(Mathf.Max(0.25f, currentChargeAmmount / 100));  
                 }
                 EmitSignal(SignalName.attacktransition, "idle", 0);
             }
@@ -55,7 +59,7 @@ public partial class ChargeAttackState : AttackState
 
     public async void Attack(float chargeAmmount)
     {
-        await ToSignal(GetTree().CreateTimer(spell.castTime), "timeout");
+        await ToSignal(GetTree().CreateTimer(castTime), "timeout");
         owningEntity.AttackAnim();
         spell.Cast(owningEntity, chargeAmmount);
         EmitSignal(SignalName.attacktransition, "idle", 0);

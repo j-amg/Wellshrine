@@ -64,6 +64,7 @@ public partial class Global : Node
 		Gets();
 		ConnectSignals();
 		PreloadObjects();
+
 	}
 	public override void _Process(double delta)
 	{
@@ -140,6 +141,10 @@ public partial class Global : Node
 		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
 		DBItems = DB.JsonToDict("res://DBItems.json");
 		DBMaps = DB.JsonToDict("res://DBMaps.json");
+
+
+		GD.Print(DBAffixes);
+
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
 
