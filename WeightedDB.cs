@@ -46,7 +46,6 @@ public partial class DB : Resource
 				dict.Add(item, items[item]);
 				dict[item]["accWeight"] = totalWeight;
 			}
-
 		}
 
         //Roll the number
@@ -57,7 +56,11 @@ public partial class DB : Resource
 		//Now search for the first with acc_weight > roll
 		foreach (string item in dict.Keys)
 		{
-			if ((float)dict[item]["accWeight"] > roll) return item;
+			if ((float)dict[item]["accWeight"] > roll)
+			{
+				GD.Print(item);
+				return item;
+			} 
         }	
 		return null;
 	}

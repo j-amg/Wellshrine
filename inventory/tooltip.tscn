@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bklldjik8cjkn"]
+[gd_scene format=3 uid="uid://bklldjik8cjkn"]
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_c2f6h"]
 [ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="2_gmlu0"]
@@ -20,8 +20,8 @@ fractal_gain = 0.88
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s4dg3"]
 width = 36
 height = 36
-color_ramp = SubResource("Gradient_m22gv")
 noise = SubResource("FastNoiseLite_so6ny")
+color_ramp = SubResource("Gradient_m22gv")
 
 [sub_resource type="Gradient" id="Gradient_gmlu0"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -30,7 +30,7 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jifm2"]
 gradient = SubResource("Gradient_gmlu0")
 
-[node name="tooltip" type="PanelContainer" node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemAffixContainer", "itemLevelContainer", "headerContainer")]
+[node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemAffixContainer", "itemLevelContainer", "headerContainer")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -58,25 +58,26 @@ itemAffixContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/affix
 itemLevelContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer")
 headerContainer = NodePath("VBoxContainer/PanelContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1134591772]
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=203895610]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1465211880]
 layout_mode = 2
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=383475725]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_s4dg3")
 stretch_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1809151957]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -87,68 +88,68 @@ text = "Item"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=805854703]
 layout_mode = 2
 texture = SubResource("NoiseTexture2D_s4dg3")
 stretch_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=284121228]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=20194167]
 layout_mode = 2
 
-[node name="type" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="type" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=553362126]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Helmet"
 
-[node name="trigger" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="trigger" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=220472012]
 visible = false
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="charge time" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="charge time" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1443412643]
 visible = false
 layout_mode = 2
 size_flags_vertical = 2
 horizontal_alignment = 1
 
-[node name="cast speed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="cast speed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=455336706]
 visible = false
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="levelContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="levelContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1092319838]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 2
 
-[node name="levelLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer"]
+[node name="levelLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=4840638]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "Item Level:"
 
-[node name="levelLabel2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer"]
+[node name="levelLabel2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=1980347445]
 layout_mode = 2
 text = "16"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=2021438419]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 texture = SubResource("GradientTexture1D_jifm2")
 expand_mode = 3
 
-[node name="affixContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="affixContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=302238236]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="affix" parent="VBoxContainer/MarginContainer/VBoxContainer/affixContainer" instance=ExtResource("4_php7p")]
+[node name="affix" parent="VBoxContainer/MarginContainer/VBoxContainer/affixContainer" unique_id=1955913895 instance=ExtResource("4_php7p")]
 layout_mode = 2
 
-[node name="description" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="description" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1118276935]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)

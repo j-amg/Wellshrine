@@ -36,7 +36,7 @@ public partial class PlayerAttribute : Resource
 
     public void AddModifier(AttributeModifier mod)
     {
-        GD.Print("added modifier");
+        //GD.Print("added modifier");
 
         isDirty = true;
         attributeModifiers.Add(mod);

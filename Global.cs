@@ -7,6 +7,20 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Runtime.InteropServices.JavaScript;
 
+	public enum AttributeType
+	{
+		Strength,
+		Dexterity,
+		Intelligence,
+		Armour,
+		ProjCount,
+		CastSpeed,
+		ProjSpeed,
+		Health,
+		Mana,
+		HealthRegen
+	}
+
 public partial class Global : Node
 {
 	[Signal]
@@ -21,8 +35,6 @@ public partial class Global : Node
 	public Camera3D camera;
 	private AudioStream music;
 	public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
-	public float basePlayerHealth = 100;
-	public float playerHealth = 100;
 	public float currentPlayerHealth = 100;
 	public float interactionRange = 3;
 	public Hud hud;
@@ -58,6 +70,20 @@ public partial class Global : Node
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
 	public PlayerZone playerZone;
 	public Zone doorZone;
+
+	public Dictionary<AttributeType, string> AttributeDisplayNames = new()
+    {
+        {AttributeType.Strength, "Strength"},
+        {AttributeType.Dexterity, "Dexterity"},
+        {AttributeType.Intelligence, "Intelligence"},
+        {AttributeType.Armour, "armour"},
+        {AttributeType.ProjCount, "Projectile Count"},
+        {AttributeType.CastSpeed, "Cast Speed"},
+		{AttributeType.ProjSpeed, "Projectile Speed"},
+		{AttributeType.Mana, "Mana"},
+		{AttributeType.Health, "Health"},
+		{AttributeType.HealthRegen, "Health Regeneration"}
+    };
 
 	public override void _Ready()
 	{
@@ -196,12 +222,19 @@ public partial class Global : Node
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
 			{
-				att.AttributesUpdated += () => inventory.OnAttributeDataUpdated(player.attributeData);
+				att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);
 			}
 		}
 	}
 
-	public void AddToScene(Node3D node, Transform3D transform)
+    private void OnAttributeDataUpdated(AttributeData attributeData)
+    {
+        inventory.SetAttributeLabels(attributeData);
+		IncrementPlayerHealth(0);
+		
+    }
+
+    public void AddToScene(Node3D node, Transform3D transform)
 	{
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", node);
@@ -432,14 +465,14 @@ public partial class Global : Node
 	public void IncrementPlayerHealth(float value)
 	{
 		if (dead) return;
-		currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, playerHealth);
+		currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, player.attributeData.playerAttributes[AttributeType.Health].Value);
 		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
 		if (currentPlayerHealth <= 0) Die();
 	}
 
 	public void SetPlayerHealth(float value)
 	{
-		currentPlayerHealth = Mathf.Clamp(value, 0, playerHealth);
+		currentPlayerHealth = Mathf.Clamp(value, 0, player.attributeData.playerAttributes[AttributeType.Health].Value);
 		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
 		if (currentPlayerHealth <= 0) Die();
 	}

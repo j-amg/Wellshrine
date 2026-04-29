@@ -12,12 +12,12 @@ public partial class WellShrine : Shrine, IInteractable
     }
     public override void OnInteract()
     {
-        base.OnInteract();
-        Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(bloodMesh, "position", new Vector3(0,.716f,0), .5f);
-        Global.Singleton.hud.Flash(new Color(0,1,0));
-        Global.Singleton.SetPlayerHealth(Global.Singleton.playerHealth);
-        Deactivate();
+        // base.OnInteract();
+        // Tween tween = GetTree().CreateTween();
+        // tween.TweenProperty(bloodMesh, "position", new Vector3(0,.716f,0), .5f);
+        // Global.Singleton.hud.Flash(new Color(0,1,0));
+        // Global.Singleton.SetPlayerHealth(Global.Singleton.playerHealth);
+        // Deactivate();
     }
 
 }

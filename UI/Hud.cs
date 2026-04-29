@@ -71,9 +71,9 @@ public partial class Hud : Control
 
     public void UpdateHealth()
     {
-        healthBar.MaxValue = Global.Singleton.playerHealth;
+        healthBar.MaxValue = Global.Singleton.player.attributeData.playerAttributes[AttributeType.Health].Value;
         healthBar.Value = Global.Singleton.currentPlayerHealth;
-        healthLabel.Text = "HP: " +  Mathf.Round(Global.Singleton.currentPlayerHealth) + "/" + Global.Singleton.playerHealth;
+        healthLabel.Text = "HP: " +  Mathf.Round(Global.Singleton.currentPlayerHealth) + "/" + Global.Singleton.player.attributeData.playerAttributes[AttributeType.Health].Value;
     }
 
     private void OnDamageTaken()

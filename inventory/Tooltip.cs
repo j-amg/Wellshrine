@@ -84,8 +84,8 @@ public partial class Tooltip : PanelContainer
             spellCastTime.Show();
             spellChargeTime.Show();
             spellTrigger.Text = "Trigger: " + spell.spell.triggerType.ToString();
-            spellCastTime.Text = "Cast Time: " +spell.spell.castTime.ToString();
-            if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString();
+            spellCastTime.Text = "Cast Time: " +spell.spell.castTime.ToString() + "s";
+            if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString() + "s";
 
         }
 
@@ -106,19 +106,18 @@ public partial class Tooltip : PanelContainer
                         case "Flat":
                             label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
                             label.Text += affix.attributeModifier.Value.ToString() + " to ";
-                            label.Text += affix.TargetType.ToString();
+                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
                         case "PercentAdd":
-                        GD.Print(affix.attributeModifier.Value );
                             label.Text = affix.attributeModifier.Value.ToString() + "% ";
                             label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
-                            label.Text += affix.TargetType.ToString();
+                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
                         case "PercentMult":
-                        label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
+                            label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
                             label.Text = affix.attributeModifier.Value.ToString() + "% ";
                             label.Text += "Total ";
-                            label.Text += affix.TargetType.ToString();
+                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
                         
                     }
