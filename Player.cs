@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Godot;
 
-public partial class Player : CharacterBody3D, IDamageable
+public partial class Player : Entity, IDamageable
 {
 	[Export]
 	public AudioStream damageTakenSound;
