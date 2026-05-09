@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://ynvfesnw1r4j"]
 
 [ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
-[ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
-[ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
-[ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="3_5t7b0"]
 [ext_resource type="Script" uid="uid://c718s8ymvslfl" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
 [ext_resource type="Texture2D" uid="uid://bsb6n0rva245f" path="res://textures/handsPre2.png" id="4_fhym6"]
 [ext_resource type="Script" uid="uid://c7443ylulskxk" path="res://playerStates/IdleState.cs" id="4_fm7o7"]
@@ -34,13 +31,13 @@
 [ext_resource type="Script" uid="uid://chchj2cpobv6t" path="res://playerStates/ChargeAttackState.cs" id="32_hiqhm"]
 [ext_resource type="Script" uid="uid://inx1r7u58olb" path="res://playerStates/IdleAttackState.cs" id="33_tkwlq"]
 
-[sub_resource type="Resource" id="Resource_hiqhm"]
-script = ExtResource("17_iruf7")
-metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
-
 [sub_resource type="Resource" id="Resource_efrwb"]
 script = ExtResource("17_j5n4i")
 metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
+
+[sub_resource type="Resource" id="Resource_hiqhm"]
+script = ExtResource("17_iruf7")
+metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
 atlas = ExtResource("4_fhym6")
@@ -587,15 +584,10 @@ radius = 1.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("stateMachine", "attackStateMachine", "lookRay", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection") groups=["player"]]
+[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("attackStateMachine", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection", "stateMachine", "lookRay", "animationPlayer") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
-damageTakenSound = ExtResource("2_1f480")
-damageDealtSound = ExtResource("3_5t7b0")
-critDealtSound = ExtResource("2_24bn3")
-stateMachine = NodePath("statemachine")
 attackStateMachine = NodePath("attackstatemachine")
-lookRay = NodePath("body/head/Camera3D/lookRay")
 body = NodePath("body")
 head = NodePath("body/head")
 camera = NodePath("body/head/Camera3D")
@@ -606,8 +598,11 @@ standCollision = NodePath("standCollision")
 crouchCollision = NodePath("crouchCollision")
 wallDetection = NodePath("wallDetection")
 inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"), ExtResource("12_2wuci"), ExtResource("13_iruf7"), ExtResource("14_j5n4i"), ExtResource("15_634y6"), ExtResource("16_hiqhm"), ExtResource("17_hiqhm"), ExtResource("18_tkwlq"), ExtResource("19_hl5qd"), ExtResource("20_ek41f")])
-attributeData = SubResource("Resource_hiqhm")
 spellData = SubResource("Resource_efrwb")
+stateMachine = NodePath("statemachine")
+attributeData = SubResource("Resource_hiqhm")
+lookRay = NodePath("body/head/Camera3D/lookRay")
+animationPlayer = NodePath("AnimationPlayer")
 
 [node name="body" type="Node3D" parent="." unique_id=1837535204]
 
@@ -699,3 +694,5 @@ script = ExtResource("33_tkwlq")
 
 [node name="charge" type="Node" parent="attackstatemachine" unique_id=1118703874]
 script = ExtResource("32_hiqhm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2069137649]

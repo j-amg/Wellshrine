@@ -33,7 +33,7 @@ public partial class Zone : Node3D
 	public void ResetPlayer(Transform3D trans)
 	{
 		Player p = GD.Load<PackedScene>("res://player.tscn").Instantiate<Player>();
-		player.QueueFree();	
+		player.QueueFree();
 		AddChild(p);
 		player = p;
 		p.Transform = trans;
@@ -57,50 +57,49 @@ public partial class Zone : Node3D
 
 	public static Zone GenerateTileZone()
 	{
-		int[,,] tileArray = new int[1000,200,1000];
-
-
+		int[,,] tileArray = new int[1000, 200, 1000];
 		Zone baseZone = GD.Load<PackedScene>("res://zones/testCombinedLevel.tscn").Instantiate<Zone>();
 		Node3D startingTile = Global.Singleton.tileArray[1].Instantiate<Node3D>();
-		Vector3 spawnPoint = new(500,100,500);
+		Vector3 spawnPoint = new(500, 100, 500);
 		float spawnRot = 0;
 		AddMapToArray(startingTile, tileArray, spawnPoint, spawnRot);
 		SpawnRooms(startingTile, 500, tileArray, startingTile.Transform);
 		baseZone.AddChild(startingTile);
 		return baseZone;
-		
+
 	}
 
 	public static void SpawnRooms(Node3D tile, int credits, int[,,] tileArray, Transform3D currentTransform)
 	{
 
 		foreach (Node3D connector in tile.GetNode<Node>("connectionPoints").GetChildren())
-			{
+		{
 
-				// Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
-				// Area3D bounds = childTile.GetNode<Area3D>("Area3D");
-				// tile.AddChild(bounds);
+			// Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
+			// Area3D bounds = childTile.GetNode<Area3D>("Area3D");
+			// tile.AddChild(bounds);
 
-				
 
-			
+
+
 			//find the transform of the connector in global space
 			Transform3D newtrans = (currentTransform * connector.Transform).Orthonormalized();
 
 			float connectorRotation = Mathf.Atan2(newtrans.Basis.Z.X, newtrans.Basis.Z.Z);
 
-			Vector3 newArrayPosition = new Vector3(500,100,500) + newtrans.Origin/2;
+			Vector3 newArrayPosition = new Vector3(500, 100, 500) + newtrans.Origin / 2;
 
 			Node3D childTile = Global.Singleton.tileArray[GD.RandRange(1, Global.Singleton.tileArray.Count - 1)].Instantiate<Node3D>();
 
-			
+
 			if (AddMapToArray(childTile, tileArray, newArrayPosition, connectorRotation) && credits > 0)
 			{
-				
+
 				SpawnRooms(childTile, credits - 10, tileArray, newtrans);
 				tile.AddChild(childTile);
 				childTile.Transform = connector.Transform;
-			} else
+			}
+			else
 			{
 				Node3D door = Global.Singleton.tileArray[0].Instantiate<Node3D>();
 				tile.AddChild(door);
@@ -130,14 +129,14 @@ public partial class Zone : Node3D
 				canPlaceRoom = false;
 				break;
 			}
-			else if (tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] == 1)
+			else if (tileArray[(int)transformedCellPos.X, (int)transformedCellPos.Y, (int)transformedCellPos.Z] == 1)
 			{
 				canPlaceRoom = false;
 				break;
 			}
 			else
 			{
-				tileArray[(int)transformedCellPos.X,(int)transformedCellPos.Y, (int)transformedCellPos.Z] = 1;
+				tileArray[(int)transformedCellPos.X, (int)transformedCellPos.Y, (int)transformedCellPos.Z] = 1;
 			}
 		}
 		return canPlaceRoom;

@@ -47,9 +47,9 @@ public partial class Inv : Control
 
     public void SetAttributeLabels(AttributeData attributeData)
     {
-        strLabel.Text = attributeData.playerAttributes[AttributeType.Strength].Value.ToString();
-        dexLabel.Text = attributeData.playerAttributes[AttributeType.Dexterity].Value.ToString();
-        intLabel.Text = attributeData.playerAttributes[AttributeType.Intelligence].Value.ToString();
+        strLabel.Text = attributeData.Attributes[AttributeType.Strength].Value.ToString();
+        dexLabel.Text = attributeData.Attributes[AttributeType.Dexterity].Value.ToString();
+        intLabel.Text = attributeData.Attributes[AttributeType.Intelligence].Value.ToString();
     }
 
     public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)
@@ -124,13 +124,13 @@ public partial class Inv : Control
     private void OnInventorySlotHovered(InventoryData inventoryData, int index, InvSlot invSlot)
     {
         SlotData slot = inventoryData.slotDatas[index];
-        
+
         if (slot != null)
         {
             invSlot.BG.Modulate = invSlot.defaultModulate;
-            
+
             tooltip.SetItem(slot.itemData);
-            tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X/2, invSlot.Size.Y/2) + new Vector2(-(tooltip.Size.X/2), -(tooltip.Size.Y + invSlot.Size.Y/2));
+            tooltip.GlobalPosition = invSlot.GlobalPosition + new Vector2(invSlot.Size.X / 2, invSlot.Size.Y / 2) + new Vector2(-(tooltip.Size.X / 2), -(tooltip.Size.Y + invSlot.Size.Y / 2));
             tooltip.GlobalPosition = tooltip.FindSpawnPosition(invSlot);
             tooltip.Show();
         }
@@ -145,7 +145,7 @@ public partial class Inv : Control
             else
             {
                 invSlot.BG.Modulate = new Color(0, 1, 0, .25f);
-            } 
+            }
         }
     }
 

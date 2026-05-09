@@ -29,11 +29,13 @@ public partial class Tooltip : PanelContainer
         Vector2 localToolTipCentre = new(Size.X / 2, Size.Y / 2);
         Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
 
+        // test
+
         // set loc to centred on slot
         Vector2 loc = slot.GlobalPosition + localSlotCentre - localToolTipCentre;
 
         // spawn directly above item
-        loc += new Vector2(0, (-Size.Y + -slotSize.Y)/2);
+        loc += new Vector2(0, (-Size.Y + -slotSize.Y) / 2);
 
         // calculate offset
         float offsetX = 0;
@@ -44,8 +46,8 @@ public partial class Tooltip : PanelContainer
         if (loc.Y < 0)
         {
             offsetY += Size.Y;
-            if ((loc.X - Size.X/2 - slotSize.X / 2)! < 0) offsetX += Size.X - slotSize.X / 2;
-            else offsetX -= Size.X/2 + slotSize.X / 2;
+            if ((loc.X - Size.X / 2 - slotSize.X / 2)! < 0) offsetX += Size.X - slotSize.X / 2;
+            else offsetX -= Size.X / 2 + slotSize.X / 2;
         }
         else
         {
@@ -84,7 +86,7 @@ public partial class Tooltip : PanelContainer
             spellCastTime.Show();
             spellChargeTime.Show();
             spellTrigger.Text = "Trigger: " + spell.spell.triggerType.ToString();
-            spellCastTime.Text = "Cast Time: " +spell.spell.castTime.ToString() + "s";
+            spellCastTime.Text = "Cast Time: " + spell.spell.castTime.ToString() + "s";
             if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString() + "s";
 
         }
@@ -92,7 +94,7 @@ public partial class Tooltip : PanelContainer
         //populate if affixes exist
         if (itemData is ItemEquipmentData equipment)
         {
-            
+
             itemAffixContainer.Show();
             itemLevelLabel.Text = equipment.level.ToString();
             itemLevelContainer.Show();
@@ -101,7 +103,7 @@ public partial class Tooltip : PanelContainer
                 if (affix != null)
                 {
                     Label label = affixLabelScene.Instantiate<Label>();
-                    switch(affix.attributeModifier.ModType.ToString())
+                    switch (affix.attributeModifier.ModType.ToString())
                     {
                         case "Flat":
                             label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
@@ -119,7 +121,7 @@ public partial class Tooltip : PanelContainer
                             label.Text += "Total ";
                             label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
-                        
+
                     }
                     itemAffixContainer.AddChild(label);
                 }

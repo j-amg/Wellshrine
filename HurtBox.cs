@@ -10,10 +10,9 @@ public partial class HurtBox : Area3D
 
 	private void OnAreaEntered(Area3D area)
 	{
-		if (area != null && area.Owner is IDamageable damageable)
-        {
-            GD.Print("can hit");
-            damageable.Damage(Damage.InitDamage(5f, false, GetParent()));
-        } 
+		if (area != null && area.Owner is Entity entity)
+		{
+			entity.TakeDamage(Damage.InitDamage(5f, false, GetParent()));
+		}
 	}
 }

@@ -5,24 +5,23 @@ public partial class GlideState : State
 {
 	private float s;
 	private bool isAimDown = false;
-    public override void Enter()
-    {
-		owningEntity.handSprite.Play("glide");
-		s = owningEntity.hvel.Length() > owningEntity.fallSpeed ? owningEntity.hvel.Length() : owningEntity.fallSpeed;
-		GD.Print("entered glide");
-    }
-
-    public override void Exit()
-    {
-		owningEntity.handSprite.Play(Global.Singleton.currentIdle);
-    }
-    public override void Update(double delta)
+	public override void Enter()
 	{
-        owningEntity.UpdateInput(s, owningEntity.airAcceleration, owningEntity.airDeceleration);
+		// owningEntity.handSprite.Play("glide");
+		s = owningEntity.hvel.Length() > owningEntity.fallSpeed ? owningEntity.hvel.Length() : owningEntity.fallSpeed;
+	}
+
+	public override void Exit()
+	{
+		// owningEntity.handSprite.Play(Global.Singleton.currentIdle);
+	}
+	public override void Update(double delta)
+	{
+		owningEntity.UpdateInput(s, owningEntity.airAcceleration, owningEntity.airDeceleration);
 		Vector3 vel = owningEntity.velocity;
 		//vel.Y = vel.Y > 0 ? Mathf.MoveToward(vel.Y, 0, 0.1f) : Mathf.MoveToward(vel.Y, -3, 0.01f);
 
-        vel.Y = Mathf.MoveToward(vel.Y, -1, .25f);
+		vel.Y = Mathf.MoveToward(vel.Y, -1, .25f);
 		// if (vel.Y > 0)
 		// {
 		// 	vel.Y -= owningEntity.gravity * (float)delta;
@@ -30,10 +29,10 @@ public partial class GlideState : State
 		// else
 		// {
 		// 	vel.Y -= 6 * (float)delta;
-		
-        // }
+
+		// }
 		owningEntity.velocity = vel;
-        owningEntity.UpdateVelocity();
+		owningEntity.UpdateVelocity();
 
 		//if (Input.IsActionPressed("RightMouse")) isAimDown = true;
 		//if (Input.IsActionJustReleased("RightMouse")) EmitSignal(SignalName.transition, "fall");
@@ -57,5 +56,5 @@ public partial class GlideState : State
 			}
 			else EmitSignal(SignalName.transition, "idle");
 		}
-	} 
+	}
 }

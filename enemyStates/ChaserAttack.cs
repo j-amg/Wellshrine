@@ -18,10 +18,10 @@ public partial class ChaserAttack : State
 		GD.Print(Name + " attacks player for " + damage);
 		if ((Global.Singleton.player.GlobalPosition - owningEntity.GlobalPosition).Length() <= owningEntity.attackRange)
 		{
-			((IDamageable)Global.Singleton.player).Damage(damage);
+			Global.Singleton.player.TakeDamage(damage);
 		}
 		await ToSignal(GetTree().CreateTimer(duration), "timeout");
-		 if (!owningEntity.dead  || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");
+		if (!owningEntity.dead || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");
 	}
 
 	public override void Update(double delta)

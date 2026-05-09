@@ -7,19 +7,19 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Runtime.InteropServices.JavaScript;
 
-	public enum AttributeType
-	{
-		Strength,
-		Dexterity,
-		Intelligence,
-		Armour,
-		ProjCount,
-		CastSpeed,
-		ProjSpeed,
-		Health,
-		Mana,
-		HealthRegen
-	}
+public enum AttributeType
+{
+	Strength,
+	Dexterity,
+	Intelligence,
+	Armour,
+	ProjCount,
+	CastSpeed,
+	ProjSpeed,
+	Health,
+	Mana,
+	HealthRegen
+}
 
 public partial class Global : Node
 {
@@ -47,8 +47,6 @@ public partial class Global : Node
 	public bool inPopup = false;
 	private bool animatingDialogue = false;
 	public bool fullscreen = false;
-	public bool disableTooltips = false;
-	public bool disableObjectives = false;
 	public bool invOpen = false;
 	private AudioStream charSound;
 
@@ -56,40 +54,47 @@ public partial class Global : Node
 	public Array<PackedScene> tileArray = [];
 	public PackedScene item;
 
-	private string currentAction;
-	public string awaitedAction;
 	public Node currentScene;
 	public Zone currentZone;
 	public int currentLevel;
 	private string[] currentDialogue;
 	private int currentDialogueStep;
-	public string currentIdle = "idle";
-	public bool sfx = true;
+
+
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
 	public PlayerZone playerZone;
 	public Zone doorZone;
 
+
+
 	public Dictionary<AttributeType, string> AttributeDisplayNames = new()
-    {
-        {AttributeType.Strength, "Strength"},
-        {AttributeType.Dexterity, "Dexterity"},
-        {AttributeType.Intelligence, "Intelligence"},
-        {AttributeType.Armour, "armour"},
-        {AttributeType.ProjCount, "Projectile Count"},
-        {AttributeType.CastSpeed, "Cast Speed"},
+	{
+		{AttributeType.Strength, "Strength"},
+		{AttributeType.Dexterity, "Dexterity"},
+		{AttributeType.Intelligence, "Intelligence"},
+		{AttributeType.Armour, "armour"},
+		{AttributeType.ProjCount, "Projectile Count"},
+		{AttributeType.CastSpeed, "Cast Speed"},
 		{AttributeType.ProjSpeed, "Projectile Speed"},
 		{AttributeType.Mana, "Mana"},
 		{AttributeType.Health, "Health"},
 		{AttributeType.HealthRegen, "Health Regeneration"}
-    };
+	};
 
 	public override void _Ready()
 	{
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 		Gets();
 		ConnectSignals();
 		PreloadObjects();
+
+
+
+
+
+
 
 	}
 	public override void _Process(double delta)
@@ -105,15 +110,15 @@ public partial class Global : Node
 			{
 				//player.GlobalTransform.Origin = new(0,0,0);
 				GotoZone(playerZone, player.Transform);
-				
+
 				//GD.Print("found play zone");
-			}  
+			}
 			else
 			{
 				GotoScene(GD.Load<PackedScene>("res://zones/startZone.tscn"));
 				//GD.Print("loaded new player zone");
-			} 
-		} 
+			}
+		}
 	}
 
 	public void GotoScene(PackedScene nextScene) => CallDeferred(MethodName.DeferredGotoScene, nextScene);
@@ -132,9 +137,6 @@ public partial class Global : Node
 	public void GotoZone(Zone zone, Transform3D respawnTransform)
 	{
 		GD.Print("travelling to: " + zone.Name);
-		//GD.Print(zone.GetNodeOrNull<Player>("player").Position);
-		
-		
 		CallDeferred(MethodName.DeferredGotoZone, zone, respawnTransform);
 	}
 
@@ -144,9 +146,9 @@ public partial class Global : Node
 		if (zone is null) return;
 		if (currentZone is not PlayerZone && currentZone != doorZone)
 		{
-			//currentZone?.CloseZone();
 			currentScene.Free();
-		} else
+		}
+		else
 		{
 			isInstance = true;
 			GetTree().Root.RemoveChild(currentScene);
@@ -161,22 +163,21 @@ public partial class Global : Node
 
 	}
 
-		
+
 	public void PreloadObjects()
 	{
+
+		GD.Print("preloaded items");
 		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
 		DBItems = DB.JsonToDict("res://DBItems.json");
 		DBMaps = DB.JsonToDict("res://DBMaps.json");
 
-
-		GD.Print(DBAffixes);
-
 		enemyArray.Add(GD.Load<PackedScene>("res://enemies/chaser.tscn"));
-		enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
+		// enemyArray.Add(GD.Load<PackedScene>("res://enemies/shooter.tscn"));
 
 		tileArray.Add(GD.Load<PackedScene>("res://zones/zoneDoor.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest2.tscn"));
-		//tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
+		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
 
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
@@ -184,57 +185,53 @@ public partial class Global : Node
 
 	public void Gets()
 	{
+
 		Viewport root = GetTree().Root;
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
 
 
-		if (currentScene is Zone z1)
+
+		if (currentScene is Zone z)
 		{
-			player = z1.player;
-			if (player is null) GD.Print("player is null");
+			player = z.player;
+
 			hud = currentScene.GetNodeOrNull<Hud>("UI/hud");
-			//GD.Print(hud);
 			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
-			if (inventory is null) GD.Print("inventory is null");
 			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
+			GD.Print("gets");
 			inventory.SetPlayerInventoryData(player.inventoryData);
-			inventory.SetAttributeLabels(player.attributeData);
-
-			 // set player zone reference
-			if (currentScene is PlayerZone z)
-			{
-				playerZone = z;
-			}
+			if (currentScene is PlayerZone pz) playerZone = pz;
 		}
+
+
 	}
 
 	public void ConnectSignals()
 	{
-		if (currentScene is Zone z1)
+		GD.Print("connected signals");
+		if (currentScene is Zone)
 		{
-			GD.Print("connected");
-			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>()) 
+			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>())
 			{
 				n.ToggleInventory += OnChestInventoryToggle;
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
-			foreach (PlayerAttribute att in player.attributeData.playerAttributes.Values)
+			foreach (Attribute att in player.attributeData.Attributes.Values)
 			{
 				att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);
 			}
 		}
 	}
 
-    private void OnAttributeDataUpdated(AttributeData attributeData)
-    {
-        inventory.SetAttributeLabels(attributeData);
-		IncrementPlayerHealth(0);
-		
-    }
+	private void OnAttributeDataUpdated(AttributeData attributeData)
+	{
+		inventory.SetAttributeLabels(attributeData);
+		player.UpdateHealth();
+	}
 
-    public void AddToScene(Node3D node, Transform3D transform)
+	public void AddToScene(Node3D node, Transform3D transform)
 	{
 		var main = GetTree().CurrentScene;
 		main.CallDeferred("add_child", node);
@@ -243,6 +240,7 @@ public partial class Global : Node
 
 	public ItemData GenerateItem()
 	{
+		GD.Print(DBItems);
 		// Select random item from database
 		string baseItemType = DB.SelectFiltered(DBItems);
 		string itemType = DBItems[baseItemType]["type"].ToString();
@@ -273,7 +271,7 @@ public partial class Global : Node
 			Dictionary<string, Variant> conditions = new() { { "type", "prefix" } };
 			item.prefix = GenerateAffix(DB.SelectFiltered(DBAffixes, conditions));
 		}
-		
+
 		if (GD.Randf() >= 0.25f)
 		{
 			Dictionary<string, Variant> conditions = new() { { "type", "suffix" } };
@@ -306,7 +304,7 @@ public partial class Global : Node
 	public static T ParseEnum<T>(string value) => (T)Enum.Parse(typeof(T), value, true);
 
 	private void OnChestInventoryToggle(Chest inventoryOwner) { ToggleInv(inventoryOwner); }
-	
+
 	private void OnDropSlotDataFromInventory(SlotData slotData)
 	{
 		GroundItem groundItem = (GroundItem)item.Instantiate();
@@ -317,8 +315,6 @@ public partial class Global : Node
 
 	public void ToggleInv(Chest externalInventoryOwner = null)
 	{
-
-		GD.Print(externalInventoryOwner);
 		if (invOpen)
 		{
 			SignalManager.Singleton.EmitSignal(SignalManager.SignalName.ClosedInventory);
@@ -363,30 +359,30 @@ public partial class Global : Node
 		paused = !paused;
 	}
 
-	public void SendPopUp(string text, string action)
-	{
-		hud.popupText.Modulate = new Color(1, 1, 0);
-		inPopup = true;
-		awaitedAction = action;
-		hud.popupText.Text = text;
-		hud.popup.Visible = true;
-	}
+	// public void SendPopUp(string text, string action)
+	// {
+	// 	hud.popupText.Modulate = new Color(1, 1, 0);
+	// 	inPopup = true;
+	// 	awaitedAction = action;
+	// 	hud.popupText.Text = text;
+	// 	hud.popup.Visible = true;
+	// }
 
-	public void SetAction(string action)
-	{
-		currentAction = action;
-		if (awaitedAction == action && inPopup)ClosePopUp(action, false);
-	}
+	// public void SetAction(string action)
+	// {
+	// 	currentAction = action;
+	// 	if (awaitedAction == action && inPopup) ClosePopUp(action, false);
+	// }
 
-	public async void ClosePopUp(string action, bool overrideWait)
-	{
-		hud.popupText.Modulate = new Color(0, 1, 0);
-		inPopup = false;
-		awaitedAction = "";
-		if (!overrideWait) await ToSignal(GetTree().CreateTimer(1.5), "timeout");
-		hud.popup.Visible = false;
-		EmitSignal(SignalName.PopUpClosed, action);
-	}
+	// public async void ClosePopUp(string action, bool overrideWait)
+	// {
+	// 	hud.popupText.Modulate = new Color(0, 1, 0);
+	// 	inPopup = false;
+	// 	awaitedAction = "";
+	// 	if (!overrideWait) await ToSignal(GetTree().CreateTimer(1.5), "timeout");
+	// 	hud.popup.Visible = false;
+	// 	EmitSignal(SignalName.PopUpClosed, action);
+	// }
 
 	public void ShowTooltip(ItemData item)
 	{
@@ -408,9 +404,9 @@ public partial class Global : Node
 		currentDialogueStep = 0;
 		hud.dialogueName.Text = name;
 		AnimateDialogue(dialogueText[0]);
-		hud.dialogue.Visible = true;	
+		hud.dialogue.Visible = true;
 	}
-	
+
 
 	private async void AnimateDialogue(string text)
 	{
@@ -435,14 +431,14 @@ public partial class Global : Node
 		{
 			animatingDialogue = false;
 			hud.dialogueText.Text = currentDialogue[currentDialogueStep];
-		} 
+		}
 		else
 		{
 			if (currentDialogueStep == currentDialogue.Length - 1)
 			{
 				CloseDialogue();
 				return;
-			} 
+			}
 			currentDialogueStep++;
 			AnimateDialogue(currentDialogue[currentDialogueStep]);
 		}
@@ -462,20 +458,6 @@ public partial class Global : Node
 		EmitSignal(SignalName.DialogueFinished);
 	}
 
-	public void IncrementPlayerHealth(float value)
-	{
-		if (dead) return;
-		currentPlayerHealth = Mathf.Clamp(currentPlayerHealth + value, 0, player.attributeData.playerAttributes[AttributeType.Health].Value);
-		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
-		if (currentPlayerHealth <= 0) Die();
-	}
-
-	public void SetPlayerHealth(float value)
-	{
-		currentPlayerHealth = Mathf.Clamp(value, 0, player.attributeData.playerAttributes[AttributeType.Health].Value);
-		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.HealthChanged);
-		if (currentPlayerHealth <= 0) Die();
-	}
 	// public Damage GetPlayerDamage()
 	// {
 	// 	//base damage
@@ -503,33 +485,31 @@ public partial class Global : Node
 
 	public void PlaySound3D(Vector3 position, AudioStream audio)
 	{
-		if (!sfx) return;
-		AudioStreamPlayer3D p = new() {Stream = audio};
+		AudioStreamPlayer3D p = new() { Stream = audio };
 		p.VolumeDb = Mathf.LinearToDb(0.25f);
 		p.Finished += () => RemoveAudio3D(p);
 		AddChild(p);
 		p.Position = position;
 		p.Play();
 	}
-	public static void RemoveAudio3D(AudioStreamPlayer3D player) {player.QueueFree();}
+	public static void RemoveAudio3D(AudioStreamPlayer3D player) { player.QueueFree(); }
 
 	public void PlaySound2D(AudioStream audio)
 	{
-		if (!sfx) return;
-		AudioStreamPlayer2D player = new() {Stream = audio};
+		AudioStreamPlayer2D player = new() { Stream = audio };
 		player.Finished += () => RemoveAudio2D(player);
 		AddChild(player);
 		player.Play();
 	}
-	public static void RemoveAudio2D(AudioStreamPlayer2D player) {player.QueueFree();}
+	public static void RemoveAudio2D(AudioStreamPlayer2D player) { player.QueueFree(); }
 
-	public void PlayMusic()
-	{
-		musicPlayer.Stream = music;
-		musicPlayer.Play();
-	}
+	// public void PlayMusic()
+	// {
+	// 	musicPlayer.Stream = music;
+	// 	musicPlayer.Play();
+	// }
 
-	public void PauseMusic() => musicPlayer.StreamPaused = true;
-	public void ResumeMusic() => musicPlayer.StreamPaused = false;
+	// public void PauseMusic() => musicPlayer.StreamPaused = true;
+	// public void ResumeMusic() => musicPlayer.StreamPaused = false;
 
 }

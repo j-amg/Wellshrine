@@ -1,8 +1,0 @@
-using Godot;
-using System;
-
-public partial interface IDamageable
-{
-	float Health {get; set;}
-	void Damage(Damage damage);
-}

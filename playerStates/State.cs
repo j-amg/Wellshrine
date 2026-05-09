@@ -9,9 +9,17 @@ public partial class State : Node
 
 	public dynamic owningEntity;
 
-	public override void _Ready() => owningEntity = Owner;
+	public override void _Ready()
+	{
+		if (Owner is Entity e)
+		{
+			owningEntity = e;
+		}
+		else GD.PrintErr("state attached to non-entity");
 
-    public virtual void Enter()
+	}
+
+	public virtual void Enter()
 	{
 		return;
 	}

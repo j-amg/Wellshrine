@@ -8,7 +8,7 @@ public partial class Hud : Control
     [Export]
     public Label healthLabel;
     [Export]
-	public Label zoneLabel;
+    public Label zoneLabel;
     [Export]
     public Label objectiveLabel;
     [Export]
@@ -42,21 +42,15 @@ public partial class Hud : Control
 
     public override void _Ready()
     {
-        SignalManager.Singleton.playerDamageTaken += OnDamageTaken;
-        SignalManager.Singleton.HealthChanged += OnHealthChanged;
+        //Global.Singleton.player.DamageTaken += OnDamageTaken;
+        Global.Singleton.player.HealthChanged += OnPlayerHealthChanged;
+        Global.Singleton.player.DamageExecuted += OnPlayerDamageExecuted;
         SignalManager.Singleton.attackChargeUpdated += OnAttackChargeUpdated;
-        UpdateHealth();
     }
 
-    public void OnAttackChargeUpdated(float value)
-    {
-        attackChargeIndicator.Value = value;
-    }
+    private void OnPlayerDamageExecuted(Damage d) => FlashCrossHair();
 
-    private void OnZoneObjectiveComplete(Zone zone)
-    {
-        objectiveLabel.Text = "Objective: " + zone.objective.ToString();
-    }
+    public void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
     private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);
 
@@ -64,40 +58,44 @@ public partial class Hud : Control
     {
         zoneLabel.Text = "Zone: " + Global.Singleton.currentLevel.ToString();
         objectiveLabel.Text = zone.objective == null ? "" : "Objective: " + zone.objective.ToString();
-        UpdateHealth();
     }
 
-    private void OnHealthChanged() => UpdateHealth();
-
-    public void UpdateHealth()
+    private void OnZoneObjectiveComplete(Zone zone)
     {
-        healthBar.MaxValue = Global.Singleton.player.attributeData.playerAttributes[AttributeType.Health].Value;
-        healthBar.Value = Global.Singleton.currentPlayerHealth;
-        healthLabel.Text = "HP: " +  Mathf.Round(Global.Singleton.currentPlayerHealth) + "/" + Global.Singleton.player.attributeData.playerAttributes[AttributeType.Health].Value;
+        objectiveLabel.Text = "Objective: " + zone.objective.ToString();
     }
 
-    private void OnDamageTaken()
+    private void OnPlayerHealthChanged(Entity player) => UpdateHealth(player);
+
+    public void UpdateHealth(Entity player)
+    {
+        healthBar.MaxValue = player.attributeData.Attributes[AttributeType.Health].Value;
+        healthBar.Value = player.Health;
+        healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.Attributes[AttributeType.Health].Value;
+    }
+
+    private void OnDamageTaken(Damage d)
     {
         Tween tween = CreateTween();
-        tween.TweenProperty(healthLabel, "modulate", new Color(1,1,1), .25f).From(new Color(1,0,0));
+        tween.TweenProperty(healthLabel, "modulate", new Color(1, 1, 1), .25f).From(new Color(1, 0, 0));
         Flash(new Color(1, 0, 0));
     }
 
     public void FlashCrossHair()
     {
-		  Tween tween = GetTree().CreateTween();
-		  tween.TweenProperty(crossHair, "modulate", new Color(0,0,0,0), .2).From(new Color(1,0,0,.5f));
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(crossHair, "modulate", new Color(0, 0, 0, 0), .2).From(new Color(1, 0, 0, .5f));
     }
 
     public void Flash(Color col)
     {
-		  Tween tween = GetTree().CreateTween();
-		  tween.TweenProperty(hitFlash, "modulate", new Color(0,0,0,0), .25).From(col);
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(hitFlash, "modulate", new Color(0, 0, 0, 0), .25).From(col);
     }
 
-    public override void _ExitTree() 
+    public override void _ExitTree()
     {
-        SignalManager.Singleton.HealthChanged -= OnHealthChanged;
+        Global.Singleton.player.HealthChanged -= OnPlayerHealthChanged;
         SignalManager.Singleton.ZoneEntered -= OnZoneEntered;
         SignalManager.Singleton.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
     }

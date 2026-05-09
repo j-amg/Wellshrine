@@ -4,7 +4,7 @@ using Godot;
 
 [GlobalClass]
 public partial class Spell : Resource
-{ 
+{
 
 	public enum SpellTriggerType
 	{
@@ -21,19 +21,19 @@ public partial class Spell : Resource
 	//public Node3D spell;
 	public void Cast(Player player, float spellScale = 1.0f)
 	{
-		
+
 		if (spellScene == null) return;
 		SpellScene spell = spellScene.Instantiate<SpellScene>();
 		GD.Print("cast");
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles
 		{
-			int proj = spell.projectileCount + (int)Global.Singleton.player.attributeData.playerAttributes[AttributeType.ProjCount].Value;
+			int proj = spell.projectileCount + (int)Global.Singleton.player.attributeData.Attributes[AttributeType.ProjCount].Value;
 			for (int i = 0; i < proj; i++)
 			{
 				SpellScene spellInst = spellScene.Instantiate<SpellScene>();
 				spellInst.muzzleVelocity *= spellScale;
-				spellInst.muzzleVelocity *= player.attributeData.playerAttributes[AttributeType.ProjSpeed].Value / 100;
-				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread/2; 
+				spellInst.muzzleVelocity *= player.attributeData.Attributes[AttributeType.ProjSpeed].Value / 100;
+				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread / 2;
 				Transform3D t = player.head.GlobalTransform.RotatedLocal(Vector3.Up, Mathf.DegToRad(rotationOffset));
 				Global.Singleton.AddToScene(spellInst, t);
 			}
@@ -41,6 +41,6 @@ public partial class Spell : Resource
 		else
 		{
 			Global.Singleton.AddToScene(spell, player.head.GlobalTransform);
-		}	
+		}
 	}
 }

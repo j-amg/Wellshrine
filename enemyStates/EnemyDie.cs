@@ -17,8 +17,8 @@ public partial class EnemyDie : State
     public async void DeathDelay()
     {
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(owningEntity.sprite, "modulate", new Color(0,0,0,0), 1);
+        tween.TweenProperty(owningEntity.sprite, "modulate", new Color(0, 0, 0, 0), 1);
         await ToSignal(GetTree().CreateTimer(1), "timeout");
-        owningEntity.Die();
+        owningEntity.RemoveFromScene();
     }
 }

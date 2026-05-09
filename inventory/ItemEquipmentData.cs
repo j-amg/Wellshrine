@@ -7,7 +7,7 @@ using Godot.Collections;
 public partial class ItemEquipmentData : ItemData
 {
 	[Export] public int level = 1;
-	
+
 	[Export] public ItemAffix _implicit;
 	[Export] public ItemAffix prefix;
 	[Export] public ItemAffix suffix;
@@ -18,7 +18,7 @@ public partial class ItemEquipmentData : ItemData
 			if (affix != null)
 			{
 				affix.attributeModifier.Source = this;
-				player.attributeData.playerAttributes[affix.TargetType].AddModifier(affix.attributeModifier);
+				player.attributeData.Attributes[affix.TargetType].AddModifier(affix.attributeModifier);
 			}
 
 		}
@@ -30,7 +30,7 @@ public partial class ItemEquipmentData : ItemData
 		{
 			if (affix != null)
 			{
-			player.attributeData.playerAttributes[affix.TargetType].RemoveAllModifiersFromSource(this);
+				player.attributeData.Attributes[affix.TargetType].RemoveAllModifiersFromSource(this);
 			}
 		}
 	}

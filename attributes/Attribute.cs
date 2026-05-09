@@ -4,10 +4,10 @@ using Godot;
 using Godot.Collections;
 
 [GlobalClass]
-public partial class PlayerAttribute : Resource
+public partial class Attribute : Resource
 {
     [Signal] public delegate void AttributesUpdatedEventHandler();
-    public readonly float BaseValue;
+    protected float BaseValue;
     private readonly List<AttributeModifier> attributeModifiers;
     private bool isDirty = true;
     private float _value;
@@ -28,7 +28,14 @@ public partial class PlayerAttribute : Resource
         }
     }
 
-    public PlayerAttribute(float baseValue)
+    public void SetBaseValue(float value)
+    {
+        isDirty = true;
+        BaseValue = value;
+        EmitSignal(SignalName.AttributesUpdated);
+    }
+
+    public Attribute(float baseValue)
     {
         BaseValue = baseValue;
         attributeModifiers = [];
@@ -46,8 +53,8 @@ public partial class PlayerAttribute : Resource
 
     private int CompareModifierOrder(AttributeModifier a, AttributeModifier b)
     {
-        if (a.Order < b.Order) {return -1;}
-        else if (a.Order > b.Order){ return 1;}
+        if (a.Order < b.Order) { return -1; }
+        else if (a.Order > b.Order) { return 1; }
         return 0;
     }
 
@@ -55,7 +62,7 @@ public partial class PlayerAttribute : Resource
     {
         GD.Print("removed modifier");
         isDirty = true;
-        
+
 
         if (attributeModifiers.Remove(mod))
         {
@@ -100,12 +107,12 @@ public partial class PlayerAttribute : Resource
                 sumPercentAdd += attributeModifiers[i].Value;
                 if (i + 1 >= attributeModifiers.Count || attributeModifiers[i + 1].ModType != AttributeModType.PercentAdd)
                 {
-                    finalValue *= 1 + sumPercentAdd/100;
+                    finalValue *= 1 + sumPercentAdd / 100;
                 }
             }
             else if (attributeModifiers[i].ModType == AttributeModType.PercentMult)
             {
-                finalValue *= 1 + attributeModifiers[i].Value/100;
+                finalValue *= 1 + attributeModifiers[i].Value / 100;
             }
         }
         return (float)MathF.Round(finalValue, 4);
