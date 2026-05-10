@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://76kdhe4pda4f"]
 
 [ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_mdvr3"]
-[ext_resource type="Script" path="res://enemies/Chaser.cs" id="2_iwobo"]
-[ext_resource type="Script" path="res://enemyStates/EnemyChase.cs" id="3_qyiik"]
-[ext_resource type="Script" path="res://enemyStates/EnemyIdle.cs" id="4_jo8ps"]
-[ext_resource type="Script" path="res://enemyStates/ChaserAttack.cs" id="5_e577w"]
-[ext_resource type="Script" path="res://enemyStates/EnemyDie.cs" id="6_c45yr"]
+[ext_resource type="Script" uid="uid://cq1y7p2amsar6" path="res://enemies/Chaser.cs" id="2_iwobo"]
+[ext_resource type="Script" uid="uid://dporcj315e0dn" path="res://enemyStates/EnemyChase.cs" id="3_qyiik"]
+[ext_resource type="Script" uid="uid://bmi4iddtk3dpd" path="res://enemyStates/EnemyIdle.cs" id="4_jo8ps"]
+[ext_resource type="Script" uid="uid://dgr7lsyqa6kq1" path="res://enemyStates/ChaserAttack.cs" id="5_e577w"]
+[ext_resource type="Script" uid="uid://bvs3plagd8bj7" path="res://enemyStates/EnemyDie.cs" id="6_c45yr"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gcvlr"]
 viewport_path = NodePath("SubViewport")

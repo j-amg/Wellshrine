@@ -6,7 +6,7 @@ public partial class StateMachine : Node
 {
 	[Export]
 	public State current_state;
-	private Dictionary<StringName, State> states = new();
+	public Dictionary<StringName, State> states = [];
 	public override void _Ready()
 	{
 		foreach (Node child in GetChildren())
@@ -16,17 +16,19 @@ public partial class StateMachine : Node
 				states.Add(state.Name, state);
 				state.transition += OnChildTransition;
 			}
-			else GD.PrintErr("State Machine contains incompatible child node");
+			else GD.PrintErr("State Machine contains incompatible child node: " + child.Name);
 		}
-		current_state.Enter();
+		current_state?.Enter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) => current_state.Update(delta);
+	public override void _PhysicsProcess(double delta)
+	{
+		if (current_state != null) current_state.Update(delta);
+	}
 
 	private void OnChildTransition(StringName state)
 	{
-		if (Owner is Player) Global.Singleton.SetAction(state);
 		State new_state = states[state];
 		if (new_state != null)
 		{

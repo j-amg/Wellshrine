@@ -1,0 +1,20 @@
+{
+    "opalRing": {
+        "name": "Opal Ring",
+        "implicitID": "flatStr",
+        "description": "A shimmering Ring",
+        "rollWeight": 0.5,
+        "accWeight": 0.0,
+        "type": "equipment",
+        "subType": "Ring"
+    },
+    "key": {
+        "name": "Key",
+        "description": "It must lead somewhere",
+        "destination": "KillZone2",
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "key",
+        "subType": "key"
+    }
+}

@@ -5,14 +5,16 @@ public partial class JumpState : State
 {
     public override void Enter()
     {
-        owner.UpdateInput(owner.currentSpeed, 1, owner.deceleration);
-        Vector3 vel = owner.velocity;
-        vel.Y += 5;
-        owner.velocity = vel;
+        owningEntity.currentJump++;
+        owningEntity.UpdateInput(owningEntity.currentSpeed, 1f, owningEntity.deceleration);
+        Vector3 vel = owningEntity.velocity;
+        vel.Y = 5;
+        owningEntity.velocity = vel;
+        owningEntity.JumpAnim();
     }
     public override void Update(double delta)
 	{
-        owner.UpdateVelocity();
+        owningEntity.UpdateVelocity();
 		EmitSignal(SignalName.transition, "fall");
 	}
 }

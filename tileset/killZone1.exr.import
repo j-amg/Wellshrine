@@ -1,0 +1,27 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://b0ii3lnwphjw"
+path.bptc="res://.godot/imported/killZone1.exr-ad57f34adc2d89e42d84022a3ee0c961.bptc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://tileset/killZone1.exr"
+dest_files=["res://.godot/imported/killZone1.exr-ad57f34adc2d89e42d84022a3ee0c961.bptc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=1

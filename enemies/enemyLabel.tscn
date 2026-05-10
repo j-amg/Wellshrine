@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmbqu1ogp3vnb"]
+[gd_scene format=3 uid="uid://cmbqu1ogp3vnb"]
 
-[ext_resource type="Script" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
+[ext_resource type="Script" uid="uid://mnwpj33wrkkx" path="res://enemies/EnemyLabel.cs" id="1_kutdu"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_38q3w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1evt3"]
@@ -15,25 +15,26 @@ bg_color = Color(0, 0, 0, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fk17"]
 bg_color = Color(1, 0, 0, 1)
 
-[node name="enemyLabel" type="VBoxContainer" node_paths=PackedStringArray("healthBar", "healthBackground", "nameLabel", "damageLabel")]
+[node name="enemyLabel" type="VBoxContainer" unique_id=102240524 node_paths=PackedStringArray("healthBar", "healthBackground", "nameLabel")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -60.0
-offset_top = -28.0
+offset_top = -11.0
 offset_right = 60.0
-offset_bottom = 28.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 script = ExtResource("1_kutdu")
 healthBar = NodePath("Control/health")
 healthBackground = NodePath("Control/healthBackground")
 nameLabel = NodePath("name")
-damageLabel = NodePath("damage")
 
-[node name="name" type="Label" parent="."]
+[node name="name" type="Label" parent="." unique_id=1614856150]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("2_38q3w")
@@ -41,10 +42,10 @@ text = "[PH] Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1825517563]
 layout_mode = 2
 
-[node name="healthBackground" type="ProgressBar" parent="Control"]
+[node name="healthBackground" type="ProgressBar" parent="Control" unique_id=954973355]
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 2.0
@@ -53,7 +54,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_3es80")
 value = 27.05
 show_percentage = false
 
-[node name="health" type="ProgressBar" parent="Control"]
+[node name="health" type="ProgressBar" parent="Control" unique_id=541442957]
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 2.0
@@ -61,13 +62,3 @@ theme_override_styles/background = SubResource("StyleBoxFlat_xq5re")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4fk17")
 value = 15.89
 show_percentage = false
-
-[node name="damage" type="Label" parent="."]
-modulate = Color(1, 1, 1, 0)
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("2_38q3w")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1

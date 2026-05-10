@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://d10st40p8i6ya"]
+
+[ext_resource type="Script" uid="uid://bnh6127ush7qs" path="res://spells/SpellScene.cs" id="1_yeohp"]
+[ext_resource type="PackedScene" uid="uid://baiqgct2ckogv" path="res://hurt_box.tscn" id="2_47411"]
+[ext_resource type="Texture2D" uid="uid://br7tg1wsqislp" path="res://textures/fire.png" id="2_j6dwe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ox6gx"]
+radius = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8234"]
+atlas = ExtResource("2_j6dwe")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15s50"]
+atlas = ExtResource("2_j6dwe")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kayum"]
+atlas = ExtResource("2_j6dwe")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4nhb"]
+atlas = ExtResource("2_j6dwe")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7bhb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8234")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15s50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kayum")
+}, {
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_a4nhb")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 8.0
+}]
+
+[node name="explosion" type="Node3D" unique_id=1019558157 node_paths=PackedStringArray("sprites", "hurtBox")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_yeohp")
+sprites = NodePath("sprite")
+hurtBox = NodePath("HurtBox")
+
+[node name="HurtBox" parent="." unique_id=2061703199 instance=ExtResource("2_47411")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=475926364]
+shape = SubResource("SphereShape3D_ox6gx")
+
+[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=885207038]
+transform = Transform3D(5.22527, 0, 0, 0, 5.22527, 0, 0, 0, 1, 0, 0, 0)
+modulate = Color(1, 0.592157, 0.384314, 1)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_o7bhb")
+animation = &"explode"
+frame_progress = 0.989055

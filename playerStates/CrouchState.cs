@@ -5,19 +5,23 @@ public partial class CrouchState : State
 {
     public override void Enter()
     {
-        owner.SetCrouch(true);
+        owningEntity.SetCrouch(true);
     }
 
     public override void Exit()
     {
-        owner.SetCrouch(false);
+        owningEntity.SetCrouch(false);
     }
     public override void Update(double delta)
 	{
-        owner.UpdateInput(owner.crouchSpeed, owner.acceleration, owner.deceleration);
-        owner.UpdateVelocity();
+        if (Input.IsActionPressed("Shift"))
+        {
+            owningEntity.UpdateInput(owningEntity.crouchSpeed, 1f, 1);
+        } else owningEntity.UpdateInput(owningEntity.crouchSpeed, owningEntity.acceleration, owningEntity.deceleration);
+        
+        owningEntity.UpdateVelocity();
 		if (Input.IsActionJustReleased("Shift")) EmitSignal(SignalName.transition, "walk");
 		if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "dash");
-        if (!owner.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
+        if (!owningEntity.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
 	}
 }

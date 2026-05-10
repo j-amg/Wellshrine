@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://71n8w0xi8ovv"]
+[gd_scene load_steps=5 format=3 uid="uid://bokxw5jvk4mq1"]
 
 [ext_resource type="Script" path="res://Shrine.cs" id="1_7aram"]
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_yy2na"]
@@ -9,9 +9,10 @@ size = Vector3(0.5, 1.4, 0.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_yr3vb"]
 viewport_path = NodePath("SubViewport")
 
-[node name="shrine" type="StaticBody3D" node_paths=PackedStringArray("magic", "label", "name")]
+[node name="shrine" type="StaticBody3D" node_paths=PackedStringArray("magic", "label", "name") groups=["shrines"]]
 collision_layer = 2
 script = ExtResource("1_7aram")
+magicModulate = null
 magic = NodePath("magic")
 label = NodePath("Sprite3D")
 name = NodePath("SubViewport/Control/Name")

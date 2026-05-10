@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://2urejxveqm6g"]
+
+[ext_resource type="Script" uid="uid://c4ga8uk43sgj2" path="res://inventory/GroundItem.cs" id="1_dgtp1"]
+[ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="2_a60gu"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="3_3idk0"]
+
+[sub_resource type="Resource" id="Resource_l40o6"]
+script = ExtResource("3_3idk0")
+itemData = ExtResource("2_a60gu")
+Quantity = 1
+metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f7mjy"]
+size = Vector3(0.25, 0.630859, 0.25)
+
+[sub_resource type="Gradient" id="Gradient_dgtp1"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6ecyt"]
+gradient = SubResource("Gradient_dgtp1")
+width = 1
+fill_to = Vector2(1, 1)
+
+[node name="groundItem" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 2
+lock_rotation = true
+script = ExtResource("1_dgtp1")
+slotData = SubResource("Resource_l40o6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31543, 0)
+shape = SubResource("BoxShape3D_f7mjy")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+centered = false
+billboard = 2
+texture = SubResource("GradientTexture2D_6ecyt")

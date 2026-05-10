@@ -1,28 +1,44 @@
-[gd_scene load_steps=104 format=3 uid="uid://ynvfesnw1r4j"]
+[gd_scene format=3 uid="uid://ynvfesnw1r4j"]
 
-[ext_resource type="Script" path="res://Player.cs" id="1_4aaio"]
-[ext_resource type="AudioStream" uid="uid://cbbxk1e028a5g" path="res://audio/playerHit.wav" id="2_1f480"]
-[ext_resource type="AudioStream" uid="uid://cvfiyh0pdbnve" path="res://audio/DetonateClick.ogg" id="2_24bn3"]
-[ext_resource type="AudioStream" uid="uid://0hnipyad83jp" path="res://audio/hit.wav" id="3_5t7b0"]
-[ext_resource type="PackedScene" uid="uid://csteklro6et5n" path="res://hud.tscn" id="3_gxljr"]
-[ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
-[ext_resource type="PackedScene" uid="uid://nsl6qu0aey1x" path="res://playerProjectile.tscn" id="3_m032j"]
-[ext_resource type="PackedScene" uid="uid://borqcrf6hrhwi" path="res://iceRay.tscn" id="4_8e1g0"]
+[ext_resource type="Script" uid="uid://b1a5eimv5vqkk" path="res://Player.cs" id="1_4aaio"]
+[ext_resource type="Script" uid="uid://c718s8ymvslfl" path="res://playerStates/StateMachine.cs" id="3_ledpc"]
 [ext_resource type="Texture2D" uid="uid://bsb6n0rva245f" path="res://textures/handsPre2.png" id="4_fhym6"]
-[ext_resource type="Script" path="res://playerStates/IdleState.cs" id="4_fm7o7"]
-[ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="4_quk40"]
-[ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="5_cxwdp"]
-[ext_resource type="Script" path="res://playerStates/WalkState.cs" id="5_iewqs"]
-[ext_resource type="Texture2D" uid="uid://4r8bhpebugsk" path="res://textures/shock.png" id="6_33h25"]
-[ext_resource type="Script" path="res://playerStates/FallState.cs" id="7_l7400"]
-[ext_resource type="AudioStream" uid="uid://cx2jdni8pgpmb" path="res://audio/playerCast.wav" id="7_xtdqc"]
-[ext_resource type="AudioStream" uid="uid://ieibq6gst28v" path="res://audio/playerCastFire.wav" id="8_2rq05"]
-[ext_resource type="Script" path="res://playerStates/JumpState.cs" id="8_883gc"]
-[ext_resource type="Script" path="res://playerStates/GlideState.cs" id="9_5x1gy"]
-[ext_resource type="AudioStream" uid="uid://dp1vbu08u4rp2" path="res://audio/playerCastShock.wav" id="9_c4g0j"]
-[ext_resource type="Script" path="res://playerStates/DashState.cs" id="10_23kto"]
-[ext_resource type="Script" path="res://playerStates/CrouchState.cs" id="11_ptp12"]
-[ext_resource type="Script" path="res://playerStates/SlideState.cs" id="12_2347s"]
+[ext_resource type="Script" uid="uid://c7443ylulskxk" path="res://playerStates/IdleState.cs" id="4_fm7o7"]
+[ext_resource type="Script" uid="uid://dh12q4jbu5mxt" path="res://playerStates/WalkState.cs" id="5_iewqs"]
+[ext_resource type="Script" uid="uid://chspmb1u16h8w" path="res://playerStates/FallState.cs" id="7_l7400"]
+[ext_resource type="Script" uid="uid://d0i6knv3yvff1" path="res://playerStates/JumpState.cs" id="8_883gc"]
+[ext_resource type="Script" uid="uid://dbwowsda3pye2" path="res://playerStates/GlideState.cs" id="9_5x1gy"]
+[ext_resource type="Resource" uid="uid://b1uqq1wreddj6" path="res://inventory/inventories/playerInventory.tres" id="10_7ahtn"]
+[ext_resource type="Script" uid="uid://deqea7uxt7sc0" path="res://playerStates/DashState.cs" id="10_23kto"]
+[ext_resource type="Script" uid="uid://b8jdrnspdg31c" path="res://playerStates/CrouchState.cs" id="11_ptp12"]
+[ext_resource type="Resource" uid="uid://d07fpovbgwmm1" path="res://inventory/inventories/equipmentInventory1.tres" id="11_qtqh7"]
+[ext_resource type="Resource" uid="uid://n81oqkgdfi4y" path="res://inventory/inventories/equipmentInventory2.tres" id="12_2wuci"]
+[ext_resource type="Script" uid="uid://bytrb3br8jnmk" path="res://playerStates/SlideState.cs" id="12_2347s"]
+[ext_resource type="Resource" uid="uid://cer33xkt0pkma" path="res://inventory/inventories/equipmentInventory3.tres" id="13_iruf7"]
+[ext_resource type="Resource" uid="uid://d2kvgci7gguif" path="res://inventory/inventories/equipmentInventory4.tres" id="14_j5n4i"]
+[ext_resource type="Resource" uid="uid://di7r3epp7kckd" path="res://inventory/inventories/equipmentInventory5.tres" id="15_634y6"]
+[ext_resource type="Resource" uid="uid://bfjh0o1ngodbi" path="res://inventory/inventories/equipmentInventory6.tres" id="16_hiqhm"]
+[ext_resource type="Resource" uid="uid://cia7abkugycie" path="res://inventory/inventories/equipmentInventory7.tres" id="17_hiqhm"]
+[ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="17_iruf7"]
+[ext_resource type="Script" uid="uid://rb1ho8gvc7cc" path="res://inventory/SpellData.cs" id="17_j5n4i"]
+[ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="18_hiqhm"]
+[ext_resource type="Resource" uid="uid://dna06uq7wexm5" path="res://inventory/inventories/equipmentInventory8.tres" id="18_tkwlq"]
+[ext_resource type="Resource" uid="uid://cfu0olcal4q1b" path="res://inventory/inventories/equipmentInventory9.tres" id="19_hl5qd"]
+[ext_resource type="Resource" uid="uid://d4ga47kkhgwi2" path="res://inventory/inventories/equipmentInventory10.tres" id="20_ek41f"]
+[ext_resource type="PackedScene" uid="uid://cgfvb4oan3q57" path="res://hand_anims.tscn" id="23_hiqhm"]
+[ext_resource type="Script" uid="uid://bqksdka4eova" path="res://playerStates/WallJumpState.cs" id="24_dx0e4"]
+[ext_resource type="Script" uid="uid://cfst81pl80tll" path="res://playerStates/AttackStateMachine.cs" id="31_efrwb"]
+[ext_resource type="Script" uid="uid://chchj2cpobv6t" path="res://playerStates/ChargeAttackState.cs" id="32_hiqhm"]
+[ext_resource type="Script" uid="uid://inx1r7u58olb" path="res://playerStates/IdleAttackState.cs" id="33_tkwlq"]
+
+[sub_resource type="Resource" id="Resource_efrwb"]
+script = ExtResource("17_j5n4i")
+metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
+
+[sub_resource type="Resource" id="Resource_hiqhm"]
+script = ExtResource("17_iruf7")
+baseMaxHealth = 200.0
+metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
 atlas = ExtResource("4_fhym6")
@@ -561,71 +577,43 @@ animations = [{
 "speed": 4.0
 }]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_jx2ko"]
-height = 30.0
-radius = 0.05
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_ugj77"]
-radius = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdrj7"]
-atlas = ExtResource("6_33h25")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1eikx"]
-atlas = ExtResource("6_33h25")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_obw6g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qdrj7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1eikx")
-}],
-"loop": true,
-"name": &"cycle",
-"speed": 10.0
-}]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dx0e4"]
+radius = 1.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1bg2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("stateMachine", "lookRay", "body", "head", "camera", "hud", "hands", "handSprite", "standCollision", "crouchCollision", "iceCollision", "shockCollision")]
+[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("attackStateMachine", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection", "stateMachine", "lookRay", "animationPlayer") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
-damageTakenSound = ExtResource("2_1f480")
-damageDealtSound = ExtResource("3_5t7b0")
-critDealtSound = ExtResource("2_24bn3")
-stateMachine = NodePath("statemachine")
-lookRay = NodePath("body/head/Camera3D/lookRay")
+attackStateMachine = NodePath("attackstatemachine")
 body = NodePath("body")
 head = NodePath("body/head")
 camera = NodePath("body/head/Camera3D")
-hud = NodePath("body/head/Camera3D/CanvasLayer/hud")
 hands = NodePath("body/hands")
 handSprite = NodePath("body/hands/handSprite")
+hands3D = NodePath("body/hands/handAnims")
 standCollision = NodePath("standCollision")
 crouchCollision = NodePath("crouchCollision")
-iceCollision = NodePath("body/head/Camera3D/iceSpikeCollision")
-shockCollision = NodePath("body/head/Camera3D/shockBladeCollision")
-fireball = ExtResource("3_m032j")
-iceray = ExtResource("4_8e1g0")
-castFire = ExtResource("8_2rq05")
-castIce = ExtResource("7_xtdqc")
-castShock = ExtResource("9_c4g0j")
+wallDetection = NodePath("wallDetection")
+inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"), ExtResource("12_2wuci"), ExtResource("13_iruf7"), ExtResource("14_j5n4i"), ExtResource("15_634y6"), ExtResource("16_hiqhm"), ExtResource("17_hiqhm"), ExtResource("18_tkwlq"), ExtResource("19_hl5qd"), ExtResource("20_ek41f")])
+spellData = SubResource("Resource_efrwb")
+name = "Player"
+stateMachine = NodePath("statemachine")
+attributeData = SubResource("Resource_hiqhm")
+lookRay = NodePath("body/head/Camera3D/lookRay")
+animationPlayer = NodePath("AnimationPlayer")
 
-[node name="body" type="Node3D" parent="."]
+[node name="body" type="Node3D" parent="." unique_id=1837535204]
 
-[node name="hands" type="Node3D" parent="body"]
+[node name="hands" type="Node3D" parent="body" unique_id=1040720314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="handSprite" type="AnimatedSprite3D" parent="body/hands"]
+[node name="handSprite" type="AnimatedSprite3D" parent="body/hands" unique_id=2122552752]
 transform = Transform3D(-0.49, 0, 1.74846e-08, 0, 0.49, 0, -4.28372e-08, 0, -0.2, 0, -0.376, -0.39)
+visible = false
 flip_h = true
 no_depth_test = true
 texture_filter = 0
@@ -634,88 +622,79 @@ sprite_frames = SubResource("SpriteFrames_p25tb")
 animation = &"idle"
 frame_progress = 0.155568
 
-[node name="head" type="Node3D" parent="body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="handAnims" parent="body/hands" unique_id=1277898777 instance=ExtResource("23_hiqhm")]
+transform = Transform3D(-0.1, 0, 8.74228e-09, 0, 0.1, 0, -8.74228e-09, 0, -0.1, 0, -1.2259, 0.0709478)
 
-[node name="Camera3D" type="Camera3D" parent="body/head"]
+[node name="head" type="Node3D" parent="body" unique_id=823234222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989172, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="body/head/Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="body/head" unique_id=1638490454]
+transform = Transform3D(0.999999, -0.00117631, 0.000612828, 0.00117667, 0.999999, -0.000582086, -0.000612127, 0.000582823, 1, 0, 0, 0)
 
-[node name="hud" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("3_gxljr")]
-
-[node name="pause" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("4_quk40")]
-visible = false
-
-[node name="deathScreen" parent="body/head/Camera3D/CanvasLayer" instance=ExtResource("5_cxwdp")]
-visible = false
-
-[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D"]
+[node name="lookRay" type="RayCast3D" parent="body/head/Camera3D" unique_id=1297873626]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -50, 0)
-collision_mask = 262
+collision_mask = 278
+collide_with_areas = true
 
-[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D"]
+[node name="SpotLight3D" type="SpotLight3D" parent="body/head/Camera3D" unique_id=1645671058]
 spot_range = 15.0
 
-[node name="iceSpikeCollision" type="Area3D" parent="body/head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
-collision_layer = 9
-collision_mask = 12
+[node name="wallDetection" type="Area3D" parent="." unique_id=461377942]
+collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="body/head/Camera3D/iceSpikeCollision"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -15.0386)
-shape = SubResource("CylinderShape3D_jx2ko")
+[node name="wallDetectionCollision" type="CollisionShape3D" parent="wallDetection" unique_id=652072256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_dx0e4")
 
-[node name="shockBladeCollision" type="Area3D" parent="body/head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
-collision_layer = 9
-collision_mask = 12
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="body/head/Camera3D/shockBladeCollision"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2.5334)
-shape = SubResource("SphereShape3D_ugj77")
-
-[node name="shock" type="AnimatedSprite3D" parent="body/head/Camera3D"]
-transform = Transform3D(5.082, 0, 0, 0, 5.082, 0, 0, 0, 1, -0.00750744, 0, -2.79227)
-modulate = Color(1, 1, 1, 0)
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_obw6g")
-animation = &"cycle"
-frame_progress = 0.636001
-
-[node name="standCollision" type="CollisionShape3D" parent="."]
+[node name="standCollision" type="CollisionShape3D" parent="." unique_id=760973979]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b1bg2")
 
-[node name="crouchCollision" type="CollisionShape3D" parent="."]
+[node name="crouchCollision" type="CollisionShape3D" parent="." unique_id=456915986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_xybr4")
 disabled = true
 
-[node name="statemachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+[node name="statemachine" type="Node" parent="." unique_id=693906899 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_ledpc")
 current_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="statemachine"]
+[node name="idle" type="Node" parent="statemachine" unique_id=112249201]
 script = ExtResource("4_fm7o7")
 
-[node name="walk" type="Node" parent="statemachine"]
+[node name="walk" type="Node" parent="statemachine" unique_id=1340247907]
 script = ExtResource("5_iewqs")
 
-[node name="fall" type="Node" parent="statemachine"]
+[node name="fall" type="Node" parent="statemachine" unique_id=1039644736]
 script = ExtResource("7_l7400")
 
-[node name="jump" type="Node" parent="statemachine"]
+[node name="jump" type="Node" parent="statemachine" unique_id=96273315]
 script = ExtResource("8_883gc")
 
-[node name="glide" type="Node" parent="statemachine"]
+[node name="glide" type="Node" parent="statemachine" unique_id=202929770]
 script = ExtResource("9_5x1gy")
 
-[node name="dash" type="Node" parent="statemachine"]
+[node name="dash" type="Node" parent="statemachine" unique_id=1316703999]
 script = ExtResource("10_23kto")
 
-[node name="crouch" type="Node" parent="statemachine"]
+[node name="crouch" type="Node" parent="statemachine" unique_id=1778742672]
 script = ExtResource("11_ptp12")
 
-[node name="slide" type="Node" parent="statemachine"]
+[node name="slide" type="Node" parent="statemachine" unique_id=149591266]
 script = ExtResource("12_2347s")
+
+[node name="walljump" type="Node" parent="statemachine" unique_id=193547728]
+script = ExtResource("24_dx0e4")
+
+[node name="attackstatemachine" type="Node" parent="." unique_id=137141887 node_paths=PackedStringArray("current_state")]
+script = ExtResource("31_efrwb")
+current_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="attackstatemachine" unique_id=262621731]
+script = ExtResource("33_tkwlq")
+
+[node name="charge" type="Node" parent="attackstatemachine" unique_id=1118703874]
+script = ExtResource("32_hiqhm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2069137649]

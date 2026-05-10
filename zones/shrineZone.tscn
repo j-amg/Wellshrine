@@ -1,17 +1,17 @@
 [gd_scene load_steps=13 format=3 uid="uid://cjfaruvqiqlsa"]
 
-[ext_resource type="Script" path="res://zones/ShrineZone.cs" id="1_ybmgi"]
-[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_anyo3"]
+[ext_resource type="Script" uid="uid://x4gf8wdv2nw7" path="res://zones/ShrineZone.cs" id="1_ybmgi"]
+[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="2_anyo3"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_w4jal"]
-[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_73uy1"]
-[ext_resource type="PackedScene" uid="uid://brt67t3q73a3u" path="res://buffShrine.tscn" id="6_hykga"]
+[ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://zones/zoneComponents/door.tscn" id="5_73uy1"]
+[ext_resource type="PackedScene" uid="uid://brt67t3q73a3u" path="res://zones/zoneComponents/buffShrine.tscn" id="6_hykga"]
 [ext_resource type="AudioStream" uid="uid://frexyqnax0wh" path="res://audio/heartPickup.wav" id="6_k68bx"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_n3ams"]
-[ext_resource type="PackedScene" uid="uid://dm5fruxngcou4" path="res://wellShrine.tscn" id="7_w4oj1"]
+[ext_resource type="PackedScene" uid="uid://dm5fruxngcou4" path="res://zones/zoneComponents/wellShrine.tscn" id="7_w4oj1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i3c0g"]
 shader = ExtResource("2_anyo3")
-shader_parameter/skyColour = null
+shader_parameter/skyColour = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_5mlvb"]
 sky_material = SubResource("ShaderMaterial_i3c0g")

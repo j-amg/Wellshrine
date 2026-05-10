@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://ce873amapvq4t"]
+
+[ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="1_0u8sy"]
+[ext_resource type="MeshLibrary" uid="uid://bmr3mmia4sh4u" path="res://tileset/collisionTile.tres" id="2_8cgdu"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_8cgdu"]
+vertices = PackedVector3Array(-3.5, 0.5, 2.5, -3.5, 0.5, 5.5, -1.75, 0.5, 5.5, -1.75, 0.5, 2.5, 1.5, 0.5, 5.75, 3.5, 0.5, 5.5, 3.5, 0.5, 2.5, 1.5, 0.5, 2.25, -1.5, 0.5, 7.5, 1.5, 0.5, 7.5, -1.5, 0.5, 0.5, 1.5, 0.5, 0.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 2), PackedInt32Array(7, 2, 3), PackedInt32Array(9, 8, 4), PackedInt32Array(4, 8, 2), PackedInt32Array(11, 7, 10), PackedInt32Array(10, 7, 3)]
+agent_max_slope = 60.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_msttt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0u8sy"]
+size = Vector3(8, 4, 8)
+
+[node name="Node3D" type="Node3D" unique_id=95459796]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1326492756]
+navigation_mesh = SubResource("NavigationMesh_8cgdu")
+
+[node name="GridMap" type="GridMap" parent="NavigationRegion3D" unique_id=1526750525]
+mesh_library = ExtResource("1_0u8sy")
+collision_layer = 2
+collision_mask = 15
+data = {
+"cells": PackedInt32Array(-1, 0, 1441792, -65536, 0, 1441792, -65536, 1, 1441792, -65536, 2, 1441792, -65536, 3, 1441792, -65535, 2, 1441792, -1, 2, 1441792, -1, 3, 1441792, -65535, 1, 1441792, -1, 1, 1441792, -2, 2, 1441792, -2, 1, 1441792, 65534, 0, 9, 65534, 3, 9, 1, 3, 9, 1, 0, 9, 131070, 1, 19, 131070, 2, 19, 131071, 1, 19, 131071, 0, 19, 65536, 0, 19, 65536, 1, 19, 65537, 1, 19, 65537, 2, 19, 65536, 2, 19, 131071, 2, 19, 131071, 3, 19, 65536, 3, 19)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="connectionPoints" type="Node3D" parent="." unique_id=1905166739]
+
+[node name="connectionPoint5" type="MeshInstance3D" parent="connectionPoints" unique_id=554492103 groups=["roomConnectors"]]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -4, 0, 4)
+mesh = SubResource("PrismMesh_msttt")
+skeleton = NodePath("../..")
+
+[node name="connectionPoint6" type="MeshInstance3D" parent="connectionPoints" unique_id=486524842 groups=["roomConnectors"]]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 8)
+mesh = SubResource("PrismMesh_msttt")
+skeleton = NodePath("../..")
+
+[node name="connectionPoint7" type="MeshInstance3D" parent="connectionPoints" unique_id=817536557 groups=["roomConnectors"]]
+transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, 4, 0, 4)
+mesh = SubResource("PrismMesh_msttt")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1309612006]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1834487566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+shape = SubResource("BoxShape3D_0u8sy")
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1197291935]
+visible = false
+mesh_library = ExtResource("2_8cgdu")
+data = {
+"cells": PackedInt32Array(65535, 0, 0, 65535, 1, 0, 0, 1, 0, 0, 0, 0, 65534, 0, 0, 65534, 1, 0, 65534, 2, 0, 65534, 3, 0, 131070, 0, 0, 131070, 1, 0, 131070, 2, 0, 131070, 3, 0, 65535, 2, 0, 65535, 3, 0, 131071, 0, 0, 131071, 1, 0, 131071, 2, 0, 131071, 3, 0, 0, 2, 0, 0, 3, 0, 65536, 0, 0, 65536, 1, 0, 65536, 2, 0, 65536, 3, 0, 196606, 0, 0, 196606, 1, 0, 196606, 2, 0, 196606, 3, 0, 262142, 0, 0, 262142, 1, 0, 262142, 2, 0, 262142, 3, 0, 196607, 0, 0, 196607, 1, 0, 196607, 2, 0, 196607, 3, 0, 262143, 0, 0, 262143, 1, 0, 262143, 2, 0, 262143, 3, 0, 131072, 0, 0, 131072, 1, 0, 131072, 2, 0, 131072, 3, 0, 196608, 0, 0, 196608, 1, 0, 196608, 2, 0, 196608, 3, 0, 1, 0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 65537, 0, 0, 65537, 1, 0, 65537, 2, 0, 65537, 3, 0, 131073, 0, 0, 131073, 1, 0, 131073, 2, 0, 131073, 3, 0, 196609, 0, 0, 196609, 1, 0, 196609, 2, 0, 196609, 3, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)

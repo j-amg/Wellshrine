@@ -1,0 +1,139 @@
+[gd_scene load_steps=17 format=3 uid="uid://dcjgbshr51onj"]
+
+[ext_resource type="Script" uid="uid://csvcx33snko2j" path="res://zones/zoneComponents/NPC.cs" id="1_acsdh"]
+[ext_resource type="Texture2D" uid="uid://cob3eixxiyvhm" path="res://textures/skeletonFull.png" id="2_7o3jx"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_e858n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lwxmy"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1tre"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(0, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8ycp"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(128, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k8ce"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(256, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhskt"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(384, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0uw8"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(512, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idr32"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(640, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwt0e"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(768, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyr8f"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(896, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovrrp"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(1024, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_382qd"]
+atlas = ExtResource("2_7o3jx")
+region = Rect2(1152, 384, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1lc6q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1tre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8ycp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k8ce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhskt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0uw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idr32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwt0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyr8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovrrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_382qd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eimih"]
+
+[node name="NPC" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "labelSprite")]
+collision_layer = 256
+script = ExtResource("1_acsdh")
+displayName = "ShrineKeeper"
+sprite = NodePath("sprite")
+labelSprite = NodePath("labelSprite")
+
+[node name="labelSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_lwxmy")
+
+[node name="sprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
+modulate = Color(1, 0.827451, 0.619608, 1)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_1lc6q")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_eimih")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Control" type="VBoxContainer" parent="SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -25.0
+offset_right = 41.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Name" type="Label" parent="SubViewport/Control"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_e858n")
+text = "ShrineKeeper"
+horizontal_alignment = 1

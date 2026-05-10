@@ -1,13 +1,14 @@
-[gd_scene load_steps=43 format=3 uid="uid://dd8wa6hb2kxrf"]
+[gd_scene format=3 uid="uid://dd8wa6hb2kxrf"]
 
-[ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
+[ext_resource type="Script" uid="uid://dg5g67kfh35se" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="AudioStream" uid="uid://6ddic02qoid2" path="res://audio/walk.wav" id="2_a4emi"]
 [ext_resource type="PackedScene" uid="uid://cmbqu1ogp3vnb" path="res://enemies/enemyLabel.tscn" id="3_dee20"]
 [ext_resource type="AudioStream" uid="uid://0a4i2x2n2hws" path="res://audio/enemyCast.wav" id="3_qy31j"]
 [ext_resource type="Texture2D" uid="uid://cob3eixxiyvhm" path="res://textures/skeletonFull.png" id="3_xwbua"]
-[ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
+[ext_resource type="Script" uid="uid://c718s8ymvslfl" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
+height = 1.75
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_518ow"]
 atlas = ExtResource("3_xwbua")
@@ -281,54 +282,66 @@ animations = [{
 [sub_resource type="ViewportTexture" id="ViewportTexture_8tx16"]
 viewport_path = NodePath("SubViewport")
 
-[node name="enemy" type="CharacterBody3D" node_paths=PackedStringArray("nav", "sm", "sprite", "labelSprite", "label", "rc", "audioPlayer")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3t1x0"]
+height = 1.75
+
+[node name="enemy" type="CharacterBody3D" unique_id=727006957 node_paths=PackedStringArray("nav", "sprite", "labelSprite", "label", "audioPlayer") groups=["enemies"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_ek8g6")
 nav = NodePath("NavigationAgent3D")
-sm = NodePath("statemachine")
 sprite = NodePath("sprite")
 labelSprite = NodePath("labelSprite")
 label = NodePath("SubViewport/label")
-rc = NodePath("rc")
 walkSound = ExtResource("2_a4emi")
 audioPlayer = NodePath("audio")
 detectionRange = 10.0
 attackSound = ExtResource("3_qy31j")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=705256228]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2120231269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_f8hv5")
 
-[node name="sprite" type="AnimatedSprite3D" parent="."]
+[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1942752084]
 transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 0.25, 0, 0.959964, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_18372")
-animation = &"die"
+animation = &"idle"
+autoplay = "idle"
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=722285766]
 disable_3d = true
 transparent_bg = true
 
-[node name="label" parent="SubViewport" instance=ExtResource("3_dee20")]
+[node name="label" parent="SubViewport" unique_id=2003214298 instance=ExtResource("3_dee20")]
 
-[node name="labelSprite" type="Sprite3D" parent="."]
+[node name="labelSprite" type="Sprite3D" parent="." unique_id=2004583467]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1705, 0)
 visible = false
 billboard = 1
 texture_filter = 0
 texture = SubResource("ViewportTexture_8tx16")
 
-[node name="statemachine" type="Node" parent="."]
+[node name="statemachine" type="Node" parent="." unique_id=1198496352]
 script = ExtResource("4_aab5i")
 
-[node name="rc" type="RayCast3D" parent="."]
+[node name="rc" type="RayCast3D" parent="." unique_id=503743307]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.59408, 0)
 target_position = Vector3(0, 50, 0)
 collision_mask = 3
 
-[node name="audio" type="AudioStreamPlayer3D" parent="."]
+[node name="audio" type="AudioStreamPlayer3D" parent="." unique_id=1296502144]
 volume_db = -20.0
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=376894123]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1112677722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_3t1x0")

@@ -1,0 +1,638 @@
+[gd_scene format=3 uid="uid://cchf63h0s68cs"]
+
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_7mfnc"]
+[ext_resource type="StyleBox" uid="uid://c6pfndsal3gl6" path="res://UI/UI_background.tres" id="3_m22gv"]
+[ext_resource type="Script" uid="uid://boqvsis5crijl" path="res://inventory/Inv.cs" id="3_vqpb6"]
+[ext_resource type="PackedScene" uid="uid://bfew1xfi07xcp" path="res://inventory/inv_slot.tscn" id="4_bgm1y"]
+[ext_resource type="PackedScene" uid="uid://lb1wgtvetsdn" path="res://inventory/inv_container.tscn" id="4_e03q1"]
+[ext_resource type="Script" uid="uid://dvauqjodsepfv" path="res://inventory/InvContainer.cs" id="5_m22gv"]
+[ext_resource type="Script" uid="uid://cgkuoak37yw3l" path="res://inventory/DoorInventory.cs" id="7_m22gv"]
+[ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="8_i7njh"]
+
+[sub_resource type="Gradient" id="Gradient_m22gv"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.189167)
+colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_so6ny"]
+frequency = 0.004
+fractal_lacunarity = 4.185
+fractal_gain = 0.88
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m22gv"]
+width = 48
+height = 48
+noise = SubResource("FastNoiseLite_so6ny")
+color_ramp = SubResource("Gradient_m22gv")
+
+[sub_resource type="Gradient" id="Gradient_i7njh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2675)
+colors = PackedColorArray(0, 0, 0, 1, 0.603922, 0.0235294, 0.0196078, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m22gv"]
+frequency = 0.0248
+fractal_lacunarity = 2.66
+fractal_gain = 0.83
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_so6ny"]
+width = 48
+height = 48
+noise = SubResource("FastNoiseLite_m22gv")
+color_ramp = SubResource("Gradient_i7njh")
+
+[sub_resource type="Gradient" id="Gradient_iy0jw"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.285833)
+colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8arb2"]
+fractal_lacunarity = 2.625
+fractal_gain = 0.845
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbt6p"]
+width = 48
+height = 48
+noise = SubResource("FastNoiseLite_8arb2")
+color_ramp = SubResource("Gradient_iy0jw")
+
+[sub_resource type="Gradient" id="Gradient_xw787"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.275833)
+colors = PackedColorArray(0, 0, 0, 1, 0.890196, 0.721569, 0.0313726, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_exr8x"]
+fractal_lacunarity = 2.775
+fractal_gain = 1.065
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_54qju"]
+width = 48
+height = 48
+noise = SubResource("FastNoiseLite_exr8x")
+color_ramp = SubResource("Gradient_xw787")
+
+[node name="inventoryInterface" type="Control" unique_id=1782515033 node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "EquipmentInvContainer11", "strLabel", "dexLabel", "intLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_vqpb6")
+playerInventory = NodePath("playerInventory")
+invContainer = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel/GridContainer")
+grabbedSlot = NodePath("grabbedSlot")
+chestInv = NodePath("externalInventory")
+chestInvContainer = NodePath("externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
+doorChestInv = NodePath("doorInventory")
+doorChestInvContainer = NodePath("doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer/GridContainer2")
+tooltip = NodePath("tooltip")
+EquipmentInvContainer1 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer/equipmentSlot1")
+EquipmentInvContainer2 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3/equipmentSlot2")
+EquipmentInvContainer3 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2/equipmentSlot3")
+EquipmentInvContainer4 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3/equipmentSlot4")
+EquipmentInvContainer5 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4/equipmentSlot5")
+EquipmentInvContainer6 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4/equipmentSlot6")
+EquipmentInvContainer7 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2/spellSlot1")
+EquipmentInvContainer8 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3/spellSlot2")
+EquipmentInvContainer9 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4/spellSlot3")
+EquipmentInvContainer10 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5/spellSlot4")
+EquipmentInvContainer11 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6/spellSlot5")
+strLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer/strLabel")
+dexLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2/dexLabel")
+intLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3/intLabel")
+
+[node name="playerInventory" type="PanelContainer" parent="." unique_id=1658077791]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = -400.0
+offset_bottom = 400.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_7mfnc")
+
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory" unique_id=755754375]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("3_m22gv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer" unique_id=1647467979]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=1550096643]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=1222913328]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=2098844133]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1946060033]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1667587244]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=219587194]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=728093218]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2" unique_id=1971212345]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=1700706764]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="equipmentContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5" unique_id=1365853237]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer" unique_id=1264877130]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=442576562]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="equipmentSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer" unique_id=1071677454 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=987438396]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="equipmentSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer3" unique_id=2049629566 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="ringsContainer" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=1600957523]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=1980173054]
+layout_mode = 2
+
+[node name="equipmentSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer2" unique_id=100630338 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=155456300]
+layout_mode = 2
+
+[node name="equipmentSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer3" unique_id=1113177715 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer" unique_id=1318944278]
+layout_mode = 2
+
+[node name="equipmentSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/ringsContainer/PanelContainer4" unique_id=1267629644 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=1304856231]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="equipmentSlot6" type="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer4" unique_id=215716459]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+script = ExtResource("5_m22gv")
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer" unique_id=181279012]
+layout_mode = 2
+
+[node name="spellsContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2" unique_id=882311303]
+layout_mode = 2
+
+[node name="HBoxContainer9" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=168302639]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9" unique_id=760840504]
+layout_mode = 2
+
+[node name="spellSlot1" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" unique_id=899061840 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer9/PanelContainer2" unique_id=304771608]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "MB1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer8" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=2031645980]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8" unique_id=1862242614]
+layout_mode = 2
+
+[node name="spellSlot2" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" unique_id=1766425108 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer8/PanelContainer3" unique_id=1983503142]
+layout_mode = 2
+size_flags_vertical = 1
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer7" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=934608978]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer4" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7" unique_id=316615272]
+layout_mode = 2
+
+[node name="spellSlot3" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" unique_id=953576162 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4" unique_id=505747592]
+layout_mode = 2
+size_flags_vertical = 1
+text = "2"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer6" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=1920449267]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer5" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6" unique_id=2124100241]
+layout_mode = 2
+
+[node name="spellSlot4" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" unique_id=1666762562 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5" unique_id=333147995]
+layout_mode = 2
+size_flags_vertical = 1
+text = "3"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HBoxContainer5" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2" unique_id=1914957524]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer6" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5" unique_id=1712510806]
+layout_mode = 2
+
+[node name="spellSlot5" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" unique_id=1758156245 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6" unique_id=1328654724]
+layout_mode = 2
+size_flags_vertical = 1
+text = "4"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="statPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5" unique_id=180853094]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel" unique_id=1240137940]
+layout_mode = 2
+color = Color(0.778537, 0.772316, 0.634303, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel" unique_id=1623869629]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer" unique_id=295798637]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=438247909]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Attributes"
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=1183675716]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1062245819]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer" unique_id=1523188547]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1114274399]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_so6ny")
+
+[node name="strLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1715026124]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
+horizontal_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=808865189]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3" unique_id=588399836]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=2131904795]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_rbt6p")
+
+[node name="dexLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=1494738851]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1991070275]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2" unique_id=1447524655]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=135307308]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_54qju")
+
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=1246399923]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
+horizontal_alignment = 1
+
+[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=1022763059]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=1914587540]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Defense"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=335711479]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=1907551447]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Armour:"
+
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=107611745]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
+
+[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=841739799]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=1325266593]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Attack"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=1826091288]
+layout_mode = 2
+
+[node name="Damage" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=52032602]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Damage?:"
+
+[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=661335744]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30"
+
+[node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=2053273908]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer" unique_id=1823649148]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel" unique_id=1347783472 instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(640, 320)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 10
+
+[node name="externalInventory" type="PanelContainer" parent="." unique_id=484697324]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -68.0
+offset_right = 164.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory" unique_id=615769950]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_m22gv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="externalInventory/PanelContainer" unique_id=1512917928]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer" unique_id=240660423]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="ColorRect" type="ColorRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=2014022391]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=1804657922]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1145733171]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1849755459]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Chest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="externalInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1439030754]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="externalInventory/PanelContainer/VBoxContainer" unique_id=740262444]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer" unique_id=69528068]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="GridContainer2" parent="externalInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" unique_id=469276059 instance=ExtResource("4_e03q1")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 10
+
+[node name="doorInventory" type="PanelContainer" parent="." unique_id=802921552 node_paths=PackedStringArray("openLevelButton")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -57.5
+offset_right = 60.0
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7mfnc")
+script = ExtResource("7_m22gv")
+openLevelButton = NodePath("PanelContainer/VBoxContainer/CenterContainer2/MarginContainer/Button")
+
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory" unique_id=181644305]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_m22gv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="doorInventory/PanelContainer" unique_id=1170118459]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=1246523086]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+
+[node name="ColorRect" type="ColorRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=897004411]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer" unique_id=1741257536]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=618833301]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1669592319]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Door"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="doorInventory/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1481174108]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_m22gv")
+stretch_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=847683404]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer" unique_id=806398353]
+layout_mode = 2
+
+[node name="GridContainer2" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer/PanelContainer" unique_id=1011880751 instance=ExtResource("4_e03q1")]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="doorInventory/PanelContainer/VBoxContainer" unique_id=1451257065]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2" unique_id=975668685]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="doorInventory/PanelContainer/VBoxContainer/CenterContainer2/MarginContainer" unique_id=1677247661]
+layout_mode = 2
+theme = ExtResource("1_7mfnc")
+text = "Open"
+
+[node name="grabbedSlot" parent="." unique_id=1537074188 instance=ExtResource("4_bgm1y")]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 1
+grow_vertical = 1
+transparentBackground = true
+
+[node name="tooltip" parent="." unique_id=1160095091 instance=ExtResource("8_i7njh")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 232.0
+offset_bottom = 164.0
+grow_horizontal = 1
+grow_vertical = 1

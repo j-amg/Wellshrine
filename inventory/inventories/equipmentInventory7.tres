@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cia7abkugycie"]
+
+[ext_resource type="Script" uid="uid://tt0k1wvyb0us" path="res://inventory/SpellInventoryData.cs" id="1_ovp75"]
+[ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="2_l683u"]
+
+[resource]
+script = ExtResource("1_ovp75")
+spellSlotIndex = 0
+slotDatas = Array[ExtResource("2_l683u")]([null])
+allowedType = 2
+metadata/_custom_type_script = "uid://c7wbh85n1ea1a"

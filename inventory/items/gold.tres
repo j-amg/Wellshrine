@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bst6l3jo81ft8"]
+
+[ext_resource type="Script" uid="uid://ua387f0tvq2s" path="res://inventory/ItemData.cs" id="1_3onu5"]
+
+[sub_resource type="Gradient" id="Gradient_3onu5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pat8s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2bq6f"]
+width = 16
+height = 16
+noise = SubResource("FastNoiseLite_pat8s")
+color_ramp = SubResource("Gradient_3onu5")
+
+[resource]
+script = ExtResource("1_3onu5")
+name = "Gold"
+description = "Basic Currency dropped from enemies"
+stackable = true
+texture = SubResource("NoiseTexture2D_2bq6f")
+metadata/_custom_type_script = "uid://ua387f0tvq2s"

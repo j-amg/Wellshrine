@@ -1,10 +1,12 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://csv5k846a0g30"]
-
-[ext_resource type="Texture2D" uid="uid://cslboq3c30cn2" path="res://textures/UIBORDER.png" id="1_3g142"]
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://csv5k846a0g30"]
 
 [resource]
-texture = ExtResource("1_3g142")
-texture_margin_left = 14.0
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 14.0
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+modulate_color = Color(0.687131, 0.624669, 0.407427, 1)

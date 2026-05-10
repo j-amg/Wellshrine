@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemEquipmentData" load_steps=2 format=3 uid="uid://vlof74pcydiw"]
+
+[ext_resource type="Script" uid="uid://bkyeaoa6sbog3" path="res://inventory/ItemEquipmentData.cs" id="2_mr7yu"]
+
+[resource]
+script = ExtResource("2_mr7yu")
+level = 30
+name = ""
+description = ""
+stackable = false
+Type = 0
+rarity = 0
+metadata/_custom_type_script = "uid://bkyeaoa6sbog3"

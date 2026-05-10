@@ -1,0 +1,134 @@
+{
+    "%str": {
+        "title": "Kingly",
+        "target": "Strength",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 5,
+        "valueMax": 10,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "%dex": {
+        "title": "Agile",
+        "target": "Dexterity",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 5,
+        "valueMax": 10,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "%int": {
+        "title": "Scholars",
+        "target": "Intelligence",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 5,
+        "valueMax": 10,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "flatStr": {
+        "title": "of Brawn",
+        "target": "Strength",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 5.0,
+        "valueMax": 15,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "flatDex": {
+        "title": "of Guile",
+        "target": "Dexterity",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 5.0,
+        "valueMax": 15,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "flatInt": {
+        "title": "of Intellect",
+        "target": "Intelligence",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 5.0,
+        "valueMax": 15,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "projCount": {
+        "title": "of Many",
+        "target": "ProjCount",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 1.0,
+        "valueMax": 3.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "castSpeed": {
+        "title": "Swift",
+        "target": "CastSpeed",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 5.0,
+        "valueMax": 100.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+    },
+    "projSpeed": {
+        "title": "of the Raven",
+        "target": "ProjSpeed",
+        "modifier": "PercentAdd",
+        "spawn": ["Ring"],
+        "valueMin": 20.0,
+        "valueMax": 50.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+    },
+    "flatHealth": {
+        "title": "Hale",
+        "target": "MaxHealth",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 10.0,
+        "valueMax": 25.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+        },
+    "flatHealthRegen": {
+        "title": "of the Newt",
+        "target": "HealthRegen",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 2.0,
+        "valueMax": 5.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+        },
+    "flatMana": {
+        "title": "Beryl",
+        "target": "Mana",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 10.0,
+        "valueMax": 25.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "prefix"
+        }
+}

@@ -1,0 +1,29 @@
+{
+    "tower": {
+        "name": "Tower",
+        "path": "testCombinedLevel",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    },
+    "courtyard": {
+        "name": "Courtyard",
+        "path": "testCombinedLevel",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    },
+    "dungeon": {
+        "name": "Dungeon",
+        "path": "testCombinedLevel",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+    },
+    "villa": {
+        "name": "Villa",
+        "path": "testCombinedLevel",
+        "rollWeight": 0.2,
+        "accWeight": 0.0
+
+    }
+}

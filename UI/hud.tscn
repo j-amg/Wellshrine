@@ -1,0 +1,360 @@
+[gd_scene format=3 uid="uid://csteklro6et5n"]
+
+[ext_resource type="Script" uid="uid://ce0iewpnmvmjr" path="res://UI/Hud.cs" id="1_afaig"]
+[ext_resource type="PackedScene" uid="uid://bklldjik8cjkn" path="res://inventory/tooltip.tscn" id="2_b1lf8"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_q7u4o"]
+[ext_resource type="Script" uid="uid://qaany8ek8icj" path="res://inventory/ItemInHand.cs" id="4_640wx"]
+
+[sub_resource type="Gradient" id="Gradient_88dwc"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.640167, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a63qm"]
+gradient = SubResource("Gradient_88dwc")
+fill = 1
+fill_from = Vector2(0.512821, 0.482906)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xbx5"]
+bg_color = Color(0.341176, 0.341176, 0.341176, 0.509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2fuu"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydjn8"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5574"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_byoy3"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.07258064, 0.281346, 0.284404)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qht3n"]
+gradient = SubResource("Gradient_byoy3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.7724359, 0.19123931)
+
+[sub_resource type="Gradient" id="Gradient_ua45o"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.131498, 0.25, 0.75)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6wme6"]
+gradient = SubResource("Gradient_ua45o")
+width = 16
+
+[sub_resource type="Gradient" id="Gradient_6i0hs"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ggvx8"]
+gradient = SubResource("Gradient_6i0hs")
+
+[sub_resource type="Gradient" id="Gradient_b1lf8"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.4343267, 0.45640177)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rnl6m"]
+gradient = SubResource("Gradient_b1lf8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "reticle", "crossHair", "interactLabel", "hitFlash", "rechargeBar", "screen", "itemTooltip", "zoneInformation", "attackChargeIndicator")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_afaig")
+healthBar = NodePath("VBoxContainer/health")
+healthLabel = NodePath("VBoxContainer/healthLabel")
+zoneLabel = NodePath("zoneInformation/zone")
+objectiveLabel = NodePath("zoneInformation/objective")
+dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
+dialogueName = NodePath("dialogue/MarginContainer/vbox/name")
+dialogue = NodePath("dialogue")
+reticle = NodePath("reticle")
+crossHair = NodePath("reticle/crossHair")
+interactLabel = NodePath("interactLabel")
+hitFlash = NodePath("overlay")
+rechargeBar = NodePath("recharge")
+screen = NodePath("screen")
+itemTooltip = NodePath("itemTooltip")
+zoneInformation = NodePath("zoneInformation")
+attackChargeIndicator = NodePath("TextureProgressBar")
+
+[node name="itemTooltip" parent="." unique_id=1167449840 instance=ExtResource("2_b1lf8")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = -94.5
+offset_right = 232.0
+offset_bottom = 94.5
+grow_horizontal = 1
+
+[node name="overlay" type="TextureRect" parent="." unique_id=351410838]
+modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_a63qm")
+
+[node name="zoneInformation" type="VBoxContainer" parent="." unique_id=1239754270]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 97.0
+offset_bottom = 74.0
+
+[node name="zone" type="Label" parent="zoneInformation" unique_id=1453202561]
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+text = "Zone: "
+
+[node name="objective" type="Label" parent="zoneInformation" unique_id=542613161]
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+text = "Objective"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=552535198]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -40.0
+offset_right = 120.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="healthLabel" type="Label" parent="VBoxContainer" unique_id=411344174]
+texture_filter = 1
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "[PH]"
+vertical_alignment = 1
+
+[node name="health" type="ProgressBar" parent="VBoxContainer" unique_id=271602118]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_8xbx5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f2fuu")
+value = 50.0
+show_percentage = false
+
+[node name="interactLabel" type="Label" parent="." unique_id=1243264043]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -20.0
+offset_right = 131.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_q7u4o")
+text = "[X] to interact"
+vertical_alignment = 1
+
+[node name="recharge" type="ProgressBar" parent="." unique_id=719029371]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 28.0
+offset_right = 25.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ydjn8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b5574")
+show_percentage = false
+
+[node name="reticle" type="TextureRect" parent="." unique_id=882747513]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_qht3n")
+
+[node name="crossHair" type="Control" parent="reticle" unique_id=237489142]
+modulate = Color(1, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(20, 20)
+
+[node name="TextureRect" type="TextureRect" parent="reticle/crossHair" unique_id=1383179550]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -1.0
+offset_right = 8.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_6wme6")
+
+[node name="TextureRect2" type="TextureRect" parent="reticle/crossHair" unique_id=2066197424]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_right = 9.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(8, 0)
+texture = SubResource("GradientTexture1D_6wme6")
+
+[node name="dialogue" type="PanelContainer" parent="." unique_id=1577589226]
+visible = false
+texture_filter = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 260.0
+offset_top = 350.0
+offset_right = -260.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_q7u4o")
+
+[node name="MarginContainer" type="MarginContainer" parent="dialogue" unique_id=1518544677]
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+
+[node name="vbox" type="VBoxContainer" parent="dialogue/MarginContainer" unique_id=237324566]
+layout_mode = 2
+
+[node name="name" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=569526335]
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+text = "Example name"
+uppercase = true
+
+[node name="text" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=111084525]
+texture_filter = 1
+custom_minimum_size = Vector2(400, 47)
+layout_mode = 2
+theme = ExtResource("2_q7u4o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "[PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue [PH] Hello this is an example text for the dialogue "
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="hint" type="Label" parent="dialogue/MarginContainer/vbox" unique_id=1360868022]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("2_q7u4o")
+text = "[SpaceBar] to progress dialogue"
+horizontal_alignment = 1
+
+[node name="screen" type="TextureRect" parent="." unique_id=928892163]
+modulate = Color(0, 0, 0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ggvx8")
+
+[node name="ItemInHand" type="Control" parent="." unique_id=1544122410]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_640wx")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=551093643]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.1415882
+pivot_offset = Vector2(32, 32)
+fill_mode = 8
+texture_progress = SubResource("GradientTexture2D_rnl6m")

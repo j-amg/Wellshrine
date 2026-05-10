@@ -4,11 +4,13 @@ public partial class IdleState : State
 {
     public override void Update(double delta)
     {
-        owner.UpdateInput(owner.currentSpeed, owner.acceleration, owner.deceleration);
-        owner.UpdateVelocity();
-	    if (owner.Velocity.Length() > 0.0 && owner.IsOnFloor()) EmitSignal(SignalName.transition, "walk");
-        if (!owner.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
-        if (Input.IsActionPressed("Shift") && !owner.inputPaused) EmitSignal(SignalName.transition, "crouch");
-        if (Input.IsActionJustPressed("Space") && !owner.inputPaused) EmitSignal(SignalName.transition, "jump");
+        owningEntity.currentJump = 0;
+        owningEntity.currentDash = 0;
+        owningEntity.UpdateInput(owningEntity.currentSpeed, owningEntity.acceleration, owningEntity.deceleration);
+        owningEntity.UpdateVelocity();
+	    if (owningEntity.Velocity.Length() > 0.0 && owningEntity.IsOnFloor()) EmitSignal(SignalName.transition, "walk");
+        if (!owningEntity.IsOnFloor()) EmitSignal(SignalName.transition, "fall");
+        if (Input.IsActionJustPressed("Shift")) EmitSignal(SignalName.transition, "crouch");
+        if (Input.IsActionJustPressed("Space")) EmitSignal(SignalName.transition, "jump");
     }
 }

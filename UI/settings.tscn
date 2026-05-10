@@ -1,13 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf62isn430j6e"]
+[gd_scene load_steps=3 format=3 uid="uid://cf62isn430j6e"]
 
-[ext_resource type="Script" path="res://UI/Settings.cs" id="1_iox4o"]
-[ext_resource type="PackedScene" uid="uid://b038xdr6ado51" path="res://UI/menu_button.tscn" id="2_r6n8x"]
+[ext_resource type="Script" uid="uid://c6c8abkdra4er" path="res://UI/Settings.cs" id="1_iox4o"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tfyf2"]
 blend_mode = 1
 light_mode = 1
 
-[node name="settings" type="Control" node_paths=PackedStringArray("fullscreenButton", "volumeButton", "backButton", "container")]
+[node name="settings" type="Control"]
 top_level = true
 material = SubResource("CanvasItemMaterial_tfyf2")
 layout_mode = 3
@@ -17,10 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iox4o")
-fullscreenButton = NodePath("VBoxContainer/fullscreen")
-volumeButton = NodePath("VBoxContainer/volume")
-backButton = NodePath("VBoxContainer/back")
-container = NodePath("VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(480, 180)
@@ -38,18 +33,3 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
-
-[node name="fullscreen" parent="VBoxContainer" instance=ExtResource("2_r6n8x")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-text = "Set Display Mode: Fullscreen"
-
-[node name="volume" parent="VBoxContainer" instance=ExtResource("2_r6n8x")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-text = "Disable Sound effects"
-
-[node name="back" parent="VBoxContainer" instance=ExtResource("2_r6n8x")]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-text = "Back"
