@@ -265,7 +265,11 @@ public partial class Global : Node
 			float critRoll = GD.Randf();
 			bool crit = critRoll <= critValue;
 			bool critExcess = critRoll <= (critValue - MathF.Truncate(critValue));
+			GD.Print("crit" + crit);
+			GD.Print("critExcess " + critExcess);
+			GD.Print("critBase " + critBase);
 			damage *= critExcess ? (GetPlayerModifier("critDamage") * critBase) : 1;
+			GD.Print("damage " + damage);
 			return Damage.InitDamage(damage, crit, player);
 		}
 
@@ -295,7 +299,6 @@ public partial class Global : Node
 			{
 				player.PauseInput();
 				pauseMenu.Show();
-				pauseMenu.controls.Visible = false;
 				pauseMenu.container.Visible = true;
 				pauseMenu.resumeButton.autoFocussed = true;
 				pauseMenu.resumeButton.GrabFocus();
