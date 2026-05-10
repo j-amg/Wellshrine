@@ -7,20 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Runtime.InteropServices.JavaScript;
 
-public enum AttributeType
-{
-	Strength,
-	Dexterity,
-	Intelligence,
-	Armour,
-	ProjCount,
-	CastSpeed,
-	ProjSpeed,
-	Health,
-	Mana,
-	HealthRegen
-}
-
 public partial class Global : Node
 {
 	[Signal]
@@ -35,8 +21,6 @@ public partial class Global : Node
 	public Camera3D camera;
 	private AudioStream music;
 	public static Global Singleton => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("/root/Global");
-	public float currentPlayerHealth = 100;
-	public float interactionRange = 3;
 	public Hud hud;
 	public Inv inventory;
 	public bool dead = false;
@@ -61,6 +45,11 @@ public partial class Global : Node
 	private int currentDialogueStep;
 
 
+	public float currentPlayerHealth = 100f;
+
+
+
+
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
@@ -79,7 +68,7 @@ public partial class Global : Node
 		{AttributeType.CastSpeed, "Cast Speed"},
 		{AttributeType.ProjSpeed, "Projectile Speed"},
 		{AttributeType.Mana, "Mana"},
-		{AttributeType.Health, "Health"},
+		{AttributeType.MaxHealth, "Health"},
 		{AttributeType.HealthRegen, "Health Regeneration"}
 	};
 
@@ -89,13 +78,6 @@ public partial class Global : Node
 		Gets();
 		ConnectSignals();
 		PreloadObjects();
-
-
-
-
-
-
-
 	}
 	public override void _Process(double delta)
 	{
@@ -166,8 +148,6 @@ public partial class Global : Node
 
 	public void PreloadObjects()
 	{
-
-		GD.Print("preloaded items");
 		DBAffixes = DB.JsonToDict("res://DBAffixes.json");
 		DBItems = DB.JsonToDict("res://DBItems.json");
 		DBMaps = DB.JsonToDict("res://DBMaps.json");
@@ -185,7 +165,6 @@ public partial class Global : Node
 
 	public void Gets()
 	{
-
 		Viewport root = GetTree().Root;
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
@@ -200,7 +179,6 @@ public partial class Global : Node
 			inventory = currentScene.GetNodeOrNull<Inv>("UI/inventory");
 			deathScreen = currentScene.GetNodeOrNull<DeathScreen>("UI/deathScreen");
 			pauseMenu = currentScene.GetNodeOrNull<Pause>("UI/pause");
-			GD.Print("gets");
 			inventory.SetPlayerInventoryData(player.inventoryData);
 			if (currentScene is PlayerZone pz) playerZone = pz;
 		}
@@ -210,7 +188,6 @@ public partial class Global : Node
 
 	public void ConnectSignals()
 	{
-		GD.Print("connected signals");
 		if (currentScene is Zone)
 		{
 			foreach (Chest n in GetTree().GetNodesInGroup("chests").Cast<Chest>())

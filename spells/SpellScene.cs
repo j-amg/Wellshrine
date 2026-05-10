@@ -24,7 +24,6 @@ public partial class SpellScene : Node3D
 	[Export] public bool spawnOnSceneHit = false;
 	[Export] public float spawnOnHitDelay = 0;
 	[Export] public PackedScene spawnOnHitScene;
-
 	[Export] public bool appliesCondition = false;
 
 	private Vector3 velocity = Vector3.Zero;
@@ -37,12 +36,12 @@ public partial class SpellScene : Node3D
 			hurtBox.AreaEntered += OnAreaEntered;
 			hurtBox.BodyEntered += OnBodyEntered;
 		}
-		
+
 		if (spellType is SpellType.Projectile)
 		{
 			velocity = -Transform.Basis.Z * muzzleVelocity;
 		}
-		
+
 		Fade();
 	}
 
@@ -62,17 +61,17 @@ public partial class SpellScene : Node3D
 
 	private void OnAreaEntered(Area3D area)
 	{
-		if (area is HurtBox)
-		{
-			if (spawnOnEntityHit)
-			{
-				SpawnScene();
-			}
-			if (destroyOnEntityHit)
-			{
-				//CallDeferred("queue_free");
-			}
-		}
+		// if (area is HurtBox)
+		// {
+		// 	if (spawnOnEntityHit)
+		// 	{
+		// 		SpawnScene();
+		// 	}
+		// 	if (destroyOnEntityHit)
+		// 	{
+		// 		//CallDeferred("queue_free");
+		// 	}
+		// }
 	}
 
 	public async void SpawnScene()
@@ -99,10 +98,10 @@ public partial class SpellScene : Node3D
 	private async void Fade()
 	{
 		await ToSignal(GetTree().CreateTimer(spriteLifeTime), "timeout");
-		foreach(Sprite3D s in sprites.GetChildren().Cast<Sprite3D>())
+		foreach (Sprite3D s in sprites.GetChildren().Cast<Sprite3D>())
 		{
 			Tween tween = GetTree().CreateTween();
-			tween.TweenProperty(s, "modulate", new Color(0,0,0,0), 1f);
+			tween.TweenProperty(s, "modulate", new Color(0, 0, 0, 0), 1f);
 		}
 		await ToSignal(GetTree().CreateTimer(1f), "timeout");
 		CallDeferred("queue_free");

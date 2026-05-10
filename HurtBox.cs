@@ -10,9 +10,11 @@ public partial class HurtBox : Area3D
 
 	private void OnAreaEntered(Area3D area)
 	{
+
 		if (area != null && area.Owner is Entity entity)
 		{
-			entity.TakeDamage(Damage.InitDamage(5f, false, GetParent()));
+			Damage d = Damage.InitDamage(5f, false, null);
+			entity.TakeDamage(d);
 		}
 	}
 }

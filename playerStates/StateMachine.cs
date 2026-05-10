@@ -18,11 +18,14 @@ public partial class StateMachine : Node
 			}
 			else GD.PrintErr("State Machine contains incompatible child node: " + child.Name);
 		}
-		current_state.Enter();
+		current_state?.Enter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _PhysicsProcess(double delta) => current_state.Update(delta);
+	public override void _PhysicsProcess(double delta)
+	{
+		if (current_state != null) current_state.Update(delta);
+	}
 
 	private void OnChildTransition(StringName state)
 	{

@@ -66,13 +66,15 @@ public partial class Player : Entity
 	public Vector3 bodyCrouchPosition = new(0, -0.3f, 0);
 	public Vector3 bodyStandPosition = new(0, 0, 0);
 
+	public float interactionRange = 250f;
+	public float hoverRange = 1000f;
+
 
 	public float hitDistance;
 	public float currentSpeed;
 	public float currentJump;
 	public float currentDash;
 	public float _sensitivity;
-	public Vector3 velocity;
 	public Vector2 hvel;
 	public Vector2 inputDir;
 	public Vector3 direction;
@@ -120,8 +122,8 @@ public partial class Player : Entity
 		}
 
 		Global.Singleton.hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
-		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= Global.Singleton.interactionRange && !Global.Singleton.inDialogue;
-		if (currentHit is IHoverable h) { if (hitDistance <= Global.Singleton.interactionRange && h.Active) h.StartHover(); else h.EndHover(); }
+		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= interactionRange && !Global.Singleton.inDialogue;
+		if (currentHit is IHoverable h) { if (hitDistance <= hoverRange && h.Active) h.StartHover(); else h.EndHover(); }
 
 	}
 
@@ -143,7 +145,7 @@ public partial class Player : Entity
 			}
 			if (Input.IsActionJustPressed("interact"))
 			{
-				if (existingHit is IInteractable interactable && hitDistance <= Global.Singleton.interactionRange && interactable.Active) interactable.Interact();
+				if (existingHit is IInteractable interactable && hitDistance <= interactionRange && interactable.Active) interactable.Interact();
 			}
 
 			if (Input.IsActionPressed("RightMouse"))
@@ -162,6 +164,22 @@ public partial class Player : Entity
 				currentSpeed = walkSpeed;
 			}
 		}
+	}
+
+	// public override void Initialise()
+	// {
+	// 	GD.Print("initialise player health");
+	// 	GD.Print("currentPlayerHealth: " + Global.Singleton.currentPlayerHealth);
+	// 	Health = Global.Singleton.currentPlayerHealth;
+	// 	UpdateHealth();
+	// }
+
+	public override void UpdateHealth()
+	{
+		GD.Print(Global.Singleton.currentPlayerHealth);
+		Global.Singleton.currentPlayerHealth = Health;
+		base.UpdateHealth();
+
 	}
 
 	public void UpdateInput(float speed, float acceleration, float deceleration)

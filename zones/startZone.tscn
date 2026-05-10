@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://nymerq4u1m0o"]
+[gd_scene format=4 uid="uid://nymerq4u1m0o"]
 
 [ext_resource type="Script" uid="uid://bt2kng7g012s4" path="res://zones/PlayerZone.cs" id="1_lr3ls"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://c7wbh85n1ea1a" path="res://inventory/InventoryData.cs" id="15_jqp77"]
 [ext_resource type="Script" uid="uid://cvtt4cg4giyh3" path="res://inventory/SlotData.cs" id="16_2lqes"]
 [ext_resource type="Resource" uid="uid://bst6l3jo81ft8" path="res://inventory/items/gold.tres" id="17_5b0lf"]
+[ext_resource type="PackedScene" uid="uid://c16qpnhlnqgms" path="res://dummy.tscn" id="17_jqp77"]
 [ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://inventory/ground_item.tscn" id="18_2lqes"]
 [ext_resource type="PackedScene" uid="uid://dx65hws7rswcp" path="res://container.tscn" id="18_5b0lf"]
 [ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://inventory/inventories/doorInventory.tres" id="19_5b0lf"]
@@ -41,40 +42,39 @@ metadata/_custom_type_script = "uid://cvtt4cg4giyh3"
 [sub_resource type="Resource" id="Resource_hsp5b"]
 script = ExtResource("15_jqp77")
 slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"), null, null, null, null, null, null])
-allowedType = 0
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
-[node name="playerZone" type="Node3D" node_paths=PackedStringArray("doorChest", "door", "player")]
+[node name="playerZone" type="Node3D" unique_id=1812238043 node_paths=PackedStringArray("doorChest", "door", "player")]
 script = ExtResource("1_lr3ls")
 doorChest = NodePath("doorChest")
 door = NodePath("door")
 player = NodePath("player")
 
-[node name="player" parent="." instance=ExtResource("3_ei8sx")]
+[node name="player" parent="." unique_id=1147220279 instance=ExtResource("3_ei8sx")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -0.5)
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1733739021]
 
-[node name="hud" parent="UI" instance=ExtResource("4_dkoc8")]
+[node name="hud" parent="UI" unique_id=1529712625 instance=ExtResource("4_dkoc8")]
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="inventory" parent="UI" instance=ExtResource("10_dkoc8")]
+[node name="inventory" parent="UI" unique_id=287250814 instance=ExtResource("10_dkoc8")]
 visible = false
 
-[node name="pause" parent="UI" instance=ExtResource("12_qbchw")]
-visible = false
-mouse_filter = 2
-
-[node name="deathScreen" parent="UI" instance=ExtResource("13_xj85n")]
+[node name="pause" parent="UI" unique_id=1435496432 instance=ExtResource("12_qbchw")]
 visible = false
 mouse_filter = 2
 
-[node name="door" parent="." node_paths=PackedStringArray("respawnPoint") instance=ExtResource("5_m42jd")]
+[node name="deathScreen" parent="UI" unique_id=437617840 instance=ExtResource("13_xj85n")]
+visible = false
+mouse_filter = 2
+
+[node name="door" parent="." unique_id=1059642370 node_paths=PackedStringArray("respawnPoint") instance=ExtResource("5_m42jd")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)
 respawnPoint = NodePath("../respawnPoint")
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="." unique_id=678097439]
 mesh_library = ExtResource("6_osk5y")
 collision_layer = 2
 collision_mask = 15
@@ -84,32 +84,35 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=869943337]
 transform = Transform3D(0.936843, -0.094084, 0.336858, -0.34975, -0.252014, 0.90231, 0, -0.963139, -0.269004, 0, 2.28351, 5.19723)
 light_energy = 1.128
 light_bake_mode = 1
 
-[node name="chest" parent="." groups=["chests"] instance=ExtResource("14_bysxa")]
+[node name="chest" parent="." unique_id=297610492 groups=["chests"] instance=ExtResource("14_bysxa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 chestType = "chest"
 inventoryData = SubResource("Resource_hsp5b")
 
-[node name="doorChest" parent="." groups=["chests"] instance=ExtResource("14_bysxa")]
+[node name="doorChest" parent="." unique_id=1102463909 groups=["chests"] instance=ExtResource("14_bysxa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 11.5)
 chestType = "doorchest"
 inventoryData = ExtResource("19_5b0lf")
 
-[node name="groundItem" parent="." instance=ExtResource("18_2lqes")]
+[node name="groundItem" parent="." unique_id=1274273871 instance=ExtResource("18_2lqes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.83246, 0, 7.34623)
 
-[node name="groundItem2" parent="." instance=ExtResource("18_2lqes")]
+[node name="groundItem2" parent="." unique_id=1655659036 instance=ExtResource("18_2lqes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32082, 0, 8.49403)
 
-[node name="groundItem3" parent="." instance=ExtResource("18_2lqes")]
+[node name="groundItem3" parent="." unique_id=748630157 instance=ExtResource("18_2lqes")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0797, 0, 7.04872)
 
-[node name="generateItems" parent="." instance=ExtResource("18_5b0lf")]
+[node name="generateItems" parent="." unique_id=1622272972 instance=ExtResource("18_5b0lf")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.38756, 0, 11.2784)
 
-[node name="respawnPoint" type="Node3D" parent="."]
+[node name="respawnPoint" type="Node3D" parent="." unique_id=1517510897]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 3.65759, 0, 4.49532)
+
+[node name="enemy" parent="." unique_id=727006957 instance=ExtResource("17_jqp77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.478676, 0.16003603, 0.34270406)

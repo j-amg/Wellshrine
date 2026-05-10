@@ -37,6 +37,7 @@ metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
 
 [sub_resource type="Resource" id="Resource_hiqhm"]
 script = ExtResource("17_iruf7")
+baseMaxHealth = 200.0
 metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
@@ -599,6 +600,7 @@ crouchCollision = NodePath("crouchCollision")
 wallDetection = NodePath("wallDetection")
 inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"), ExtResource("12_2wuci"), ExtResource("13_iruf7"), ExtResource("14_j5n4i"), ExtResource("15_634y6"), ExtResource("16_hiqhm"), ExtResource("17_hiqhm"), ExtResource("18_tkwlq"), ExtResource("19_hl5qd"), ExtResource("20_ek41f")])
 spellData = SubResource("Resource_efrwb")
+name = "Player"
 stateMachine = NodePath("statemachine")
 attributeData = SubResource("Resource_hiqhm")
 lookRay = NodePath("body/head/Camera3D/lookRay")

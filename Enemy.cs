@@ -11,10 +11,6 @@ public partial class Enemy : Entity, IHoverable
 	public Sprite3D labelSprite;
 	[Export]
 	public EnemyLabel label;
-	[Export]
-	public float baseMovementSpeed = 2;
-	[Export]
-	public string name = "[PH] Enemy";
 	public static string enemyScenePath = "res://enemies/enemy";
 	[Export]
 	public AudioStream walkSound;
@@ -22,14 +18,14 @@ public partial class Enemy : Entity, IHoverable
 	public AudioStreamPlayer3D audioPlayer;
 	[Export]
 	public float detectionRange = 250;
-	[Export]
-	public float attackRange = 2;
-	[Export]
-	public float attackDuration = 1;
-	[Export]
-	public float attackWindup = .5f;
-	[Export]
-	public float damage = 5;
+	// [Export]
+	// public float attackRange = 2;
+	// [Export]
+	// public float attackDuration = 1;
+	// [Export]
+	// public float attackWindup = .5f;
+	// [Export]
+	// public float damage = 5;
 	[Export]
 	public AudioStream attackSound;
 	public double acceleration = 2;
@@ -44,25 +40,25 @@ public partial class Enemy : Entity, IHoverable
 
 	public Color ReticleModulate { get; set; }
 	public bool Active { get; set; }
-	public float HoverRange { get; set; }
 
 	public override void _Ready()
 	{
-
+		base._Ready();
 		Active = true;
 		label.SetValues();
 		ReticleModulate = new Color(1, 0, 0);
 		defaultModulate = sprite.Modulate;
 		FloorSnapLength = 1;
+		// ScaleEnemyToLevel();
 	}
 
 	public void ScaleEnemyToLevel()
 	{
-		float baseHealth = attributeData.Attributes[AttributeType.Health].Value + level * 0.25f * attributeData.Attributes[AttributeType.Health].Value;
-		attributeData.UpdateBaseAttribute(AttributeType.Health, baseHealth);
-		damage += level * 0.25f * damage;
-		baseMovementSpeed += level / 10;
-		Health = baseHealth;
+		float baseHealth = attributeData.Attributes[AttributeType.MaxHealth].BaseValue + level * 0.25f * attributeData.Attributes[AttributeType.MaxHealth].BaseValue;
+		attributeData.UpdateBaseAttribute(AttributeType.MaxHealth, baseHealth);
+		//damage += level * 0.25f * damage;
+		//baseMovementSpeed += level / 10;
+		Health = attributeData.Attributes[AttributeType.MaxHealth].Value;
 	}
 
 	// private async void Stun()

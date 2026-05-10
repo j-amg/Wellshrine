@@ -100,7 +100,7 @@
     },
     "flatHealth": {
         "title": "Hale",
-        "target": "Health",
+        "target": "MaxHealth",
         "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,

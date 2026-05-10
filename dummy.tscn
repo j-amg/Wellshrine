@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c16qpnhlnqgms"]
+
+[ext_resource type="PackedScene" uid="uid://dd8wa6hb2kxrf" path="res://enemies/enemy.tscn" id="1_gtj52"]
+[ext_resource type="Script" uid="uid://dc5wc7ugfq80v" path="res://Dummy.cs" id="2_0umox"]
+[ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="2_xmspm"]
+
+[sub_resource type="Resource" id="Resource_0umox"]
+script = ExtResource("2_xmspm")
+baseMaxHealth = 500.0
+metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0umox"]
+viewport_path = NodePath("SubViewport")
+
+[node name="dummy" unique_id=727006957 instance=ExtResource("1_gtj52")]
+script = ExtResource("2_0umox")
+walkSound = null
+detectionRange = 250.0
+attackSound = null
+name = "Dummy"
+attributeData = SubResource("Resource_0umox")
+
+[node name="labelSprite" parent="." index="4" unique_id=2004583467]
+texture = SubResource("ViewportTexture_0umox")

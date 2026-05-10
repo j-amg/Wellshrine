@@ -7,7 +7,7 @@ using Godot.Collections;
 public partial class Attribute : Resource
 {
     [Signal] public delegate void AttributesUpdatedEventHandler();
-    protected float BaseValue;
+    public float BaseValue { get; protected set; }
     private readonly List<AttributeModifier> attributeModifiers;
     private bool isDirty = true;
     private float _value;

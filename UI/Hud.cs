@@ -69,9 +69,9 @@ public partial class Hud : Control
 
     public void UpdateHealth(Entity player)
     {
-        healthBar.MaxValue = player.attributeData.Attributes[AttributeType.Health].Value;
+        healthBar.MaxValue = player.attributeData.Attributes[AttributeType.MaxHealth].Value;
         healthBar.Value = player.Health;
-        healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.Attributes[AttributeType.Health].Value;
+        healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.Attributes[AttributeType.MaxHealth].Value;
     }
 
     private void OnDamageTaken(Damage d)
