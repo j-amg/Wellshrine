@@ -1,11 +1,11 @@
 [gd_scene load_steps=43 format=3 uid="uid://dd8wa6hb2kxrf"]
 
-[ext_resource type="Script" uid="uid://bkx2t530gwfb4" path="res://Enemy.cs" id="1_ek8g6"]
+[ext_resource type="Script" path="res://Enemy.cs" id="1_ek8g6"]
 [ext_resource type="AudioStream" uid="uid://6ddic02qoid2" path="res://audio/walk.wav" id="2_a4emi"]
 [ext_resource type="PackedScene" uid="uid://cmbqu1ogp3vnb" path="res://enemies/enemyLabel.tscn" id="3_dee20"]
 [ext_resource type="AudioStream" uid="uid://0a4i2x2n2hws" path="res://audio/enemyCast.wav" id="3_qy31j"]
 [ext_resource type="Texture2D" uid="uid://cob3eixxiyvhm" path="res://textures/skeletonFull.png" id="3_xwbua"]
-[ext_resource type="Script" uid="uid://bhabfx06y2656" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
+[ext_resource type="Script" path="res://playerStates/StateMachine.cs" id="4_aab5i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f8hv5"]
 

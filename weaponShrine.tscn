@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bky2rab0cedur"]
 
 [ext_resource type="PackedScene" uid="uid://71n8w0xi8ovv" path="res://shrine.tscn" id="1_xvlt7"]
-[ext_resource type="Script" uid="uid://c5lbsveu3ducm" path="res://WeaponShrine.cs" id="2_kyw0b"]
+[ext_resource type="Script" path="res://WeaponShrine.cs" id="2_kyw0b"]
 [ext_resource type="ArrayMesh" uid="uid://d3hwd78q3epfv" path="res://meshes/shrine2.obj" id="3_8mrh8"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="4_0qcou"]
 [ext_resource type="Texture2D" uid="uid://br7tg1wsqislp" path="res://textures/fire.png" id="4_m4of1"]

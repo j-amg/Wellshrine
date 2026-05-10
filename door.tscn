@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://do5gmboonte51"]
 
-[ext_resource type="Script" uid="uid://8xeislecvn7m" path="res://Door.cs" id="1_20dfc"]
+[ext_resource type="Script" path="res://Door.cs" id="1_20dfc"]
 [ext_resource type="Shader" uid="uid://bswnv5j5di1m7" path="res://shaders/water.tres" id="2_w6u18"]
 [ext_resource type="Texture2D" uid="uid://bqmsikbsl0jg8" path="res://shaders/waterNoise.tres" id="3_u3sf3"]
 [ext_resource type="ArrayMesh" uid="uid://baeikgxi7uyrt" path="res://meshes/door.obj" id="4_h0kwk"]
@@ -13,8 +13,8 @@ size = Vector3(2, 4, 0.25)
 render_priority = 0
 shader = ExtResource("2_w6u18")
 shader_parameter/FloatParameter = 0.05
-shader_parameter/Texture2DParameter = ExtResource("3_u3sf3")
 shader_parameter/FloatParameter2 = -0.025
+shader_parameter/Texture2DParameter = ExtResource("3_u3sf3")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1x5pd"]
 material = SubResource("ShaderMaterial_iorcp")

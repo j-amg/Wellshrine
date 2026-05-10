@@ -1,18 +1,18 @@
 [gd_scene load_steps=14 format=3 uid="uid://dqea4xyfuqmc6"]
 
-[ext_resource type="Script" uid="uid://byelgg66imrwx" path="res://zones/version2/V2_5.cs" id="1_60tjr"]
+[ext_resource type="Script" path="res://zones/version2/V2_5.cs" id="1_60tjr"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_25am6"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_c7dic"]
 [ext_resource type="PackedScene" uid="uid://brt67t3q73a3u" path="res://buffShrine.tscn" id="4_qka1d"]
 [ext_resource type="PackedScene" uid="uid://dm5fruxngcou4" path="res://wellShrine.tscn" id="5_wkhhb"]
 [ext_resource type="AudioStream" uid="uid://frexyqnax0wh" path="res://audio/heartPickup.wav" id="6_hdhkt"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="7_lqwls"]
-[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="8_fo6m6"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="8_fo6m6"]
 [ext_resource type="PackedScene" uid="uid://dcjgbshr51onj" path="res://npc.tscn" id="9_a1ec6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i3c0g"]
 shader = ExtResource("8_fo6m6")
-shader_parameter/skyColour = Color(0, 0, 0, 1)
+shader_parameter/skyColour = null
 
 [sub_resource type="Sky" id="Sky_5mlvb"]
 sky_material = SubResource("ShaderMaterial_i3c0g")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://nymerq4u1m0o"]
 
-[ext_resource type="Script" uid="uid://cwr58iw1w5epl" path="res://zones/StartZone.cs" id="1_lr3ls"]
-[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="2_6vmps"]
+[ext_resource type="Script" path="res://zones/StartZone.cs" id="1_lr3ls"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_6vmps"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="3_ei8sx"]
 [ext_resource type="AudioStream" uid="uid://da5kuic4acmwj" path="res://audio/revolverPickup.wav" id="5_2uyrr"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="5_m42jd"]
@@ -10,7 +10,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p12kx"]
 shader = ExtResource("2_6vmps")
-shader_parameter/skyColour = Color(0, 0, 0, 1)
+shader_parameter/skyColour = null
 
 [sub_resource type="Sky" id="Sky_ekyga"]
 sky_material = SubResource("ShaderMaterial_p12kx")

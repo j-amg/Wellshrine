@@ -1,16 +1,16 @@
 [gd_scene load_steps=13 format=3 uid="uid://djkpt6w54vlmi"]
 
-[ext_resource type="Script" uid="uid://dod0c12lhxfg7" path="res://zones/version1/V1_2.cs" id="1_5n8w1"]
+[ext_resource type="Script" path="res://zones/version1/V1_2.cs" id="1_5n8w1"]
 [ext_resource type="PackedScene" uid="uid://ynvfesnw1r4j" path="res://player.tscn" id="2_yynft"]
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://door.tscn" id="3_nmgks"]
 [ext_resource type="PackedScene" uid="uid://d167ae43b7lou" path="res://zones/version1/v1_3.tscn" id="4_jo0ug"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="5_cs3of"]
-[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="6_3u7jd"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="6_3u7jd"]
 [ext_resource type="PackedScene" uid="uid://diqqia20mq3iu" path="res://checkpoint.tscn" id="7_aiovc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p12kx"]
 shader = ExtResource("6_3u7jd")
-shader_parameter/skyColour = Color(0, 0, 0, 1)
+shader_parameter/skyColour = null
 
 [sub_resource type="Sky" id="Sky_ekyga"]
 sky_material = SubResource("ShaderMaterial_p12kx")

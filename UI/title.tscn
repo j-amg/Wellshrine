@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://chnytobic8le5"]
 
-[ext_resource type="Script" uid="uid://cmwywjmts0rg" path="res://zones/ShrineZone.cs" id="1_3hsy6"]
+[ext_resource type="Script" path="res://zones/ShrineZone.cs" id="1_3hsy6"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="2_qx3q6"]
-[ext_resource type="Shader" uid="uid://dbt5s4lfuoig1" path="res://shaders/sky.gdshader" id="3_lw54p"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="3_lw54p"]
 [ext_resource type="PackedScene" uid="uid://c3p1sjdnrrg41" path="res://UI/menu.tscn" id="4_uo22y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p12kx"]
 shader = ExtResource("3_lw54p")
-shader_parameter/skyColour = Color(0, 0, 0, 1)
+shader_parameter/skyColour = null
 
 [sub_resource type="Sky" id="Sky_ekyga"]
 sky_material = SubResource("ShaderMaterial_p12kx")
