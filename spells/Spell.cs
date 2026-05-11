@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Godot.Collections;
 
 
 [GlobalClass]
@@ -13,6 +14,7 @@ public partial class Spell : Resource
 		Instant
 	}
 
+	[Export] public Array<DamageData> damageDatas = [];
 	[Export] public SpellTriggerType triggerType;
 	[Export] public float chargeTime; // duration to charge spell
 	[Export] public float castTime; // delay before spell is actually cast

@@ -1,8 +1,30 @@
 [gd_resource type="Resource" script_class="Spell" format=3 uid="uid://lk6qnl8kssvo"]
 
+[ext_resource type="Script" uid="uid://bc23scba6oftg" path="res://DamageData.cs" id="1_8iu3t"]
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_bq1eg"]
 [ext_resource type="Script" uid="uid://bnh6127ush7qs" path="res://spells/SpellScene.cs" id="2_8w2pv"]
 [ext_resource type="Script" uid="uid://cvco10nxk47pr" path="res://HurtBox.cs" id="3_8iu3t"]
+
+[sub_resource type="Resource" id="Resource_r7cda"]
+script = ExtResource("1_8iu3t")
+type = 1
+baseAmountMin = 1.0
+baseAmountMax = 10.0
+metadata/_custom_type_script = "uid://bc23scba6oftg"
+
+[sub_resource type="Resource" id="Resource_o7pyn"]
+script = ExtResource("1_8iu3t")
+type = 2
+baseAmountMin = 1.0
+baseAmountMax = 10.0
+metadata/_custom_type_script = "uid://bc23scba6oftg"
+
+[sub_resource type="Resource" id="Resource_ced4c"]
+script = ExtResource("1_8iu3t")
+type = 3
+baseAmountMin = 1.0
+baseAmountMax = 10.0
+metadata/_custom_type_script = "uid://bc23scba6oftg"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ctswo"]
 height = 30.0
@@ -46,6 +68,7 @@ _bundled = {
 
 [resource]
 script = ExtResource("1_bq1eg")
+damageDatas = Array[ExtResource("1_8iu3t")]([SubResource("Resource_r7cda"), SubResource("Resource_o7pyn"), SubResource("Resource_ced4c")])
 chargeTime = 1.0
 spellScene = SubResource("PackedScene_r7cda")
 metadata/_custom_type_script = "uid://cce02yl1a3ynp"

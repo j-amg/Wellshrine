@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cor31o64ycrn2" path="res://inventory/ItemSpellData.cs" id="5_llrpn"]
 [ext_resource type="Resource" uid="uid://lk6qnl8kssvo" path="res://spells/IceSpike.tres" id="6_llrpn"]
 [ext_resource type="Resource" uid="uid://rbtqidd1mgfa" path="res://spells/Fireball.tres" id="7_qx8fa"]
+[ext_resource type="Script" uid="uid://bc23scba6oftg" path="res://DamageData.cs" id="8_70adx"]
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="8_lvbne"]
 [ext_resource type="PackedScene" uid="uid://i5bxfmpogxd3" path="res://spells/fireball.tscn" id="9_70adx"]
 

@@ -46,7 +46,7 @@ public partial class Tooltip : PanelContainer
         if (loc.Y < 0)
         {
             offsetY += Size.Y;
-            if ((loc.X - Size.X / 2 - slotSize.X / 2)! < 0) offsetX += Size.X - slotSize.X / 2;
+            if ((loc.X - Size.X / 2 - slotSize.X / 2) < 0) offsetX += Size.X - slotSize.X / 2;
             else offsetX -= Size.X / 2 + slotSize.X / 2;
         }
         else
@@ -89,6 +89,15 @@ public partial class Tooltip : PanelContainer
             spellCastTime.Text = "Cast Time: " + spell.spell.castTime.ToString() + "s";
             if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString() + "s";
 
+            foreach (DamageData damageData in spell.spell.damageDatas)
+            {
+                if (damageData != null)
+                {
+                    Label label = affixLabelScene.Instantiate<Label>();
+                    label.Text = damageData.baseAmountMin + " to " + damageData.baseAmountMax + " " + damageData.type + " Damage";
+                    itemAffixContainer.AddChild(label);
+                }
+            }
         }
 
         //populate if affixes exist

@@ -1,21 +1,15 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Linq;
-using Godot.Collections;
 
 public partial class SpellScene : Node3D
 {
-
-	[Export] public Array<SlotData> damageInstances = [];
-
 	[Export] public SpellType spellType;
-
 	[Export] public float muzzleVelocity = 0;
 	[Export] public float gravity = 0;
 	[Export] public int projectileCount = 1;
 	[Export] public float projectileSpread = 15f;
-
-
 
 	[Export] private Node3D sprites;
 	[Export] private Area3D hurtBox;
@@ -34,7 +28,6 @@ public partial class SpellScene : Node3D
 
 
 	public DamagePackage damagePackage;
-
 	//[Export] public Condition[];
 	public override void _Ready()
 	{

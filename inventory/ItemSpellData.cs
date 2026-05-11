@@ -4,9 +4,9 @@ using Godot.Collections;
 
 public enum SpellType
 {
-    Projectile,
-    Buff,
-    Target,
+	Projectile,
+	Buff,
+	Target,
 	Effect
 }
 

@@ -5,7 +5,7 @@ using Godot.Collections;
 public enum DamageType
 {
     Physical,
-    Lighting,
+    Lightning,
     Fire,
     Cold
 }
@@ -43,13 +43,13 @@ public partial class DamagePackage : Resource
 [GlobalClass]
 public partial class DamageInst : Resource
 {
-    [Export] public DamageType type;
-    [Export] public float baseAmountMin;
-    [Export] public float baseAmountMax;
+    public DamageType type;
     public float amount;
 
-    public void SetAmmount()
+    public DamageInst(float amountMin, float amountMax, DamageType type)
     {
-        amount = (float)GD.RandRange(baseAmountMin, baseAmountMax);
+        amount = (float)GD.RandRange(amountMin, amountMax);
     }
+
+
 }

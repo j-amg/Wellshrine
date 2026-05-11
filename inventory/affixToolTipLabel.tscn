@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dgxj5vd2cls7a"]
 
-[node name="affix" type="Label"]
+[node name="affix" type="Label" unique_id=313297334]
 offset_right = 162.0
 offset_bottom = 23.0
 size_flags_horizontal = 4
