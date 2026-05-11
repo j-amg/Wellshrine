@@ -12,13 +12,13 @@ public partial class ChaserAttack : State
 
 	public async void Attack(float windup, float duration)
 	{
-		Damage damage = Damage.InitDamage(owningEntity.damage, false, owningEntity);
+		//Damage damage = DamagePackage.InitDamage(owningEntity.damage, false, owningEntity);
 		await ToSignal(GetTree().CreateTimer(windup), "timeout");
 		Global.Singleton.PlaySound3D(owningEntity.GlobalPosition, owningEntity.attackSound);
-		GD.Print(Name + " attacks player for " + damage);
+		//GD.Print(Name + " attacks player for " + damage);
 		if ((Global.Singleton.player.GlobalPosition - owningEntity.GlobalPosition).Length() <= owningEntity.attackRange)
 		{
-			Global.Singleton.player.TakeDamage(damage);
+			//Global.Singleton.player.TakeDamage(damage);
 		}
 		await ToSignal(GetTree().CreateTimer(duration), "timeout");
 		if (!owningEntity.dead || Global.Singleton.dead) EmitSignal(SignalName.transition, "chase");

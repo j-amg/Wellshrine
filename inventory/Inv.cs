@@ -231,7 +231,6 @@ public partial class Inv : Control
         EquipmentInvContainer8.ClearInventoryData(inventoryDatas[8]);
         EquipmentInvContainer9.ClearInventoryData(inventoryDatas[9]);
         EquipmentInvContainer10.ClearInventoryData(inventoryDatas[10]);
-        EquipmentInvContainer11.ClearInventoryData(inventoryDatas[11]);
 
     }
 }

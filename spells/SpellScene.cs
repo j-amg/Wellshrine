@@ -1,9 +1,13 @@
 using Godot;
 using System;
 using System.Linq;
+using Godot.Collections;
 
 public partial class SpellScene : Node3D
 {
+
+	[Export] public Array<SlotData> damageInstances = [];
+
 	[Export] public SpellType spellType;
 
 	[Export] public float muzzleVelocity = 0;
@@ -27,6 +31,9 @@ public partial class SpellScene : Node3D
 	[Export] public bool appliesCondition = false;
 
 	private Vector3 velocity = Vector3.Zero;
+
+
+	public DamagePackage damagePackage;
 
 	//[Export] public Condition[];
 	public override void _Ready()

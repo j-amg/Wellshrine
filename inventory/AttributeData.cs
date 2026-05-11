@@ -66,6 +66,8 @@ public partial class AttributeData : Resource
         EmitSignal(SignalName.DefaultValuesSet);
     }
 
-    public void UpdateBaseAttribute(AttributeType type, float value) => Attributes[type].SetBaseValue(value);
-
+    public void UpdateBaseAttribute(AttributeType type, float value)
+    {
+        Attributes[type].SetBaseValue(value);
+    }
 }

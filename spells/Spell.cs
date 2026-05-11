@@ -16,6 +16,7 @@ public partial class Spell : Resource
 	[Export] public SpellTriggerType triggerType;
 	[Export] public float chargeTime; // duration to charge spell
 	[Export] public float castTime; // delay before spell is actually cast
+	[Export] public float manaCost;
 	[Export] private AudioStream sound;
 	[Export] public PackedScene spellScene;
 	//public Node3D spell;

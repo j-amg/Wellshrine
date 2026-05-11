@@ -48,7 +48,7 @@ public partial class Hud : Control
         SignalManager.Singleton.attackChargeUpdated += OnAttackChargeUpdated;
     }
 
-    private void OnPlayerDamageExecuted(Damage d) => FlashCrossHair();
+    private void OnPlayerDamageExecuted(DamagePackage d) => FlashCrossHair();
 
     public void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
@@ -74,7 +74,7 @@ public partial class Hud : Control
         healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.Attributes[AttributeType.MaxHealth].Value;
     }
 
-    private void OnDamageTaken(Damage d)
+    private void OnDamageTaken(DamagePackage d)
     {
         Tween tween = CreateTween();
         tween.TweenProperty(healthLabel, "modulate", new Color(1, 1, 1), .25f).From(new Color(1, 0, 0));

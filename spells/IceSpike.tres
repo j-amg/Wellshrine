@@ -1,12 +1,51 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://lk6qnl8kssvo"]
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://lk6qnl8kssvo"]
 
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_bq1eg"]
-[ext_resource type="PackedScene" uid="uid://cino8kdmx0n5m" path="res://spells/iceSpike.tscn" id="2_igpew"]
+[ext_resource type="Script" uid="uid://bnh6127ush7qs" path="res://spells/SpellScene.cs" id="2_8w2pv"]
+[ext_resource type="Script" uid="uid://cvco10nxk47pr" path="res://HurtBox.cs" id="3_8iu3t"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ctswo"]
+height = 30.0
+radius = 0.25
+
+[sub_resource type="Gradient" id="Gradient_fmoj3"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0783133)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6elnn"]
+gradient = SubResource("Gradient_fmoj3")
+width = 512
+
+[sub_resource type="Gradient" id="Gradient_recn3"]
+offsets = PackedFloat32Array(0.63253, 1)
+colors = PackedColorArray(1, 1, 1, 0.196078, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ur3ds"]
+gradient = SubResource("Gradient_recn3")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.880342, 0.132479)
+
+[sub_resource type="PackedScene" id="PackedScene_r7cda"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("Node3D", "Node3D", "script", "sprites", "hurtBox", "collision", "Area3D", "transform", "collision_layer", "collision_mask", "script", "CollisionShape3D", "CollisionShape3D", "transform", "shape", "sprites", "Node3D", "ray", "Sprite3D", "transform", "texture_filter", "texture", "frontRay", "Sprite3D", "transform", "billboard", "texture_filter", "texture"),
+"node_count": 6,
+"node_ids": PackedInt32Array(1316148464, 1599193735, 379428255, 410157679, 2056558440, 419782226),
+"node_paths": [NodePath("."), NodePath("./collision"), NodePath("."), NodePath("./sprites"), NodePath("./sprites")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 1073741827, 1, 1073741828, 2, 0, 1073741824, 0, 6, 5, -1, 4, 7, 3, 8, 4, 9, 5, 10, 6, 0, 1073741825, 0, 12, 11, -1, 2, 13, 7, 14, 8, 0, 1073741826, 0, 16, 15, -1, 0, 0, 1073741827, 0, 18, 17, -1, 3, 19, 9, 20, 10, 21, 11, 0, 1073741828, 0, 23, 22, -1, 4, 24, 12, 25, 13, 26, 14, 27, 15, 0),
+"variants": [ExtResource("2_8w2pv"), NodePath("sprites"), NodePath("collision"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146), 8, 12, ExtResource("3_8iu3t"), Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -15.0386), SubResource("CylinderShape3D_ctswo"), Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -5, 0, -4.37114e-08, 0, 0, -12.9454), 0, SubResource("GradientTexture1D_6elnn"), Transform3D(0.065, 0, 0, 0, -0.06, 1.50996e-07, 0, -9.05975e-09, -1, 0, 0, -1.04594), 1, 0, SubResource("GradientTexture2D_ur3ds")],
+"version": 3
+}
 
 [resource]
 script = ExtResource("1_bq1eg")
-triggerType = 0
 chargeTime = 1.0
-castTime = 0.0
-spellScene = ExtResource("2_igpew")
+spellScene = SubResource("PackedScene_r7cda")
 metadata/_custom_type_script = "uid://cce02yl1a3ynp"

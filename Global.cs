@@ -45,10 +45,7 @@ public partial class Global : Node
 	private int currentDialogueStep;
 
 
-	public float currentPlayerHealth = 100f;
-
-
-
+	public float currentPlayerHealth = -1;
 
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
@@ -79,6 +76,7 @@ public partial class Global : Node
 		ConnectSignals();
 		PreloadObjects();
 	}
+
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();
@@ -169,8 +167,6 @@ public partial class Global : Node
 		currentScene = root.GetChild(root.GetChildCount() - 1);
 		currentZone = currentScene is Zone zone ? zone : null;
 
-
-
 		if (currentScene is Zone z)
 		{
 			player = z.player;
@@ -182,8 +178,6 @@ public partial class Global : Node
 			inventory.SetPlayerInventoryData(player.inventoryData);
 			if (currentScene is PlayerZone pz) playerZone = pz;
 		}
-
-
 	}
 
 	public void ConnectSignals()

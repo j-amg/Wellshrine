@@ -89,7 +89,7 @@ public partial class Enemy : Entity, IHoverable
 		MoveAndSlide();
 	}
 
-	public override void TakeDamage(Damage d)
+	public override void TakeDamage(DamagePackage d)
 	{
 		base.TakeDamage(d);
 		Tween tween = GetTree().CreateTween();

@@ -166,20 +166,17 @@ public partial class Player : Entity
 		}
 	}
 
-	// public override void Initialise()
-	// {
-	// 	GD.Print("initialise player health");
-	// 	GD.Print("currentPlayerHealth: " + Global.Singleton.currentPlayerHealth);
-	// 	Health = Global.Singleton.currentPlayerHealth;
-	// 	UpdateHealth();
-	// }
+	public override void Initialise()
+	{
+		initialised = true;
+		if (Global.Singleton.currentPlayerHealth == -1) Global.Singleton.currentPlayerHealth = attributeData.Attributes[AttributeType.MaxHealth].Value;
+		SetHealth(Global.Singleton.currentPlayerHealth);
+	}
 
 	public override void UpdateHealth()
 	{
-		GD.Print(Global.Singleton.currentPlayerHealth);
-		Global.Singleton.currentPlayerHealth = Health;
+		if (initialised) Global.Singleton.currentPlayerHealth = Health;
 		base.UpdateHealth();
-
 	}
 
 	public void UpdateInput(float speed, float acceleration, float deceleration)
