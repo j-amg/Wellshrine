@@ -15,6 +15,10 @@ public enum AttributeType
     Mana,
     HealthRegen,
     TotalDamage,
+    PhysicalDamage,
+    LightningDamage,
+    FireDamage,
+    ColdDamage,
     MovSpeed
 }
 
