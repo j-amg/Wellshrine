@@ -1,10 +1,19 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://rbtqidd1mgfa"]
+[gd_resource type="Resource" script_class="Spell" format=3 uid="uid://rbtqidd1mgfa"]
 
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_5ip05"]
+[ext_resource type="Script" uid="uid://bc23scba6oftg" path="res://DamageData.cs" id="1_w5sxv"]
 [ext_resource type="PackedScene" uid="uid://i5bxfmpogxd3" path="res://spells/fireball.tscn" id="2_5ip05"]
+
+[sub_resource type="Resource" id="Resource_614xg"]
+script = ExtResource("1_w5sxv")
+type = 2
+amountMin = 5.0
+amountMax = 28.0
+metadata/_custom_type_script = "uid://bc23scba6oftg"
 
 [resource]
 script = ExtResource("1_5ip05")
+damageDatas = Array[ExtResource("1_w5sxv")]([SubResource("Resource_614xg")])
 triggerType = 1
 chargeTime = 0.5
 castTime = 0.1

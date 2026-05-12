@@ -40,6 +40,7 @@ public partial class Entity : CharacterBody3D
         damagePackage.Hit();
         foreach (DamageInst damage in damagePackage.damageInstances)
         {
+            Global.Singleton.currentScene.GetNode<CanvasLayer>("UI").AddChild(new DamageNumber(damage, this));
             float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
             GD.Print("damge: " + scaledAmount);
             Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
