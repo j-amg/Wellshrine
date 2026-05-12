@@ -34,12 +34,16 @@ public partial class Entity : CharacterBody3D
         SetHealth(attributeData.Attributes[AttributeType.MaxHealth].Value);
     }
 
-    public virtual void TakeDamage(DamagePackage d)
+    public virtual void TakeDamage(DamagePackage damagePackage)
     {
-        // if (dead) return;
-        // d.Hit();
-        // Health = Mathf.Clamp(Health - d.amount, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
-        // UpdateHealth();
+        if (dead) return;
+        damagePackage.Hit();
+        foreach (DamageInst damage in damagePackage.damageInstances)
+        {
+            float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
+            Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
+        }
+        UpdateHealth();
     }
 
     public virtual void SetHealth(float value)

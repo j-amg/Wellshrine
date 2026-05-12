@@ -53,22 +53,6 @@ public partial class Global : Node
 	public PlayerZone playerZone;
 	public Zone doorZone;
 
-
-
-	public Dictionary<AttributeType, string> AttributeDisplayNames = new()
-	{
-		{AttributeType.Strength, "Strength"},
-		{AttributeType.Dexterity, "Dexterity"},
-		{AttributeType.Intelligence, "Intelligence"},
-		{AttributeType.Armour, "armour"},
-		{AttributeType.ProjCount, "Projectile Count"},
-		{AttributeType.CastSpeed, "Cast Speed"},
-		{AttributeType.ProjSpeed, "Projectile Speed"},
-		{AttributeType.Mana, "Mana"},
-		{AttributeType.MaxHealth, "Health"},
-		{AttributeType.HealthRegen, "Health Regeneration"}
-	};
-
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;

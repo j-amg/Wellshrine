@@ -12,7 +12,7 @@ public partial class SpellScene : Node3D
 	[Export] public float projectileSpread = 15f;
 
 	[Export] private Node3D sprites;
-	[Export] private Area3D hurtBox;
+	[Export] public HurtBox hurtBox;
 	[Export] public float spriteLifeTime = .5f;
 
 	[Export] public bool destroyOnEntityHit = false;

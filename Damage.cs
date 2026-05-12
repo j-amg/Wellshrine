@@ -21,10 +21,12 @@ public partial class DamagePackage : Resource
     public dynamic source;
     public Entity sourceEntity;
 
-    public static DamagePackage InitDamage(Array<DamageInst> _damageInstances, bool _crit, dynamic _source, Entity _sourceEntity = null)
+    public DamagePackage(Array<DamageInst> _damageInstances, bool _crit, dynamic _source, Entity _sourceEntity = null)
     {
-        DamagePackage d = new() { damageInstances = _damageInstances, crit = _crit, source = _source, sourceEntity = _sourceEntity };
-        return d;
+        damageInstances = _damageInstances;
+        crit = _crit;
+        source = _source;
+        sourceEntity = _sourceEntity;
     }
 
     public void Hit() => EmitSignal(SignalName.damageExecuted, this);
@@ -35,19 +37,18 @@ public partial class DamageInst : Resource
 {
     public DamageType type;
     public float amount;
-    public DamageInst(float amountMin, float amountMax, DamageType _type, Entity entity = null)
+    public DamageInst(DamageData damageData, Entity entity = null)
     {
-
-        amount = (float)GD.RandRange(amountMin, amountMax);
-        type = _type;
-        if (entity != null) amount = ScaleAmountToEntity(amount, type, entity);
+        amount = (float)GD.RandRange(damageData.amountMin, damageData.amountMax);
+        type = damageData.type;
+        if (entity != null) amount = ScaleToEntityAttack(this, entity).amount;
     }
 
-    public float ScaleAmountToEntity(float amount, DamageType type, Entity entity)
+    public static DamageInst ScaleToEntityAttack(DamageInst damageInst, Entity entity)
     {
-        float scaledAmount = amount;
+        float scaledAmount = damageInst.amount;
 
-        switch (type)
+        switch (damageInst.type)
         {
             case DamageType.Physical:
                 scaledAmount *= entity.attributeData.Attributes[AttributeType.PhysicalDamage].Value / 100;
@@ -64,6 +65,31 @@ public partial class DamageInst : Resource
         }
         scaledAmount *= entity.attributeData.Attributes[AttributeType.TotalDamage].Value / 100;
 
-        return scaledAmount;
+        damageInst.amount = scaledAmount;
+
+        return damageInst;
+    }
+
+    public static DamageInst ScaleToEntityDefense(DamageInst damageInst, Entity entity)
+    {
+        float scaledAmount = damageInst.amount;
+
+        switch (damageInst.type)
+        {
+            // case DamageType.Physical:
+            //     scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.Armour].Value / 100);
+            //     break;
+            case DamageType.Lightning:
+                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.LightningResist].Value / 100);
+                break;
+            case DamageType.Fire:
+                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.FireResist].Value / 100);
+                break;
+            case DamageType.Cold:
+                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.ColdResist].Value / 100);
+                break;
+        }
+        damageInst.amount = scaledAmount;
+        return damageInst;
     }
 }

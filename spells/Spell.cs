@@ -27,6 +27,16 @@ public partial class Spell : Resource
 
 		if (spellScene == null) return;
 		SpellScene spell = spellScene.Instantiate<SpellScene>();
+
+		// convert damageData to damageInsts
+		Array<DamageInst> damageInsts = [];
+		foreach (DamageData damageData in damageDatas)
+		{
+			damageInsts.Add(new DamageInst(damageData, player));
+		}
+
+		DamagePackage damagePackage = new(damageInsts, false, this, player);
+
 		GD.Print("cast");
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles
 		{
@@ -34,6 +44,7 @@ public partial class Spell : Resource
 			for (int i = 0; i < proj; i++)
 			{
 				SpellScene spellInst = spellScene.Instantiate<SpellScene>();
+				spellInst.hurtBox.damagePackage = damagePackage;
 				spellInst.muzzleVelocity *= spellScale;
 				spellInst.muzzleVelocity *= player.attributeData.Attributes[AttributeType.ProjSpeed].Value / 100;
 				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread / 2;

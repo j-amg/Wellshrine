@@ -94,7 +94,7 @@ public partial class Tooltip : PanelContainer
                 if (damageData != null)
                 {
                     Label label = affixLabelScene.Instantiate<Label>();
-                    label.Text = damageData.baseAmountMin + " to " + damageData.baseAmountMax + " " + damageData.type + " Damage";
+                    label.Text = damageData.amountMin + " to " + damageData.amountMax + " " + damageData.type + " Damage";
                     itemAffixContainer.AddChild(label);
                 }
             }
@@ -117,18 +117,18 @@ public partial class Tooltip : PanelContainer
                         case "Flat":
                             label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
                             label.Text += affix.attributeModifier.Value.ToString() + " to ";
-                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
+                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
                         case "PercentAdd":
                             label.Text = affix.attributeModifier.Value.ToString() + "% ";
                             label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
-                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
+                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
                         case "PercentMult":
                             label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
                             label.Text = affix.attributeModifier.Value.ToString() + "% ";
                             label.Text += "Total ";
-                            label.Text += Global.Singleton.AttributeDisplayNames[affix.TargetType].ToString();
+                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
                             break;
 
                     }

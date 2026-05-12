@@ -3,6 +3,7 @@ using System;
 
 public partial class HurtBox : Area3D
 {
+	public DamagePackage damagePackage;
 	public override void _Ready()
 	{
 		AreaEntered += OnAreaEntered;
@@ -10,11 +11,9 @@ public partial class HurtBox : Area3D
 
 	private void OnAreaEntered(Area3D area)
 	{
-
 		if (area != null && area.Owner is Entity entity)
 		{
-			//Damage d = Damage.InitDamage(5f, false, null);
-			//entity.TakeDamage(d);
+			entity.TakeDamage(damagePackage);
 		}
 	}
 }
