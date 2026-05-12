@@ -61,10 +61,10 @@ public partial class AttributeData : Resource
     [Export] float baseMaxMana = 100f;
     [Export] float baseHealthRegen = 0f;
     [Export] float baseTotalDamage = 100f;
-    [Export] float basePhysicalDamage = 0f;
-    [Export] float baseLightningDamage = 0f;
-    [Export] float baseFireDamage = 0f;
-    [Export] float baseColdDamage = 0f;
+    [Export] float basePhysicalDamage = 100f;
+    [Export] float baseLightningDamage = 100f;
+    [Export] float baseFireDamage = 100f;
+    [Export] float baseColdDamage = 100f;
     [Export] float baseLightningResist = 0f;
     [Export] float baseFireResist = 0f;
     [Export] float baseColdResist = 0f;

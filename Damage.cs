@@ -47,6 +47,7 @@ public partial class DamageInst : Resource
     public static DamageInst ScaleToEntityAttack(DamageInst damageInst, Entity entity)
     {
         float scaledAmount = damageInst.amount;
+        //GD.Print(scaledAmount);
 
         switch (damageInst.type)
         {
@@ -80,13 +81,13 @@ public partial class DamageInst : Resource
             //     scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.Armour].Value / 100);
             //     break;
             case DamageType.Lightning:
-                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.LightningResist].Value / 100);
+                scaledAmount *= 1 / ((entity.attributeData.Attributes[AttributeType.LightningResist].Value / 100) + 1);
                 break;
             case DamageType.Fire:
-                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.FireResist].Value / 100);
+                scaledAmount *= 1 / ((entity.attributeData.Attributes[AttributeType.FireResist].Value / 100) + 1);
                 break;
             case DamageType.Cold:
-                scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.ColdResist].Value / 100);
+                scaledAmount *= 1 / ((entity.attributeData.Attributes[AttributeType.ColdResist].Value / 100) + 1);
                 break;
         }
         damageInst.amount = scaledAmount;

@@ -41,6 +41,7 @@ public partial class Entity : CharacterBody3D
         foreach (DamageInst damage in damagePackage.damageInstances)
         {
             float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
+            GD.Print("damge: " + scaledAmount);
             Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
         }
         UpdateHealth();
