@@ -35,7 +35,7 @@
 script = ExtResource("17_j5n4i")
 metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
 
-[sub_resource type="Resource" id="Resource_634y6"]
+[sub_resource type="Resource" id="Resource_j5n4i"]
 script = ExtResource("15_j5n4i")
 type = 4
 value = 500.0
@@ -603,7 +603,7 @@ inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"),
 spellData = SubResource("Resource_efrwb")
 name = "Player"
 stateMachine = NodePath("statemachine")
-attributeOverrides = Array[Object]([SubResource("Resource_634y6")])
+attributeOverrides = Array[ExtResource("15_j5n4i")]([SubResource("Resource_j5n4i")])
 lookRay = NodePath("body/head/Camera3D/lookRay")
 animationPlayer = NodePath("AnimationPlayer")
 

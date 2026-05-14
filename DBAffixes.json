@@ -111,7 +111,7 @@
         },
     "percentHealth": {
         "title": "Grand",
-        "target": "MaxHealth",
+        "target": "MaximumHealth",
         "modifier": "PercentAdd",
         "spawn": ["Ring"],
         "valueMin": 5.0,
@@ -166,7 +166,7 @@
         },
     "incColdDamage": {
         "title": "Chilling",
-        "target": "Cold",
+        "target": "ColdDamage",
         "modifier": "PercentAdd",
         "spawn": ["Ring"],
         "valueMin": 10.0,

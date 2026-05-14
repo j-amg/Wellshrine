@@ -48,7 +48,7 @@ metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 [sub_resource type="Resource" id="Resource_2lqes"]
 script = ExtResource("18_hsp5b")
 type = 4
-value = 150.0
+value = 1000.0
 metadata/_custom_type_script = "uid://dtmnih223y7bf"
 
 [node name="playerZone" type="Node3D" unique_id=1812238043 node_paths=PackedStringArray("doorChest", "door", "player")]
