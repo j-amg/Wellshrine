@@ -22,7 +22,7 @@ public partial class Spell : Resource
 	[Export] private AudioStream sound;
 	[Export] public PackedScene spellScene;
 	//public Node3D spell;
-	public void Cast(Player player, float spellScale = 1.0f)
+	public void Cast(Entity entity, float spellScale = 1.0f)
 	{
 
 		if (spellScene == null) return;
@@ -32,12 +32,19 @@ public partial class Spell : Resource
 		Array<DamageInst> damageInsts = [];
 		foreach (DamageData damageData in damageDatas)
 		{
-			damageInsts.Add(new DamageInst(damageData, player));
+			damageInsts.Add(new DamageInst(damageData, entity));
 		}
 
-		DamagePackage damagePackage = new(damageInsts, false, this, player);
+		foreach (AttributeType at in new AttributeType[] { AttributeType.FlatLightningDamage, AttributeType.FlatFireDamage, AttributeType.FlatColdDamage })
+		{
+			float damageVal = entity.attributeData.attributes[at].Value;
+			if (damageVal == 0) continue;
+			damageInsts.Add(new DamageInst(new DamageData(DamageType.Lightning, ), entity));
 
-		GD.Print("cast");
+		}
+
+		DamagePackage damagePackage = new(damageInsts, false, this, entity);
+
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles
 		{
 			int proj = spell.projectileCount + (int)Global.Singleton.player.attributeData.attributes[AttributeType.ProjectileCount].Value;

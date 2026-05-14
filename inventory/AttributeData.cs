@@ -16,6 +16,9 @@ public enum AttributeType
     LightningDamage,
     FireDamage,
     ColdDamage,
+    FlatLightningDamage,
+    FlatFireDamage,
+    FlatColdDamage,
     LightningResist,
     FireResist,
     ColdResist,
@@ -28,7 +31,7 @@ public enum AttributeType
 [GlobalClass]
 public partial class AttributeData : Resource
 {
-    public Array<AttributeDefault> attributeDefaults = [
+    private Array<AttributeDefault> attributeDefaults = [
         new AttributeDefault(AttributeType.Strength, 50),
         new AttributeDefault(AttributeType.Dexterity, 50),
         new AttributeDefault(AttributeType.Intelligence, 50),
@@ -40,6 +43,9 @@ public partial class AttributeData : Resource
         new AttributeDefault(AttributeType.LightningDamage, 100),
         new AttributeDefault(AttributeType.FireDamage, 100),
         new AttributeDefault(AttributeType.ColdDamage, 100),
+        new AttributeDefault(AttributeType.FlatLightningDamage, 0),
+        new AttributeDefault(AttributeType.FlatFireDamage, 0),
+        new AttributeDefault(AttributeType.FlatColdDamage, 0),
         new AttributeDefault(AttributeType.LightningResist, 0),
         new AttributeDefault(AttributeType.FireResist, 0),
         new AttributeDefault(AttributeType.ColdResist, 0),

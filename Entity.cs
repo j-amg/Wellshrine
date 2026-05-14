@@ -13,7 +13,7 @@ public partial class Entity : CharacterBody3D
     [Export] public string name = "[PH] Entity";
     [Export] public StateMachine stateMachine;
     public AttributeData attributeData = new();
-    [Export] public Array<AttributeDefault> attributeOverrides = [];
+    [Export] private Array<AttributeDefault> attributeOverrides = [];
     [Export] public RayCast3D lookRay;
     [Export] public AnimationPlayer animationPlayer;
 

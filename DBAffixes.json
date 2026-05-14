@@ -175,6 +175,39 @@
         "accWeight": 0.0,
         "type": "prefix"
         },
+    "flatLightningDamage": {
+        "title": "Conductive",
+        "target": "FlatLightningDamage",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 2.0,
+        "valueMax": 100.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+        },
+    "flatFireDamage": {
+        "title": "Molten",
+        "target": "FlatFireDamage",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 2.0,
+        "valueMax": 100.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+        },
+    "flatColdDamage": {
+        "title": "Frozen",
+        "target": "FlatColdDamage",
+        "modifier": "Flat",
+        "spawn": ["Ring"],
+        "valueMin": 2.0,
+        "valueMax": 100.0,
+        "rollWeight": 0.2,
+        "accWeight": 0.0,
+        "type": "suffix"
+        },
     "incLightningResist": {
         "title": "of Grounding",
         "target": "LightningResist",
