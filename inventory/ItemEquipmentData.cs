@@ -18,7 +18,7 @@ public partial class ItemEquipmentData : ItemData
 			if (affix != null)
 			{
 				affix.attributeModifier.Source = this;
-				player.attributeData.Attributes[affix.TargetType].AddModifier(affix.attributeModifier);
+				player.attributeData.attributes[affix.TargetType].AddModifier(affix.attributeModifier);
 			}
 
 		}
@@ -30,7 +30,7 @@ public partial class ItemEquipmentData : ItemData
 		{
 			if (affix != null)
 			{
-				player.attributeData.Attributes[affix.TargetType].RemoveAllModifiersFromSource(this);
+				player.attributeData.attributes[affix.TargetType].RemoveAllModifiersFromSource(this);
 			}
 		}
 	}

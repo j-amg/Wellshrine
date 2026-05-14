@@ -54,11 +54,11 @@ public partial class Enemy : Entity, IHoverable
 
 	public void ScaleEnemyToLevel()
 	{
-		float baseHealth = attributeData.Attributes[AttributeType.MaxHealth].BaseValue + level * 0.25f * attributeData.Attributes[AttributeType.MaxHealth].BaseValue;
-		attributeData.UpdateBaseAttribute(AttributeType.MaxHealth, baseHealth);
+		float baseHealth = attributeData.attributes[AttributeType.MaximumHealth].BaseValue + level * 0.25f * attributeData.attributes[AttributeType.MaximumHealth].BaseValue;
+		//attributeData.UpdateBaseAttribute(AttributeType.MaximumHealth, baseHealth);
 		//damage += level * 0.25f * damage;
 		//baseMovementSpeed += level / 10;
-		Health = attributeData.Attributes[AttributeType.MaxHealth].Value;
+		Health = attributeData.attributes[AttributeType.MaximumHealth].Value;
 	}
 
 	// private async void Stun()

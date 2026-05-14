@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 
 [GlobalClass]
 
@@ -11,7 +12,8 @@ public partial class Entity : CharacterBody3D
     [Signal] public delegate void DiedEventHandler(Entity entity);
     [Export] public string name = "[PH] Entity";
     [Export] public StateMachine stateMachine;
-    [Export] public AttributeData attributeData;
+    public AttributeData attributeData = new();
+    [Export] public Array<AttributeDefault> attributeOverrides = [];
     [Export] public RayCast3D lookRay;
     [Export] public AnimationPlayer animationPlayer;
 
@@ -22,16 +24,14 @@ public partial class Entity : CharacterBody3D
 
     public override void _Ready()
     {
-        attributeData.DefaultValuesSet += OnAttributeDataDefaultValuesSet;
-        attributeData.SetDefaultValues();
+        attributeData.SetDefaultValues(attributeOverrides);
+        Initialise();
     }
-
-    private void OnAttributeDataDefaultValuesSet() => Initialise();
 
     public virtual void Initialise()
     {
         initialised = true;
-        SetHealth(attributeData.Attributes[AttributeType.MaxHealth].Value);
+        SetHealth(attributeData.attributes[AttributeType.MaximumHealth].Value);
     }
 
     public virtual void TakeDamage(DamagePackage damagePackage)
@@ -43,7 +43,7 @@ public partial class Entity : CharacterBody3D
             Global.Singleton.currentScene.GetNode<CanvasLayer>("UI").AddChild(new DamageNumber(damage, this));
             float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
             GD.Print("damge: " + scaledAmount);
-            Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
+            Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
         }
         UpdateHealth();
     }
@@ -51,14 +51,14 @@ public partial class Entity : CharacterBody3D
     public virtual void SetHealth(float value)
     {
         if (dead) return;
-        Health = Mathf.Clamp(value, 0, attributeData.Attributes[AttributeType.MaxHealth].Value);
+        Health = Mathf.Clamp(value, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
         UpdateHealth();
     }
 
     public virtual void UpdateHealth()
     {
         if (!initialised) return;
-        GD.Print("Entity: " + Name + " Health: " + Health + " Max Health: " + attributeData.Attributes[AttributeType.MaxHealth].Value);
+        GD.Print("Entity: " + Name + " Health: " + Health + " Max Health: " + attributeData.attributes[AttributeType.MaximumHealth].Value);
         EmitSignal(SignalName.HealthChanged, this);
         if (Health <= 0) Die();
     }
@@ -69,8 +69,8 @@ public partial class Entity : CharacterBody3D
         EmitSignal(SignalName.Died);
     }
 
-    public override void _ExitTree()
-    {
-        attributeData.DefaultValuesSet -= OnAttributeDataDefaultValuesSet;
-    }
+    // public override void _ExitTree()
+    // {
+    //     attributeData.DefaultValuesSet -= Initialise;
+    // }
 }

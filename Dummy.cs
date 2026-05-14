@@ -10,6 +10,6 @@ public partial class Dummy : Enemy
 	}
 	public override void Die()
 	{
-		SetHealth(attributeData.Attributes[AttributeType.MaxHealth].Value);
+		SetHealth(attributeData.attributes[AttributeType.MaximumHealth].Value);
 	}
 }

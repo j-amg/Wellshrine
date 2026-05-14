@@ -17,9 +17,9 @@
 [ext_resource type="Resource" uid="uid://cer33xkt0pkma" path="res://inventory/inventories/equipmentInventory3.tres" id="13_iruf7"]
 [ext_resource type="Resource" uid="uid://d2kvgci7gguif" path="res://inventory/inventories/equipmentInventory4.tres" id="14_j5n4i"]
 [ext_resource type="Resource" uid="uid://di7r3epp7kckd" path="res://inventory/inventories/equipmentInventory5.tres" id="15_634y6"]
+[ext_resource type="Script" uid="uid://dtmnih223y7bf" path="res://AttributeDefault.cs" id="15_j5n4i"]
 [ext_resource type="Resource" uid="uid://bfjh0o1ngodbi" path="res://inventory/inventories/equipmentInventory6.tres" id="16_hiqhm"]
 [ext_resource type="Resource" uid="uid://cia7abkugycie" path="res://inventory/inventories/equipmentInventory7.tres" id="17_hiqhm"]
-[ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="17_iruf7"]
 [ext_resource type="Script" uid="uid://rb1ho8gvc7cc" path="res://inventory/SpellData.cs" id="17_j5n4i"]
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="18_hiqhm"]
 [ext_resource type="Resource" uid="uid://dna06uq7wexm5" path="res://inventory/inventories/equipmentInventory8.tres" id="18_tkwlq"]
@@ -35,10 +35,11 @@
 script = ExtResource("17_j5n4i")
 metadata/_custom_type_script = "uid://rb1ho8gvc7cc"
 
-[sub_resource type="Resource" id="Resource_hiqhm"]
-script = ExtResource("17_iruf7")
-baseMaxHealth = 200.0
-metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
+[sub_resource type="Resource" id="Resource_634y6"]
+script = ExtResource("15_j5n4i")
+type = 4
+value = 500.0
+metadata/_custom_type_script = "uid://dtmnih223y7bf"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_67q2g"]
 atlas = ExtResource("4_fhym6")
@@ -602,7 +603,7 @@ inventoryData = Array[Object]([ExtResource("10_7ahtn"), ExtResource("11_qtqh7"),
 spellData = SubResource("Resource_efrwb")
 name = "Player"
 stateMachine = NodePath("statemachine")
-attributeData = SubResource("Resource_hiqhm")
+attributeOverrides = Array[Object]([SubResource("Resource_634y6")])
 lookRay = NodePath("body/head/Camera3D/lookRay")
 animationPlayer = NodePath("AnimationPlayer")
 

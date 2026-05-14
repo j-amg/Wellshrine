@@ -19,7 +19,7 @@ public partial class EnemyChase : State
         Vector3 velocity = owningEntity.Velocity;
         owningEntity.nav.TargetPosition = Global.Singleton.player.GlobalPosition;
         direction = (owningEntity.nav.GetNextPathPosition() - owningEntity.GlobalPosition).Normalized();
-        velocity = velocity.Lerp(direction * owningEntity.attributeData.Attributes[AttributeType.MovSpeed].Value, (float)(owningEntity.acceleration * delta));
+        velocity = velocity.Lerp(direction * owningEntity.attributeData.Attributes[AttributeType.MovementSpeed].Value, (float)(owningEntity.acceleration * delta));
         owningEntity.Velocity = velocity;
         owningEntity.sprite.Play("run");
         if (owningEntity.stunned) owningEntity.sprite.Play("stun");

@@ -139,10 +139,7 @@ public partial class Player : Entity
 				target_rotation.Y -= eventKey.Relative.X * mouseSensitivity * sensitivityScale;
 			}
 
-			if (Input.MouseMode == Input.MouseModeEnum.Visible)
-			{
-				GetViewport().SetInputAsHandled();
-			}
+			if (Input.MouseMode == Input.MouseModeEnum.Visible) GetViewport().SetInputAsHandled();
 			if (Input.IsActionJustPressed("interact"))
 			{
 				if (existingHit is IInteractable interactable && hitDistance <= interactionRange && interactable.Active) interactable.Interact();
@@ -169,7 +166,7 @@ public partial class Player : Entity
 	public override void Initialise()
 	{
 		initialised = true;
-		if (Global.Singleton.currentPlayerHealth == -1) Global.Singleton.currentPlayerHealth = attributeData.Attributes[AttributeType.MaxHealth].Value;
+		if (Global.Singleton.currentPlayerHealth == -1) Global.Singleton.currentPlayerHealth = attributeData.attributes[AttributeType.MaximumHealth].Value;
 		SetHealth(Global.Singleton.currentPlayerHealth);
 	}
 

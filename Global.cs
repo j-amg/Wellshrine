@@ -173,7 +173,7 @@ public partial class Global : Node
 				n.ToggleInventory += OnChestInventoryToggle;
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
-			foreach (Attribute att in player.attributeData.Attributes.Values)
+			foreach (Attribute att in player.attributeData.attributes.Values)
 			{
 				att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);
 			}

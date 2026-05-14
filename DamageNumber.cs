@@ -44,7 +44,7 @@ public partial class DamageNumber : Label
 
 	}
 
-	public async void Fade()
+	public void Fade()
 	{
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(this, "modulate:a", 0, 1f);

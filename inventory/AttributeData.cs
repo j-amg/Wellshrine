@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-
+using Godot.Collections;
 public enum AttributeType
 {
     Strength,
     Dexterity,
     Intelligence,
     Armour,
-    MaxHealth,
-    MaxMana,
+    MaximumHealth,
+    MaximumMana,
     HealthRegen,
     TotalDamage,
     PhysicalDamage,
@@ -19,106 +19,41 @@ public enum AttributeType
     LightningResist,
     FireResist,
     ColdResist,
-    ProjCount,
+    ProjectileCount,
     CastSpeed,
-    ProjSpeed,
-    MovSpeed
+    ProjectileSpeed,
+    MovementSpeed
 }
 
 [GlobalClass]
-
 public partial class AttributeData : Resource
 {
-    public static Dictionary<AttributeType, string> AttributeDisplayNames = new()
-	{
-		{AttributeType.Strength, "Strength"},
-		{AttributeType.Dexterity, "Dexterity"},
-		{AttributeType.Intelligence, "Intelligence"},
-		{AttributeType.Armour, "Armour"},
-        {AttributeType.MaxHealth, "Health"},
-        {AttributeType.MaxMana, "Mana"},
-        {AttributeType.TotalDamage, "Total Damage"},
-        {AttributeType.PhysicalDamage, "Physical Damage"},
-        {AttributeType.LightningDamage, "Lighning Damage"},
-        {AttributeType.FireDamage, "Fire Damage"},
-        {AttributeType.ColdDamage, "Cold Damage"},
-        {AttributeType.LightningResist, "Lightning Resistance"},
-        {AttributeType.FireResist, "Fire Resistance"},
-        {AttributeType.ColdResist, "Cold Resistance"},
-		{AttributeType.HealthRegen, "Health Regeneration"},
-		{AttributeType.ProjCount, "Projectile Count"},
-		{AttributeType.CastSpeed, "Cast Speed"},
-		{AttributeType.ProjSpeed, "Projectile Speed"},
-        {AttributeType.MovSpeed, "Movement Speed"}
-
-	};
-    [Signal] public delegate void DefaultValuesSetEventHandler();
-    [Export] float baseStrength = 50f;
-    [Export] float baseDexterity = 50f;
-    [Export] float baseIntelligence = 50f;
-    [Export] float baseArmour = 0f;
-    [Export] float baseMaxHealth = 100f;
-    [Export] float baseMaxMana = 100f;
-    [Export] float baseHealthRegen = 0f;
-    [Export] float baseTotalDamage = 100f;
-    [Export] float basePhysicalDamage = 100f;
-    [Export] float baseLightningDamage = 100f;
-    [Export] float baseFireDamage = 100f;
-    [Export] float baseColdDamage = 100f;
-    [Export] float baseLightningResist = 0f;
-    [Export] float baseFireResist = 0f;
-    [Export] float baseColdResist = 0f;
-    [Export] float baseProjCount = 0f;
-    [Export] float baseProjSpeed = 100f;
-    [Export] float baseCastSpeed = 100f;
-    [Export] float baseMovSpeed = 0f;
-
-    public Dictionary<AttributeType, Attribute> Attributes = new()
-        {
-            {AttributeType.Strength, new Attribute(0)},
-            {AttributeType.Dexterity, new Attribute(0)},
-            {AttributeType.Intelligence, new Attribute(0)},
-            {AttributeType.Armour, new Attribute(0)},
-            {AttributeType.MaxHealth, new Attribute(0)},
-            {AttributeType.MaxMana, new Attribute(0)},
-            {AttributeType.TotalDamage, new Attribute(0)},
-            {AttributeType.PhysicalDamage, new Attribute(0)},
-            {AttributeType.LightningDamage, new Attribute(0)},
-            {AttributeType.FireDamage, new Attribute(0)},
-            {AttributeType.ColdDamage, new Attribute(0)},
-            {AttributeType.LightningResist, new Attribute(0)},
-            {AttributeType.FireResist, new Attribute(0)},
-            {AttributeType.ColdResist, new Attribute(0)},
-            {AttributeType.ProjCount, new Attribute(0)},
-            {AttributeType.ProjSpeed, new Attribute(0)},
-            {AttributeType.CastSpeed, new Attribute(0)},
-            {AttributeType.MovSpeed, new Attribute(0)}
-        };
-
-    public void SetDefaultValues()
+    public Array<AttributeDefault> attributeDefaults = [
+        new AttributeDefault(AttributeType.Strength, 50),
+        new AttributeDefault(AttributeType.Dexterity, 50),
+        new AttributeDefault(AttributeType.Intelligence, 50),
+        new AttributeDefault(AttributeType.Armour, 0),
+        new AttributeDefault(AttributeType.MaximumHealth, 100),
+        new AttributeDefault(AttributeType.MaximumMana, 100),
+        new AttributeDefault(AttributeType.TotalDamage, 100),
+        new AttributeDefault(AttributeType.PhysicalDamage, 100),
+        new AttributeDefault(AttributeType.LightningDamage, 100),
+        new AttributeDefault(AttributeType.FireDamage, 100),
+        new AttributeDefault(AttributeType.ColdDamage, 100),
+        new AttributeDefault(AttributeType.LightningResist, 0),
+        new AttributeDefault(AttributeType.FireResist, 0),
+        new AttributeDefault(AttributeType.ColdResist, 0),
+        new AttributeDefault(AttributeType.HealthRegen, 0),
+        new AttributeDefault(AttributeType.ProjectileCount, 0),
+        new AttributeDefault(AttributeType.CastSpeed, 100),
+        new AttributeDefault(AttributeType.ProjectileSpeed, 100),
+        new AttributeDefault(AttributeType.MovementSpeed, 100),
+    ];
+    public System.Collections.Generic.Dictionary<AttributeType, Attribute> attributes = [];
+    public void SetDefaultValues(Array<AttributeDefault> attributeOverrides)
     {
-        Attributes[AttributeType.Strength].SetBaseValue(baseStrength);
-        Attributes[AttributeType.Dexterity].SetBaseValue(baseDexterity);
-        Attributes[AttributeType.Intelligence].SetBaseValue(baseIntelligence);
-        Attributes[AttributeType.Armour].SetBaseValue(baseArmour);
-        Attributes[AttributeType.MaxHealth].SetBaseValue(baseMaxHealth);
-        Attributes[AttributeType.MaxMana].SetBaseValue(baseMaxMana);
-        Attributes[AttributeType.TotalDamage].SetBaseValue(baseTotalDamage);
-        Attributes[AttributeType.PhysicalDamage].SetBaseValue(basePhysicalDamage);
-        Attributes[AttributeType.LightningDamage].SetBaseValue(baseLightningDamage);
-        Attributes[AttributeType.FireDamage].SetBaseValue(baseFireDamage);
-        Attributes[AttributeType.ColdDamage].SetBaseValue(baseColdDamage);
-        Attributes[AttributeType.LightningResist].SetBaseValue(baseLightningResist);
-        Attributes[AttributeType.FireResist].SetBaseValue(baseFireResist);
-        Attributes[AttributeType.ColdResist].SetBaseValue(baseColdResist);
-        Attributes[AttributeType.ProjCount].SetBaseValue(baseProjCount);
-        Attributes[AttributeType.ProjSpeed].SetBaseValue(baseProjSpeed);
-        Attributes[AttributeType.CastSpeed].SetBaseValue(baseCastSpeed);
-        EmitSignal(SignalName.DefaultValuesSet);
-    }
-
-    public void UpdateBaseAttribute(AttributeType type, float value)
-    {
-        Attributes[type].SetBaseValue(value);
+        attributes.Clear();
+        foreach (var ad in attributeDefaults) attributes.Add(ad.type, new Attribute(ad.value));
+        foreach (var ad in attributeOverrides) attributes[ad.type].SetBaseValue(ad.value);
     }
 }

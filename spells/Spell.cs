@@ -40,13 +40,13 @@ public partial class Spell : Resource
 		GD.Print("cast");
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles
 		{
-			int proj = spell.projectileCount + (int)Global.Singleton.player.attributeData.Attributes[AttributeType.ProjCount].Value;
+			int proj = spell.projectileCount + (int)Global.Singleton.player.attributeData.attributes[AttributeType.ProjectileCount].Value;
 			for (int i = 0; i < proj; i++)
 			{
 				SpellScene spellInst = spellScene.Instantiate<SpellScene>();
 				spellInst.hurtBox.damagePackage = damagePackage;
 				spellInst.muzzleVelocity *= spellScale;
-				spellInst.muzzleVelocity *= player.attributeData.Attributes[AttributeType.ProjSpeed].Value / 100;
+				spellInst.muzzleVelocity *= player.attributeData.attributes[AttributeType.ProjectileSpeed].Value / 100;
 				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread / 2;
 				Transform3D t = player.head.GlobalTransform.RotatedLocal(Vector3.Up, Mathf.DegToRad(rotationOffset));
 				Global.Singleton.AddToScene(spellInst, t);

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
-
+using System.Text.RegularExpressions;
 public partial class Tooltip : PanelContainer
 {
     [Export] public Label itemNameLabel;
@@ -91,12 +91,11 @@ public partial class Tooltip : PanelContainer
 
             foreach (DamageData damageData in spell.spell.damageDatas)
             {
-                if (damageData != null)
-                {
-                    Label label = affixLabelScene.Instantiate<Label>();
-                    label.Text = damageData.amountMin + " to " + damageData.amountMax + " " + damageData.type + " Damage";
-                    itemAffixContainer.AddChild(label);
-                }
+                if (damageData == null) continue;
+
+                Label label = affixLabelScene.Instantiate<Label>();
+                label.Text = damageData.amountMin + " to " + damageData.amountMax + " " + damageData.type + " Damage";
+                itemAffixContainer.AddChild(label);
             }
         }
 
@@ -109,33 +108,36 @@ public partial class Tooltip : PanelContainer
             itemLevelContainer.Show();
             foreach (ItemAffix affix in new ItemAffix[] { equipment.prefix, equipment.suffix })
             {
-                if (affix != null)
-                {
-                    Label label = affixLabelScene.Instantiate<Label>();
-                    switch (affix.attributeModifier.ModType.ToString())
-                    {
-                        case "Flat":
-                            label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
-                            label.Text += affix.attributeModifier.Value.ToString() + " to ";
-                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
-                            break;
-                        case "PercentAdd":
-                            label.Text = affix.attributeModifier.Value.ToString() + "% ";
-                            label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
-                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
-                            break;
-                        case "PercentMult":
-                            label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
-                            label.Text = affix.attributeModifier.Value.ToString() + "% ";
-                            label.Text += "Total ";
-                            label.Text += AttributeData.AttributeDisplayNames[affix.TargetType].ToString();
-                            break;
+                if (affix == null) continue;
 
-                    }
-                    itemAffixContainer.AddChild(label);
+                Label label = affixLabelScene.Instantiate<Label>();
+                switch (affix.attributeModifier.ModType.ToString())
+                {
+                    case "Flat":
+                        label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
+                        label.Text += affix.attributeModifier.Value.ToString() + " to ";
+                        label.Text += CamelCaseToText(affix.TargetType.ToString());
+                        break;
+                    case "PercentAdd":
+                        label.Text = affix.attributeModifier.Value.ToString() + "% ";
+                        label.Text += affix.attributeModifier.Value >= 0 ? "increased " : "decreased ";
+                        label.Text += CamelCaseToText(affix.TargetType.ToString());
+                        break;
+                    case "PercentMult":
+                        label.Text = affix.attributeModifier.Value >= 0 ? "+" : "-";
+                        label.Text = affix.attributeModifier.Value.ToString() + "% ";
+                        label.Text += "Total ";
+                        label.Text += CamelCaseToText(affix.TargetType.ToString());
+                        break;
+
                 }
+                itemAffixContainer.AddChild(label);
             }
         }
         Size = new Vector2(0, 0); // shrink tooltip
     }
+
+    [GeneratedRegex("(\\B[A-Z])")]
+    private static partial Regex MyRegex();
+    public static string CamelCaseToText(string input) => MyRegex().Replace(input, " $1");
 }

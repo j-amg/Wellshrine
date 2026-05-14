@@ -50,19 +50,19 @@ public partial class DamageInst : Resource
         switch (damageInst.type)
         {
             case DamageType.Physical:
-                scaledAmount *= entity.attributeData.Attributes[AttributeType.PhysicalDamage].Value / 100;
+                scaledAmount *= entity.attributeData.attributes[AttributeType.PhysicalDamage].Value / 100;
                 break;
             case DamageType.Lightning:
-                scaledAmount *= entity.attributeData.Attributes[AttributeType.LightningDamage].Value / 100;
+                scaledAmount *= entity.attributeData.attributes[AttributeType.LightningDamage].Value / 100;
                 break;
             case DamageType.Fire:
-                scaledAmount *= entity.attributeData.Attributes[AttributeType.FireDamage].Value / 100;
+                scaledAmount *= entity.attributeData.attributes[AttributeType.FireDamage].Value / 100;
                 break;
             case DamageType.Cold:
-                scaledAmount *= entity.attributeData.Attributes[AttributeType.ColdDamage].Value / 100;
+                scaledAmount *= entity.attributeData.attributes[AttributeType.ColdDamage].Value / 100;
                 break;
         }
-        scaledAmount *= entity.attributeData.Attributes[AttributeType.TotalDamage].Value / 100;
+        scaledAmount *= entity.attributeData.attributes[AttributeType.TotalDamage].Value / 100;
 
         damageInst.amount = scaledAmount;
 
@@ -75,16 +75,16 @@ public partial class DamageInst : Resource
         switch (damageInst.type)
         {
             // case DamageType.Physical:
-            //     scaledAmount *= 1 / (entity.attributeData.Attributes[AttributeType.Armour].Value / 100);
+            //     scaledAmount *= 1 / (entity.attributeData.attributes[AttributeType.Armour].Value / 100);
             //     break;
             case DamageType.Lightning:
-                scaledAmount *= 1 - (entity.attributeData.Attributes[AttributeType.LightningResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.LightningResist].Value / 100);
                 break;
             case DamageType.Fire:
-                scaledAmount *= 1 - (entity.attributeData.Attributes[AttributeType.FireResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.FireResist].Value / 100);
                 break;
             case DamageType.Cold:
-                scaledAmount *= 1 - (entity.attributeData.Attributes[AttributeType.ColdResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.ColdResist].Value / 100);
                 break;
         }
         damageInst.amount = scaledAmount;

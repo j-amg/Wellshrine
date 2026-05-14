@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c16qpnhlnqgms" path="res://dummy.tscn" id="17_jqp77"]
 [ext_resource type="PackedScene" uid="uid://2urejxveqm6g" path="res://inventory/ground_item.tscn" id="18_2lqes"]
 [ext_resource type="PackedScene" uid="uid://dx65hws7rswcp" path="res://container.tscn" id="18_5b0lf"]
-[ext_resource type="Script" uid="uid://e2i0rdjj4pf2" path="res://inventory/AttributeData.cs" id="18_ssr2x"]
+[ext_resource type="Script" uid="uid://dtmnih223y7bf" path="res://AttributeDefault.cs" id="18_hsp5b"]
 [ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://inventory/inventories/doorInventory.tres" id="19_5b0lf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2drdb"]
@@ -45,10 +45,11 @@ script = ExtResource("15_jqp77")
 slotDatas = Array[ExtResource("16_2lqes")]([null, SubResource("Resource_ssr2x"), null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://c7wbh85n1ea1a"
 
-[sub_resource type="Resource" id="Resource_lhq5n"]
-script = ExtResource("18_ssr2x")
-baseMaxHealth = 50.0
-metadata/_custom_type_script = "uid://e2i0rdjj4pf2"
+[sub_resource type="Resource" id="Resource_2lqes"]
+script = ExtResource("18_hsp5b")
+type = 4
+value = 150.0
+metadata/_custom_type_script = "uid://dtmnih223y7bf"
 
 [node name="playerZone" type="Node3D" unique_id=1812238043 node_paths=PackedStringArray("doorChest", "door", "player")]
 script = ExtResource("1_lr3ls")
@@ -122,4 +123,4 @@ transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 3.65759,
 
 [node name="enemy" parent="." unique_id=727006957 instance=ExtResource("17_jqp77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.478676, 0.16003603, 0.34270406)
-attributeData = SubResource("Resource_lhq5n")
+attributeOverrides = Array[ExtResource("18_hsp5b")]([SubResource("Resource_2lqes")])

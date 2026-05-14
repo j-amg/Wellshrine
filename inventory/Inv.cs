@@ -47,9 +47,9 @@ public partial class Inv : Control
 
     public void SetAttributeLabels(AttributeData attributeData)
     {
-        strLabel.Text = attributeData.Attributes[AttributeType.Strength].Value.ToString();
-        dexLabel.Text = attributeData.Attributes[AttributeType.Dexterity].Value.ToString();
-        intLabel.Text = attributeData.Attributes[AttributeType.Intelligence].Value.ToString();
+        strLabel.Text = attributeData.attributes[AttributeType.Strength].Value.ToString();
+        dexLabel.Text = attributeData.attributes[AttributeType.Dexterity].Value.ToString();
+        intLabel.Text = attributeData.attributes[AttributeType.Intelligence].Value.ToString();
     }
 
     public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)

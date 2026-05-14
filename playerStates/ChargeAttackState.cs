@@ -22,8 +22,8 @@ public partial class ChargeAttackState : AttackState
     {
         spell = owningEntity.spellData.spells[spellIndex];
         if (spell == null) return;
-        chargeTime = spell.chargeTime / ((owningEntity.attributeData.Attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
-        castTime = spell.castTime / ((owningEntity.attributeData.Attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
+        chargeTime = spell.chargeTime / ((owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
+        castTime = spell.castTime / ((owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
         startChargeTime = Time.GetTicksMsec();
     }
     public override void Update(double delta)
