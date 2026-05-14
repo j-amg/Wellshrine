@@ -173,15 +173,21 @@ public partial class Global : Node
 				n.ToggleInventory += OnChestInventoryToggle;
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
-			foreach (Attribute att in player.attributeData.attributes.Values)
-			{
-				att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);
-			}
+			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
+		}
+	}
+
+	private void ConnectToAttributes(AttributeData attributeData)
+	{
+		foreach (Attribute att in attributeData.attributes.Values)
+		{
+			att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);
 		}
 	}
 
 	private void OnAttributeDataUpdated(AttributeData attributeData)
 	{
+		GD.Print("attributes updated");
 		inventory.SetAttributeLabels(attributeData);
 		player.UpdateHealth();
 	}

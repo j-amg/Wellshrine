@@ -29,9 +29,7 @@ public partial class Inv : Control
     [Export] public InvContainer EquipmentInvContainer10;
     [Export] public InvContainer EquipmentInvContainer11;
 
-    [Export] public Label strLabel;
-    [Export] public Label dexLabel;
-    [Export] public Label intLabel;
+    [Export] public VBoxContainer AttributesList;
 
     public Chest currentExternalInventoryOwner;
     public InventoryData[] inventoryDatas;
@@ -39,17 +37,23 @@ public partial class Inv : Control
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Visible)
-        {
-            grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
-        }
+        if (!Visible) return;
+        grabbedSlot.GlobalPosition = GetGlobalMousePosition() + new Vector2(5, 5);
     }
 
     public void SetAttributeLabels(AttributeData attributeData)
     {
-        strLabel.Text = attributeData.attributes[AttributeType.Strength].Value.ToString();
-        dexLabel.Text = attributeData.attributes[AttributeType.Dexterity].Value.ToString();
-        intLabel.Text = attributeData.attributes[AttributeType.Intelligence].Value.ToString();
+        GD.Print("Set Labels");
+        foreach (var child in AttributesList.GetChildren()) AttributesList.RemoveChild(child);
+        foreach (AttributeType at in Enum.GetValues<AttributeType>())
+        {
+            Label label = new();
+            label.Modulate = new Color(0,0,0);
+            label.Text = attributeData.attributes[at].Value >= 0 ? "+" : "-";
+            label.Text += attributeData.attributes[at].Value .ToString() + "% ";
+            label.Text += Tooltip.CamelCaseToText(at.ToString());
+            AttributesList.AddChild(label);
+        }
     }
 
     public void SetPlayerInventoryData(InventoryData[] PlayerInventoryData)

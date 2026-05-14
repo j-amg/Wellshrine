@@ -51,6 +51,10 @@ type = 4
 value = 1000.0
 metadata/_custom_type_script = "uid://dtmnih223y7bf"
 
+[sub_resource type="Resource" id="Resource_5b0lf"]
+script = ExtResource("18_hsp5b")
+metadata/_custom_type_script = "uid://dtmnih223y7bf"
+
 [node name="playerZone" type="Node3D" unique_id=1812238043 node_paths=PackedStringArray("doorChest", "door", "player")]
 script = ExtResource("1_lr3ls")
 doorChest = NodePath("doorChest")
@@ -123,4 +127,4 @@ transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 3.65759,
 
 [node name="enemy" parent="." unique_id=727006957 instance=ExtResource("17_jqp77")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.478676, 0.16003603, 0.34270406)
-attributeOverrides = Array[ExtResource("18_hsp5b")]([SubResource("Resource_2lqes")])
+attributeOverrides = Array[ExtResource("18_hsp5b")]([SubResource("Resource_2lqes"), SubResource("Resource_5b0lf")])

@@ -25,53 +25,7 @@ height = 48
 noise = SubResource("FastNoiseLite_so6ny")
 color_ramp = SubResource("Gradient_m22gv")
 
-[sub_resource type="Gradient" id="Gradient_i7njh"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.2675)
-colors = PackedColorArray(0, 0, 0, 1, 0.603922, 0.0235294, 0.0196078, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m22gv"]
-frequency = 0.0248
-fractal_lacunarity = 2.66
-fractal_gain = 0.83
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_so6ny"]
-width = 48
-height = 48
-noise = SubResource("FastNoiseLite_m22gv")
-color_ramp = SubResource("Gradient_i7njh")
-
-[sub_resource type="Gradient" id="Gradient_iy0jw"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.285833)
-colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8arb2"]
-fractal_lacunarity = 2.625
-fractal_gain = 0.845
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbt6p"]
-width = 48
-height = 48
-noise = SubResource("FastNoiseLite_8arb2")
-color_ramp = SubResource("Gradient_iy0jw")
-
-[sub_resource type="Gradient" id="Gradient_xw787"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.275833)
-colors = PackedColorArray(0, 0, 0, 1, 0.890196, 0.721569, 0.0313726, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_exr8x"]
-fractal_lacunarity = 2.775
-fractal_gain = 1.065
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_54qju"]
-width = 48
-height = 48
-noise = SubResource("FastNoiseLite_exr8x")
-color_ramp = SubResource("Gradient_xw787")
-
-[node name="inventoryInterface" type="Control" unique_id=1782515033 node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "EquipmentInvContainer11", "strLabel", "dexLabel", "intLabel")]
+[node name="inventoryInterface" type="Control" unique_id=1782515033 node_paths=PackedStringArray("playerInventory", "invContainer", "grabbedSlot", "chestInv", "chestInvContainer", "doorChestInv", "doorChestInvContainer", "tooltip", "EquipmentInvContainer1", "EquipmentInvContainer2", "EquipmentInvContainer3", "EquipmentInvContainer4", "EquipmentInvContainer5", "EquipmentInvContainer6", "EquipmentInvContainer7", "EquipmentInvContainer8", "EquipmentInvContainer9", "EquipmentInvContainer10", "EquipmentInvContainer11", "AttributesList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,9 +52,7 @@ EquipmentInvContainer8 = NodePath("playerInventory/PanelContainer/VBoxContainer/
 EquipmentInvContainer9 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer7/PanelContainer4/spellSlot3")
 EquipmentInvContainer10 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer6/PanelContainer5/spellSlot4")
 EquipmentInvContainer11 = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/equipmentContainer/HBoxContainer/PanelContainer2/spellsContainer2/HBoxContainer5/PanelContainer6/spellSlot5")
-strLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer/strLabel")
-dexLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2/dexLabel")
-intLabel = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3/intLabel")
+AttributesList = NodePath("playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/attributesList/VBoxContainer")
 
 [node name="playerInventory" type="PanelContainer" parent="." unique_id=1658077791]
 layout_mode = 1
@@ -327,114 +279,11 @@ color = Color(0.778537, 0.772316, 0.634303, 1)
 [node name="MarginContainer" type="MarginContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel" unique_id=1623869629]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer" unique_id=295798637]
+[node name="attributesList" type="ScrollContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer" unique_id=1616504038]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=438247909]
+[node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/attributesList" unique_id=20540806]
 layout_mode = 2
-theme = ExtResource("1_7mfnc")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Attributes"
-
-[node name="VBoxContainer2" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=1183675716]
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1062245819]
-layout_mode = 2
-
-[node name="HBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer" unique_id=1523188547]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1114274399]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_so6ny")
-
-[node name="strLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer/HBoxContainer" unique_id=1715026124]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "30"
-horizontal_alignment = 1
-
-[node name="PanelContainer3" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=808865189]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3" unique_id=588399836]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=2131904795]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_rbt6p")
-
-[node name="dexLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer3/HBoxContainer2" unique_id=1494738851]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "30"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1991070275]
-layout_mode = 2
-
-[node name="HBoxContainer3" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2" unique_id=1447524655]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=135307308]
-layout_mode = 2
-texture = SubResource("NoiseTexture2D_54qju")
-
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/VBoxContainer2/PanelContainer2/HBoxContainer3" unique_id=1246399923]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "30"
-horizontal_alignment = 1
-
-[node name="defenseContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=1022763059]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=1914587540]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Defense"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer" unique_id=335711479]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=1907551447]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Armour:"
-
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer/HBoxContainer4" unique_id=107611745]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "30"
-
-[node name="defenseContainer2" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer" unique_id=841739799]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=1325266593]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Attack"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2" unique_id=1826091288]
-layout_mode = 2
-
-[node name="Damage" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=52032602]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Damage?:"
-
-[node name="intLabel" type="Label" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5/statPanel/MarginContainer/VBoxContainer/defenseContainer2/HBoxContainer4" unique_id=661335744]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "30"
 
 [node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=2053273908]
 custom_minimum_size = Vector2(0, 200)

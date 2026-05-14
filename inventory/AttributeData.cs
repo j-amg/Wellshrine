@@ -19,9 +19,9 @@ public enum AttributeType
     FlatLightningDamage,
     FlatFireDamage,
     FlatColdDamage,
-    LightningResist,
-    FireResist,
-    ColdResist,
+    LightningResistance,
+    FireResistance,
+    ColdResistance,
     ProjectileCount,
     CastSpeed,
     ProjectileSpeed,
@@ -31,6 +31,7 @@ public enum AttributeType
 [GlobalClass]
 public partial class AttributeData : Resource
 {
+    [Signal] public delegate void ValuesSetEventHandler();
     private Array<AttributeDefault> attributeDefaults = [
         new AttributeDefault(AttributeType.Strength, 50),
         new AttributeDefault(AttributeType.Dexterity, 50),
@@ -46,9 +47,9 @@ public partial class AttributeData : Resource
         new AttributeDefault(AttributeType.FlatLightningDamage, 0),
         new AttributeDefault(AttributeType.FlatFireDamage, 0),
         new AttributeDefault(AttributeType.FlatColdDamage, 0),
-        new AttributeDefault(AttributeType.LightningResist, 0),
-        new AttributeDefault(AttributeType.FireResist, 0),
-        new AttributeDefault(AttributeType.ColdResist, 0),
+        new AttributeDefault(AttributeType.LightningResistance, 0),
+        new AttributeDefault(AttributeType.FireResistance, 0),
+        new AttributeDefault(AttributeType.ColdResistance, 0),
         new AttributeDefault(AttributeType.HealthRegen, 0),
         new AttributeDefault(AttributeType.ProjectileCount, 0),
         new AttributeDefault(AttributeType.CastSpeed, 100),
@@ -61,5 +62,6 @@ public partial class AttributeData : Resource
         attributes.Clear();
         foreach (var ad in attributeDefaults) attributes.Add(ad.type, new Attribute(ad.value));
         foreach (var ad in attributeOverrides) attributes[ad.type].SetBaseValue(ad.value);
+        EmitSignal(SignalName.ValuesSet);
     }
 }

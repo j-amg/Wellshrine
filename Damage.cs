@@ -78,13 +78,13 @@ public partial class DamageInst : Resource
             //     scaledAmount *= 1 / (entity.attributeData.attributes[AttributeType.Armour].Value / 100);
             //     break;
             case DamageType.Lightning:
-                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.LightningResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.LightningResistance].Value / 100);
                 break;
             case DamageType.Fire:
-                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.FireResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.FireResistance].Value / 100);
                 break;
             case DamageType.Cold:
-                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.ColdResist].Value / 100);
+                scaledAmount *= 1 - (entity.attributeData.attributes[AttributeType.ColdResistance].Value / 100);
                 break;
         }
         damageInst.amount = scaledAmount;
