@@ -60,7 +60,7 @@ public partial class DB : Resource
 		{
 			if ((float)dict[item]["accWeight"] > roll)
 			{
-				GD.Print(item);
+				GD.Print("printing from db" + item);
 				return item;
 			}
 		}
