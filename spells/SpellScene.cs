@@ -22,13 +22,14 @@ public partial class SpellScene : Node3D
 	[Export] public bool spawnOnSceneHit = false;
 	[Export] public float spawnOnHitDelay = 0;
 	[Export] public PackedScene spawnOnHitScene;
-	[Export] public bool appliesCondition = false;
+	[Export] public bool appliesEffect = false;
+	[Export] public PackedScene entityEffect;
 
 	private Vector3 velocity = Vector3.Zero;
 
 
 	public DamagePackage damagePackage;
-	//[Export] public Condition[];
+
 	public override void _Ready()
 	{
 		if (hurtBox != null)
@@ -48,6 +49,13 @@ public partial class SpellScene : Node3D
 	private void OnBodyEntered(Node3D body)
 	{
 		//if (body is Player) return;
+		if (body is Entity entity)
+		{
+			if (appliesEffect)
+			{
+				EntityEffect
+			}
+		}
 		if (spawnOnSceneHit)
 		{
 			SpawnScene();

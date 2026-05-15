@@ -17,6 +17,8 @@ public partial class Entity : CharacterBody3D
     [Export] public RayCast3D lookRay;
     [Export] public AnimationPlayer animationPlayer;
 
+    public Array<EntityEffect> entityEffects = [];
+
     public bool initialised = false;
     public Vector3 velocity;
     public bool dead = false;
@@ -32,6 +34,26 @@ public partial class Entity : CharacterBody3D
     {
         initialised = true;
         SetHealth(attributeData.attributes[AttributeType.MaximumHealth].Value);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        foreach (EntityEffect entityEffect in entityEffects)
+        {
+            float elapsedTimeSecs = Time.GetTicksMsec() - entityEffect.effectStartTime / 1000;
+
+            if (elapsedTimeSecs % entityEffect.effectInterval == 0)
+            {
+                // apply effect
+                entityEffect.ApplyEffect();
+            }
+
+            if (elapsedTimeSecs > entityEffect.effectDuration)
+            {
+                entityEffects.Remove(entityEffect);
+            }
+        }
+    }
     }
 
     public virtual void TakeDamage(DamagePackage damagePackage)
