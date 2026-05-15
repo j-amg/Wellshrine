@@ -47,7 +47,7 @@ public partial class ChargeAttackState : AttackState
             }
             else
             {
-                if (spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease)
+                if (spell.triggerType == Spell.SpellTriggerType.QuickRelease)
                 {
                     Attack(Mathf.Max(0.25f, currentChargeAmmount / 100));
                 }

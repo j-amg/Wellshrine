@@ -2,7 +2,6 @@
 
 [ext_resource type="StyleBox" uid="uid://dln1cwglhwb7s" path="res://UI/buttonNormal.tres" id="1_44a5p"]
 [ext_resource type="StyleBox" uid="uid://dfhen7h3lmjis" path="res://UI/buttonPressed.tres" id="1_f2342"]
-[ext_resource type="Texture2D" uid="uid://cslboq3c30cn2" path="res://textures/UIBORDER.png" id="2_04efv"]
 [ext_resource type="FontFile" uid="uid://cxn107ealyoen" path="res://fonts/RaccoonSerif-Base.ttf" id="3_f2342"]
 [ext_resource type="Texture2D" uid="uid://bsq8tpxsdw5ik" path="res://sprites/newborder.png" id="5_f2342"]
 
@@ -10,8 +9,11 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yb2a4"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_44a5p"]
+load_path = "res://.godot/imported/UIBORDER.png-0b51392f1cb2615486e559f3a1d533fd.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hc4gp"]
-texture = ExtResource("2_04efv")
+texture = SubResource("CompressedTexture2D_44a5p")
 texture_margin_left = 14.2162
 texture_margin_top = 14.4864
 texture_margin_right = 14.4052
@@ -27,15 +29,16 @@ modulate_color = Color(1, 0.701961, 0, 1)
 
 [resource]
 default_font = ExtResource("3_f2342")
+default_font_size = 16
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(0.94902, 0.94902, 0, 1)
-Button/font_sizes/font_size = 12
+Button/font_sizes/font_size = 16
 Button/styles/focus = SubResource("StyleBoxEmpty_f2342")
 Button/styles/hover = ExtResource("1_44a5p")
 Button/styles/hover_pressed = ExtResource("1_f2342")
 Button/styles/normal = ExtResource("1_44a5p")
 Button/styles/pressed = ExtResource("1_f2342")
-Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_color = Color(0.5609549, 0.5609549, 0.5609549, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
 Label/constants/line_spacing = 3

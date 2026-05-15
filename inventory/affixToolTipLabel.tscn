@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://dgxj5vd2cls7a"]
 
-[node name="affix" type="Label" unique_id=313297334]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_rtti5"]
+
+[node name="affixs" type="Label" unique_id=313297334]
+texture_filter = 1
+texture_repeat = 1
 offset_right = 162.0
 offset_bottom = 23.0
 size_flags_horizontal = 4
+theme = ExtResource("1_rtti5")
 theme_override_colors/font_color = Color(0.342654, 0.501754, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "+20 Strength"
+horizontal_alignment = 1
+vertical_alignment = 1

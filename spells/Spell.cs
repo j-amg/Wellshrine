@@ -10,7 +10,7 @@ public partial class Spell : Resource
 	public enum SpellTriggerType
 	{
 		Held,
-		HeldQuickRelease,
+		QuickRelease,
 		Instant
 	}
 

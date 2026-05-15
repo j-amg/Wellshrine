@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://b3jkmhvpaqu1p"
+path="res://.godot/imported/RaccoonSerif-Base.fnt-53debbeea2065636b84e89eed101b3f0.fontdata"
+
+[deps]
+
+source_file="res://fonts/RaccoonSerif-Base.fnt"
+dest_files=["res://.godot/imported/RaccoonSerif-Base.fnt-53debbeea2065636b84e89eed101b3f0.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

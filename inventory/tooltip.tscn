@@ -2,15 +2,16 @@
 
 [ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_c2f6h"]
 [ext_resource type="Script" uid="uid://p6j3qn6juvug" path="res://inventory/Tooltip.cs" id="2_gmlu0"]
+[ext_resource type="FontFile" uid="uid://cxn107ealyoen" path="res://fonts/RaccoonSerif-Base.ttf" id="3_c2f6h"]
 [ext_resource type="PackedScene" uid="uid://dgxj5vd2cls7a" path="res://inventory/affixToolTipLabel.tscn" id="4_php7p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m22gv"]
-bg_color = Color(0, 0, 0, 0.705882)
+bg_color = Color(0, 0, 0, 0.8235294)
 
 [sub_resource type="Gradient" id="Gradient_m22gv"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.189167)
-colors = PackedColorArray(0, 0, 0, 1, 0.0117647, 0.360784, 0.588235, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.43134022, 0.43134025, 0.43134025, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_so6ny"]
 frequency = 0.004
@@ -23,6 +24,12 @@ height = 36
 noise = SubResource("FastNoiseLite_so6ny")
 color_ramp = SubResource("Gradient_m22gv")
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c2f6h"]
+width = 36
+height = 36
+noise = SubResource("FastNoiseLite_so6ny")
+color_ramp = SubResource("Gradient_m22gv")
+
 [sub_resource type="Gradient" id="Gradient_gmlu0"]
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -30,7 +37,7 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jifm2"]
 gradient = SubResource("Gradient_gmlu0")
 
-[node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemLevelLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemAffixContainer", "itemLevelContainer", "headerContainer")]
+[node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemLevelLabel", "spellTriggerContainer", "spellCastTimeContainer", "spellChargeTimeContainer", "itemLevelContainer", "itemAffixContainer", "headerContainer")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -49,13 +56,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_m22gv")
 script = ExtResource("2_gmlu0")
 itemNameLabel = NodePath("VBoxContainer/PanelContainer/HBoxContainer/Label")
 itemTypeLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/type")
-itemLevelLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer/levelLabel2")
 itemDescriptionLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/description")
-spellTrigger = NodePath("VBoxContainer/MarginContainer/VBoxContainer/trigger")
-spellCastTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/cast speed")
-spellChargeTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/charge time")
-itemAffixContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/affixContainer")
+spellTrigger = NodePath("VBoxContainer/MarginContainer/VBoxContainer/triggerContainer/value")
+spellCastTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer/value")
+spellChargeTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer/value")
+itemLevelLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer/value")
+spellTriggerContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/triggerContainer")
+spellCastTimeContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer")
+spellChargeTimeContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer")
 itemLevelContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer")
+itemAffixContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/affixContainer")
 headerContainer = NodePath("VBoxContainer/PanelContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1134591772]
@@ -78,19 +88,20 @@ texture = SubResource("NoiseTexture2D_s4dg3")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1809151957]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_colors/font_color = Color(1, 0.701961, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_c2f6h")
 text = "Item"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=805854703]
 layout_mode = 2
-texture = SubResource("NoiseTexture2D_s4dg3")
+texture = SubResource("NoiseTexture2D_c2f6h")
 stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=284121228]
@@ -105,35 +116,68 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Helmet"
 
-[node name="trigger" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=220472012]
-visible = false
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="charge time" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1443412643]
-visible = false
-layout_mode = 2
-size_flags_vertical = 2
-horizontal_alignment = 1
-
-[node name="cast speed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=455336706]
-visible = false
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="levelContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1092319838]
+[node name="triggerContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1092319838]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 2
 
-[node name="levelLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=4840638]
+[node name="label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/triggerContainer" unique_id=4840638]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
-text = "Item Level:"
+text = "Trigger:"
 
-[node name="levelLabel2" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=1980347445]
+[node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/triggerContainer" unique_id=1980347445]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "16"
+
+[node name="chargeTimeContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1433877994]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer" unique_id=1619981258]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "Charge Time:"
+
+[node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer" unique_id=1169275551]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "16"
+
+[node name="castTimeContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1205372376]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer" unique_id=1585641617]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "Cast Time:"
+
+[node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer" unique_id=375218865]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "16"
+
+[node name="levelContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1710140051]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=1244289148]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "Level:"
+
+[node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/levelContainer" unique_id=1234110716]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "16"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=2021438419]
@@ -150,9 +194,10 @@ size_flags_vertical = 2
 layout_mode = 2
 
 [node name="description" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1118276935]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
 text = "Item description"
 horizontal_alignment = 1
 autowrap_mode = 2

@@ -6,14 +6,19 @@ public partial class Tooltip : PanelContainer
 {
     [Export] public Label itemNameLabel;
     [Export] public Label itemTypeLabel;
-    [Export] public Label itemLevelLabel;
+
     [Export] public Label itemDescriptionLabel;
     [Export] public Label spellTrigger;
     [Export] public Label spellCastTime;
     [Export] public Label spellChargeTime;
+    [Export] public Label itemLevelLabel;
 
-    [Export] public VBoxContainer itemAffixContainer;
+    [Export] public HBoxContainer spellTriggerContainer;
+    [Export] public HBoxContainer spellCastTimeContainer;
+    [Export] public HBoxContainer spellChargeTimeContainer;
     [Export] public HBoxContainer itemLevelContainer;
+    [Export] public VBoxContainer itemAffixContainer;
+
     [Export] public PanelContainer headerContainer;
     private PackedScene affixLabelScene;
 
@@ -59,22 +64,19 @@ public partial class Tooltip : PanelContainer
 
     public void SetItem(ItemData itemData)
     {
-        headerContainer.Modulate = itemData.rarity != 0 ? new Color(0.753f, 0.673f, 0.0f) : new Color(1, 1, 1);
+        headerContainer.Modulate = itemData.rarity != 0 ? new Color(0.89f, 0.671f, 0.0f) : new Color(1, 1, 1);
         itemNameLabel.Text = itemData.name;
         itemTypeLabel.Text = itemData.Type.ToString();
         itemDescriptionLabel.Text = itemData.description;
 
-        spellTrigger.Hide();
-        spellCastTime.Hide();
-        spellChargeTime.Hide();
-
-        // clear container
-        foreach (Node c in itemAffixContainer.GetChildren())
-        {
-            itemAffixContainer.RemoveChild(c);
-        }
+        spellTriggerContainer.Hide();
+        spellCastTimeContainer.Hide();
+        spellChargeTimeContainer.Hide();
         itemLevelContainer.Hide();
         itemAffixContainer.Hide();
+
+        // clear container
+        foreach (Node c in itemAffixContainer.GetChildren()) itemAffixContainer.RemoveChild(c);
 
         if (itemData is ItemSpellData spell)
         {
@@ -82,12 +84,16 @@ public partial class Tooltip : PanelContainer
             itemLevelLabel.Text = spell.level.ToString();
             itemLevelContainer.Show();
 
-            spellTrigger.Show();
-            spellCastTime.Show();
-            spellChargeTime.Show();
-            spellTrigger.Text = "Trigger: " + spell.spell.triggerType.ToString();
-            spellCastTime.Text = "Cast Time: " + spell.spell.castTime.ToString() + "s";
-            if (spell.spell.triggerType == Spell.SpellTriggerType.Held || spell.spell.triggerType == Spell.SpellTriggerType.HeldQuickRelease) spellChargeTime.Text = "Charge Time: " + spell.spell.chargeTime.ToString() + "s";
+            spellTriggerContainer.Show();
+            spellCastTimeContainer.Show();
+            if (spell.spell.triggerType != Spell.SpellTriggerType.Instant)
+            {
+                spellChargeTimeContainer.Show();
+                spellChargeTime.Text = spell.spell.chargeTime.ToString() + "s";
+            }
+
+            spellTrigger.Text = CamelCaseToText(spell.spell.triggerType.ToString());
+            spellCastTime.Text = spell.spell.castTime.ToString() + "s";
 
             foreach (DamageData damageData in spell.spell.damageDatas)
             {
@@ -102,7 +108,6 @@ public partial class Tooltip : PanelContainer
         //populate if affixes exist
         if (itemData is ItemEquipmentData equipment)
         {
-
             itemAffixContainer.Show();
             itemLevelLabel.Text = equipment.level.ToString();
             itemLevelContainer.Show();
