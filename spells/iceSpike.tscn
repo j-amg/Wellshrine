@@ -7,14 +7,13 @@
 
 [sub_resource type="Resource" id="Resource_ugq17"]
 script = ExtResource("2_4xi6f")
-type = 2
-amountMin = 10.0
-amountMax = 20.0
+type = 1
+amountMin = 24.0
+amountMax = 25.0
 metadata/_custom_type_script = "uid://bc23scba6oftg"
 
-[sub_resource type="Resource" id="Resource_mnk5w"]
+[sub_resource type="Resource" id="Resource_8h6bl"]
 script = ExtResource("3_8h6bl")
-effectDuration = 1000000.0
 damageDatas = Array[ExtResource("2_4xi6f")]([SubResource("Resource_ugq17")])
 metadata/_custom_type_script = "uid://k0cioodlvbti"
 
@@ -48,7 +47,7 @@ script = ExtResource("1_6elnn")
 sprites = NodePath("sprites")
 hurtBox = NodePath("collision")
 appliesEffect = true
-entityEffect = SubResource("Resource_mnk5w")
+entityEffect = SubResource("Resource_8h6bl")
 
 [node name="collision" type="Area3D" parent="." unique_id=1599193735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)

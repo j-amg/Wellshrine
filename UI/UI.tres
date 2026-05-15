@@ -10,7 +10,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yb2a4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_44a5p"]
-load_path = "res://.godot/imported/UIBORDER.png-0b51392f1cb2615486e559f3a1d533fd.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hc4gp"]
 texture = SubResource("CompressedTexture2D_44a5p")

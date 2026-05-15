@@ -41,40 +41,13 @@ public partial class Entity : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         SetLookTransform();
-        UpdateEffects(delta);
-    }
-
-    public void UpdateEffects(double _delta)
-    {
-        //GD.Print(entityEffects.Count);
-        for (int i = 0; i < entityEffects.Count; i++)
-        {
-            //GD.Print(entityEffects.Count);
-            EntityEffect entityEffect = entityEffects[i];
-            
-            int elapsedTimeSecs = (int)Time.GetTicksMsec() - (int)entityEffect.effectStartTime / 1000;
-
-            if (elapsedTimeSecs % entityEffect.effectInterval == 0)
-            {
-                GD.Print("interval");
-                entityEffect.ApplyEffect(this);
-            }
-
-            // if (elapsedTimeSecs / 1000 > entityEffect.effectDuration)
-            // {
-            //     entityEffects.Remove(entityEffect);
-            // }
-        }
+        foreach (EntityEffect entityEffect in entityEffects) entityEffect.Update();
     }
 
     public virtual void AddEffect(EntityEffect entityEffect)
     {
+        entityEffect.Initialise(this);
         entityEffects.Add(entityEffect);
-        entityEffect.effectStartTime = Time.GetTicksMsec();
-        
-        GD.Print(entityEffects.Count);
-        
-        
     }
 
     protected virtual void SetLookTransform() => lookTransform = GlobalTransform;
