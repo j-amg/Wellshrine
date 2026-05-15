@@ -586,7 +586,11 @@ radius = 1.25
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xybr4"]
 height = 1.0
 
-[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("attackStateMachine", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection", "stateMachine", "lookRay", "animationPlayer") groups=["player"]]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j5n4i"]
+radius = 0.23730469
+height = 1.262207
+
+[node name="player" type="CharacterBody3D" unique_id=83034369 node_paths=PackedStringArray("attackStateMachine", "body", "head", "camera", "hands", "handSprite", "hands3D", "standCollision", "crouchCollision", "wallDetection", "stateMachine", "lookRay", "animationPlayer", "hitBox") groups=["player"]]
 collision_mask = 262
 script = ExtResource("1_4aaio")
 attackStateMachine = NodePath("attackstatemachine")
@@ -606,6 +610,7 @@ stateMachine = NodePath("statemachine")
 attributeOverrides = Array[ExtResource("15_j5n4i")]([SubResource("Resource_j5n4i")])
 lookRay = NodePath("body/head/Camera3D/lookRay")
 animationPlayer = NodePath("AnimationPlayer")
+hitBox = NodePath("hitBox")
 
 [node name="body" type="Node3D" parent="." unique_id=1837535204]
 
@@ -656,6 +661,12 @@ shape = SubResource("CapsuleShape3D_b1bg2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_xybr4")
 disabled = true
+
+[node name="hitBox" type="Area3D" parent="." unique_id=1422675613]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitBox" unique_id=632548810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63957644, 0)
+shape = SubResource("CapsuleShape3D_j5n4i")
 
 [node name="statemachine" type="Node" parent="." unique_id=693906899 node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_ledpc")

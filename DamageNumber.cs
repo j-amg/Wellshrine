@@ -12,14 +12,12 @@ public partial class DamageNumber : Label
 		Fade();
 	}
 
-	public DamageNumber(DamageInst damageInst, Entity entity)
+	public void Initialise(DamageInst damageInst, Entity entity)
 	{
-		offset = new(GD.RandRange(0, 1), GD.RandRange(0, 1));
+		offset = new((float)GD.RandRange((double)-1, 1), (float)GD.RandRange(-1, (double)1));
 		target = entity;
 
-
 		Text = ((int)damageInst.amount).ToString();
-
 		switch (damageInst.type)
 		{
 			case DamageType.Physical:
@@ -37,16 +35,19 @@ public partial class DamageNumber : Label
 		}
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
-		base._PhysicsProcess(delta);
-		Position = GetViewport().GetCamera3D().UnprojectPosition(target.GlobalPosition) + offset.Normalized() * 50;
+		//base._PhysicsProcess(delta);
+		Vector2 localCentre = new(Size.X / 2, Size.Y / 2);
+		Position = GetViewport().GetCamera3D().UnprojectPosition(target.hitBox.GetNode<CollisionShape3D>("CollisionShape3D").GlobalPosition) - localCentre + offset.Normalized() * 100;
 
 	}
 
-	public void Fade()
+	public async void Fade()
 	{
+		await ToSignal(GetTree().CreateTimer(.1), "timeout");
 		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(this, "modulate:a", 1, 0f).From(0f);
 		tween.TweenProperty(this, "modulate:a", 0, 1f);
 		tween.TweenCallback(Callable.From(QueueFree));
 	}

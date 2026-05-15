@@ -16,6 +16,7 @@ public partial class Entity : CharacterBody3D
     [Export] private Array<AttributeDefault> attributeOverrides = [];
     [Export] public RayCast3D lookRay;
     [Export] public AnimationPlayer animationPlayer;
+    [Export] public Area3D hitBox;
 
     public Array<EntityEffect> entityEffects = [];
 
@@ -57,7 +58,9 @@ public partial class Entity : CharacterBody3D
         damagePackage.Hit();
         foreach (DamageInst damage in damagePackage.damageInstances)
         {
-            Global.Singleton.currentScene.GetNode<CanvasLayer>("UI").AddChild(new DamageNumber(damage, this));
+            DamageNumber dn = Global.Singleton.damageNumberScene.Instantiate<DamageNumber>();
+            dn.Initialise(damage, this);
+            Global.Singleton.currentScene.GetNode<CanvasLayer>("UI").AddChild(dn);
             float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
             GD.Print("damge: " + scaledAmount);
             Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);

@@ -15,7 +15,6 @@ public partial class EntityEffect : Resource
 
 	public virtual void ApplyEffect()
 	{
-		GD.Print("apply effect");
 		if (damageDatas.Count > 0)
 		{
 			DamagePackage damagePackage = new(damageDatas, false, this, target);
@@ -28,24 +27,18 @@ public partial class EntityEffect : Resource
 		target = entity;
 		effectStartTime = Time.GetTicksMsec();
 		lastAppliedTime = effectInterval * 1000;
-		GD.Print(lastAppliedTime);
 	}
 
 	public void Update()
 	{
 		float elapsedTimeMs = Time.GetTicksMsec() - effectStartTime;
-		GD.Print(elapsedTimeMs);
 		if (elapsedTimeMs >= lastAppliedTime)
 		{
-
 			lastAppliedTime += effectInterval * 1000;
 			ApplyEffect();
 		}
 
-		if (elapsedTimeMs > effectDuration * 1000)
-		{
-			target.entityEffects.Remove(this);
-		}
+		if (elapsedTimeMs > effectDuration * 1000) target.entityEffects.Remove(this);
 	}
 
 	public void OnEffectEnd()

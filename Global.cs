@@ -46,7 +46,7 @@ public partial class Global : Node
 
 
 	public float currentPlayerHealth = -1;
-
+	public PackedScene damageNumberScene;
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
 	Dictionary<string, Dictionary<string, Variant>> DBMaps;
@@ -141,6 +141,7 @@ public partial class Global : Node
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest2.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest.tscn"));
 		tileArray.Add(GD.Load<PackedScene>("res://zones/kztest3.tscn"));
+		damageNumberScene = GD.Load<PackedScene>("res://damageNumber.tscn");
 
 		item = GD.Load<PackedScene>("res://inventory/ground_item.tscn");
 	}
