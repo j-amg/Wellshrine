@@ -21,12 +21,22 @@ public partial class DamagePackage : Resource
     public dynamic source;
     public Entity sourceEntity;
 
-    public DamagePackage(Array<DamageInst> _damageInstances, bool _crit, dynamic _source, Entity _sourceEntity = null)
+    public DamagePackage(Array<DamageData> damageDatas, bool _crit, dynamic _source, Entity _sourceEntity = null)
     {
-        damageInstances = _damageInstances;
+        foreach (DamageData damageData in damageDatas)
+		{
+			damageInstances.Add(new DamageInst(damageData, _sourceEntity));
+		}
         crit = _crit;
         source = _source;
         sourceEntity = _sourceEntity;
+
+        float lightningDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatLightningDamage].Value;
+		if (lightningDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Lightning, lightningDamageVal, lightningDamageVal), sourceEntity));
+		float fireDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatFireDamage].Value;
+		if (fireDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Fire, fireDamageVal, fireDamageVal), sourceEntity));
+		float coldDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatColdDamage].Value;
+		if (coldDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Cold, coldDamageVal, coldDamageVal), sourceEntity));
     }
 
     public void Hit() => EmitSignal(SignalName.damageExecuted, this);

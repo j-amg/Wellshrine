@@ -19,6 +19,8 @@ public partial class Entity : CharacterBody3D
 
     public Array<EntityEffect> entityEffects = [];
 
+    public Transform3D lookTransform;
+
     public bool initialised = false;
     public Vector3 velocity;
     public bool dead = false;
@@ -38,24 +40,44 @@ public partial class Entity : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        foreach (EntityEffect entityEffect in entityEffects)
+        SetLookTransform();
+        UpdateEffects(delta);
+    }
+
+    public void UpdateEffects(double _delta)
+    {
+        //GD.Print(entityEffects.Count);
+        for (int i = 0; i < entityEffects.Count; i++)
         {
-            float elapsedTimeSecs = Time.GetTicksMsec() - entityEffect.effectStartTime / 1000;
+            //GD.Print(entityEffects.Count);
+            EntityEffect entityEffect = entityEffects[i];
+            
+            int elapsedTimeSecs = (int)Time.GetTicksMsec() - (int)entityEffect.effectStartTime / 1000;
 
             if (elapsedTimeSecs % entityEffect.effectInterval == 0)
             {
-                // apply effect
-                entityEffect.ApplyEffect();
+                GD.Print("interval");
+                entityEffect.ApplyEffect(this);
             }
 
-            if (elapsedTimeSecs > entityEffect.effectDuration)
-            {
-                entityEffects.Remove(entityEffect);
-            }
+            // if (elapsedTimeSecs / 1000 > entityEffect.effectDuration)
+            // {
+            //     entityEffects.Remove(entityEffect);
+            // }
         }
     }
+
+    public virtual void AddEffect(EntityEffect entityEffect)
+    {
+        entityEffects.Add(entityEffect);
+        entityEffect.effectStartTime = Time.GetTicksMsec();
+        
+        GD.Print(entityEffects.Count);
+        
+        
     }
 
+    protected virtual void SetLookTransform() => lookTransform = GlobalTransform;
     public virtual void TakeDamage(DamagePackage damagePackage)
     {
         if (dead) return;

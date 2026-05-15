@@ -1,25 +1,24 @@
 using Godot;
 using System;
+using Godot.Collections;
 
+[GlobalClass]
 public partial class EntityEffect : Resource
 {
 
-	public Entity target;
-
-	public bool active = false;
-	public float effectInterval;
-	public float effectDuration;
+	[Export] public float effectInterval = 1;
+	[Export] public float effectDuration = 100;
 	public float effectStartTime;
-
+	[Export] public Array<DamageData> damageDatas = [];
+	
 	public virtual void ApplyEffect(Entity entity)
 	{
-		return;
-	}
-
-	public virtual void AttachToEntity(Entity _target)
-	{
-		effectStartTime = Time.GetTicksMsec();
-		target = _target;
+		GD.Print("apply effect");
+		if (damageDatas.Count > 0)
+		{
+			DamagePackage damagePackage = new(damageDatas, false, this, entity);
+			entity.TakeDamage(damagePackage);
+		}
 	}
 
 	public void OnEffectEnd()

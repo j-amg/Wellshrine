@@ -82,9 +82,10 @@ public partial class Enemy : Entity, IHoverable
 
 	public override void _PhysicsProcess(double delta)
 	{
+		base._PhysicsProcess(delta);
 		sprite.FlipH = velocity.X > 0;
 		if (Global.Singleton.player != null) LookAt(Global.Singleton.player.GlobalPosition);
-		inview = lookRay.GetCollider() is Player && !Global.Singleton.dead;
+		//inview = lookRay.GetCollider() is Player && !Global.Singleton.dead;
 		ApplyFloorSnap();
 		MoveAndSlide();
 	}

@@ -13,26 +13,16 @@ public partial class Player : Entity
 	// [Export]
 	// public AudioStream critDealtSound;
 
-	[Export]
-	public AttackStateMachine attackStateMachine;
-	[Export]
-	public Node3D body;
-	[Export]
-	public Node3D head;
-	[Export]
-	public Camera3D camera;
-	[Export]
-	private Node3D hands;
-	[Export]
-	public AnimatedSprite3D handSprite;
-	[Export]
-	public Node3D hands3D;
-	[Export]
-	public CollisionShape3D standCollision;
-	[Export]
-	public CollisionShape3D crouchCollision;
-	[Export]
-	public Area3D wallDetection;
+	[Export] public AttackStateMachine attackStateMachine;
+	[Export] public Node3D body;
+	[Export] public Node3D head;
+	[Export] public Camera3D camera;
+	[Export] private Node3D hands;
+	[Export] public AnimatedSprite3D handSprite;
+	[Export] public Node3D hands3D;
+	[Export] public CollisionShape3D standCollision;
+	[Export] public CollisionShape3D crouchCollision;
+	[Export] public Area3D wallDetection;
 
 	[Export] public InventoryData[] inventoryData;
 	[Export] public SpellData spellData;
@@ -105,7 +95,7 @@ public partial class Player : Entity
 
 	public override void _PhysicsProcess(double delta)
 	{
-
+		base._PhysicsProcess(delta);
 		smooth_rotation = smooth_rotation.Lerp(target_rotation, (float)delta * 20);
 		Rotation = new Vector3(0, target_rotation.Y, 0);
 		head.Rotation = new Vector3(target_rotation.X, 0, 0);
@@ -127,7 +117,9 @@ public partial class Player : Entity
 
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+    //protected override void SetLookTransform() => lookTransform = head.GlobalTransform;
+
+    public override void _UnhandledInput(InputEvent @event)
 	{
 		float sensitivityScale = GetWindow().Size.X / GetViewport().GetVisibleRect().Size.X;
 		if (Input.MouseMode == Input.MouseModeEnum.Captured)

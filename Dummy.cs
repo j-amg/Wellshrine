@@ -6,7 +6,7 @@ public partial class Dummy : Enemy
 
 	public override void _PhysicsProcess(double delta)
 	{
-		return;
+		base._PhysicsProcess(delta);
 	}
 	public override void Die()
 	{

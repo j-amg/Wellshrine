@@ -145,7 +145,7 @@
     "incLightningDamage": {
         "title": "Crackling",
         "target": "LightningDamage",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 25.0,
@@ -156,7 +156,7 @@
     "incFireDamage": {
         "title": "Burning",
         "target": "FireDamage",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 25.0,
@@ -167,7 +167,7 @@
     "incColdDamage": {
         "title": "Chilling",
         "target": "ColdDamage",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 25.0,
@@ -211,7 +211,7 @@
     "incLightningResist": {
         "title": "of Grounding",
         "target": "LightningResistance",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 48.0,
@@ -222,7 +222,7 @@
     "incFireResist": {
         "title": "of Calming",
         "target": "FireResistance",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 48.0,
@@ -233,7 +233,7 @@
     "incColdResist": {
         "title": "of Warmth",
         "target": "ColdResistance",
-        "modifier": "PercentAdd",
+        "modifier": "Flat",
         "spawn": ["Ring"],
         "valueMin": 10.0,
         "valueMax": 48.0,
