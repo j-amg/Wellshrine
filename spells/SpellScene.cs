@@ -53,7 +53,7 @@ public partial class SpellScene : Node3D
 		{
 			if (appliesEffect)
 			{
-				entity.AddEffect(entityEffect);
+				entity.AddEffect((EntityEffect)entityEffect.Duplicate());
 			}
 		}
 		if (spawnOnSceneHit)

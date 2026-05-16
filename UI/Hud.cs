@@ -43,9 +43,9 @@ public partial class Hud : Control
     public override void _Ready()
     {
         //Global.Singleton.player.DamageTaken += OnDamageTaken;
-        Global.Singleton.player.HealthChanged += OnPlayerHealthChanged;
-        Global.Singleton.player.DamageExecuted += OnPlayerDamageExecuted;
-        SignalManager.Singleton.attackChargeUpdated += OnAttackChargeUpdated;
+        SignalManager.Singleton.PlayerHealthChanged += OnPlayerHealthChanged;
+        SignalManager.Singleton.PlayerDamageExecuted += OnPlayerDamageExecuted;
+        SignalManager.Singleton.AttackChargeUpdated += OnAttackChargeUpdated;
     }
 
     private void OnPlayerDamageExecuted(DamagePackage d) => FlashCrossHair();
@@ -95,7 +95,7 @@ public partial class Hud : Control
 
     public override void _ExitTree()
     {
-        Global.Singleton.player.HealthChanged -= OnPlayerHealthChanged;
+        SignalManager.Singleton.PlayerHealthChanged -= OnPlayerHealthChanged;
         SignalManager.Singleton.ZoneEntered -= OnZoneEntered;
         SignalManager.Singleton.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
     }

@@ -36,7 +36,7 @@ public partial class Spell : Resource
 				SpellScene spellInst = spellScene.Instantiate<SpellScene>();
 				spellInst.hurtBox.damagePackage = damagePackage;
 				spellInst.muzzleVelocity *= spellScale;
-				spellInst.muzzleVelocity *= entity.attributeData.attributes[AttributeType.ProjectileSpeed].Value / 100;
+				spellInst.muzzleVelocity *= 1 + entity.attributeData.attributes[AttributeType.ProjectileSpeed].Value / 100;
 				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread / 2;
 				Transform3D t = Global.Singleton.player.head.GlobalTransform.RotatedLocal(Vector3.Up, Mathf.DegToRad(rotationOffset));
 				Global.Singleton.AddToScene(spellInst, t);

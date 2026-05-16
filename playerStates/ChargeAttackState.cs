@@ -22,8 +22,8 @@ public partial class ChargeAttackState : AttackState
     {
         spell = owningEntity.spellData.spells[spellIndex];
         if (spell == null) return;
-        chargeTime = spell.chargeTime / ((owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
-        castTime = spell.castTime / ((owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f) + 1);
+        chargeTime = spell.chargeTime / (1 + (owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f));
+        castTime = spell.castTime / (1 + (owningEntity.attributeData.attributes[AttributeType.CastSpeed].Value / 100.0f));
         startChargeTime = Time.GetTicksMsec();
     }
     public override void Update(double delta)
@@ -37,7 +37,7 @@ public partial class ChargeAttackState : AttackState
 
         float currentChargeAmmount = (Time.GetTicksMsec() - startChargeTime) / (chargeTime * 10); // *10 to translate between to ms to 0 - 100 range
 
-        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, currentChargeAmmount);
+        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.AttackChargeUpdated, currentChargeAmmount);
 
         if (!Input.IsActionPressed(Enum.GetValues<AttackKeybinds>()[spellIndex].ToString()))
         {
@@ -67,6 +67,6 @@ public partial class ChargeAttackState : AttackState
 
     public override void Exit()
     {
-        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.attackChargeUpdated, 0);
+        SignalManager.Singleton.EmitSignal(SignalManager.SignalName.AttackChargeUpdated, 0);
     }
 }

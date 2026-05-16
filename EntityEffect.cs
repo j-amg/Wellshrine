@@ -2,10 +2,16 @@ using Godot;
 using System;
 using Godot.Collections;
 
+public enum EntityEffectApplicationType
+{
+	Stacking,
+	Refreshing
+}
+
 [GlobalClass]
 public partial class EntityEffect : Resource
 {
-
+	[Export] public EntityEffectApplicationType applicationType = EntityEffectApplicationType.Stacking;
 	[Export] public float effectInterval = 1;
 	[Export] public float effectDuration = 5;
 	public float effectStartTime;

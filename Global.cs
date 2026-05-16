@@ -175,11 +175,13 @@ public partial class Global : Node
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
+			//player.HealthChanged += hud.UpdateHealth;
 		}
 	}
 
 	private void ConnectToAttributes(AttributeData attributeData)
 	{
+		OnAttributeDataUpdated(attributeData);
 		foreach (Attribute att in attributeData.attributes.Values)
 		{
 			att.AttributesUpdated += () => OnAttributeDataUpdated(player.attributeData);

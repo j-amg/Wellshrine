@@ -117,9 +117,9 @@ public partial class Player : Entity
 
 	}
 
-    //protected override void SetLookTransform() => lookTransform = head.GlobalTransform;
+	//protected override void SetLookTransform() => lookTransform = head.GlobalTransform;
 
-    public override void _UnhandledInput(InputEvent @event)
+	public override void _UnhandledInput(InputEvent @event)
 	{
 		float sensitivityScale = GetWindow().Size.X / GetViewport().GetVisibleRect().Size.X;
 		if (Input.MouseMode == Input.MouseModeEnum.Captured)
@@ -165,6 +165,7 @@ public partial class Player : Entity
 	public override void UpdateHealth()
 	{
 		if (initialised) Global.Singleton.currentPlayerHealth = Health;
+		SignalManager.Singleton.EmitSignal(SignalManager.SignalName.PlayerHealthChanged, this);
 		base.UpdateHealth();
 	}
 

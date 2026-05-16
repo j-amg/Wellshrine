@@ -42,13 +42,14 @@ public partial class Entity : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         SetLookTransform();
-        foreach (EntityEffect entityEffect in entityEffects) entityEffect.Update();
+        for (int i = entityEffects.Count - 1; i >= 0; i--) entityEffects[i].Update();
     }
 
     public virtual void AddEffect(EntityEffect entityEffect)
     {
         entityEffect.Initialise(this);
         entityEffects.Add(entityEffect);
+        GD.Print(entityEffects);
     }
 
     protected virtual void SetLookTransform() => lookTransform = GlobalTransform;
@@ -77,9 +78,10 @@ public partial class Entity : CharacterBody3D
 
     public virtual void UpdateHealth()
     {
-        if (!initialised) return;
+
         GD.Print("Entity: " + Name + " Health: " + Health + " Max Health: " + attributeData.attributes[AttributeType.MaximumHealth].Value);
         EmitSignal(SignalName.HealthChanged, this);
+        if (!initialised) return;
         if (Health <= 0) Die();
     }
 

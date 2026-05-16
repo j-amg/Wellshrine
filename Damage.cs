@@ -24,19 +24,19 @@ public partial class DamagePackage : Resource
     public DamagePackage(Array<DamageData> damageDatas, bool _crit, dynamic _source, Entity _sourceEntity = null)
     {
         foreach (DamageData damageData in damageDatas)
-		{
-			damageInstances.Add(new DamageInst(damageData, _sourceEntity));
-		}
+        {
+            damageInstances.Add(new DamageInst(damageData, _sourceEntity));
+        }
         crit = _crit;
         source = _source;
         sourceEntity = _sourceEntity;
 
         float lightningDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatLightningDamage].Value;
-		if (lightningDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Lightning, lightningDamageVal, lightningDamageVal), sourceEntity));
-		float fireDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatFireDamage].Value;
-		if (fireDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Fire, fireDamageVal, fireDamageVal), sourceEntity));
-		float coldDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatColdDamage].Value;
-		if (coldDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Cold, coldDamageVal, coldDamageVal), sourceEntity));
+        if (lightningDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Lightning, lightningDamageVal, lightningDamageVal), sourceEntity));
+        float fireDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatFireDamage].Value;
+        if (fireDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Fire, fireDamageVal, fireDamageVal), sourceEntity));
+        float coldDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatColdDamage].Value;
+        if (coldDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Cold, coldDamageVal, coldDamageVal), sourceEntity));
     }
 
     public void Hit() => EmitSignal(SignalName.damageExecuted, this);
@@ -60,19 +60,19 @@ public partial class DamageInst : Resource
         switch (damageInst.type)
         {
             case DamageType.Physical:
-                scaledAmount *= entity.attributeData.attributes[AttributeType.PhysicalDamage].Value / 100;
+                scaledAmount *= 1 + entity.attributeData.attributes[AttributeType.PhysicalDamage].Value / 100;
                 break;
             case DamageType.Lightning:
-                scaledAmount *= entity.attributeData.attributes[AttributeType.LightningDamage].Value / 100;
+                scaledAmount *= 1 + entity.attributeData.attributes[AttributeType.LightningDamage].Value / 100;
                 break;
             case DamageType.Fire:
-                scaledAmount *= entity.attributeData.attributes[AttributeType.FireDamage].Value / 100;
+                scaledAmount *= 1 + entity.attributeData.attributes[AttributeType.FireDamage].Value / 100;
                 break;
             case DamageType.Cold:
-                scaledAmount *= entity.attributeData.attributes[AttributeType.ColdDamage].Value / 100;
+                scaledAmount *= 1 + entity.attributeData.attributes[AttributeType.ColdDamage].Value / 100;
                 break;
         }
-        scaledAmount *= entity.attributeData.attributes[AttributeType.TotalDamage].Value / 100;
+        scaledAmount *= 1 + entity.attributeData.attributes[AttributeType.TotalDamage].Value / 100;
 
         damageInst.amount = scaledAmount;
 
