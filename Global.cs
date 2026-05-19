@@ -175,7 +175,7 @@ public partial class Global : Node
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
-			//player.HealthChanged += hud.UpdateHealth;
+			player.HealthChanged += hud.UpdateHealth;
 		}
 	}
 

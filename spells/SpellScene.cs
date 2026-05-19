@@ -22,8 +22,10 @@ public partial class SpellScene : Node3D
 	[Export] public bool spawnOnSceneHit = false;
 	[Export] public float spawnOnHitDelay = 0;
 	[Export] public PackedScene spawnOnHitScene;
-	[Export] public bool appliesEffect = false;
-	[Export] public EntityEffect entityEffect;
+	public bool appliesEffects = false;
+	public EntityEffect[] entityEffects;
+
+	public Entity sourceEntity;
 
 	private Vector3 velocity = Vector3.Zero;
 
@@ -49,21 +51,18 @@ public partial class SpellScene : Node3D
 	private void OnBodyEntered(Node3D body)
 	{
 		//if (body is Player) return;
+		GD.Print(sourceEntity);
 		if (body is Entity entity)
 		{
-			if (appliesEffect)
+			if (appliesEffects)
 			{
-				entity.AddEffect((EntityEffect)entityEffect.Duplicate());
+				foreach (EntityEffect effect in entityEffects)
+				entity.AddEffect(effect.NewEffect(sourceEntity));
+				//entity.AddEffect((EntityEffect)entityEffect.Duplicate());
 			}
 		}
-		if (spawnOnSceneHit)
-		{
-			SpawnScene();
-		}
-		if (destroyOnSceneHit)
-		{
-			CallDeferred("queue_free");
-		}
+		if (spawnOnSceneHit) SpawnScene();
+		if (destroyOnSceneHit) CallDeferred("queue_free");
 		//Hit()
 	}
 

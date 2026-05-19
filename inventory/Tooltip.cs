@@ -103,6 +103,15 @@ public partial class Tooltip : PanelContainer
                 label.Text = damageData.amountMin + " to " + damageData.amountMax + " " + damageData.type + " Damage";
                 itemAffixContainer.AddChild(label);
             }
+
+            foreach (EntityEffect effect in spell.spell.entityEffects)
+            {
+                if (effect == null) continue;
+
+                Label label = affixLabelScene.Instantiate<Label>();
+                label.Text = "Applies " + effect.effectName;
+                itemAffixContainer.AddChild(label);
+            }
         }
 
         //populate if affixes exist

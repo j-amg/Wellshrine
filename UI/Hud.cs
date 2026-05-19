@@ -43,7 +43,7 @@ public partial class Hud : Control
     public override void _Ready()
     {
         //Global.Singleton.player.DamageTaken += OnDamageTaken;
-        SignalManager.Singleton.PlayerHealthChanged += OnPlayerHealthChanged;
+        //SignalManager.Singleton.PlayerHealthChanged += OnPlayerHealthChanged;
         SignalManager.Singleton.PlayerDamageExecuted += OnPlayerDamageExecuted;
         SignalManager.Singleton.AttackChargeUpdated += OnAttackChargeUpdated;
     }
@@ -52,7 +52,7 @@ public partial class Hud : Control
 
     public void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
-    private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);
+    //private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);
 
     public void UpdateZoneInformation(Zone zone)
     {
@@ -96,7 +96,7 @@ public partial class Hud : Control
     public override void _ExitTree()
     {
         SignalManager.Singleton.PlayerHealthChanged -= OnPlayerHealthChanged;
-        SignalManager.Singleton.ZoneEntered -= OnZoneEntered;
+        //SignalManager.Singleton.ZoneEntered -= OnZoneEntered;
         SignalManager.Singleton.ZoneObjectiveComplete -= OnZoneObjectiveComplete;
     }
 

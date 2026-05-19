@@ -61,9 +61,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -664.0
-offset_top = -400.0
-offset_bottom = 400.0
+offset_left = -800.0
+offset_top = -480.0
+offset_bottom = 480.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 1
@@ -71,12 +71,10 @@ theme = ExtResource("1_7mfnc")
 
 [node name="PanelContainer" type="PanelContainer" parent="playerInventory" unique_id=755754375]
 layout_mode = 2
-size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("3_m22gv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer" unique_id=1647467979]
 layout_mode = 2
-size_flags_vertical = 4
 theme_override_constants/separation = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=1550096643]
@@ -114,6 +112,7 @@ stretch_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer" unique_id=728093218]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2" unique_id=1971212345]
 layout_mode = 2
@@ -122,6 +121,7 @@ theme_override_constants/separation = 0
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=1700706764]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="equipmentContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5" unique_id=1365853237]
@@ -288,7 +288,6 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=2053273908]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="inventorySlotPanel" type="PanelContainer" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer" unique_id=1823649148]
 layout_mode = 2
@@ -300,6 +299,9 @@ layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 10
+
+[node name="slot" parent="playerInventory/PanelContainer/VBoxContainer/PanelContainer2/VBoxContainer/CenterContainer/inventorySlotPanel/GridContainer" unique_id=849698009 instance=ExtResource("4_bgm1y")]
+layout_mode = 2
 
 [node name="externalInventory" type="PanelContainer" parent="." unique_id=484697324]
 visible = false
@@ -472,7 +474,6 @@ grow_vertical = 1
 transparentBackground = true
 
 [node name="tooltip" parent="." unique_id=1160095091 instance=ExtResource("8_i7njh")]
-visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0

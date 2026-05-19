@@ -106,6 +106,7 @@ public partial class InventoryData : Resource
 		{
 			if (slotDatas[i] == null)
 			{
+				GD.Print("added to slot: " + i);
 				slotDatas[i] = slotData;
 				EmitSignal(SignalName.InventoryUpdated, this);
 				return true;

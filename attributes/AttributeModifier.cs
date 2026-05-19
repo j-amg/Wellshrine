@@ -5,6 +5,7 @@ public enum AttributeModType
     Flat,
     PercentAdd,
     PercentMult,
+    Bool
 }
 
 [GlobalClass]

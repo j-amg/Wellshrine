@@ -11,19 +11,30 @@ public enum EntityEffectApplicationType
 [GlobalClass]
 public partial class EntityEffect : Resource
 {
+	[Export] public string effectName = "def";
 	[Export] public EntityEffectApplicationType applicationType = EntityEffectApplicationType.Stacking;
 	[Export] public float effectInterval = 1;
 	[Export] public float effectDuration = 5;
+	public Entity sourceEntity;
 	public float effectStartTime;
 	[Export] public Array<DamageData> damageDatas = [];
 	public float lastAppliedTime;
 	public Entity target;
 
+	public EntityEffect NewEffect(Entity _sourceEntity)
+	{
+		EntityEffect effect = (EntityEffect)Duplicate();
+		effect.sourceEntity = _sourceEntity;
+		return effect;
+
+	}
+
 	public virtual void ApplyEffect()
 	{
+		GD.Print(sourceEntity);
 		if (damageDatas.Count > 0)
 		{
-			DamagePackage damagePackage = new(damageDatas, false, this, target);
+			DamagePackage damagePackage = new(damageDatas, false, this, sourceEntity);
 			target.TakeDamage(damagePackage);
 		}
 	}

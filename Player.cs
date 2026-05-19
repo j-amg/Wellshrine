@@ -117,7 +117,7 @@ public partial class Player : Entity
 
 	}
 
-	//protected override void SetLookTransform() => lookTransform = head.GlobalTransform;
+	protected override void SetLookTransform() => lookTransform = head.GlobalTransform;
 
 	public override void _UnhandledInput(InputEvent @event)
 	{

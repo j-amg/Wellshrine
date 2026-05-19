@@ -47,9 +47,9 @@ public partial class AttributeData : Resource
         new AttributeDefault(AttributeType.FlatLightningDamage, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.FlatFireDamage, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.FlatColdDamage, 0, AttributeModType.Flat),
-        new AttributeDefault(AttributeType.LightningResistance, 0, AttributeModType.PercentAdd),
-        new AttributeDefault(AttributeType.FireResistance, 0, AttributeModType.PercentAdd),
-        new AttributeDefault(AttributeType.ColdResistance, 0, AttributeModType.PercentAdd),
+        new AttributeDefault(AttributeType.LightningResistance, 0, AttributeModType.Flat),
+        new AttributeDefault(AttributeType.FireResistance, 0, AttributeModType.Flat),
+        new AttributeDefault(AttributeType.ColdResistance, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.HealthRegen, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.ProjectileCount, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.CastSpeed, 0, AttributeModType.PercentAdd),
@@ -60,7 +60,10 @@ public partial class AttributeData : Resource
     public void SetDefaultValues(Array<AttributeDefault> attributeOverrides)
     {
         attributes.Clear();
-        foreach (var ad in attributeDefaults) attributes.Add(ad.type, new Attribute(ad.value));
+        foreach (var ad in attributeDefaults) 
+        {
+            attributes.Add(ad.type, new Attribute(ad.value, ad.attributeModType));
+        }
         foreach (var ad in attributeOverrides) attributes[ad.type].SetBaseValue(ad.value);
         EmitSignal(SignalName.ValuesSet);
     }

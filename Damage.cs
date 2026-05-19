@@ -31,6 +31,8 @@ public partial class DamagePackage : Resource
         source = _source;
         sourceEntity = _sourceEntity;
 
+        if (sourceEntity == null) return;
+
         float lightningDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatLightningDamage].Value;
         if (lightningDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Lightning, lightningDamageVal, lightningDamageVal), sourceEntity));
         float fireDamageVal = sourceEntity.attributeData.attributes[AttributeType.FlatFireDamage].Value;

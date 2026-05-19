@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bc23scba6oftg" path="res://DamageData.cs" id="1_8iu3t"]
 [ext_resource type="Script" uid="uid://cce02yl1a3ynp" path="res://spells/Spell.cs" id="1_bq1eg"]
+[ext_resource type="Script" uid="uid://k0cioodlvbti" path="res://EntityEffect.cs" id="2_8iu3t"]
 [ext_resource type="PackedScene" uid="uid://cino8kdmx0n5m" path="res://spells/iceSpike.tscn" id="3_8w2pv"]
 
 [sub_resource type="Resource" id="Resource_r7cda"]
@@ -25,9 +26,24 @@ amountMin = 3.0
 amountMax = 100.0
 metadata/_custom_type_script = "uid://bc23scba6oftg"
 
+[sub_resource type="Resource" id="Resource_8iu3t"]
+script = ExtResource("1_8iu3t")
+type = 1
+amountMin = 5.0
+amountMax = 10.0
+metadata/_custom_type_script = "uid://bc23scba6oftg"
+
+[sub_resource type="Resource" id="Resource_e0x01"]
+script = ExtResource("2_8iu3t")
+effectName = "Eminence"
+damageDatas = Array[ExtResource("1_8iu3t")]([SubResource("Resource_8iu3t")])
+metadata/_custom_type_script = "uid://k0cioodlvbti"
+
 [resource]
 script = ExtResource("1_bq1eg")
 damageDatas = Array[ExtResource("1_8iu3t")]([SubResource("Resource_r7cda"), SubResource("Resource_o7pyn"), SubResource("Resource_ced4c")])
 chargeTime = 1.0
 spellScene = ExtResource("3_8w2pv")
+appliesEffect = true
+entityEffects = Array[Object]([SubResource("Resource_e0x01")])
 metadata/_custom_type_script = "uid://cce02yl1a3ynp"

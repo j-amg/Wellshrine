@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://do5gmboonte51" path="res://zones/zoneComponents/door.tscn" id="5_m42jd"]
 [ext_resource type="MeshLibrary" uid="uid://chbsjhkh6uwx1" path="res://meshes/tileset.tres" id="6_osk5y"]
 [ext_resource type="Material" uid="uid://dv0qywmnmuhp6" path="res://shaders/tilesetOverride.tres" id="7_r6k4g"]
+[ext_resource type="PackedScene" uid="uid://bhai6nyxub4p8" path="res://UI/chat_log.tscn" id="8_5b0lf"]
 [ext_resource type="PackedScene" uid="uid://cchf63h0s68cs" path="res://inventory/inv.tscn" id="10_dkoc8"]
 [ext_resource type="PackedScene" uid="uid://dvc3ejrya7xjx" path="res://UI/pause.tscn" id="12_qbchw"]
 [ext_resource type="PackedScene" uid="uid://4u253r0q03qk" path="res://UI/death_screen.tscn" id="13_xj85n"]
@@ -18,6 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://dx65hws7rswcp" path="res://container.tscn" id="18_5b0lf"]
 [ext_resource type="Script" uid="uid://dtmnih223y7bf" path="res://AttributeDefault.cs" id="18_hsp5b"]
 [ext_resource type="Resource" uid="uid://c8bqq8dq3ixv4" path="res://inventory/inventories/doorInventory.tres" id="19_5b0lf"]
+
+[sub_resource type="Resource" id="Resource_j5n4i"]
+script = ExtResource("18_hsp5b")
+type = 4
+value = 500.0
+metadata/_custom_type_script = "uid://dtmnih223y7bf"
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2drdb"]
 lightmap_size_hint = Vector2i(434, 422)
@@ -63,6 +70,7 @@ player = NodePath("player")
 
 [node name="player" parent="." unique_id=1147220279 instance=ExtResource("3_ei8sx")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -0.5)
+attributeOverrides = Array[ExtResource("18_hsp5b")]([SubResource("Resource_j5n4i")])
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1733739021]
 
@@ -80,6 +88,8 @@ mouse_filter = 2
 [node name="deathScreen" parent="UI" unique_id=437617840 instance=ExtResource("13_xj85n")]
 visible = false
 mouse_filter = 2
+
+[node name="ChatLog" parent="UI" unique_id=1277631287 instance=ExtResource("8_5b0lf")]
 
 [node name="door" parent="." unique_id=1059642370 node_paths=PackedStringArray("respawnPoint") instance=ExtResource("5_m42jd")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)

@@ -38,6 +38,7 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 gradient = SubResource("Gradient_gmlu0")
 
 [node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemLevelLabel", "spellTriggerContainer", "spellCastTimeContainer", "spellChargeTimeContainer", "itemLevelContainer", "itemAffixContainer", "headerContainer")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

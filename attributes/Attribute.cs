@@ -7,6 +7,7 @@ using Godot.Collections;
 public partial class Attribute : Resource
 {
     [Signal] public delegate void AttributesUpdatedEventHandler();
+    public AttributeModType ModType{ get; protected set; }
     public float BaseValue { get; protected set; }
     private readonly List<AttributeModifier> attributeModifiers;
     private bool isDirty = true;
@@ -35,9 +36,10 @@ public partial class Attribute : Resource
         EmitSignal(SignalName.AttributesUpdated);
     }
 
-    public Attribute(float baseValue)
+    public Attribute(float baseValue, AttributeModType modType)
     {
         BaseValue = baseValue;
+        ModType = modType;
         attributeModifiers = [];
     }
 
