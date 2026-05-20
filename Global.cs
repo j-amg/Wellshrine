@@ -177,15 +177,10 @@ public partial class Global : Node
 			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
 			player.HealthChanged += hud.OnPlayerHealthChanged;
 			player.DamageExecuted += hud.OnPlayerDamageExecuted;
-			player.DamageExecuted += OnPlayerDamageExecuted;
 			player.DamageTaken += hud.OnPlayerDamageTaken;
 		}
 	}
 
-	private void OnPlayerDamageExecuted(Entity entity, DamagePackage d, Entity target)
-	{
-		GD.Print("test signal");
-	}
 
 	private void ConnectToAttributes(AttributeData attributeData)
 	{
@@ -212,7 +207,6 @@ public partial class Global : Node
 
 	public ItemData GenerateItem()
 	{
-		GD.Print(DBItems);
 		// Select random item from database
 		string baseItemType = DB.SelectFiltered(DBItems);
 		string itemType = DBItems[baseItemType]["type"].ToString();
