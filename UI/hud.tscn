@@ -80,7 +80,7 @@ gradient = SubResource("Gradient_b1lf8")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "reticle", "crossHair", "interactLabel", "hitFlash", "screen", "itemTooltip", "zoneInformation", "attackChargeIndicator")]
+[node name="HUD" type="Control" unique_id=1034762829 node_paths=PackedStringArray("healthBar", "manaBar", "healthLabel", "zoneLabel", "objectiveLabel", "dialogueText", "dialogueName", "dialogue", "reticle", "crossHair", "interactLabel", "hitFlash", "screen", "itemTooltip", "zoneInformation", "attackChargeIndicator")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,6 +90,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_afaig")
 healthBar = NodePath("MarginContainer/VBoxContainer/health")
+manaBar = NodePath("MarginContainer/VBoxContainer/mana")
 healthLabel = NodePath("MarginContainer/VBoxContainer/healthLabel")
 zoneLabel = NodePath("zoneInformation/zone")
 objectiveLabel = NodePath("zoneInformation/objective")

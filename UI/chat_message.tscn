@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b4jt4kec4jahu"]
+
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="1_r3hpr"]
+
+[node name="chatMessage" type="MarginContainer" unique_id=1396077918]
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=799541907]
+layout_mode = 2
+theme = ExtResource("1_r3hpr")
+
+[node name="source" type="Label" parent="VBoxContainer" unique_id=1869566450]
+layout_mode = 2
+text = "[PH] Source: "
+
+[node name="message" type="Label" parent="VBoxContainer" unique_id=1025079206]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Example Message"

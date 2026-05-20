@@ -75,7 +75,7 @@ public partial class Player : Entity
 
 	public Vector3 target_rotation;
 	public Vector3 smooth_rotation = new();
-    public override void _Ready()
+	public override void _Ready()
 	{
 		base._Ready();
 		wallDetection.BodyEntered += OnBodyEntered;
@@ -158,7 +158,7 @@ public partial class Player : Entity
 		if (Global.Singleton.currentPlayerHealth == -1) Global.Singleton.currentPlayerHealth = attributeData.attributes[AttributeType.MaximumHealth].Value;
 		if (Global.Singleton.currentPlayerMana == -1) Global.Singleton.currentPlayerMana = attributeData.attributes[AttributeType.MaximumMana].Value;
 		SetHealth(Global.Singleton.currentPlayerHealth);
-		SetHealth(Global.Singleton.currentPlayerMana);
+		SetMana(Global.Singleton.currentPlayerMana);
 	}
 
 	public override void UpdateHealth()

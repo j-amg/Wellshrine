@@ -37,7 +37,7 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jifm2"]
 gradient = SubResource("Gradient_gmlu0")
 
-[node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemDescriptionLabel", "spellTrigger", "spellCastTime", "spellChargeTime", "itemLevelLabel", "spellTriggerContainer", "spellCastTimeContainer", "spellChargeTimeContainer", "itemLevelContainer", "itemAffixContainer", "headerContainer")]
+[node name="tooltip" type="PanelContainer" unique_id=1739567682 node_paths=PackedStringArray("itemNameLabel", "itemTypeLabel", "itemDescriptionLabel", "spellTrigger", "manaCost", "spellCastTime", "spellChargeTime", "itemLevelLabel", "spellTriggerContainer", "manaCostContainer", "spellCastTimeContainer", "spellChargeTimeContainer", "itemLevelContainer", "itemAffixContainer", "headerContainer")]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,10 +59,12 @@ itemNameLabel = NodePath("VBoxContainer/PanelContainer/HBoxContainer/Label")
 itemTypeLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/type")
 itemDescriptionLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/description")
 spellTrigger = NodePath("VBoxContainer/MarginContainer/VBoxContainer/triggerContainer/value")
+manaCost = NodePath("VBoxContainer/MarginContainer/VBoxContainer/manaCostContainer/value")
 spellCastTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer/value")
 spellChargeTime = NodePath("VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer/value")
 itemLevelLabel = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer/value")
 spellTriggerContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/triggerContainer")
+manaCostContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/manaCostContainer")
 spellCastTimeContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/castTimeContainer")
 spellChargeTimeContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/chargeTimeContainer")
 itemLevelContainer = NodePath("VBoxContainer/MarginContainer/VBoxContainer/levelContainer")
@@ -129,6 +131,22 @@ layout_mode = 2
 text = "Trigger:"
 
 [node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/triggerContainer" unique_id=1980347445]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "16"
+
+[node name="manaCostContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=70081689]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/manaCostContainer" unique_id=1717781066]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "Mana Cost:"
+
+[node name="value" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/manaCostContainer" unique_id=1269535284]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "16"

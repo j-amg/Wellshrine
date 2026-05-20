@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bhai6nyxub4p8"]
 
-[node name="ChatLog" type="PanelContainer" unique_id=1277631287]
+[ext_resource type="Script" uid="uid://djsqfckvm837a" path="res://UI/ChatLog.cs" id="1_vw3qd"]
+[ext_resource type="Theme" uid="uid://b1hsqu2ibi8dv" path="res://UI/UI.tres" id="2_g3k8h"]
+[ext_resource type="StyleBox" uid="uid://c6pfndsal3gl6" path="res://UI/UI_background.tres" id="2_rse1o"]
+[ext_resource type="PackedScene" uid="uid://b4jt4kec4jahu" path="res://UI/chat_message.tscn" id="4_4mvad"]
+
+[node name="ChatLog" type="PanelContainer" unique_id=1277631287 node_paths=PackedStringArray("lineEdit", "messageContainer")]
 custom_minimum_size = Vector2(360, 240)
 anchors_preset = 4
 anchor_top = 0.5
@@ -9,9 +14,15 @@ offset_top = -20.0
 offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
+theme = ExtResource("2_g3k8h")
+theme_override_styles/panel = ExtResource("2_rse1o")
+script = ExtResource("1_vw3qd")
+lineEdit = NodePath("VBoxContainer/PanelContainer/LineEdit")
+messageContainer = NodePath("VBoxContainer/ScrollContainer/VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=256563757]
 layout_mode = 2
+theme = ExtResource("2_g3k8h")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=824910018]
 layout_mode = 2
@@ -19,6 +30,14 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer" unique_id=832829724]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=952256337]
+[node name="chatMessage" parent="VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1396077918 instance=ExtResource("4_4mvad")]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=1343212020]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PanelContainer" unique_id=952256337]
+layout_mode = 2
+theme = ExtResource("2_g3k8h")

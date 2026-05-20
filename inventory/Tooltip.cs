@@ -9,11 +9,13 @@ public partial class Tooltip : PanelContainer
 
     [Export] public Label itemDescriptionLabel;
     [Export] public Label spellTrigger;
+    [Export] public Label manaCost;
     [Export] public Label spellCastTime;
     [Export] public Label spellChargeTime;
     [Export] public Label itemLevelLabel;
 
     [Export] public HBoxContainer spellTriggerContainer;
+    [Export] public HBoxContainer manaCostContainer;
     [Export] public HBoxContainer spellCastTimeContainer;
     [Export] public HBoxContainer spellChargeTimeContainer;
     [Export] public HBoxContainer itemLevelContainer;
@@ -69,6 +71,7 @@ public partial class Tooltip : PanelContainer
         itemTypeLabel.Text = itemData.Type.ToString();
         itemDescriptionLabel.Text = itemData.description;
 
+        manaCostContainer.Hide();
         spellTriggerContainer.Hide();
         spellCastTimeContainer.Hide();
         spellChargeTimeContainer.Hide();
@@ -84,6 +87,7 @@ public partial class Tooltip : PanelContainer
             itemLevelLabel.Text = spell.level.ToString();
             itemLevelContainer.Show();
 
+            manaCostContainer.Show();
             spellTriggerContainer.Show();
             spellCastTimeContainer.Show();
             if (spell.spell.triggerType != Spell.SpellTriggerType.Instant)
@@ -92,6 +96,7 @@ public partial class Tooltip : PanelContainer
                 spellChargeTime.Text = spell.spell.chargeTime.ToString() + "s";
             }
 
+            manaCost.Text = spell.spell.manaCost.ToString();
             spellTrigger.Text = CamelCaseToText(spell.spell.triggerType.ToString());
             spellCastTime.Text = spell.spell.castTime.ToString() + "s";
 

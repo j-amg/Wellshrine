@@ -41,12 +41,9 @@ public partial class Global : Node
 	private string[] currentDialogue;
 	private int currentDialogueStep;
 
+	public float currentPlayerHealth = -1;
+	public float currentPlayerMana = -1;
 
-	public Dictionary<string, float> currentPlayerValues = new()
-        {
-            {"health", -1f},
-			{"mana", -1f},
-		};
 	public PackedScene damageNumberScene;
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;

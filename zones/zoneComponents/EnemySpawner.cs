@@ -17,7 +17,7 @@ public partial class EnemySpawner : Node3D
             Enemy loadedEnemy = Enemy.InitEnemy(enemies[GD.RandRange(0, enemies.Count - 1)], 1, spawnPos);
             GetTree().CurrentScene.CallDeferred("add_child", loadedEnemy);
             //Global.Singleton.AddToScene(loadedEnemy, loadedEnemy.Transform);
-            EmitSignal(SignalName.EnemySpawned, loadedEnemy); 
+            EmitSignal(SignalName.EnemySpawned, loadedEnemy);
         }
     }
 }

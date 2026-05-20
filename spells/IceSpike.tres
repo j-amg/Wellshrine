@@ -43,6 +43,7 @@ metadata/_custom_type_script = "uid://k0cioodlvbti"
 script = ExtResource("1_bq1eg")
 damageDatas = Array[ExtResource("1_8iu3t")]([SubResource("Resource_r7cda"), SubResource("Resource_o7pyn"), SubResource("Resource_ced4c")])
 chargeTime = 1.0
+manaCost = 25.0
 spellScene = ExtResource("3_8w2pv")
 appliesEffect = true
 entityEffects = [SubResource("Resource_e0x01")]

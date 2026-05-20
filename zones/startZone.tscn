@@ -89,7 +89,14 @@ mouse_filter = 2
 visible = false
 mouse_filter = 2
 
-[node name="ChatLog" parent="UI" unique_id=1277631287 instance=ExtResource("8_5b0lf")]
+[node name="chatLog" parent="UI" unique_id=1277631287 instance=ExtResource("8_5b0lf")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -240.0
+offset_right = 360.0
+offset_bottom = 0.0
+grow_vertical = 0
 
 [node name="door" parent="." unique_id=1059642370 node_paths=PackedStringArray("respawnPoint") instance=ExtResource("5_m42jd")]
 transform = Transform3D(-1, 0.000296632, 0.000503945, 0.000296444, 1, -0.00038155, -0.000504056, -0.000381404, -1, 0, 0, 12.5)

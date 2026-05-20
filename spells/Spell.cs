@@ -26,6 +26,8 @@ public partial class Spell : Resource
 	public void Cast(Entity entity, float spellScale = 1.0f)
 	{
 		if (spellScene == null) return;
+		bool canCast = entity.IncrementMana(-manaCost);
+		if (!canCast) return;
 		SpellScene spell = GetAndSetSpellSceneInstance(entity);
 
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles

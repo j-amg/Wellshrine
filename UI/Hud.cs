@@ -75,7 +75,6 @@ public partial class Hud : Control
     }
     internal void OnPlayerHealthChanged(Entity player) => UpdateHealth(player);
     internal void OnPlayerManaChanged(Entity player) => UpdateMana(player);
-
     internal void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
     //private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);

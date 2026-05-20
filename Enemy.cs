@@ -44,6 +44,7 @@ public partial class Enemy : Entity, IHoverable
 	public override void _Ready()
 	{
 		base._Ready();
+		DamageTaken += OnDamageTaken;
 		Active = true;
 		label.SetValues();
 		ReticleModulate = new Color(1, 0, 0);
@@ -93,6 +94,11 @@ public partial class Enemy : Entity, IHoverable
 	public override void IncrementHealth(float amount)
 	{
 		base.IncrementHealth(amount);
+
+	}
+
+	private void OnDamageTaken(Entity entity, DamagePackage d, Entity source)
+	{
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1, 0, 0, 1));
 		damaged = true;

@@ -24,7 +24,8 @@ public partial class Entity : CharacterBody3D
         new AttributeDefault(AttributeType.LightningResistance, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.FireResistance, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.ColdResistance, 0, AttributeModType.Flat),
-        new AttributeDefault(AttributeType.HealthRegen, 0, AttributeModType.Flat),
+        new AttributeDefault(AttributeType.HealthRegeneration, 1, AttributeModType.Flat),
+        new AttributeDefault(AttributeType.ManaRegeneration, 1, AttributeModType.Flat),
         new AttributeDefault(AttributeType.ProjectileCount, 0, AttributeModType.Flat),
         new AttributeDefault(AttributeType.CastSpeed, 0, AttributeModType.PercentAdd),
         new AttributeDefault(AttributeType.ProjectileSpeed, 0, AttributeModType.PercentAdd),
@@ -52,6 +53,7 @@ public partial class Entity : CharacterBody3D
 
     public bool initialised = false;
     public Vector3 velocity;
+    public ulong lastAppliedRegenTime = 0;
     public bool dead = false;
     public float Health { get; protected set; }
     public float Mana { get; protected set; }
@@ -82,7 +84,18 @@ public partial class Entity : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         SetLookTransform();
+        Regenerate();
         for (int i = entityEffects.Count - 1; i >= 0; i--) entityEffects[i].Update();
+    }
+
+    public void Regenerate()
+    {
+        if (Time.GetTicksMsec() >= lastAppliedRegenTime)
+        {
+            lastAppliedRegenTime += 1000;
+            IncrementHealth(attributeData.attributes[AttributeType.HealthRegeneration].Value);
+            IncrementMana(attributeData.attributes[AttributeType.ManaRegeneration].Value);
+        }
     }
 
     public virtual void AddEffect(EntityEffect entityEffect)
@@ -114,7 +127,7 @@ public partial class Entity : CharacterBody3D
         Health = Mathf.Clamp(value, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
         UpdateHealth();
     }
-    
+
     public virtual void SetMana(float value)
     {
         if (dead) return;
