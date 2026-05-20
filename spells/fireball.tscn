@@ -16,18 +16,18 @@ gravity = 5.0
 projectileCount = 3
 projectileSpread = 5.0
 sprites = NodePath("Sprite3D")
-hurtBox = NodePath("collision")
+hurtBox = NodePath("hurtbox")
 spriteLifeTime = 0.0
 destroyOnSceneHit = true
 spawnOnHitScene = ExtResource("2_s5f6s")
 
-[node name="collision" type="Area3D" parent="." unique_id=367688849]
+[node name="hurtbox" type="Area3D" parent="." unique_id=367688849]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
 collision_layer = 8
-collision_mask = 14
+collision_mask = 514
 script = ExtResource("2_ffg60")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="collision" unique_id=202262747]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hurtbox" unique_id=202262747]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_olwj8")
 

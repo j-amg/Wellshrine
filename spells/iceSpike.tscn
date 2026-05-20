@@ -1,21 +1,7 @@
 [gd_scene format=3 uid="uid://cino8kdmx0n5m"]
 
 [ext_resource type="Script" uid="uid://bnh6127ush7qs" path="res://spells/SpellScene.cs" id="1_6elnn"]
-[ext_resource type="Script" uid="uid://bc23scba6oftg" path="res://DamageData.cs" id="2_4xi6f"]
 [ext_resource type="Script" uid="uid://cvco10nxk47pr" path="res://HurtBox.cs" id="2_ur3ds"]
-[ext_resource type="Script" uid="uid://k0cioodlvbti" path="res://EntityEffect.cs" id="3_8h6bl"]
-
-[sub_resource type="Resource" id="Resource_ugq17"]
-script = ExtResource("2_4xi6f")
-type = 1
-amountMin = 24.0
-amountMax = 25.0
-metadata/_custom_type_script = "uid://bc23scba6oftg"
-
-[sub_resource type="Resource" id="Resource_8h6bl"]
-script = ExtResource("3_8h6bl")
-damageDatas = Array[ExtResource("2_4xi6f")]([SubResource("Resource_ugq17")])
-metadata/_custom_type_script = "uid://k0cioodlvbti"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ctswo"]
 height = 30.0
@@ -45,17 +31,15 @@ fill_to = Vector2(0.880342, 0.132479)
 [node name="Node3D" type="Node3D" unique_id=1316148464 node_paths=PackedStringArray("sprites", "hurtBox")]
 script = ExtResource("1_6elnn")
 sprites = NodePath("sprites")
-hurtBox = NodePath("collision")
-appliesEffect = true
-entityEffect = SubResource("Resource_8h6bl")
+hurtBox = NodePath("hurtbox")
 
-[node name="collision" type="Area3D" parent="." unique_id=1599193735]
+[node name="hurtbox" type="Area3D" parent="." unique_id=1599193735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00614071, 0, 0.00827146)
 collision_layer = 8
-collision_mask = 12
+collision_mask = 520
 script = ExtResource("2_ur3ds")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="collision" unique_id=379428255]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hurtbox" unique_id=379428255]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -15.0386)
 shape = SubResource("CylinderShape3D_ctswo")
 

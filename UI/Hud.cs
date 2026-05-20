@@ -44,13 +44,36 @@ public partial class Hud : Control
     {
         //Global.Singleton.player.DamageTaken += OnDamageTaken;
         //SignalManager.Singleton.PlayerHealthChanged += OnPlayerHealthChanged;
-        SignalManager.Singleton.PlayerDamageExecuted += OnPlayerDamageExecuted;
         SignalManager.Singleton.AttackChargeUpdated += OnAttackChargeUpdated;
     }
 
-    private void OnPlayerDamageExecuted(DamagePackage d) => FlashCrossHair();
+    public void SpawnDamageNumber(DamageInst damage, Entity entity)
+    {
+        DamageNumber dn = Global.Singleton.damageNumberScene.Instantiate<DamageNumber>();
+        dn.Initialise(damage, entity);
+        AddChild(dn);
+    }
 
-    public void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
+    internal void OnPlayerDamageExecuted(Entity entity, DamagePackage damage, Entity target)
+    {
+        GD.Print("damage executed");
+        FlashCrossHair();
+        foreach (DamageInst d in damage.damageInstances)
+        {
+            if (target.visibleOnScreen) SpawnDamageNumber(d, target);
+        }
+    }
+
+    internal void OnPlayerDamageTaken(Entity entity, DamagePackage d, Entity source)
+    {
+        Tween tween = CreateTween();
+        tween.TweenProperty(healthLabel, "modulate", new Color(1, 1, 1), .25f).From(new Color(1, 0, 0));
+        Flash(new Color(1, 0, 0));
+        UpdateHealth(entity);
+    }
+    internal void OnPlayerHealthChanged(Entity player) => UpdateHealth(player);
+
+    internal void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
     //private void OnZoneEntered(Zone zone) => UpdateZoneInformation(zone);
 
@@ -65,26 +88,16 @@ public partial class Hud : Control
         objectiveLabel.Text = "Objective: " + zone.objective.ToString();
     }
 
-    private void OnPlayerHealthChanged(Entity player) => UpdateHealth(player);
-
     public void UpdateHealth(Entity player)
     {
         healthBar.MaxValue = player.attributeData.attributes[AttributeType.MaximumHealth].Value;
         healthBar.Value = player.Health;
         healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
     }
-
-    private void OnDamageTaken(DamagePackage d)
-    {
-        Tween tween = CreateTween();
-        tween.TweenProperty(healthLabel, "modulate", new Color(1, 1, 1), .25f).From(new Color(1, 0, 0));
-        Flash(new Color(1, 0, 0));
-    }
-
     public void FlashCrossHair()
     {
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(crossHair, "modulate", new Color(0, 0, 0, 0), .2).From(new Color(1, 0, 0, .5f));
+        tween.TweenProperty(crossHair, "modulate", new Color(0, 0, 0, 0), .5).From(new Color(1, 1, 1, 1f));
     }
 
     public void Flash(Color col)

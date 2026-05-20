@@ -6,9 +6,9 @@ using Godot.Collections;
 
 public partial class Entity : CharacterBody3D
 {
-    [Signal] public delegate void DamageTakenEventHandler(DamagePackage d);
+    [Signal] public delegate void DamageTakenEventHandler(Entity entity, DamagePackage d, Entity source);
+    [Signal] public delegate void DamageExecutedEventHandler(Entity entity, DamagePackage d, Entity target);
     [Signal] public delegate void HealthChangedEventHandler(Entity entity);
-    [Signal] public delegate void DamageExecutedEventHandler(DamagePackage d);
     [Signal] public delegate void DiedEventHandler(Entity entity);
     [Export] public string name = "[PH] Entity";
     [Export] public StateMachine stateMachine;
@@ -17,6 +17,9 @@ public partial class Entity : CharacterBody3D
     [Export] public RayCast3D lookRay;
     [Export] public AnimationPlayer animationPlayer;
     [Export] public Area3D hitBox;
+    [Export] public VisibleOnScreenNotifier3D visibleOnScreenNotifier3D;
+
+    public bool visibleOnScreen;
 
     public Array<EntityEffect> entityEffects = [];
 
@@ -29,8 +32,24 @@ public partial class Entity : CharacterBody3D
 
     public override void _Ready()
     {
+        if (visibleOnScreenNotifier3D != null)
+        {
+            visibleOnScreenNotifier3D.ScreenEntered += OnScreenEntered;
+            visibleOnScreenNotifier3D.ScreenExited += OnScreenExited;
+        }
+
         attributeData.SetDefaultValues(attributeOverrides);
         Initialise();
+    }
+
+    private void OnScreenExited()
+    {
+        visibleOnScreen = false;
+    }
+
+    private void OnScreenEntered()
+    {
+        visibleOnScreen = true;
     }
 
     public virtual void Initialise()
@@ -49,23 +68,13 @@ public partial class Entity : CharacterBody3D
     {
         entityEffect.Initialise(this);
         entityEffects.Add(entityEffect);
-        GD.Print(entityEffects);
     }
 
     protected virtual void SetLookTransform() => lookTransform = GlobalTransform;
-    public virtual void TakeDamage(DamagePackage damagePackage)
+    public virtual void TakeDamage(float amount)
     {
         if (dead) return;
-        damagePackage.Hit();
-        foreach (DamageInst damage in damagePackage.damageInstances)
-        {
-            DamageNumber dn = Global.Singleton.damageNumberScene.Instantiate<DamageNumber>();
-            dn.Initialise(damage, this);
-            Global.Singleton.currentScene.GetNode<CanvasLayer>("UI").AddChild(dn);
-            float scaledAmount = DamageInst.ScaleToEntityDefense(damage, this).amount;
-            GD.Print("damge: " + scaledAmount);
-            Health = Mathf.Clamp(Health - scaledAmount, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
-        }
+        Health = Mathf.Clamp(Health - amount, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
         UpdateHealth();
     }
 

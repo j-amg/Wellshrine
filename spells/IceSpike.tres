@@ -29,8 +29,8 @@ metadata/_custom_type_script = "uid://bc23scba6oftg"
 [sub_resource type="Resource" id="Resource_8iu3t"]
 script = ExtResource("1_8iu3t")
 type = 1
-amountMin = 5.0
-amountMax = 10.0
+amountMin = 2.0
+amountMax = 12.0
 metadata/_custom_type_script = "uid://bc23scba6oftg"
 
 [sub_resource type="Resource" id="Resource_e0x01"]
@@ -45,5 +45,5 @@ damageDatas = Array[ExtResource("1_8iu3t")]([SubResource("Resource_r7cda"), SubR
 chargeTime = 1.0
 spellScene = ExtResource("3_8w2pv")
 appliesEffect = true
-entityEffects = Array[Object]([SubResource("Resource_e0x01")])
+entityEffects = [SubResource("Resource_e0x01")]
 metadata/_custom_type_script = "uid://cce02yl1a3ynp"

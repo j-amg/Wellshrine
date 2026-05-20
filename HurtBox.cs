@@ -13,7 +13,7 @@ public partial class HurtBox : Area3D
 	{
 		if (area != null && area.Owner is Entity entity)
 		{
-			entity.TakeDamage(damagePackage);
+			damagePackage.Hit(entity);
 		}
 	}
 }

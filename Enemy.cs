@@ -90,9 +90,9 @@ public partial class Enemy : Entity, IHoverable
 		MoveAndSlide();
 	}
 
-	public override void TakeDamage(DamagePackage d)
+	public override void TakeDamage(float amount)
 	{
-		base.TakeDamage(d);
+		base.TakeDamage(amount);
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(sprite, "modulate", defaultModulate, .25).From(new Color(1, 0, 0, 1));
 		damaged = true;

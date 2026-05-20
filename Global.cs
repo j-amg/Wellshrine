@@ -175,8 +175,16 @@ public partial class Global : Node
 			}
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
-			player.HealthChanged += hud.UpdateHealth;
+			player.HealthChanged += hud.OnPlayerHealthChanged;
+			player.DamageExecuted += hud.OnPlayerDamageExecuted;
+			player.DamageExecuted += OnPlayerDamageExecuted;
+			player.DamageTaken += hud.OnPlayerDamageTaken;
 		}
+	}
+
+	private void OnPlayerDamageExecuted(Entity entity, DamagePackage d, Entity target)
+	{
+		GD.Print("test signal");
 	}
 
 	private void ConnectToAttributes(AttributeData attributeData)

@@ -51,23 +51,24 @@ public partial class SpellScene : Node3D
 	private void OnBodyEntered(Node3D body)
 	{
 		//if (body is Player) return;
-		GD.Print(sourceEntity);
-		if (body is Entity entity)
-		{
-			if (appliesEffects)
-			{
-				foreach (EntityEffect effect in entityEffects)
-				entity.AddEffect(effect.NewEffect(sourceEntity));
-				//entity.AddEffect((EntityEffect)entityEffect.Duplicate());
-			}
-		}
-		if (spawnOnSceneHit) SpawnScene();
-		if (destroyOnSceneHit) CallDeferred("queue_free");
+
 		//Hit()
 	}
 
 	private void OnAreaEntered(Area3D area)
 	{
+		GD.Print(sourceEntity);
+		if (area.Owner is Entity entity)
+		{
+			if (appliesEffects)
+			{
+
+				foreach (EntityEffect effect in entityEffects) entity.AddEffect(effect.NewEffect(sourceEntity));
+				//entity.AddEffect((EntityEffect)entityEffect.Duplicate());
+			}
+		}
+		if (spawnOnSceneHit) SpawnScene();
+		if (destroyOnSceneHit) CallDeferred("queue_free");
 		// if (area is HurtBox)
 		// {
 		// 	if (spawnOnEntityHit)

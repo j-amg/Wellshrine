@@ -28,7 +28,7 @@ public partial class Player : Entity
 	[Export] public SpellData spellData;
 
 	private float mouseSensitivity = 0.0025f;
-	private float aimMouseSensitivity = 0.00125f;
+	private float aimMouseSensitivity = 0.125f;
 	private float handsMaxXRot = 30f;
 	private float handsMinXRot = -70f;
 	private float handsMaxXPos = 0.05f;
@@ -114,7 +114,6 @@ public partial class Player : Entity
 		Global.Singleton.hud.reticle.Modulate = currentHit is IHoverable hit && (currentHit as IHoverable).Active ? hit.ReticleModulate : new Color(1, 1, 1);
 		Global.Singleton.hud.interactLabel.Visible = currentHit is IInteractable && (currentHit as IInteractable).Active && hitDistance <= interactionRange && !Global.Singleton.inDialogue;
 		if (currentHit is IHoverable h) { if (hitDistance <= hoverRange && h.Active) h.StartHover(); else h.EndHover(); }
-
 	}
 
 	protected override void SetLookTransform() => lookTransform = head.GlobalTransform;

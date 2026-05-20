@@ -35,7 +35,7 @@ public partial class EntityEffect : Resource
 		if (damageDatas.Count > 0)
 		{
 			DamagePackage damagePackage = new(damageDatas, false, this, sourceEntity);
-			target.TakeDamage(damagePackage);
+			damagePackage.Hit(target);
 		}
 	}
 

@@ -27,13 +27,13 @@ public partial class Spell : Resource
 	{
 		if (spellScene == null) return;
 		SpellScene spell = GetAndSetSpellSceneInstance(entity);
-		
+
 		if (spell.spellType is SpellType.Projectile) // handle multiple projectiles
 		{
 			int proj = spell.projectileCount + (int)entity.attributeData.attributes[AttributeType.ProjectileCount].Value;
 			for (int i = 0; i < proj; i++)
 			{
-				SpellScene spellInst = (SpellScene)spell.Duplicate();
+				SpellScene spellInst = GetAndSetSpellSceneInstance(entity);
 				spellInst.muzzleVelocity *= spellScale;
 				spellInst.muzzleVelocity *= 1 + entity.attributeData.attributes[AttributeType.ProjectileSpeed].Value / 100;
 				float rotationOffset = (i * spell.projectileSpread) - (proj - 1) * spell.projectileSpread / 2;
@@ -48,7 +48,7 @@ public partial class Spell : Resource
 	{
 		SpellScene spell = spellScene.Instantiate<SpellScene>();
 		spell.sourceEntity = entity;
-		spell.damagePackage = new(damageDatas, false, this, entity);
+		spell.hurtBox.damagePackage = new(damageDatas, false, this, entity);
 		spell.appliesEffects = appliesEffect;
 		spell.entityEffects = entityEffects;
 		return spell;

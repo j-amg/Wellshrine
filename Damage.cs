@@ -14,8 +14,6 @@ public enum DamageType
 [GlobalClass]
 public partial class DamagePackage : Resource
 {
-    [Signal]
-    public delegate void damageExecutedEventHandler(DamagePackage damagePackage);
     public Array<DamageInst> damageInstances = [];
     public bool crit;
     public dynamic source;
@@ -41,7 +39,16 @@ public partial class DamagePackage : Resource
         if (coldDamageVal != 0) damageInstances.Add(new DamageInst(new DamageData(DamageType.Cold, coldDamageVal, coldDamageVal), sourceEntity));
     }
 
-    public void Hit() => EmitSignal(SignalName.damageExecuted, this);
+    public void Hit(Entity entity)
+    {
+        entity.EmitSignal(Entity.SignalName.DamageTaken, entity, this, sourceEntity);
+        sourceEntity.EmitSignal(Entity.SignalName.DamageExecuted, sourceEntity, this, entity);
+        foreach (DamageInst damage in damageInstances)
+        {
+            DamageInst scaledInst = DamageInst.ScaleToEntityDefense(damage, entity);
+            entity.TakeDamage(scaledInst.amount);
+        }
+    }
 }
 
 [GlobalClass]
