@@ -6,6 +6,8 @@ public partial class Hud : Control
     [Export]
     public ProgressBar healthBar;
     [Export]
+    public ProgressBar manaBar;
+    [Export]
     public Label healthLabel;
     [Export]
     public Label zoneLabel;
@@ -72,6 +74,7 @@ public partial class Hud : Control
         UpdateHealth(entity);
     }
     internal void OnPlayerHealthChanged(Entity player) => UpdateHealth(player);
+    internal void OnPlayerManaChanged(Entity player) => UpdateMana(player);
 
     internal void OnAttackChargeUpdated(float value) => attackChargeIndicator.Value = value;
 
@@ -93,6 +96,13 @@ public partial class Hud : Control
         healthBar.MaxValue = player.attributeData.attributes[AttributeType.MaximumHealth].Value;
         healthBar.Value = player.Health;
         healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
+    }
+
+    public void UpdateMana(Entity player)
+    {
+        manaBar.MaxValue = player.attributeData.attributes[AttributeType.MaximumMana].Value;
+        manaBar.Value = player.Health;
+        //healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
     }
     public void FlashCrossHair()
     {

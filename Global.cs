@@ -176,6 +176,7 @@ public partial class Global : Node
 			inventory.DropSlotDataFromInventory += OnDropSlotDataFromInventory;
 			player.attributeData.ValuesSet += () => ConnectToAttributes(player.attributeData);
 			player.HealthChanged += hud.OnPlayerHealthChanged;
+			player.ManaChanged += hud.OnPlayerManaChanged;
 			player.DamageExecuted += hud.OnPlayerDamageExecuted;
 			player.DamageTaken += hud.OnPlayerDamageTaken;
 		}

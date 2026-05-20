@@ -46,7 +46,7 @@ public partial class DamagePackage : Resource
         foreach (DamageInst damage in damageInstances)
         {
             DamageInst scaledInst = DamageInst.ScaleToEntityDefense(damage, entity);
-            entity.TakeDamage(scaledInst.amount);
+            entity.IncrementHealth(-scaledInst.amount);
         }
     }
 }
