@@ -76,6 +76,7 @@ public partial class Entity : CharacterBody3D
     {
         initialised = true;
         SetHealth(attributeData.attributes[AttributeType.MaximumHealth].Value);
+        SetMana(attributeData.attributes[AttributeType.MaximumMana].Value);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -113,6 +114,14 @@ public partial class Entity : CharacterBody3D
         Health = Mathf.Clamp(value, 0, attributeData.attributes[AttributeType.MaximumHealth].Value);
         UpdateHealth();
     }
+    
+    public virtual void SetMana(float value)
+    {
+        if (dead) return;
+        Mana = Mathf.Clamp(value, 0, attributeData.attributes[AttributeType.MaximumMana].Value);
+        UpdateMana();
+    }
+
 
     public virtual void UpdateHealth()
     {

@@ -89,8 +89,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_afaig")
-healthBar = NodePath("VBoxContainer/health")
-healthLabel = NodePath("VBoxContainer/healthLabel")
+healthBar = NodePath("MarginContainer/VBoxContainer/health")
+healthLabel = NodePath("MarginContainer/VBoxContainer/healthLabel")
 zoneLabel = NodePath("zoneInformation/zone")
 objectiveLabel = NodePath("zoneInformation/objective")
 dialogueText = NodePath("dialogue/MarginContainer/vbox/text")
@@ -144,21 +144,25 @@ layout_mode = 2
 theme = ExtResource("2_q7u4o")
 text = "Objective"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=552535198]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1987114206]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -40.0
-offset_right = 120.0
+offset_left = -240.0
+offset_top = -80.0
+offset_right = 240.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=552535198]
+layout_mode = 2
 theme = ExtResource("2_q7u4o")
 
-[node name="healthLabel" type="Label" parent="VBoxContainer" unique_id=411344174]
+[node name="healthLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=411344174]
 texture_filter = 1
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
@@ -167,18 +171,18 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[PH]"
 vertical_alignment = 1
 
-[node name="health" type="ProgressBar" parent="VBoxContainer" unique_id=271602118]
+[node name="health" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=271602118]
 texture_filter = 1
-custom_minimum_size = Vector2(0, 12)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_8xbx5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_f2fuu")
 value = 50.0
 show_percentage = false
 
-[node name="mana" type="ProgressBar" parent="VBoxContainer" unique_id=1049487148]
+[node name="mana" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=1049487148]
 texture_filter = 1
-custom_minimum_size = Vector2(0, 12)
+custom_minimum_size = Vector2(480, 24)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_8xbx5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_b1lf8")

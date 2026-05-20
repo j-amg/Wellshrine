@@ -20,7 +20,7 @@ public partial class NPC : CharacterBody3D, IHoverable, IInteractable
     public override void _Ready()
     {
         base._Ready();
-        Global.Singleton.DialogueFinished += OnDialogueFinished;
+        //Global.Singleton.DialogueFinished += OnDialogueFinished;
         ReticleModulate = new Color(0,0,1);
         Active = true;
         Tooltip = false;
@@ -39,7 +39,7 @@ public partial class NPC : CharacterBody3D, IHoverable, IInteractable
         {
             talking = true;
             labelSprite.Visible = false;
-            Global.Singleton.EnterDialogue(dialogue, displayName, false);
+            //Global.Singleton.EnterDialogue(dialogue, displayName, false);
         }
     }
 

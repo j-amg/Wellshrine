@@ -95,13 +95,14 @@ public partial class Hud : Control
     {
         healthBar.MaxValue = player.attributeData.attributes[AttributeType.MaximumHealth].Value;
         healthBar.Value = player.Health;
-        healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
+        healthLabel.Text = Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
     }
 
     public void UpdateMana(Entity player)
     {
+        GD.Print("is updating mana");
         manaBar.MaxValue = player.attributeData.attributes[AttributeType.MaximumMana].Value;
-        manaBar.Value = player.Health;
+        manaBar.Value = player.Mana;
         //healthLabel.Text = "HP: " + Mathf.Round(player.Health) + "/" + player.attributeData.attributes[AttributeType.MaximumHealth].Value;
     }
     public void FlashCrossHair()

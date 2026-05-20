@@ -3,9 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Runtime.InteropServices.JavaScript;
 
 public partial class Global : Node
 {
@@ -45,7 +42,11 @@ public partial class Global : Node
 	private int currentDialogueStep;
 
 
-	public float currentPlayerHealth = -1;
+	public Dictionary<string, float> currentPlayerValues = new()
+        {
+            {"health", -1f},
+			{"mana", -1f},
+		};
 	public PackedScene damageNumberScene;
 	Dictionary<string, Dictionary<string, Variant>> DBItems;
 	Dictionary<string, Dictionary<string, Variant>> DBAffixes;
@@ -64,7 +65,7 @@ public partial class Global : Node
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("Pause") && pauseMenu != null && !dead) TogglePause();
-		if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
+		//if (inDialogue && Input.IsActionJustPressed("Space")) ProgressDialogue();
 		if (Input.IsActionJustPressed("inventory") && inventory != null && !dead) ToggleInv();
 
 		if (Input.IsActionJustPressed("p"))
@@ -310,14 +311,14 @@ public partial class Global : Node
 		if (dead) return;
 		if (paused)
 		{
-			if (!inDialogue) player.ResumeInput();
+			if (!inDialogue) player.SetProcessInput(true);
 			pauseMenu.Hide();
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			Engine.TimeScale = 1;
 		}
 		else
 		{
-			player.PauseInput();
+			player.SetProcessInput(false);
 			pauseMenu.Show();
 			pauseMenu.container.Visible = true;
 			Input.MouseMode = Input.MouseModeEnum.Visible;
@@ -359,71 +360,71 @@ public partial class Global : Node
 
 	public void CloseTooltip() => hud.itemTooltip.Hide();
 
-	public void EnterDialogue(string[] dialogueText, string name, bool freeze)
-	{
-		player.PauseInput();
-		hud.reticle.Visible = false;
-		hud.healthBar.Visible = false;
-		hud.healthLabel.Visible = false;
-		if (freeze) Engine.TimeScale = 0;
-		inDialogue = true;
-		currentDialogue = dialogueText;
-		currentDialogueStep = 0;
-		hud.dialogueName.Text = name;
-		AnimateDialogue(dialogueText[0]);
-		hud.dialogue.Visible = true;
-	}
+	// public void EnterDialogue(string[] dialogueText, string name, bool freeze)
+	// {
+	// 	player.SetProcessInput(false);
+	// 	hud.reticle.Visible = false;
+	// 	hud.healthBar.Visible = false;
+	// 	hud.healthLabel.Visible = false;
+	// 	if (freeze) Engine.TimeScale = 0;
+	// 	inDialogue = true;
+	// 	currentDialogue = dialogueText;
+	// 	currentDialogueStep = 0;
+	// 	hud.dialogueName.Text = name;
+	// 	AnimateDialogue(dialogueText[0]);
+	// 	hud.dialogue.Visible = true;
+	// }
 
 
-	private async void AnimateDialogue(string text)
-	{
-		animatingDialogue = true;
-		hud.dialogueText.Text = "";
-		await ToSignal(GetTree().CreateTimer(.1f), "timeout");
+	// private async void AnimateDialogue(string text)
+	// {
+	// 	animatingDialogue = true;
+	// 	hud.dialogueText.Text = "";
+	// 	await ToSignal(GetTree().CreateTimer(.1f), "timeout");
 
-		foreach (char c in text)
-		{
-			if (!animatingDialogue) break;
-			//PlaySound2D(charSound);
-			hud.dialogueText.Text += c;
-			float waitTime = c == ',' || c == '.' ? .15f : 0.05f;
-			await ToSignal(GetTree().CreateTimer(waitTime), "timeout");
-		}
-		animatingDialogue = false;
-	}
+	// 	foreach (char c in text)
+	// 	{
+	// 		if (!animatingDialogue) break;
+	// 		//PlaySound2D(charSound);
+	// 		hud.dialogueText.Text += c;
+	// 		float waitTime = c == ',' || c == '.' ? .15f : 0.05f;
+	// 		await ToSignal(GetTree().CreateTimer(waitTime), "timeout");
+	// 	}
+	// 	animatingDialogue = false;
+	// }
 
-	public void ProgressDialogue()
-	{
-		if (animatingDialogue)
-		{
-			animatingDialogue = false;
-			hud.dialogueText.Text = currentDialogue[currentDialogueStep];
-		}
-		else
-		{
-			if (currentDialogueStep == currentDialogue.Length - 1)
-			{
-				CloseDialogue();
-				return;
-			}
-			currentDialogueStep++;
-			AnimateDialogue(currentDialogue[currentDialogueStep]);
-		}
+	// public void ProgressDialogue()
+	// {
+	// 	if (animatingDialogue)
+	// 	{
+	// 		animatingDialogue = false;
+	// 		hud.dialogueText.Text = currentDialogue[currentDialogueStep];
+	// 	}
+	// 	else
+	// 	{
+	// 		if (currentDialogueStep == currentDialogue.Length - 1)
+	// 		{
+	// 			CloseDialogue();
+	// 			return;
+	// 		}
+	// 		currentDialogueStep++;
+	// 		AnimateDialogue(currentDialogue[currentDialogueStep]);
+	// 	}
 
-	}
+	// }
 
-	public async void CloseDialogue()
-	{
-		if (Engine.TimeScale != 1) Engine.TimeScale = 1;
-		hud.dialogue.Visible = false;
-		inDialogue = false;
-		await ToSignal(GetTree().CreateTimer(.5f), "timeout");
-		player.ResumeInput();
-		hud.reticle.Visible = true;
-		hud.healthBar.Visible = true;
-		hud.healthLabel.Visible = true;
-		EmitSignal(SignalName.DialogueFinished);
-	}
+	// public async void CloseDialogue()
+	// {
+	// 	if (Engine.TimeScale != 1) Engine.TimeScale = 1;
+	// 	hud.dialogue.Visible = false;
+	// 	inDialogue = false;
+	// 	await ToSignal(GetTree().CreateTimer(.5f), "timeout");
+	// 	player.ResumeInput();
+	// 	hud.reticle.Visible = true;
+	// 	hud.healthBar.Visible = true;
+	// 	hud.healthLabel.Visible = true;
+	// 	EmitSignal(SignalName.DialogueFinished);
+	// }
 
 	// public Damage GetPlayerDamage()
 	// {
@@ -442,12 +443,17 @@ public partial class Global : Node
 	public void Die()
 	{
 		hud.reticle.Visible = false;
-		player.PauseInput();
+		player.SetProcessInput(false);
 		player.handSprite.Visible = false;
 		dead = true;
 		player.SetCollisionLayerValue(1, false);
 		deathScreen.Show();
 	}
+
+	// public async void ToggleBoolDelay(dynamic owner, bool b, float time)
+	// {
+	// 	owner
+	// }
 
 
 	public void PlaySound3D(Vector3 position, AudioStream audio)
